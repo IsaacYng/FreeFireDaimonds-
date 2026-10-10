@@ -969,6 +969,17 @@ input[type=number]:focus,input[type=tel]:focus{outline:none;border-color:var(--i
 .ce-type button{flex:1}
 input[type=datetime-local]{width:100%;padding:10px 12px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-size:15px;color:var(--ink)}
 .pnl td{white-space:nowrap}
+
+.lg-tag.open{background:var(--ink);color:#fff}
+.ledger tr.lg-opening td{background:#FAFBFB;font-weight:600}
+.pl-stmt.acct td{padding:10px 0}
+.pl-stmt.acct td.r{padding-left:14px}
+.pl-stmt.acct tr.ac-h td{font-size:.74rem;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;padding:0 0 6px;border-bottom:1px solid var(--line-2)}
+.pl-stmt.acct tr.pl-total td{color:var(--ink)}
+.pl-stmt.acct tr.pl-total.neg td{color:var(--accent)}
+#cardWarn .btn{flex-shrink:0}
+@media(max-width:600px){#cardWarn{flex-wrap:wrap}#cardWarn .btn{width:100%}}
+#cardWarn.note.info{background:#fff;border:1px solid var(--line);border-left:3px solid var(--ink);margin-bottom:14px;align-items:center}#cardWarn{margin-bottom:14px}
 </style>
 </head>
 <body>
@@ -1089,7 +1100,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
             <div class="cm-bal"><span>Dollar card balance</span><b id="cmBal">$0.00</b><small id="cmSub"></small></div>
           </div>
           <div class="cm-facts" id="cmFacts"></div>
-          <div class="cm-acts"><button class="btn primary sm" type="button" data-cardact="load">+ Load card</button></div>
+          <div class="cm-acts"><button class="btn primary sm" type="button" id="cmAct" data-cardact="load">+ Load card</button></div>
         </div>
         <div class="card" id="qsCard">
           <div class="card-h"><h2>Quick sell</h2><span class="meta">Your most sold packages, one tap to start</span></div>
@@ -1203,6 +1214,10 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         </div>
         <div class="stats kpis" id="cdStats"></div>
         <div class="card">
+          <div class="card-h"><h2>Card account summary</h2><div class="mnav"><button class="icon-btn" type="button" id="cdPrev" aria-label="Previous month"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></button><b id="cdMonth">–</b><button class="icon-btn" type="button" id="cdNext" aria-label="Next month"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></button></div></div>
+          <div class="card-b"><table class="pl-stmt acct" id="cdAcct"></table><p class="help" id="cdAcctNote" style="margin-top:12px"></p></div>
+        </div>
+        <div class="card">
           <div class="card-h"><h2>Card ledger</h2><div class="pk-seg" id="cdFilter" role="radiogroup" aria-label="Ledger filter"><button type="button" data-v="all">All</button><button type="button" data-v="load">Loads</button><button type="button" data-v="charge">Charges</button><button type="button" data-v="usage">Usage</button></div></div>
           <div class="tbl-wrap" tabindex="0"><table class="limits ledger"><thead><tr><th>DATE</th><th>ENTRY</th><th class="r">USD</th><th class="r">NPR</th><th class="r">RATE</th><th class="r">BALANCE</th><th></th></tr></thead><tbody id="cdLedger"></tbody></table></div>
         </div>
@@ -1309,7 +1324,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <details class="qa bi" id="h-overview"><summary><span><b lang="ne">ड्यासबोर्ड</b><small>Dashboard</small></span></summary><div class="bi-body"><p lang="ne">माथि Today, 7 days वा This month छान्नुहोस्। कार्डहरूले त्यो अवधिको Revenue (आम्दानी), Gross profit (कुल नाफा), बिक्री भएका डायमन्ड र Transactions (कारोबार संख्या) देखाउँछन्, साथै अघिल्लो अवधिसँगको तुलना (↑/↓ %)। “Pending delivery” मा डायमन्ड पठाउन बाँकी अर्डर र “Accounts receivable” मा ग्राहकबाट उठाउन बाँकी रकम देखिन्छ। Quick sell थिचेर एकै पटकमा बिक्री सुरु गर्न सकिन्छ।</p><p class="en">Choose Today, 7 days or This month at the top. The cards show revenue, gross profit, diamonds sold and number of transactions for that period, compared with the previous period (↑/↓ %). “Pending delivery” lists orders not yet delivered and “Accounts receivable” lists amounts customers still owe. Use Quick sell to start a sale in one tap.</p></div></details>
           <details class="qa bi" id="h-sell"><summary><span><b lang="ne">नयाँ बिक्री</b><small>New sale</small></span></summary><div class="bi-body"><p lang="ne">प्याकेज छान्नुहोस्, ग्राहकको नाम, फोन र Free Fire UID लेख्नुहोस्। छुट दिनुभयो भने Discount (Rs) मा लेख्नुहोस्; Net price आफैं घट्छ। Amount received मा अहिले हातमा आएको रकम लेख्नुहोस्। USD from card ले यो बिक्रीमा कार्डबाट कति डलर जान्छ र बाँकी कति रहन्छ देखाउँछ। पूरा पैसा नआएको भए Payment method मा “Credit” (उधारो) छान्नुहोस्; बाँकी रकम Outstanding मा देखिन्छ। डायमन्ड पछि पठाउने भए Delivery status मा “Pending” छान्नुहोस्। अनि Save sale थिच्नुहोस्।</p><p class="en">Pick a package and enter the customer’s name, phone and Free Fire UID. If you give a discount, enter it in Discount (Rs); the net price updates. Enter the amount actually received. USD from card shows how many dollars this sale uses and the balance left. If the customer has not paid in full, set the payment method to “Credit”; the balance shows as Outstanding. If you will deliver later, set Delivery status to “Pending”. Then tap Save sale.</p></div></details>
           <details class="qa bi" id="h-sales"><summary><span><b lang="ne">बिक्री खाता</b><small>Sales ledger</small></span></summary><div class="bi-body"><p lang="ne">सबै कारोबार मितिअनुसार मिलाइएका छन् र हरेक दिनको Revenue र Gross profit (GP) देखिन्छ। नाम, फोन वा UID ले खोज्नुहोस्। “Undelivered” मा पठाउन बाँकी र “Credit” मा उधारो बिक्री छुट्टै हेर्न सकिन्छ। ⋮ थिचेर Edit, Mark as delivered, Record payment, Send receipt वा Delete गर्नुहोस्।</p><p class="en">Every transaction is grouped by date with daily revenue and gross profit (GP). Search by name, phone or UID. Use the “Undelivered” and “Credit” filters to see orders not yet sent and sales on credit. Tap ⋮ to edit, mark as delivered, record a payment, send a receipt or delete.</p></div></details>
-          <details class="qa bi" id="h-card"><summary><span><b lang="ne">डलर कार्ड</b><small>Dollar card</small></span></summary><div class="bi-body"><p lang="ne">हरेक पटक डलर कार्ड लोड गर्दा Load card थिच्नुहोस्: कति USD आयो, कति NPR तिर्नुभयो र बैंक/सेवा शुल्क कति लाग्यो लेख्नुहोस्। एप्लिकेसनले Weighted average cost (WAC) अर्थात् प्रति डलर औसत लागत निकाल्छ। हरेक बिक्रीमा कार्डबाट USD घट्छ र त्यही औसत लागत COGS बन्छ, त्यसैले नाफा वास्तविक (actual) हुन्छ। कार्डको वार्षिक/नवीकरण शुल्क Record charge मा राख्नुहोस्। महिनामा एक पटक कार्ड एपको बाँकी ब्यालेन्स Reconcile मा हालेर Book balance मिलाउनुहोस्।</p><p class="en">Tap Load card every time you top up your dollar card: enter USD received, NPR paid and any bank/service charges. The app keeps a weighted average cost (WAC) per dollar. Each sale draws USD from the card at that average, which becomes COGS, so profit is actual rather than estimated. Record annual or renewal fees with Record charge. Once a month, enter the real balance from your card app in Reconcile to keep the book balance correct.</p></div></details>
+          <details class="qa bi" id="h-card"><summary><span><b lang="ne">डलर कार्ड</b><small>Dollar card</small></span></summary><div class="bi-body"><p lang="ne">सुरुमा Set opening balance थिचेर अहिले कार्डमा कति USD छ र प्रति डलर कति लागत पर्‍यो (अन्तिम लोडको रेट) लेख्नुहोस्; त्योभन्दा अघिको हिसाब गनिँदैन। त्यसपछि हरेक पटक कार्ड लोड गर्दा Load card थिच्नुहोस्: कति USD आयो, कति NPR तिर्नुभयो र बैंक/सेवा शुल्क कति लाग्यो लेख्नुहोस्। एप्लिकेसनले Weighted average cost (WAC) अर्थात् प्रति डलर औसत लागत निकाल्छ। हरेक बिक्रीमा कार्डबाट USD घट्छ र त्यही औसत लागत COGS बन्छ, त्यसैले नाफा वास्तविक (actual) हुन्छ। कार्डको वार्षिक/नवीकरण शुल्क Record charge मा राख्नुहोस्। महिनामा एक पटक कार्ड एपको बाँकी ब्यालेन्स Reconcile मा हालेर Book balance मिलाउनुहोस्। Card account summary मा महिनाअनुसार Opening balance + Loads − Used in sales − Fees = Closing balance (USD र NPR दुवैमा) देखिन्छ।</p><p class="en">First tap Set opening balance and enter the USD on your card right now and its cost per dollar (your last load rate); nothing before that date is counted. Then tap Load card every time you top up your dollar card: enter USD received, NPR paid and any bank/service charges. The app keeps a weighted average cost (WAC) per dollar. Each sale draws USD from the card at that average, which becomes COGS, so profit is actual rather than estimated. Record annual or renewal fees with Record charge. Once a month, enter the real balance from your card app in Reconcile to keep the book balance correct. The card account summary shows, for each month, opening balance + loads − used in sales − fees = closing balance, in both USD and NPR.</p></div></details>
           <details class="qa bi" id="h-customers"><summary><span><b lang="ne">ग्राहक</b><small>Customers</small></span></summary><div class="bi-body"><p lang="ne">बिक्रीबाट आफैं बनेको ग्राहक खाता: पहिले फोन, त्यसपछि UID, त्यसपछि नामबाट मिलाइन्छ। हरेक ग्राहकको जम्मा Revenue, Gross profit र डायमन्ड देखिन्छ। ⋮ → Sell again थिच्दा उही ग्राहकको विवरण भरिएर नयाँ बिक्री खुल्छ।</p><p class="en">Customer accounts are built from your sales, matched by phone, then UID, then name. Each shows lifetime revenue, gross profit and diamonds. ⋮ → Sell again opens a new sale with their details filled in.</p></div></details>
           <details class="qa bi" id="h-prices"><summary><span><b lang="ne">मूल्य सूची</b><small>Price list</small></span></summary><div class="bi-body"><p lang="ne">हरेक प्याकेजको COGS (लागत), Selling price (बिक्री मूल्य) र Profit per unit (प्रति एकाइ नाफा) आजको डलर रेटमा देखिन्छ। Garena ले मूल्य बदलेमा Packages मा प्याकेज थिच्नुहोस्, Game price ($) बदल्नुहोस् र Save package थिच्नुहोस्। पुराना कारोबारको हिसाब बदलिँदैन।</p><p class="en">Shows COGS, selling price and profit per unit for every package at today’s exchange rate. When Garena changes a price, tap the package under Packages, update the game price ($) and tap Save package. Past transactions keep their original figures.</p></div></details>
           <details class="qa bi" id="h-rate"><summary><span><b lang="ne">मूल्य निर्धारण र विनिमय दर</b><small>Pricing & FX</small></span></summary><div class="bi-body"><p lang="ne">Selling price = Game price ($) × Exchange rate + Card/bank charges + Markup, माथि राउन्ड गरिएको। बैंक वा कार्डले लिने वास्तविक रेट फरक भए “Manual rate” छान्नुहोस्। Markup बढाए बिक्री मूल्य बढ्छ। Monthly profit target (मासिक नाफा लक्ष्य) पनि यहीँबाट राख्नुहोस्।</p><p class="en">Selling price = game price ($) × exchange rate + card/bank charges + markup, rounded up. If your bank or card uses a different rate, choose “Manual rate”. A higher markup raises the selling price. Set your monthly gross profit target here as well.</p></div></details>
@@ -1347,6 +1362,8 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
             <tr><td><b>Net revenue</b></td><td lang="ne" class="ne-c">खुद आम्दानी</td><td>Gross sales − discounts.</td></tr>
             <tr><td><b>Net profit</b></td><td lang="ne" class="ne-c">खुद नाफा</td><td>Gross profit − card fees and adjustments.</td></tr>
             <tr><td><b>WAC (weighted average cost)</b></td><td lang="ne" class="ne-c">औसत लागत</td><td>Average NPR cost of each USD on your card, including load charges.</td></tr>
+            <tr><td><b>Opening balance</b></td><td lang="ne" class="ne-c">सुरुको मौज्दात</td><td>Card balance at the start of a period (or when the book was started).</td></tr>
+            <tr><td><b>Closing balance</b></td><td lang="ne" class="ne-c">अन्तिम मौज्दात</td><td>Opening + loads − used − fees ± adjustments at the end of the period.</td></tr>
             <tr><td><b>Book balance</b></td><td lang="ne" class="ne-c">हिसाबको ब्यालेन्स</td><td>USD the app expects on your card: loads − sales − fees.</td></tr>
             <tr><td><b>Reconciliation</b></td><td lang="ne" class="ne-c">मिलान</td><td>Matching the book balance to the real card balance; any shortfall is written off.</td></tr>
             <tr><td><b>Transaction (txn)</b></td><td lang="ne" class="ne-c">कारोबार</td><td>One recorded sale.</td></tr>
@@ -1435,6 +1452,13 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         <label class="field"><span class="lab">Charged in USD <em>from card</em></span><div class="unit pre"><span>$</span><input id="ceCUsd" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"/></div></label>
         <label class="field"><span class="lab">Charged in NPR <em>from bank</em></span><div class="unit pre"><span>Rs</span><input id="ceCNpr" type="number" min="0" step="1" inputmode="decimal" placeholder="0"/></div></label>
       </div>
+    </div>
+    <div class="ce-f" data-for="opening">
+      <div class="grid2 keep2">
+        <label class="field"><span class="lab">USD balance now</span><div class="unit pre"><span>$</span><input id="ceOUsd" type="number" min="0" step="0.01" inputmode="decimal" placeholder="25.00"/></div></label>
+        <label class="field"><span class="lab">Cost per USD <em>Rs</em></span><div class="unit pre"><span>Rs</span><input id="ceORate" type="number" min="0" step="0.01" inputmode="decimal" placeholder="155.20"/></div></label>
+      </div>
+      <p class="help">Use the rate you paid on your last load. Check the balance in your card app.</p>
     </div>
     <div class="ce-f" data-for="adjust">
       <label class="field"><span class="lab">Actual card balance now <em>from your card app</em></span><div class="unit pre"><span>$</span><input id="ceActual" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"/></div></label>
@@ -1538,7 +1562,7 @@ const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt
 const clone = o => JSON.parse(JSON.stringify(o));
 const nf = n => Math.round(n).toLocaleString('en-IN');
 const rs = n => 'Rs ' + nf(n);
-const rsSigned = n => (n < 0 ? '−' : '+') + 'Rs ' + nf(Math.abs(n));
+const rsSigned = n => (Math.round(n) < 0 ? '−' : '+') + 'Rs ' + nf(Math.abs(n));
 const rs2 = n => Number(n).toLocaleString('en-IN', {minimumFractionDigits:2, maximumFractionDigits:2});
 const fmtWhen = t => { const d=new Date(t); return d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})+', '+d.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'}); };
 const fmtTime = t => new Date(t).toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit'});
@@ -1564,7 +1588,7 @@ const S = {
   uid:null, settings:clone(DEFAULT_SETTINGS), sales:[], loaded:false,
   live:{status:'loading'}, filter:'all', search:'', shown:60, custQ:'', custFilter:null,
   editId:null, form:null, peDraft:null, rateDraft:null, period:'today', chDays:7,
-  card:[], cardLoaded:false, cdFilter:'all', stOff:0
+  card:[], cardLoaded:false, cdFilter:'all', stOff:0, cdOff:0
 };
 
 /* =========================================================
@@ -1574,23 +1598,30 @@ const S = {
    ========================================================= */
 let BOOK={active:false, saleCost:new Map(), usd:0, npr:0, avg:0, expense:[], ledger:[], entryInfo:new Map()};
 function computeBook(){
-  const B={active:S.card.length>0, saleCost:new Map(), usd:0, npr:0, avg:0, loadedUsd:0, paidNpr:0, loadFees:0, nLoads:0, usedUsd:0, usedCost:0, expense:[], ledger:[], entryInfo:new Map(), lastLoad:null, preLoad:0};
+  // An opening balance starts the book fresh: anything dated before it is left out
+  const op=S.card.filter(c=>c.type==='opening').sort((x,y)=>y.at-x.at)[0]||null, start=op?op.at:-Infinity;
+  const entries=S.card.filter(c=>c.type!=='opening' && c.at>=start);
+  const B={active:!!op||entries.length>0, opening:op, start, excluded:S.card.filter(c=>c.type!=='opening'&&c.at<start).length,
+    saleCost:new Map(), usd:0, npr:0, avg:0, loadedUsd:0, paidNpr:0, loadFees:0, nLoads:0, usedUsd:0, usedCost:0,
+    expense:[], ledger:[], moves:[], entryInfo:new Map(), lastLoad:null, preLoad:0};
   if (!B.active){ BOOK=B; return; }
-  const ev=[...S.card.map(c=>({t:c.at,c})), ...S.sales.map(s=>({t:s.at,s}))].sort((x,y)=>x.t-y.t || (x.c?-1:1));
   let usd=0, npr=0, lastAvg=0, day=null, seenLoad=false;
+  if (op){ usd=+op.usd||0; npr=usd*(+op.rate||0); lastAvg=+op.rate||0; seenLoad=true;
+    const info={dUsd:usd, npr, rate:+op.rate||0, bal:usd}; B.entryInfo.set(op.id,info); B.ledger.push({kind:'opening', at:op.at, c:op, ...info}); B.moves.push({at:op.at, kind:'opening', dUsd:usd, dNpr:npr}); }
+  const ev=[...entries.map(c=>({t:c.at,c})), ...S.sales.filter(s=>s.at>=start).map(s=>({t:s.at,s}))].sort((x,y)=>x.t-y.t || (x.c?-1:1));
   const avg=()=> usd>0.0001 ? npr/usd : lastAvg;
   const flush=()=>{ if(day){ B.ledger.push(day); day=null; } };
   for (const e of ev){
-    if (e.c){ flush(); const c=e.c; let info;
-      if (c.type==='load'){ const u=+c.usd||0, cost=(+c.npr||0)+(+c.fee||0); usd+=u; npr+=cost; B.loadedUsd+=u; B.paidNpr+=+c.npr||0; B.loadFees+=+c.fee||0; B.nLoads++; B.lastLoad=c; seenLoad=true; info={dUsd:u, npr:cost, rate:u?cost/u:0}; }
-      else if (c.type==='charge'){ const u=+c.usd||0, a=avg(), val=u*a, exp=(+c.npr||0)+val; usd-=u; npr-=val; B.expense.push({at:c.at, amt:exp, c}); info={dUsd:-u, npr:exp, rate:u?a:0}; }
-      else { const diff=(+c.actual||0)-usd, a=avg(); let val=0; if (diff<0){ val=-diff*a; npr-=val; B.expense.push({at:c.at, amt:val, c}); } usd+=diff; info={dUsd:diff, npr:val, rate:diff<0?a:0}; }
+    if (e.c){ flush(); const c=e.c; let info, mv;
+      if (c.type==='load'){ const u=+c.usd||0, cost=(+c.npr||0)+(+c.fee||0); usd+=u; npr+=cost; B.loadedUsd+=u; B.paidNpr+=+c.npr||0; B.loadFees+=+c.fee||0; B.nLoads++; B.lastLoad=c; seenLoad=true; info={dUsd:u, npr:cost, rate:u?cost/u:0}; mv={dUsd:u, dNpr:cost, fee:+c.fee||0}; }
+      else if (c.type==='charge'){ const u=+c.usd||0, a=avg(), val=u*a, exp=(+c.npr||0)+val; usd-=u; npr-=val; B.expense.push({at:c.at, amt:exp, c}); info={dUsd:-u, npr:exp, rate:u?a:0}; mv={dUsd:-u, dNpr:-val, bank:+c.npr||0}; }
+      else { const diff=(+c.actual||0)-usd, a=avg(); let val=0; if (diff<0){ val=-diff*a; npr-=val; B.expense.push({at:c.at, amt:val, c}); } usd+=diff; info={dUsd:diff, npr:val, rate:diff<0?a:0}; mv={dUsd:diff, dNpr:-val}; }
       if (usd>0.0001) lastAvg=npr/usd;
-      info.bal=usd; B.entryInfo.set(c.id,info); B.ledger.push({kind:c.type, at:c.at, c, ...info});
+      info.bal=usd; B.entryInfo.set(c.id,info); B.ledger.push({kind:c.type, at:c.at, c, ...info}); B.moves.push({at:c.at, kind:c.type, ...mv});
     } else {
       const s=e.s, u=(+s.usd||0)*(s.qty||1); let a=avg();
       if (!seenLoad || !a){ a = u ? (Number(s.cost)||0)/u : 0; if(!seenLoad) B.preLoad++; }
-      const cost=u*a; usd-=u; npr-=cost; B.saleCost.set(s.id,cost); B.usedUsd+=u; B.usedCost+=cost;
+      const cost=u*a; usd-=u; npr-=cost; B.saleCost.set(s.id,cost); B.usedUsd+=u; B.usedCost+=cost; B.moves.push({at:s.at, kind:'sale', dUsd:-u, dNpr:-cost});
       const k=startOfDay(s.at); if (!day||day.k!==k){ flush(); day={kind:'usage',k,at:s.at,n:0,dUsd:0,npr:0}; }
       day.n++; day.dUsd-=u; day.npr+=cost; day.at=s.at; day.bal=usd; day.rate=day.dUsd?day.npr/-day.dUsd:0;
       if (usd>0.0001) lastAvg=npr/usd;
@@ -1599,6 +1630,18 @@ function computeBook(){
   flush();
   B.usd=usd; B.npr=usd>0?npr:0; B.avg=usd>0.0001?npr/usd:lastAvg;
   BOOK=B;
+}
+// card account movement for a period: opening + loads − used − fees ± adjustments = closing
+function cardPeriod(from, to){
+  const P={from, to, before:BOOK.start>to, open:{usd:0,npr:0}, load:{usd:0,npr:0,n:0,fee:0}, sale:{usd:0,npr:0,n:0}, charge:{usd:0,npr:0,n:0,bank:0}, adjust:{usd:0,npr:0,n:0}, openedIn:null};
+  for (const m of BOOK.moves){
+    if (m.at<from){ P.open.usd+=m.dUsd; P.open.npr+=m.dNpr; continue; }
+    if (m.at>=to) continue;
+    if (m.kind==='opening'){ P.open.usd+=m.dUsd; P.open.npr+=m.dNpr; P.openedIn=m.at; continue; }
+    const g=P[m.kind]; g.usd+=m.dUsd; g.npr+=m.dNpr; g.n++; if(m.fee) g.fee+=m.fee; if(m.bank) g.bank+=m.bank;
+  }
+  P.close={usd:P.open.usd+P.load.usd+P.sale.usd+P.charge.usd+P.adjust.usd, npr:P.open.npr+P.load.npr+P.sale.npr+P.charge.npr+P.adjust.npr};
+  return P;
 }
 
 const GEM = (sz=18) => `<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg>`;
@@ -1859,7 +1902,10 @@ function renderHome(){
     $('cmSub').textContent = BOOK.usd<0 ? 'Negative: a load is missing' : 'Rs '+nf(BOOK.npr)+' at cost'+(low?' · low balance':'');
     const live=S.live.status==='ok'?S.live.rate:null;
     $('cmFacts').innerHTML=`<div><span>Avg cost / USD</span><b>Rs ${rs2(BOOK.avg)}</b></div>`+(live?`<div><span>vs live rate</span><b class="${BOOK.avg>live?'bad':'good'}">${BOOK.avg>live?'+':'−'}Rs ${rs2(Math.abs(BOOK.avg-live))}</b></div>`:'')+(tp0?`<div><span>Covers ${esc(tp0.p.kind==='member'?tp0.p.name:nf(tp0.p.diamonds)+' 💎')}</span><b>${Math.max(0,Math.floor(BOOK.usd/tp0.p.usd))} more</b></div>`:'')+(BOOK.lastLoad?`<div><span>Last load</span><b>$${(+BOOK.lastLoad.usd).toFixed(2)} · ${esc(dayLabel(BOOK.lastLoad.at))}</b></div>`:'');
-  } else { $('cmBal').textContent='Not set up'; $('cardMini').classList.remove('low'); $('cmSub').textContent='Add your first load to track USD balance and actual profit'; $('cmFacts').innerHTML=''; }
+    const mP=cardPeriod(startOfMonth(), Infinity);
+    $('cmFacts').innerHTML += `<div><span>Loaded this month</span><b>$${mP.load.usd.toFixed(2)}</b></div><div><span>Used this month</span><b>$${(-mP.sale.usd).toFixed(2)}</b></div>`;
+  } else { $('cmBal').textContent='Not set up'; $('cardMini').classList.remove('low'); $('cmSub').textContent='Set an opening balance to track USD and actual profit'; $('cmFacts').innerHTML=''; }
+  $('cmAct').textContent = BOOK.opening ? '+ Load card' : 'Set opening balance'; $('cmAct').dataset.cardact = BOOK.opening ? 'load' : 'opening';
   // quick sell
   const tp=topPackages();
   $('quick').innerHTML = tp.map(({p,n})=>`<button type="button" class="${p.kind==='member'?'mem':''}" data-quick="${esc(p.id)}"><b>${p.kind==='member'?STAR(16):GEM(16)}${esc(p.kind==='member'?p.name:nf(p.diamonds))}</b><span>${rs(sellOf(p))}</span><small>${n?n+' sold in 30 days':'Not sold yet'}</small></button>`).join('');
@@ -2174,7 +2220,8 @@ $('sellSave').addEventListener('click', () => {
 function renderCardPage(){
   const B=BOOK, live=S.live.status==='ok'?S.live.rate:null;
   const w=$('cardWarn');
-  if (!B.active){ w.hidden=false; w.className='note info'; w.innerHTML='<div><b>Start here:</b> record each time you load your dollar card (USD received and NPR paid). Sales then draw USD at the card’s weighted average cost, and every report shows your actual profit instead of an estimate.</div>'; }
+  if (!B.opening){ w.hidden=false; w.className='note info'; w.innerHTML='<div style="flex:1"><b>Start your card book.</b> Enter the USD balance on your card right now and what it cost you per dollar. Everything before this date is left as it is; from here on every load, sale and fee is tracked with opening and closing balances.</div><button class="btn primary" type="button" data-cardact="opening">Set opening balance</button>'; }
+  else if (B.excluded){ w.hidden=false; w.className='note info'; w.innerHTML=`<div>Book started ${esc(fmtWhen(B.start))}. ${B.excluded} card entr${B.excluded===1?'y':'ies'} dated before that ${B.excluded===1?'is':'are'} not counted.</div>`; }
   else if (B.usd<-0.005){ w.hidden=false; w.className='note bad'; w.innerHTML=`<div><b>Book balance is negative ($${B.usd.toFixed(2)}).</b> More USD was used in sales than loaded. Add the missing load, or use Reconcile with your real card balance.</div>`; }
   else if (B.preLoad){ w.hidden=false; w.className='note warn'; w.innerHTML=`<div>${B.preLoad} sale${B.preLoad===1?'':'s'} happened before your first recorded load, so ${B.preLoad===1?'its':'their'} cost uses the market-rate estimate. Add earlier loads for exact figures.</div>`; }
   else w.hidden=true;
@@ -2183,22 +2230,47 @@ function renderCardPage(){
   $('cdHeroFacts').innerHTML = `<div><span>Avg cost / USD (WAC)</span><b>${B.active&&B.avg?'Rs '+rs2(B.avg):'–'}</b></div><div><span>Live market rate</span><b>${live?'Rs '+rs2(live):'–'}</b></div><div><span>Last load</span><b>${B.lastLoad?'$'+(+B.lastLoad.usd).toFixed(2)+', '+esc(dayLabel(B.lastLoad.at)):'–'}</b></div>`;
   const exp=B.expense.reduce((t,x)=>t+x.amt,0);
   const k=[
-    ['money', IC.dollar, 'Total loaded', '$'+nf(B.loadedUsd||0), `Rs ${nf(B.paidNpr||0)} paid · ${B.nLoads||0} load${B.nLoads===1?'':'s'}`],
+    ['money', IC.dollar, B.opening?'Loaded since opening':'Total loaded', '$'+nf(B.loadedUsd||0), `Rs ${nf(B.paidNpr||0)} paid · ${B.nLoads||0} load${B.nLoads===1?'':'s'}`],
     ['', IC.list, 'Load charges', rs(B.loadFees||0), B.loadedUsd?'Avg load rate Rs '+rs2(((B.paidNpr||0)+(B.loadFees||0))/B.loadedUsd):''],
-    ['gem', '<path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/>', 'USD used in sales', '$'+(B.usedUsd||0).toFixed(2), 'COGS '+rs(B.usedCost||0)],
+    ['gem', '<path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/>', B.opening?'Used since opening':'USD used in sales', '$'+(B.usedUsd||0).toFixed(2), 'COGS '+rs(B.usedCost||0)],
     ['', IC.del, 'Card fees & adjustments', rs(exp), B.expense.length+' entr'+(B.expense.length===1?'y':'ies')]
   ];
   $('cdStats').innerHTML=k.map(([c,i,l,v,sub])=>`<div class="stat ${c}"><span class="k-ic">${svgI(i)}</span><span>${l}</span><b>${v}</b><small><em style="font-style:normal">${esc(sub)}</em></small></div>`).join('');
+  renderCardStatement();
   document.querySelectorAll('#cdFilter button').forEach(b=>b.setAttribute('aria-checked',String(b.dataset.v===S.cdFilter)));
   const f=S.cdFilter, rows=B.ledger.filter(r=>f==='all'||(f==='load'&&r.kind==='load')||(f==='charge'&&(r.kind==='charge'||r.kind==='adjust'))||(f==='usage'&&r.kind==='usage')).slice().reverse();
-  const label=r=> r.kind==='load'?'<span class="lg-tag load">Load</span>'+esc(r.c.note||''):r.kind==='charge'?'<span class="lg-tag fee">Charge</span>'+esc(r.c.note||''):r.kind==='adjust'?'<span class="lg-tag adj">Reconcile</span>'+esc(r.c.note||'Actual $'+(+r.c.actual).toFixed(2)):'<span class="lg-tag use">Sales</span>'+r.n+' transaction'+(r.n===1?'':'s');
+  const label=r=> r.kind==='opening'?'<span class="lg-tag open">Opening</span>'+esc(r.c.note||'Balance brought forward'):r.kind==='load'?'<span class="lg-tag load">Load</span>'+esc(r.c.note||''):r.kind==='charge'?'<span class="lg-tag fee">Charge</span>'+esc(r.c.note||''):r.kind==='adjust'?'<span class="lg-tag adj">Reconcile</span>'+esc(r.c.note||'Actual $'+(+r.c.actual).toFixed(2)):'<span class="lg-tag use">Sales</span>'+r.n+' transaction'+(r.n===1?'':'s');
   $('cdLedger').innerHTML = rows.length ? rows.map(r=>`<tr class="lg-${r.kind}"${r.c?` data-ce="${esc(r.c.id)}"`:''}><td>${r.kind==='usage'?esc(dayLabel(r.at)):fmtWhen(r.at)}</td><td class="lg-e">${label(r)}</td><td class="r ${r.dUsd<0?'neg':'gain'}">${Math.abs(r.dUsd)<0.005?'–':(r.dUsd<0?'−':'+')+'$'+Math.abs(r.dUsd).toFixed(2)}</td><td class="r">${r.npr?rs(r.npr):'–'}</td><td class="r">${r.rate?rs2(r.rate):'–'}</td><td class="r b">${r.bal<0?'−':''}$${Math.abs(r.bal).toFixed(2)}</td><td class="r">${r.c?KEBAB:''}</td></tr>`).join('')
     : `<tr><td colspan="7">${blank(B.active?'Nothing here':'No card entries yet','Tap Load card to record your first load.')}</td></tr>`;
 }
+function renderCardStatement(){
+  const now=new Date(), d=new Date(now.getFullYear(), now.getMonth()-S.cdOff, 1), from=d.getTime(), to=new Date(d.getFullYear(), d.getMonth()+1, 1).getTime();
+  $('cdMonth').textContent=d.toLocaleDateString('en-US',{month:'long',year:'numeric'}); $('cdNext').disabled=S.cdOff===0;
+  const endLabel = S.cdOff===0 ? 'today' : new Date(to-1).toLocaleDateString('en-GB',{day:'numeric',month:'short'});
+  if (!BOOK.active){ $('cdAcct').innerHTML=`<tr><td colspan="3">${blank('No card book yet','Set an opening balance to start.')}</td></tr>`; $('cdAcctNote').textContent=''; return; }
+  const P=cardPeriod(from,to);
+  if (P.before){ $('cdAcct').innerHTML=`<tr><td colspan="3">${blank('Before your card book','The book starts on '+fmtWhen(BOOK.start)+'.')}</td></tr>`; $('cdAcctNote').textContent=''; return; }
+  const u=v=>(v<-0.004?'−':'')+'$'+Math.abs(v).toFixed(2), uS=v=>Math.abs(v)<0.005?'–':(v<0?'−':'+')+'$'+Math.abs(v).toFixed(2), n=v=>Math.abs(v)<0.5?'–':(v<0?'(':'')+rs(Math.abs(v))+(v<0?')':''), rt=(np,us)=>us>0.004?'Rs '+rs2(np/us)+' / USD':'';
+  const openLabel = P.openedIn ? 'Opening balance<small>Book started '+esc(fmtWhen(P.openedIn))+(P.open.usd>0.004?' · '+rt(P.open.npr,P.open.usd):'')+'</small>' : 'Opening balance<small>'+d.toLocaleDateString('en-GB',{day:'numeric',month:'short'})+(P.open.usd>0.004?' · '+rt(P.open.npr,P.open.usd):'')+'</small>';
+  const row=(l,us,np,cls)=>`<tr class="${cls}"><td>${l}</td><td class="r">${us}</td><td class="r">${np}</td></tr>`;
+  $('cdAcct').innerHTML = `<tr class="ac-h"><td></td><td class="r">USD</td><td class="r">NPR at cost</td></tr>`+
+    row(openLabel, u(P.open.usd), rs(Math.max(0,P.open.npr)), 'pl-sub')+
+    row(`Add: Loads${P.load.n?` (${P.load.n})`:''}${P.load.n?`<small>${rt(P.load.npr,P.load.usd)}${P.load.fee?' · incl. '+rs(P.load.fee)+' charges':''}</small>`:''}`, uS(P.load.usd), P.load.n?'+'+rs(P.load.npr):'–', 'pl-less')+
+    row(`Less: Used in sales${P.sale.n?` (${P.sale.n} txn)`:''}${P.sale.n?`<small>COGS ${rt(-P.sale.npr,-P.sale.usd)}</small>`:''}`, uS(P.sale.usd), n(P.sale.npr), 'pl-less')+
+    row(`Less: Card fees paid in USD${P.charge.n?` (${P.charge.n})`:''}`, uS(P.charge.usd), n(P.charge.npr), 'pl-less')+
+    row(`Reconciliation adjustments${P.adjust.n?` (${P.adjust.n})`:''}`, uS(P.adjust.usd), n(P.adjust.npr), 'pl-less')+
+    `<tr class="pl-total${P.close.usd<-0.004?' neg':''}"><td>Closing balance<small>${esc(endLabel)}${P.close.usd>0.004?' · '+rt(P.close.npr,P.close.usd):''}</small></td><td class="r">${u(P.close.usd)}</td><td class="r">${rs(Math.max(0,P.close.npr))}</td></tr>`+
+    `<tr class="pl-memo"><td colspan="3">Memo</td></tr>`+
+    row('Card fees paid from bank (NPR)', '–', P.charge.bank?rs(P.charge.bank):'–', 'pl-m')+
+    row('Net USD movement', uS(P.close.usd-P.open.usd), '', 'pl-m');
+  $('cdAcctNote').innerHTML = S.cdOff===0 ? 'Closing balance should match your card app. If it doesn’t, <a class="link" data-cardact="adjust">reconcile</a>.' : '';
+}
+$('cdPrev').addEventListener('click', ()=>{ S.cdOff++; renderCardStatement(); });
+$('cdNext').addEventListener('click', ()=>{ if(S.cdOff>0){ S.cdOff--; renderCardStatement(); } });
 $('cdFilter').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; S.cdFilter=b.dataset.v; renderCardPage(); });
 $('cdLedger').addEventListener('click', e=>{ const tr=e.target.closest('[data-ce]'); if(!tr) return; const c=S.card.find(x=>x.id===tr.dataset.ce); if(!c) return;
   const k=e.target.closest('[data-menu]'); if(!k){ openCard(c.type,c); return; } e.stopPropagation();
-  openRowMenu(k, ({load:'Load',charge:'Charge',adjust:'Reconciliation'})[c.type]+', '+fmtWhen(c.at), [{icon:'edit',label:'Edit entry',fn:()=>openCard(c.type,c)},{icon:'del',label:'Delete entry',danger:true,fn:()=>delCard(c)}]); });
+  openRowMenu(k, ({opening:'Opening balance',load:'Load',charge:'Charge',adjust:'Reconciliation'})[c.type]+', '+fmtWhen(c.at), [{icon:'edit',label:'Edit entry',fn:()=>openCard(c.type,c)},{icon:'del',label:'Delete entry',danger:true,fn:()=>delCard(c)}]); });
 function delCard(c){ removeCard(c.id); toast('Card entry deleted', false, {label:'Undo', fn:()=>{ saveCard(c); toast('Restored'); }}); }
 document.addEventListener('click', e=>{ const b=e.target.closest('[data-cardact]'); if(b) openCard(b.dataset.cardact, null); });
 
@@ -2206,25 +2278,30 @@ document.addEventListener('click', e=>{ const b=e.target.closest('[data-cardact]
 let ceEdit=null;
 const toLocalInput = t => { const d=new Date(t); d.setMinutes(d.getMinutes()-d.getTimezoneOffset()); return d.toISOString().slice(0,16); };
 function openCard(type, c){
+  if (type==='opening' && !c) c=S.card.filter(x=>x.type==='opening').sort((x,y)=>y.at-x.at)[0]||null;
   ceEdit={type, id:c?c.id:null, orig:c};
-  $('ceT').textContent = c ? 'Edit card entry' : ({load:'Load card',charge:'Record charge',adjust:'Reconcile balance'})[type];
+  $('ceT').textContent = type==='opening' ? (c?'Edit opening balance':'Set opening balance') : c ? 'Edit card entry' : ({load:'Load card',charge:'Record charge',adjust:'Reconcile balance'})[type];
+  const defRate = BOOK.lastLoad && BOOK.lastLoad.usd ? ((+BOOK.lastLoad.npr)+(+BOOK.lastLoad.fee||0))/BOOK.lastLoad.usd : (S.live.status==='ok'?S.live.rate:rateNow());
+  $('ceOUsd').value=c&&type==='opening'?c.usd:''; $('ceORate').value=c&&type==='opening'?c.rate:(Math.round(defRate*100)/100);
   $('ceUsd').value=c&&type==='load'?c.usd:''; $('ceNpr').value=c&&type==='load'?c.npr:''; $('ceFee').value=c&&type==='load'?(c.fee||''):'';
   $('ceCUsd').value=c&&type==='charge'?(c.usd||''):''; $('ceCNpr').value=c&&type==='charge'?(c.npr||''):''; $('ceActual').value=c&&type==='adjust'?c.actual:'';
   $('ceNote').value=c?(c.note||''):''; $('ceDate').value=toLocalInput(c?c.at:Date.now()); $('ceErr').textContent=''; $('ceDel').hidden=!c;
-  $('ceType').hidden=!!c;
+  $('ceType').hidden=!!c || type==='opening';
   $('sheetBg').hidden=false; $('sheetCard').hidden=false; ceRender();
-  setTimeout(()=>$(type==='load'?'ceUsd':type==='charge'?'ceNote':'ceActual').focus({preventScroll:true}),120);
+  setTimeout(()=>$(type==='load'?'ceUsd':type==='charge'?'ceNote':type==='opening'?'ceOUsd':'ceActual').focus({preventScroll:true}),120);
 }
 function closeCard(){ $('sheetCard').hidden=true; if ($('sheetMore').hidden && $('sheetPk').hidden) $('sheetBg').hidden=true; ceEdit=null; }
 function ceRender(){
   const t=ceEdit.type; document.querySelectorAll('#ceType button').forEach(b=>b.setAttribute('aria-checked',String(b.dataset.v===t)));
   document.querySelectorAll('.ce-f').forEach(f=>f.hidden=f.dataset.for!==t);
   $('ceNoteHint').textContent = t==='charge' ? 'required, e.g. annual fee' : 'optional';
-  $('ceNote').placeholder = t==='load' ? 'e.g. Nabil dollar card' : t==='charge' ? 'e.g. card renewal fee' : 'e.g. monthly check';
+  $('ceNote').placeholder = t==='opening' ? 'e.g. balance on Nabil card' : t==='load' ? 'e.g. Nabil dollar card' : t==='charge' ? 'e.g. card renewal fee' : 'e.g. monthly check';
   const B=BOOK, base=ceEdit.orig ? (B.entryInfo.get(ceEdit.orig.id)||{}) : null;
   const balNow = B.usd - (base && ceEdit.orig.type!=='adjust' ? (base.dUsd||0) : 0);
   const live=S.live.status==='ok'?S.live.rate:null; let h='';
-  if (t==='load'){ const u=+$('ceUsd').value||0, n=+$('ceNpr').value||0, f=+$('ceFee').value||0;
+  if (t==='opening'){ const u=+$('ceOUsd').value||0, r=+$('ceORate').value||0;
+    h = r>0 ? `<div><span>Opening USD</span><b>$${u.toFixed(2)}</b></div><div><span>Cost / USD</span><b>Rs ${rs2(r)}</b></div><div><span>Value at cost</span><b class="g">${rs(u*r)}</b></div><p>Sales, loads and fees dated before this are not counted in the card book.</p>` : '<div style="grid-column:1/-1"><span>Enter your current card balance and its cost per dollar.</span></div>'; }
+  else if (t==='load'){ const u=+$('ceUsd').value||0, n=+$('ceNpr').value||0, f=+$('ceFee').value||0;
     if (u>0 && n>0){ const r=(n+f)/u, nb=balNow+u, na=(Math.max(0,B.usd>0?B.npr:0)+n+f)/(Math.max(0,B.usd)+u||1);
       h=`<div><span>Effective rate</span><b>Rs ${rs2(r)}</b></div><div><span>Balance after</span><b>$${nb.toFixed(2)}</b></div><div><span>${live?'vs live rate':'Total cost'}</span><b class="${live&&r>live?'':'g'}">${live?(r>live?'+':'−')+'Rs '+rs2(Math.abs(r-live)):rs(n+f)}</b></div><p>Total cost Rs ${nf(n+f)}${f?' incl. Rs '+nf(f)+' charges':''}${ceEdit.orig?'':' · new average ≈ Rs '+rs2(na)+' / USD'}</p>`; }
     else h='<div style="grid-column:1/-1"><span>Enter USD loaded and NPR paid to see the effective rate.</span></div>'; }
@@ -2236,7 +2313,7 @@ function ceRender(){
   $('cePrev').innerHTML=h;
 }
 $('ceType').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; ceEdit.type=b.dataset.v; ceRender(); });
-['ceUsd','ceNpr','ceFee','ceCUsd','ceCNpr','ceActual'].forEach(i=>$(i).addEventListener('input', ceRender));
+['ceUsd','ceNpr','ceFee','ceCUsd','ceCNpr','ceActual','ceOUsd','ceORate'].forEach(i=>$(i).addEventListener('input', ceRender));
 addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('sheetCard').hidden) closeCard(); });
 $('ceClose').addEventListener('click', closeCard); $('ceCancel').addEventListener('click', closeCard);
 $('ceDel').addEventListener('click', ()=>{ const c=ceEdit.orig; closeCard(); if(c) delCard(c); });
@@ -2245,7 +2322,10 @@ $('ceSave').addEventListener('click', ()=>{
   const t=ceEdit.type, err=m=>{ $('ceErr').textContent=m; }, at=$('ceDate').value?new Date($('ceDate').value).getTime():Date.now(), note=$('ceNote').value.trim();
   if (!(at>0)) { err('Choose a valid date.'); return; }
   const c={id:ceEdit.id||('c'+Date.now().toString(36)+Math.random().toString(36).slice(2,5)), type:t, at, note};
-  if (t==='load'){ c.usd=Math.round((+$('ceUsd').value||0)*100)/100; c.npr=Math.round((+$('ceNpr').value||0)*100)/100; c.fee=Math.round((+$('ceFee').value||0)*100)/100;
+  if (t==='opening'){ c.usd=Math.round((+$('ceOUsd').value||0)*100)/100; c.rate=Math.round((+$('ceORate').value||0)*100)/100;
+    if ($('ceOUsd').value==='' || !(c.usd>=0)) { err('Enter the USD balance on your card now (0 if empty).'); $('ceOUsd').focus(); return; }
+    if (!(c.rate>=50 && c.rate<=400)) { err('Enter the cost per dollar in rupees, e.g. 155.20'); $('ceORate').focus(); return; } }
+  else if (t==='load'){ c.usd=Math.round((+$('ceUsd').value||0)*100)/100; c.npr=Math.round((+$('ceNpr').value||0)*100)/100; c.fee=Math.round((+$('ceFee').value||0)*100)/100;
     if (!(c.usd>0)) { err('Enter how many US dollars were loaded.'); $('ceUsd').focus(); return; }
     if (!(c.npr>0)) { err('Enter how much NPR you paid for this load.'); $('ceNpr').focus(); return; }
     const r=(c.npr+c.fee)/c.usd; if (r<50||r>400){ err('That works out to Rs '+rs2(r)+' per USD. Check the amounts.'); return; } }
@@ -2254,8 +2334,8 @@ $('ceSave').addEventListener('click', ()=>{
     if (!note) { err('Add a short note, e.g. annual fee.'); $('ceNote').focus(); return; } }
   else { if ($('ceActual').value===''){ err('Enter the actual balance from your card app.'); $('ceActual').focus(); return; } c.actual=Math.round((+$('ceActual').value)*100)/100; }
   const wasEdit=!!ceEdit.orig, before=ceEdit.orig; closeCard(); saveCard(c);
-  toast(wasEdit?'Card entry updated':t==='load'?'Load recorded: $'+c.usd.toFixed(2)+' at Rs '+rs2((c.npr+c.fee)/c.usd):t==='charge'?'Charge recorded':'Balance reconciled', false, {label:'Undo', fn:()=>{ if(before) saveCard(before); else removeCard(c.id); }});
-  if (!wasEdit && t==='load' && S.settings.rateMode!=='card') setTimeout(()=>toast('Tip: set Pricing & FX to “Card avg cost” to price from your card', false, {label:'Use it', fn:()=>{ const st={...S.settings, rateMode:'card'}; S.settings=st; saveSettings(st); renderAll(); toast('Pricing now uses card average cost'); }}), 3200);
+  toast(t==='opening'?'Opening balance '+(wasEdit?'updated':'set')+': $'+c.usd.toFixed(2)+' at Rs '+rs2(c.rate):wasEdit?'Card entry updated':t==='load'?'Load recorded: $'+c.usd.toFixed(2)+' at Rs '+rs2((c.npr+c.fee)/c.usd):t==='charge'?'Charge recorded':'Balance reconciled', false, {label:'Undo', fn:()=>{ if(before) saveCard(before); else removeCard(c.id); }});
+  if (!wasEdit && (t==='load'||t==='opening') && S.settings.rateMode!=='card') setTimeout(()=>toast('Tip: set Pricing & FX to “Card avg cost” to price from your card', false, {label:'Use it', fn:()=>{ const st={...S.settings, rateMode:'card'}; S.settings=st; saveSettings(st); renderAll(); toast('Pricing now uses card average cost'); }}), 3200);
 });
 
 /* ---------- price list ---------- */
