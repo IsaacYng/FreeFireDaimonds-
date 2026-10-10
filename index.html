@@ -675,6 +675,123 @@ input[type=number]:focus,input[type=tel]:focus{outline:none;border-color:var(--i
 .limits tr.cur td{background:#FAFBFB;font-weight:600}
 @media(max-width:600px){.limits .c-usd{display:none}.limits td .pn{font-size:.9rem}}
 .person .pc b{white-space:nowrap}
+
+/* ===== Dashboard v2 ===== */
+.w-today{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.w-today span{display:inline-flex;align-items:baseline;gap:6px;padding:6px 12px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:.84rem;color:#C9D3D6}
+.w-today b{color:#fff;font-weight:700;font-variant-numeric:tabular-nums}
+.w-today .up b{color:#7FD9A6}
+.ov-head{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:6px 0 12px}
+.ov-head h2{font-weight:700;font-size:1.15rem;letter-spacing:-.01em}
+.ov-cmp{font-size:.82rem;color:var(--muted);margin-right:auto}
+.kpis{grid-template-columns:repeat(4,1fr)}
+.kpis .stat{cursor:default;position:relative;overflow:hidden}
+.kpis .stat b{font-size:1.55rem;font-variant-numeric:tabular-nums;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.kpis .stat .k-ic{position:absolute;right:14px;top:14px;width:30px;height:30px;border-radius:9px;display:flex;align-items:center;justify-content:center;background:var(--bg);color:var(--ink-2)}
+.kpis .stat.money .k-ic{background:#E8EEF7;color:#2F5B94}
+.kpis .stat.gain .k-ic{background:var(--ok-soft);color:var(--ok)}
+.kpis .stat.gem .k-ic{background:var(--accent-soft);color:var(--accent)}
+.delta{display:inline-flex;align-items:center;gap:3px;font-size:.74rem;font-weight:700;padding:2px 7px;border-radius:999px;background:var(--bg);color:var(--muted);font-variant-numeric:tabular-nums}
+.delta.up{background:var(--ok-soft);color:var(--ok)}
+.delta.down{background:var(--accent-soft);color:var(--accent-2)}
+.kpis .stat small{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+@media(max-width:1100px){.kpis{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:600px){.kpis .stat{padding:14px}.kpis .stat b{font-size:1.3rem}.kpis .stat .k-ic{display:none}.ov-head .pk-seg{width:100%}.ov-head .pk-seg button{flex:1}.ov-head .pk-seg{display:flex}}
+
+.qs{grid-template-columns:repeat(4,minmax(0,1fr))}
+.qs button{position:relative}
+.qs button small{font-size:.74rem;color:var(--muted)}
+@media(max-width:600px){.qs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* action queues */
+.q-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:center;padding:12px 20px;border-top:1px solid var(--line)}
+.q-row:first-child{border-top:none}
+.q-row .t{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.q-row .s{font-size:.82rem;color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.q-row .s .uid{font-variant-numeric:tabular-nums;color:var(--ink-2);font-weight:600}
+.q-row .acts{display:flex;gap:6px}
+.q-row .btn{min-height:36px;padding:0 12px;font-size:.84rem}
+.q-row .due{font-weight:700;color:var(--warn);font-variant-numeric:tabular-nums;font-size:.95rem}
+.q-more{padding:10px 20px;border-top:1px solid var(--line);font-size:.86rem}
+.q-empty{display:flex;align-items:center;gap:12px;padding:22px 20px;color:var(--muted);font-size:.92rem}
+.q-empty i{width:34px;height:34px;border-radius:50%;background:var(--ok-soft);color:var(--ok);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-style:normal}
+@media(max-width:900px){.q-row{padding:12px 14px}.q-more{padding:10px 14px}.q-empty{padding:18px 14px}}
+
+/* trend chart */
+.ch-sum{display:flex;flex-wrap:wrap;gap:22px;padding:16px 20px 0}
+.ch-sum div{display:grid}
+.ch-sum span{font-size:.8rem;color:var(--muted)}
+.ch-sum b{font-size:1.25rem;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.ch-sum b.g{color:var(--ok)}
+.chart2-wrap{display:grid;grid-template-columns:auto 1fr;gap:8px;padding:14px 20px 6px}
+.ch-y{display:flex;flex-direction:column;justify-content:space-between;font-size:.7rem;color:var(--muted);text-align:right;height:180px;padding-bottom:20px;font-variant-numeric:tabular-nums}
+.chart2{display:flex;align-items:stretch;gap:4px;height:180px;position:relative;background:repeating-linear-gradient(to bottom,transparent 0,transparent 39px,var(--line) 39px,var(--line) 40px);background-size:100% 160px;background-repeat:no-repeat}
+.chart2 .d{flex:1;display:flex;flex-direction:column;min-width:0;cursor:default}
+.chart2 .bars{flex:1;display:flex;align-items:flex-end;justify-content:center;gap:2px;border-bottom:1px solid var(--line-2);border-radius:4px 4px 0 0;transition:background .15s}
+.chart2 .d:hover .bars{background:rgba(22,34,43,.04)}
+.chart2 .bars i{display:block;width:44%;max-width:16px;border-radius:4px 4px 0 0;min-height:2px}
+.chart2 .bars i.r{background:#2F5B94}
+.chart2 .bars i.p{background:var(--ok-bar)}
+.chart2 .bars i.p.neg{background:var(--accent)}
+.chart2 .d.zero .bars i{background:var(--line)}
+.chart2 small{height:20px;line-height:20px;font-size:.7rem;color:var(--muted);text-align:center;white-space:nowrap;overflow:visible}
+.chart2 .d.today small{color:var(--ink);font-weight:700}
+.chart-key i.r{background:#2F5B94}
+.ch-best{margin-left:auto}
+.ch-tip{position:absolute;z-index:3;background:var(--ink);color:#fff;border-radius:8px;padding:8px 10px;font-size:.78rem;pointer-events:none;white-space:nowrap;box-shadow:0 10px 24px -10px rgba(22,34,43,.6);transform:translate(-50%,-100%);margin-top:-8px}
+.ch-tip b{display:block;font-size:.82rem}
+@media(max-width:900px){.ch-sum{padding:14px 14px 0;gap:16px}.chart2-wrap{padding:12px 14px 6px}.chart-key{padding:0 14px 14px;flex-wrap:wrap}}
+.card-h .pk-seg button{padding:5px 12px;font-size:.82rem}
+
+/* goal */
+.goal-top{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.goal-top b{font-size:1.6rem;font-weight:700;letter-spacing:-.02em;font-variant-numeric:tabular-nums}
+.goal-top span{color:var(--muted);font-size:.9rem}
+.goal-facts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:16px}
+.goal-facts div{background:var(--bg);border-radius:10px;padding:10px 12px;display:grid;gap:2px}
+.goal-facts span{font-size:.76rem;color:var(--muted)}
+.goal-facts b{font-weight:700;font-variant-numeric:tabular-nums}
+.bar .pace{position:relative}
+.goal-bar{position:relative}
+.goal-bar .mark{position:absolute;top:-4px;bottom:-4px;width:2px;background:var(--ink);border-radius:2px}
+
+/* top customers */
+.rank{display:grid;grid-template-columns:28px minmax(0,1fr) auto;gap:12px;align-items:center;padding:11px 20px;border-top:1px solid var(--line);cursor:pointer}
+.rank:first-child{border-top:none}
+.rank:hover{background:#FAFBFB}
+.rank .no{width:26px;height:26px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.78rem;font-weight:700;background:var(--bg);color:var(--muted)}
+.rank:first-child .no{background:#FFF4E0;color:#9A6212}
+.rank .t{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.rank .s{font-size:.8rem;color:var(--muted)}
+.rank .v{text-align:right;font-variant-numeric:tabular-nums}
+.rank .v b{display:block;font-weight:700}
+.rank .v small{font-size:.78rem;color:var(--ok);font-weight:600}
+@media(max-width:900px){.rank{padding:11px 14px}}
+
+/* sales grouped by day */
+.day-h{display:flex;justify-content:space-between;gap:10px;align-items:center;padding:9px 20px;background:#FAFBFB;border-top:1px solid var(--line);font-size:.8rem;color:var(--muted);position:sticky;top:62px;z-index:2}
+.day-h:first-child{border-top:none}
+.day-h b{color:var(--ink);font-weight:700;font-size:.84rem}
+.day-h span{font-variant-numeric:tabular-nums}
+.day-h + .sale{border-top:1px solid var(--line)}
+@media(max-width:900px){.day-h{padding:8px 14px;top:calc(58px + env(safe-area-inset-top,0px))}}
+.badge.due{background:var(--warn-soft);color:var(--warn)}
+
+/* qty stepper */
+.qty{display:grid;grid-template-columns:44px minmax(0,1fr) 44px;border:1px solid var(--line-2);border-radius:10px;overflow:hidden;background:#fff}
+.qty input{border:none;border-radius:0;text-align:center;font-weight:700;-moz-appearance:textfield}
+.qty input::-webkit-inner-spin-button,.qty input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+.qty input:focus{box-shadow:none}
+.qty:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px rgba(22,34,43,.08)}
+.qty .icon-btn{width:44px;height:auto;border-radius:0;font-size:1.3rem;font-weight:600;color:var(--ink-2);background:var(--bg)}
+.qty .icon-btn:hover{background:var(--line)}
+.calc.four{grid-template-columns:repeat(4,minmax(0,1fr))}
+.calc b.warn{color:var(--warn)}
+@media(max-width:600px){.calc.four{grid-template-columns:repeat(2,minmax(0,1fr))}.calc.four div:nth-child(3){border-left:none}.calc.four div:nth-child(n+3){border-top:1px solid var(--line)}}
+.toast:not(.show),.toast:not(.show) *{pointer-events:none !important}
+.qty{height:46px;align-items:stretch}
+.qty input{height:100%;padding:0 8px;min-width:0}
+.qty .icon-btn{height:100%;width:44px;border:none;border-radius:0;margin:0}
 </style>
 </head>
 <body>
@@ -781,20 +898,45 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <h1 id="hello">Welcome back</h1>
           <div class="w-rate"><b id="wRate">–</b><span>for 1 US dollar</span></div>
           <p class="w-live" id="wLive"><i class="load"></i><span>Getting today's rate…</span></p>
+          <div class="w-today" id="wToday"></div>
           <div class="w-acts"><button class="btn accent" type="button" data-go="sell"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New sale</button><button class="btn ghost" type="button" data-go="prices"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/></svg>Price list</button></div>
         </div>
-        <p class="np-help" lang="ne" style="margin-bottom:18px">नयाँ बिक्री थप्न “New sale” थिच्नुहोस्। डायमन्ड पठाउन बाँकी भएका ग्राहक “To send” मा देखिन्छन्।</p>
-        <div class="health" id="health"></div>
+        <p class="np-help" lang="ne" style="margin-bottom:18px">माथिबाट Today, 7 days वा This month छान्नुहोस्। “To send” मा पठाउन बाँकी डायमन्ड र “Udharo” मा उठाउन बाँकी पैसा देखिन्छ।</p>
+        <div class="ov-head"><h2>Overview</h2><span class="ov-cmp" id="ovCmp"></span><div class="pk-seg" id="ovPeriod" role="radiogroup" aria-label="Period"><button type="button" data-v="today">Today</button><button type="button" data-v="week">7 days</button><button type="button" data-v="month">This month</button></div></div>
+        <div class="stats kpis" id="kpis"></div>
+        <div class="card" id="qsCard">
+          <div class="card-h"><h2>Quick sell</h2><span class="meta">Your most sold packages, one tap to start</span></div>
+          <div class="card-b"><div class="pkgs qs" id="quick"></div></div>
+        </div>
         <div class="hero-o">
           <div class="card">
-            <div class="card-h"><h2>Recent sales</h2><a class="link" data-go="sales">See all</a></div>
-            <div class="tbl" id="recent"><div class="skel"></div><div class="skel"></div></div>
+            <div class="card-h"><h2>To send</h2><span class="pill" id="sendPill">0</span></div>
+            <div class="tbl" id="toSend"></div>
           </div>
           <div class="card">
-            <div class="card-h"><h2>Last 7 days</h2><span class="meta" id="weekMeta"></span></div>
-            <div class="chart" id="chart"></div>
-            <div class="chart-key"><span><i></i>Money received</span><span><i class="p"></i>Profit</span></div>
+            <div class="card-h"><h2>Udharo to collect</h2><span class="pill" id="duePill">Rs 0</span></div>
+            <div class="tbl" id="dueList"></div>
           </div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Sales trend</h2><div class="pk-seg" id="chDays" role="radiogroup" aria-label="Chart range"><button type="button" data-v="7">7 days</button><button type="button" data-v="14">14 days</button><button type="button" data-v="30">30 days</button></div></div>
+          <div class="ch-sum" id="chSum"></div>
+          <div class="chart2-wrap"><div class="ch-y" id="chY"></div><div class="chart2" id="chart"></div></div>
+          <div class="chart-key"><span><i class="r"></i>Money received</span><span><i class="p"></i>Profit</span><span id="chBest" class="ch-best"></span></div>
+        </div>
+        <div class="hero-o" style="margin-top:18px">
+          <div class="card" id="goalCard">
+            <div class="card-h"><h2>Monthly profit goal</h2><a class="link" data-go="rate" data-focus="rGoal">Change</a></div>
+            <div class="card-b" id="goalBody"></div>
+          </div>
+          <div class="card">
+            <div class="card-h"><h2>Top customers</h2><span class="meta">This month</span></div>
+            <div class="tbl" id="topCust"></div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Recent sales</h2><a class="link" data-go="sales">See all</a></div>
+          <div class="tbl" id="recent"><div class="skel"></div><div class="skel"></div></div>
         </div>
       </section>
 
@@ -821,10 +963,10 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <div class="card-h"><h2>Payment</h2></div>
           <div class="card-b form">
             <div class="grid2">
-              <label class="field"><span class="lab">Quantity</span><input id="fQty" type="number" min="1" step="1" value="1" inputmode="numeric"/></label>
+              <div class="field"><span class="lab"><label for="fQty">Quantity</label></span><div class="qty"><button type="button" class="icon-btn" data-step="-1" aria-label="One less">−</button><input id="fQty" type="number" min="1" step="1" value="1" inputmode="numeric"/><button type="button" class="icon-btn" data-step="1" aria-label="One more">+</button></div></div>
               <label class="field"><span class="lab">Money received (Rs) <em id="recvHint"></em></span><input id="fRecv" type="number" min="0" step="1" inputmode="decimal"/></label>
             </div>
-            <div class="calc"><div><span>Diamonds</span><b id="cDia">0</b></div><div><span>Your cost</span><b id="cCost">Rs 0</b></div><div><span>Profit</span><b id="cProfit">Rs 0</b></div></div>
+            <div class="calc" id="calc"><div><span>Diamonds</span><b id="cDia">0</b></div><div><span>Your cost</span><b id="cCost">Rs 0</b></div><div><span>Profit</span><b id="cProfit">Rs 0</b></div><div id="cDueBox" hidden><span>Still due</span><b id="cDue" class="warn">Rs 0</b></div></div>
             <div class="field"><span class="lab">Paid by</span><div class="pk-seg" id="fMethod" role="radiogroup" aria-label="Paid by"><button type="button" data-v="Cash">Cash</button><button type="button" data-v="eSewa">eSewa</button><button type="button" data-v="Khalti">Khalti</button><button type="button" data-v="Bank">Bank</button><button type="button" data-v="Credit">Udharo</button></div></div>
             <div class="field"><span class="lab">Diamonds sent?</span><div class="pk-seg" id="fStatus" role="radiogroup" aria-label="Diamonds sent"><button type="button" data-v="done">Yes, sent</button><button type="button" data-v="pending">Not yet</button></div></div>
             <label class="field"><span class="lab">Note <em>optional</em></span><input id="fNote" autocomplete="off" maxlength="200" placeholder="e.g. pays tomorrow"/></label>
@@ -896,6 +1038,14 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
             <div class="preview-line" id="rPreview"></div>
           </div>
           <div class="card-f sticky"><span class="help" id="rMsg"></span><button class="btn" type="button" id="rUndo">Undo changes</button><button class="btn accent" type="button" id="rSave"><span class="spin"></span><span class="bt">Save</span></button></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Monthly profit goal</h2><span class="meta">Shown on Home</span></div>
+          <div class="card-b form">
+            <label class="field"><span class="lab">Profit you want each month (Rs) <em>0 = no goal</em></span><input id="rGoal" type="number" step="500" min="0" inputmode="numeric"/></label>
+            <p class="help">Home shows how close you are and how much you need per day to reach it.</p>
+          </div>
+          <div class="card-f"><button class="btn accent" type="button" id="gSave"><span class="spin"></span><span class="bt">Save goal</span></button></div>
         </div>
       </section>
 
@@ -1069,7 +1219,7 @@ const DEFAULT_PACKAGES = [
   {id:'weekly', name:'Weekly', diamonds:445, usd:2.25, kind:'member'},
   {id:'monthly', name:'Monthly', diamonds:2500, usd:10.86, kind:'member'}
 ];
-const DEFAULT_SETTINGS = { rateMode:'live', manualRate:FALLBACK_RATE, feePct:0, marginPct:10, roundTo:5, packages:DEFAULT_PACKAGES, lastLiveRate:null, lastLiveAt:null };
+const DEFAULT_SETTINGS = { rateMode:'live', manualRate:FALLBACK_RATE, feePct:0, marginPct:10, roundTo:5, packages:DEFAULT_PACKAGES, lastLiveRate:null, lastLiveAt:null, goal:0 };
 
 /* =========================================================
    STATE + HELPERS
@@ -1089,13 +1239,18 @@ const startOfMonth = (t=Date.now()) => { const d=new Date(t); d.setHours(0,0,0,0
 const startOfWeek = () => startOfDay() - 6*864e5;
 const monthKey = t => { const d=new Date(t); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); };
 const newId = () => 's' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
-const profitOf = s => (Number(s.received)||0) - (Number(s.cost)||0);
+// udharo counts as earned: profit uses the full price, the unpaid part shows under “Udharo to collect”
+const profitOf = s => Math.max(Number(s.received)||0, s.method==='Credit' ? Number(s.price ?? s.received)||0 : 0) - (Number(s.cost)||0);
 const isMem = s => s.kind === 'member' || /membership/i.test(s.pkgName||'');
+const priceOf = s => Number(s.price ?? s.received) || 0;                 // what the customer should pay
+const dueOf = s => s.method==='Credit' ? Math.max(0, priceOf(s) - (Number(s.received)||0)) : 0;
+const pct = (a,b) => b ? Math.min(100, Math.max(0, a/b*100)) : 0;
+const dayLabel = t => { const d=startOfDay(t), td=startOfDay(); if(d===td) return 'Today'; if(d===td-864e5) return 'Yesterday'; return new Date(t).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'}); };
 
 const S = {
   uid:null, settings:clone(DEFAULT_SETTINGS), sales:[], loaded:false,
   live:{status:'loading'}, filter:'all', search:'', shown:60, custQ:'', custFilter:null,
-  editId:null, form:null, peDraft:null, rateDraft:null
+  editId:null, form:null, peDraft:null, rateDraft:null, period:'today', chDays:7
 };
 
 const GEM = (sz=18) => `<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg>`;
@@ -1107,7 +1262,7 @@ const IC = {
   again:'<path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/>', del:'<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>',
   list:'<path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/>', copy:'<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>',
   money:'<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', box:'<path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/>',
-  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', trend:'<path d="m3 17 6-6 4 4 8-8"/><path d="M14 7h7v7"/>', dollar:'<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>'
+  clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/>', trend:'<path d="m3 17 6-6 4 4 8-8"/><path d="M14 7h7v7"/>', dollar:'<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>'
 };
 
 /* ---------- ui helpers (same behaviour as the admin console) ---------- */
@@ -1301,35 +1456,120 @@ function renderCounts(){
 
 /* ---------- home ---------- */
 function stats(list){ return list.reduce((a,s)=>{ a.n++; a.dia+=Number(s.diamonds)||0; a.recv+=Number(s.received)||0; a.cost+=Number(s.cost)||0; a.profit+=profitOf(s); return a; }, {n:0,dia:0,recv:0,cost:0,profit:0}); }
+function periodRange(p){
+  const now=Date.now(), sd=startOfDay();
+  if (p==='today') return {from:sd, to:now, pFrom:sd-864e5, pTo:sd, cmp:'vs yesterday'};
+  if (p==='week') return {from:sd-6*864e5, to:now, pFrom:sd-13*864e5, pTo:sd-6*864e5, cmp:'vs the 7 days before'};
+  const sm=startOfMonth(), d=new Date(sm); d.setMonth(d.getMonth()-1); const pm=d.getTime();
+  return {from:sm, to:now, pFrom:pm, pTo:Math.min(sm, pm+(now-sm)), cmp:'vs same days last month'};
+}
+const inRange = (f,t) => S.sales.filter(s=>s.at>=f && s.at<t);
+function delta(cur, prev){
+  if (!prev && !cur) return '<span class="delta">—</span>';
+  if (!prev) return '<span class="delta up">New</span>';
+  const d=(cur-prev)/Math.abs(prev)*100, r=Math.round(d);
+  if (r===0) return '<span class="delta">0%</span>';
+  return `<span class="delta ${d>0?'up':'down'}">${d>0?'↑':'↓'} ${Math.abs(r)}%</span>`;
+}
+function topPackages(days=30){
+  const m=new Map(); S.sales.filter(s=>s.at>=startOfDay()-days*864e5).forEach(s=>m.set(s.pkgId,(m.get(s.pkgId)||0)+(s.qty||1)));
+  const pk=S.settings.packages.filter(p=>p.id);
+  return pk.slice().sort((a,b)=>(m.get(b.id)||0)-(m.get(a.id)||0)).slice(0,4).map(p=>({p,n:m.get(p.id)||0}));
+}
 function renderHome(){
   const d=new Date(); $('wDate').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
-  const today=stats(S.sales.filter(s=>s.at>=startOfDay())), month=stats(S.sales.filter(s=>s.at>=startOfMonth()));
-  const pend=S.sales.filter(s=>s.status==='pending'), credit=S.sales.filter(s=>s.method==='Credit');
-  const [rk]=rateLine();
-  const cards=[
-    ['sales', today.n?'ok':'', IC.list, rs(today.recv), today.n+' sale'+(today.n===1?'':'s')+' today', 'today'],
-    ['sales', today.profit>0?'ok':today.profit<0?'bad':'', IC.trend, rs(today.profit), 'Profit today', 'today'],
-    ['sales', pend.length?'warn':'ok', IC.clock, pend.length ? pend.length+' to send' : 'All sent', pend.length?'Diamonds not sent yet':'Nothing waiting', 'pending'],
-    ['reports', month.profit>0?'ok':'', IC.money, rs(month.profit), 'Profit this month', ''],
-    ['rate', rk==='ok'?'ok':'warn', IC.dollar, 'Rs '+rs2(rateNow()), rk==='ok'?'Live dollar rate':'Dollar rate (check)', '']
+  const today=stats(inRange(startOfDay(), Infinity));
+  $('wToday').innerHTML = S.loaded ? `<span>Today <b>${rs(today.recv)}</b></span><span>${today.n} sale${today.n===1?'':'s'}</span><span class="${today.profit>0?'up':''}">Profit <b>${rsSigned(today.profit)}</b></span><span><b>${nf(today.dia)}</b> 💎</span>` : '';
+  // period KPIs
+  document.querySelectorAll('#ovPeriod button').forEach(b=>b.setAttribute('aria-checked',String(b.dataset.v===S.period)));
+  const R=periodRange(S.period), cur=stats(inRange(R.from,Infinity)), prev=stats(inRange(R.pFrom,R.pTo));
+  $('ovCmp').textContent = R.cmp;
+  const margin = cur.recv ? Math.round(cur.profit/cur.recv*100) : 0;
+  const k=[
+    ['money', IC.money, 'Money received', rs(cur.recv), delta(cur.recv,prev.recv), cur.n?'Avg '+rs(cur.recv/cur.n)+' per sale':''],
+    ['gain', IC.trend, 'Profit', rsSigned(cur.profit), delta(cur.profit,prev.profit), cur.recv?margin+'% of sales':''],
+    ['gem', '<path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/>', 'Diamonds sold', nf(cur.dia), delta(cur.dia,prev.dia), ''],
+    ['', IC.list, 'Sales', String(cur.n), delta(cur.n,prev.n), new Set(inRange(R.from,Infinity).map(custKey).filter(x=>x!=='walkin')).size+' customers']
   ];
-  $('health').innerHTML = cards.map(([g,c,i,b,s,f])=>`<a class="hc ${c}" data-go="${g}" ${f?`data-filter="${f}"`:''}><span class="hi">${svgI(i)}</span><span><b>${esc(b)}</b><small>${esc(s)}</small></span></a>`).join('');
+  $('kpis').innerHTML = k.map(([c,i,l,v,dl,sub])=>`<div class="stat ${c}"><span class="k-ic">${svgI(i)}</span><span>${l}</span><b>${S.loaded?v:'–'}</b><small>${S.loaded?dl:''}${sub?'<em style="font-style:normal">'+esc(sub)+'</em>':''}</small></div>`).join('');
+  // quick sell
+  const tp=topPackages();
+  $('quick').innerHTML = tp.map(({p,n})=>`<button type="button" class="${p.kind==='member'?'mem':''}" data-quick="${esc(p.id)}"><b>${p.kind==='member'?STAR(16):GEM(16)}${esc(p.kind==='member'?p.name:nf(p.diamonds))}</b><span>${rs(sellOf(p))}</span><small>${n?n+' sold in 30 days':'Not sold yet'}</small></button>`).join('');
+  $('qsCard').hidden = !tp.length;
+  // to send
+  const pend=S.sales.filter(s=>s.status==='pending').sort((a,b)=>a.at-b.at);
+  $('sendPill').textContent=pend.length; $('sendPill').className='pill'+(pend.length?' warn':'');
+  $('toSend').innerHTML = !S.loaded ? '<div class="skel"></div>' : pend.length ? pend.slice(0,5).map(s=>`<div class="q-row"><div style="min-width:0"><div class="t">${esc(s.customer||'Walk-in')}</div><div class="s">${esc(s.pkgName)}${s.qty>1?' ×'+s.qty:''}${s.uid?' · UID <span class="uid">'+esc(s.uid)+'</span>':''} · ${esc(dayLabel(s.at))}</div></div><div class="acts">${s.uid?`<button class="btn" type="button" data-copy="${esc(s.uid)}">Copy UID</button>`:''}<button class="btn primary" type="button" data-sent="${esc(s.id)}">Sent</button></div></div>`).join('')+(pend.length>5?`<div class="q-more"><a class="link" data-go="sales" data-filter="pending">See all ${pend.length}</a></div>`:'')
+    : '<div class="q-empty"><i>✓</i>Every customer has their diamonds.</div>';
+  // udharo
+  const dues=S.sales.filter(s=>dueOf(s)>0).sort((a,b)=>a.at-b.at), dueTot=dues.reduce((t,s)=>t+dueOf(s),0);
+  $('duePill').textContent=rs(dueTot); $('duePill').className='pill'+(dueTot?' warn':'');
+  $('dueList').innerHTML = !S.loaded ? '<div class="skel"></div>' : dues.length ? dues.slice(0,5).map(s=>`<div class="q-row"><div style="min-width:0"><div class="t">${esc(s.customer||'Walk-in')}</div><div class="s">${esc(s.pkgName)} · ${esc(dayLabel(s.at))}${s.phone?' · '+esc(s.phone):''}</div></div><div class="acts"><span class="due" style="align-self:center">${rs(dueOf(s))}</span><button class="btn primary" type="button" data-collect="${esc(s.id)}">Collected</button></div></div>`).join('')+(dues.length>5?`<div class="q-more"><a class="link" data-go="sales" data-filter="credit">See all ${dues.length}</a></div>`:'')
+    : '<div class="q-empty"><i>✓</i>No money waiting to be collected.</div>';
+  renderChart();
+  renderGoal();
+  // top customers this month
+  const cm=new Map(); inRange(startOfMonth(),Infinity).forEach(s=>{ const k=custKey(s); if(k==='walkin') return; const o=cm.get(k)||{name:'',n:0,recv:0,profit:0,key:k}; o.name=s.customer||s.phone||s.uid||o.name; o.n++; o.recv+=Number(s.received)||0; o.profit+=profitOf(s); cm.set(k,o); });
+  const tc=[...cm.values()].sort((a,b)=>b.recv-a.recv).slice(0,5);
+  $('topCust').innerHTML = tc.length ? tc.map((c,i)=>`<div class="rank" data-custgo="${esc(c.key)}"><span class="no">${i+1}</span><div style="min-width:0"><div class="t">${esc(c.name)}</div><div class="s">${c.n} sale${c.n===1?'':'s'}</div></div><div class="v"><b>${rs(c.recv)}</b><small>${rsSigned(c.profit)}</small></div></div>`).join('')
+    : blank('No customers this month','Sales with a name, phone or UID show here.');
+  // recent
   const rec=S.sales.slice(0,5);
   $('recent').innerHTML = !S.loaded ? '<div class="skel"></div><div class="skel"></div>' : rec.length ? rec.map(s=>saleRow(s,false)).join('')
     : blank('No sales yet','Record your first sale to see it here.','<div style="margin-top:12px"><button class="btn accent" type="button" data-go="sell">New sale</button></div>');
-  // 7-day chart
-  const days=[]; for(let i=6;i>=0;i--){ const st=startOfDay()-i*864e5; const x=stats(S.sales.filter(s=>s.at>=st && s.at<st+864e5)); days.push({st,...x}); }
-  const max=Math.max(1,...days.map(x=>x.recv)); const wk=stats(S.sales.filter(s=>s.at>=startOfWeek()));
-  $('weekMeta').textContent=rs(wk.recv)+' received';
-  $('chart').innerHTML=days.map((x,i)=>{ const h=Math.max(2,x.recv/max*100), ph=x.recv?Math.max(0,Math.min(100,x.profit/x.recv*100)):0;
-    return `<div class="d${i===6?' today':''}" title="${new Date(x.st).toLocaleDateString('en-GB',{day:'numeric',month:'short'})}: ${rs(x.recv)} received, ${rs(x.profit)} profit"><div class="col" style="height:${h}%"><i style="height:${ph}%"></i></div><small>${i===6?'Today':new Date(x.st).toLocaleDateString('en-US',{weekday:'short'})}</small></div>`; }).join('');
 }
+function renderChart(){
+  document.querySelectorAll('#chDays button').forEach(b=>b.setAttribute('aria-checked',String(Number(b.dataset.v)===S.chDays)));
+  const n=S.chDays, days=[];
+  for(let i=n-1;i>=0;i--){ const st=startOfDay()-i*864e5; days.push({st,...stats(inRange(st,st+864e5))}); }
+  const tot=stats(inRange(startOfDay()-(n-1)*864e5, Infinity));
+  $('chSum').innerHTML=`<div><span>Received</span><b>${rs(tot.recv)}</b></div><div><span>Profit</span><b class="g">${rsSigned(tot.profit)}</b></div><div><span>Sales</span><b>${tot.n}</b></div><div><span>Daily average</span><b>${rs(tot.recv/n)}</b></div>`;
+  const rawMax=Math.max(1,...days.map(x=>x.recv)), step=Math.pow(10,Math.floor(Math.log10(rawMax))), max=Math.ceil(rawMax/step)*step;
+  $('chY').innerHTML=[1,.75,.5,.25,0].map(f=>`<span>${f?nf(max*f):'0'}</span>`).join('');
+  const every = n>14 ? 5 : n>7 ? 2 : 1;
+  $('chart').innerHTML=days.map((x,i)=>{ const lab=i===n-1?'Today':(n-1-i)%every===0?(n>7?new Date(x.st).getDate():new Date(x.st).toLocaleDateString('en-US',{weekday:'short'})):'';
+    return `<div class="d${i===n-1?' today':''}${x.n?'':' zero'}" data-i="${i}"><div class="bars"><i class="r" style="height:${x.recv/max*100}%"></i><i class="p${x.profit<0?' neg':''}" style="height:${Math.abs(x.profit)/max*100}%"></i></div><small>${lab}</small></div>`; }).join('');
+  $('chart').dataset.days=JSON.stringify(days.map(x=>[x.st,x.recv,x.profit,x.n]));
+  const best=days.reduce((a,b)=>b.recv>a.recv?b:a, days[0]);
+  $('chBest').textContent = best && best.recv ? 'Best day: '+new Date(best.st).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+', '+rs(best.recv) : '';
+}
+function chartTip(e){
+  const c=$('chart'), d=e.target.closest('.d'); let tip=c.querySelector('.ch-tip');
+  if (!d){ tip&&tip.remove(); return; }
+  const [st,recv,profit,n]=JSON.parse(c.dataset.days)[+d.dataset.i];
+  if (!tip){ tip=document.createElement('div'); tip.className='ch-tip'; c.appendChild(tip); }
+  tip.innerHTML=`<b>${new Date(st).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</b>${rs(recv)} received · ${rsSigned(profit)} · ${n} sale${n===1?'':'s'}`;
+  const r=d.getBoundingClientRect(), cr=c.getBoundingClientRect();
+  tip.style.left=Math.min(cr.width-70, Math.max(70, r.left-cr.left+r.width/2))+'px'; tip.style.top='0px';
+}
+$('chart').addEventListener('pointerover', chartTip); $('chart').addEventListener('pointerdown', chartTip);
+$('chart').addEventListener('pointerleave', ()=>{ const t=$('chart').querySelector('.ch-tip'); t&&t.remove(); });
+$('chDays').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; S.chDays=Number(b.dataset.v); renderChart(); });
+$('ovPeriod').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; S.period=b.dataset.v; renderHome(); });
+function renderGoal(){
+  const goal=Number(S.settings.goal)||0, m=stats(inRange(startOfMonth(),Infinity));
+  if (!goal){ $('goalBody').innerHTML=`<p class="help" style="margin-bottom:12px">Set how much profit you want each month. You'll see your progress here and how much you need per day.</p><button class="btn" type="button" data-go="rate" data-focus="rGoal">Set a goal</button>`; return; }
+  const d=new Date(), dim=new Date(d.getFullYear(), d.getMonth()+1, 0).getDate(), day=d.getDate(), left=dim-day+1;
+  const p=pct(m.profit,goal), pace=day/dim*100, need=Math.max(0,goal-m.profit), perDay=need/left;
+  const onTrack = m.profit >= goal*day/dim;
+  $('goalBody').innerHTML=`<div class="goal-top"><b>${rs(m.profit)}</b><span>of ${rs(goal)} · ${Math.round(p)}%</span></div>
+    <div class="bar lg goal-bar"><i class="${p>=100?'fill-ok':onTrack?'fill-ok':'fill-warn'}" style="width:${p}%"></i><span class="mark" style="left:${pace}%" title="Where you should be today"></span></div>
+    <div class="goal-facts"><div><span>Days left</span><b>${left}</b></div><div><span>Need per day</span><b>${need?rs(perDay):'Done 🎉'}</b></div><div><span>Status</span><b style="color:${p>=100||onTrack?'var(--ok)':'var(--warn)'}">${p>=100?'Reached':onTrack?'On track':'Behind'}</b></div></div>`;
+}
+document.addEventListener('click', e => {
+  const q=e.target.closest('[data-quick]'); if(q){ newSale({pkId:q.dataset.quick}); return; }
+  const c=e.target.closest('[data-copy]'); if(c){ copy(c.dataset.copy); return; }
+  const sn=e.target.closest('[data-sent]'); if(sn){ const s=S.sales.find(x=>x.id===sn.dataset.sent); if(s) setSent(s,true); return; }
+  const co=e.target.closest('[data-collect]'); if(co){ const s=S.sales.find(x=>x.id===co.dataset.collect); if(s) collectMenu(co,s); return; }
+  const cg=e.target.closest('[data-custgo]'); if(cg){ S.custFilter=cg.dataset.custgo; S.filter='all'; S.search=''; go('sales'); }
+});
+document.addEventListener('click', e => { const f=e.target.closest('[data-focus]'); if(f) setTimeout(()=>{ const el=$(f.dataset.focus); el&&(el.scrollIntoView({block:'center'}),el.focus({preventScroll:true})); },150); });
 document.addEventListener('click', e => { const f=e.target.closest('[data-filter]'); if(f){ S.filter=f.dataset.filter; S.shown=60; } }, true);
 
 /* ---------- sale rows ---------- */
 function saleRow(s, withMenu=true){
   const p=profitOf(s), name=s.customer||'Walk-in';
-  const badges=(s.status==='pending'?'<span class="badge wait">Not sent</span>':'')+(s.method==='Credit'?'<span class="badge draft">Udharo</span>':'');
+  const due=dueOf(s), badges=(s.status==='pending'?'<span class="badge wait">Not sent</span>':'')+(s.method==='Credit'?(due?`<span class="badge due">Due ${rs(due)}</span>`:'<span class="badge draft">Udharo</span>'):'');
   const sub=[esc(s.pkgName)+(s.qty>1?' ×'+s.qty:''), (s.qty>1||isMem(s))?nf(s.diamonds)+' diamonds':null, fmtWhen(s.at), s.method!=='Credit'?esc(s.method):null].filter(Boolean).join(' · ');
   return `<div class="sale${isMem(s)?' mem':''}${withMenu?'':' nomenu'}" data-sale="${esc(s.id)}" role="button" tabindex="0">
     <span class="gi">${isMem(s)?STAR(18):GEM(18)}</span>
@@ -1347,12 +1587,29 @@ function saleMenu(btn, s){
   openRowMenu(btn, (s.customer||'Walk-in')+', '+s.pkgName, [
     {icon:'edit', label:'Edit sale', fn:()=>editSale(s)},
     s.status==='pending' ? {icon:'sent', label:'Mark as sent', fn:()=>setSent(s,true)} : {icon:'unsent', label:'Mark as not sent', fn:()=>setSent(s,false)},
+    ...(s.method==='Credit'?[{icon:'money', label:'Udharo collected', fn:()=>collectMenu(btn,s)}]:[]),
+    {icon:'share', label: waNumber(s.phone)?'Send receipt on WhatsApp':'Share receipt', fn:()=>sendReceipt(s)},
     {icon:'again', label:'Sell again to this customer', fn:()=>newSale({customer:s.customer, phone:s.phone, uid:s.uid, pkgId:s.pkgId})},
     ...(s.uid?[{icon:'copy', label:'Copy Free Fire UID', fn:()=>copy(s.uid)}]:[]),
     {icon:'del', label:'Delete sale', danger:true, fn:()=>delSale(s)}
   ]);
 }
-function copy(t){ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast('UID copied')).catch(()=>toast('Couldn\u2019t copy. UID: '+t,true)); }
+function collectMenu(btn, s){
+  setTimeout(()=>openRowMenu(btn, 'Collected '+rs(dueOf(s)||priceOf(s))+' from '+(s.customer||'customer')+' by', ['Cash','eSewa','Khalti','Bank'].map(m=>({icon:'money', label:m, fn:()=>{
+    const r={...s, method:m, received:Math.max(Number(s.received)||0, priceOf(s)), paidAt:Date.now(), updatedAt:Date.now()}; saveSale(r); toast('Udharo collected: '+rs(r.received-(Number(s.received)||0))+' by '+m, false, {label:'Undo', fn:()=>saveSale(s)}); }}))), 0);
+}
+const waNumber = p => { let d=digits(p); if (d.length===13 && d.startsWith('977')) d=d.slice(3); return /^9[78]\d{8}$/.test(d) ? '977'+d : ''; };
+function receiptText(s){
+  return ['Diamond Counter receipt', '', (s.customer?'Customer: '+s.customer:null), (s.uid?'Free Fire UID: '+s.uid:null), 'Package: '+s.pkgName+(s.qty>1?' ×'+s.qty:''), 'Diamonds: '+nf(s.diamonds),
+    'Paid: '+rs(s.received)+(s.method==='Credit'?' (udharo'+(dueOf(s)?', '+rs(dueOf(s))+' due':'')+')':' by '+s.method), 'Status: '+(s.status==='pending'?'Diamonds coming soon':'Diamonds sent ✅'), 'Date: '+fmtWhen(s.at), '', 'Thank you! 💎'].filter(x=>x!==null).join('\n');
+}
+function sendReceipt(s){
+  const t=receiptText(s), w=waNumber(s.phone);
+  if (w){ open('https://wa.me/'+w+'?text='+encodeURIComponent(t),'_blank','noopener'); return; }
+  if (navigator.share){ navigator.share({text:t}).catch(()=>{}); return; }
+  copy(t, 'Receipt copied');
+}
+function copy(t, msg){ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast(msg||'UID copied')).catch(()=>toast('Couldn\u2019t copy. UID: '+t,true)); }
 function setSent(s, sent){ const r={...s, status:sent?'done':'pending', updatedAt:Date.now()}; saveSale(r); toast(sent?'Marked as sent':'Marked as not sent'); }
 function delSale(s){ removeSale(s.id); toast('Sale deleted', false, {label:'Undo', fn:()=>{ saveSale(s); toast('Sale restored'); }}); }
 
@@ -1379,7 +1636,10 @@ function renderSales(){
   if (!S.loaded){ $('sList').innerHTML='<div class="skel"></div><div class="skel"></div>'; $('sSum').innerHTML=''; return; }
   const list=filtered(), x=stats(list);
   $('sSum').innerHTML=`<span class="pill">${x.n} sale${x.n===1?'':'s'}</span><span class="pill">${nf(x.dia)} diamonds</span><span class="pill">${rs(x.recv)} received</span><span class="pill ${x.profit<0?'full':''}" style="${x.profit>=0?'background:var(--ok-soft);color:var(--ok)':''}">${rsSigned(x.profit)} profit</span>`;
-  $('sList').innerHTML = list.length ? list.slice(0,S.shown).map(s=>saleRow(s)).join('') + (list.length>S.shown?`<div class="more-row"><button class="btn" type="button" id="sMore">Show ${Math.min(60,list.length-S.shown)} more</button></div>`:'')
+  const byDay=new Map(); list.forEach(s=>{ const k=startOfDay(s.at); const o=byDay.get(k)||{n:0,recv:0,profit:0}; o.n++; o.recv+=Number(s.received)||0; o.profit+=profitOf(s); byDay.set(k,o); });
+  let lastDay=null;
+  const rowsHtml=list.slice(0,S.shown).map(s=>{ const k=startOfDay(s.at); let h=''; if(k!==lastDay){ lastDay=k; const o=byDay.get(k); h=`<div class="day-h"><b>${esc(dayLabel(s.at))}</b><span>${o.n} sale${o.n===1?'':'s'} · ${rs(o.recv)} · ${rsSigned(o.profit)}</span></div>`; } return h+saleRow(s); }).join('');
+  $('sList').innerHTML = list.length ? rowsHtml + (list.length>S.shown?`<div class="more-row"><button class="btn" type="button" id="sMore">Show ${Math.min(60,list.length-S.shown)} more</button></div>`:'')
     : S.sales.length ? blank('No sales match','Try another filter or search.') : blank('No sales yet','Tap New sale to record your first one.');
   const m=$('sMore'); if(m) m.onclick=()=>{ S.shown+=60; renderSales(); };
 }
@@ -1472,18 +1732,25 @@ function renderSell(){
 function updateCalc(){
   const p=formPkg(); const q=Math.max(1,parseInt($('fQty').value,10)||1);
   if (!p){ ['cDia','cCost','cProfit'].forEach(i=>$(i).textContent='–'); return; }
-  const cost=formCost(p,q), suggested=(S.form.orig&&S.form.orig.pkgId===p.id)?S.form.orig.received/(S.form.orig.qty||1)*q:(pkgById(p.id)?sellOf(p)*q:0);
+  const cost=formCost(p,q), suggested=(S.form.orig&&S.form.orig.pkgId===p.id)?priceOf(S.form.orig)/(S.form.orig.qty||1)*q:(pkgById(p.id)?sellOf(p)*q:0);
   if (!S.form.recvTouched) $('fRecv').value=Math.round(suggested);
   $('recvHint').textContent = 'price '+rs(suggested);
-  const recv=Number($('fRecv').value)||0, pr=recv-cost;
+  const recv=Number($('fRecv').value)||0, pr=(S.form.method==='Credit'?Math.max(recv,Math.round(suggested)):recv)-cost;
   $('cDia').textContent=nf(p.diamonds*q); $('cCost').textContent=rs(cost);
   $('cProfit').textContent=rsSigned(pr); $('cProfit').className=pr<0?'bad':'good';
+  const credit=S.form.method==='Credit', due=Math.max(0,Math.round(suggested)-recv);
+  $('cDueBox').hidden=!credit; $('calc').classList.toggle('four',credit); $('cDue').textContent=rs(due);
+  S.form.price=Math.round(suggested);
   $('sellHelp').textContent = S.editId ? 'Editing keeps the dollar rate from the day of sale' : 'At Rs '+rs2(rateNow())+' per dollar';
 }
 $('pkPick').addEventListener('click', e => { const b=e.target.closest('[data-pk]'); if(!b) return; S.form.pkId=b.dataset.pk; if(!S.editId||!S.form.orig||S.form.orig.pkgId!==b.dataset.pk) S.form.recvTouched=false; dirty.add('sell'); renderSell(); });
-$('fMethod').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; S.form.method=b.dataset.v; dirty.add('sell'); renderSell(); });
+$('fMethod').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; const was=S.form.method; S.form.method=b.dataset.v;
+  if (b.dataset.v==='Credit' && was!=='Credit' && !S.form.recvTouched){ S.form.recvTouched=true; $('fRecv').value=0; }
+  else if (was==='Credit' && b.dataset.v!=='Credit' && S.form.price!=null && !S.editId){ S.form.recvTouched=false; }
+  dirty.add('sell'); renderSell(); });
 $('fStatus').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; S.form.status=b.dataset.v; dirty.add('sell'); renderSell(); });
 $('fQty').addEventListener('input', () => { S.form.recvTouched=false; dirty.add('sell'); updateCalc(); });
+document.querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>{ const q=Math.max(1,(parseInt($('fQty').value,10)||1)+Number(b.dataset.step)); $('fQty').value=q; $('fQty').dispatchEvent(new Event('input')); }));
 $('fRecv').addEventListener('input', () => { S.form.recvTouched=true; dirty.add('sell'); updateCalc(); });
 ['fName','fPhone','fUid','fNote'].forEach(i=>$(i).addEventListener('input',()=>dirty.add('sell')));
 function matchCustomer(){
@@ -1516,12 +1783,12 @@ $('sellSave').addEventListener('click', () => {
     diamonds:p.diamonds*q, qty:q, usd:p.usd,
     rate: o ? (o.rate||Math.round(rateNow()*100)/100) : Math.round(rateNow()*100)/100,
     feePct: o ? (o.feePct ?? (Number(S.settings.feePct)||0)) : (Number(S.settings.feePct)||0),
-    cost, received:recv, method:S.form.method, status:S.form.status, note:$('fNote').value.trim()
+    cost, price:S.form.price ?? recv, received:recv, method:S.form.method, status:S.form.status, note:$('fNote').value.trim()
   };
   if (o) r.updatedAt=Date.now();
   saveSale(r);
   dirty.delete('sell'); const wasEdit=!!S.editId; S.editId=null; S.form=null; $('custHit').hidden=true;
-  toast(wasEdit?'Sale updated':'Sale saved: '+rs(recv)+', '+rsSigned(recv-cost)+' profit');
+  toast(wasEdit?'Sale updated':'Sale saved: '+rs(recv)+', '+rsSigned(profitOf(r))+' profit', false, (!wasEdit && (r.phone||navigator.share)) ? {label:'Send receipt', fn:()=>sendReceipt(r)} : null);
   if (wasEdit) go('sales'); else { resetForm(); renderSell(); scrollTo({top:0,behavior:'smooth'}); }
 });
 
@@ -1580,11 +1847,13 @@ function renderRatePage(){
   const st={...S.settings, ...d}, p=S.settings.packages.find(x=>x.id==='d100')||S.settings.packages[0];
   $('rPreview').innerHTML = p ? `<span>${esc(p.kind==='member'?p.name:nf(p.diamonds)+' diamonds')} would sell at</span><b>${rs(sellOf(p,st))} <span class="help" style="font-weight:500">(cost ${rs(costOf(p,st))})</span></b>` : '';
   $('rMsg').textContent = dirty.has('rate') ? 'Unsaved changes' : 'Saved';
+  if (document.activeElement!==$('rGoal')) $('rGoal').value = Number(S.settings.goal)||0;
 }
 $('rMode').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; S.rateDraft.rateMode=b.dataset.v; dirty.add('rate'); renderRatePage(); });
 $('rRound').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; S.rateDraft.roundTo=Number(b.dataset.v); dirty.add('rate'); renderRatePage(); });
 [['rManual','manualRate'],['rFee','feePct'],['rMargin','marginPct']].forEach(([id,k])=>$(id).addEventListener('input',()=>{ const v=parseFloat($(id).value); if(isNaN(v)||v<0) return; S.rateDraft[k]=v; dirty.add('rate'); renderRatePage(); }));
 $('rRefresh').addEventListener('click', fetchRate);
+$('gSave').addEventListener('click', () => { const v=Math.round(Number($('rGoal').value)); if(!(v>=0)){ toast('Enter a goal of 0 or more.',true); return; } const st={...S.settings, goal:v}; S.settings=st; saveSettings(st); renderAll(); toast(v?'Goal saved: '+rs(v)+' profit a month':'Goal removed'); });
 $('rUndo').addEventListener('click', () => { S.rateDraft=null; dirty.delete('rate'); renderRatePage(); });
 $('rSave').addEventListener('click', () => {
   const d=S.rateDraft;
@@ -1607,7 +1876,8 @@ function renderReports(){
   const pk=new Map(); month.forEach(s=>{ const o=pk.get(s.pkgName)||{v:0,n:0,p:0}; o.v+=Number(s.received)||0; o.n+=s.qty||1; o.p+=profitOf(s); pk.set(s.pkgName,o); });
   $('rpPkg').innerHTML=bars(pk,'p',o=>o.n+' sold, '+rsSigned(o.p)+' profit');
   const cr=S.sales.filter(s=>s.method==='Credit');
-  $('rpCreditMeta').textContent=cr.length?cr.length+' sale'+(cr.length===1?'':'s'):'';
+  const dueT=cr.reduce((t,s)=>t+dueOf(s),0);
+  $('rpCreditMeta').textContent=cr.length?cr.length+' sale'+(cr.length===1?'':'s')+(dueT?', '+rs(dueT)+' due':''):'';
   $('rpCredit').innerHTML=cr.length?cr.map(s=>saleRow(s)).join(''):blank('No udharo','Sales marked “Udharo” show here until you change how they were paid.');
 }
 
@@ -1620,9 +1890,9 @@ $('bkBtn').addEventListener('click', () => {
 });
 function exportCsv(list){
   if (!list.length){ toast('No sales to download',true); return; }
-  const head=['Date','Customer','Phone','FF UID','Package','Qty','Diamonds','Dollar price','Rate','Cost (Rs)','Received (Rs)','Profit (Rs)','Paid by','Sent','Note'];
+  const head=['Date','Customer','Phone','FF UID','Package','Qty','Diamonds','Dollar price','Rate','Cost (Rs)','Price (Rs)','Received (Rs)','Due (Rs)','Profit (Rs)','Paid by','Sent','Note'];
   const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
-  const lines=list.map(s=>[new Date(s.at).toLocaleString('en-GB'),s.customer,s.phone,s.uid,s.pkgName,s.qty,s.diamonds,(s.usd*(s.qty||1)).toFixed(2),s.rate,Number(s.cost).toFixed(2),s.received,profitOf(s).toFixed(2),s.method==='Credit'?'Udharo':s.method,s.status==='pending'?'No':'Yes',s.note].map(q).join(','));
+  const lines=list.map(s=>[new Date(s.at).toLocaleString('en-GB'),s.customer,s.phone,s.uid,s.pkgName,s.qty,s.diamonds,(s.usd*(s.qty||1)).toFixed(2),s.rate,Number(s.cost).toFixed(2),priceOf(s),s.received,dueOf(s),profitOf(s).toFixed(2),s.method==='Credit'?'Udharo':s.method,s.status==='pending'?'No':'Yes',s.note].map(q).join(','));
   download('diamond-sales-'+new Date().toISOString().slice(0,10)+'.csv', '\uFEFF'+[head.map(q).join(',')].concat(lines).join('\n'), 'text/csv');
   toast(list.length+' sales downloaded');
 }
