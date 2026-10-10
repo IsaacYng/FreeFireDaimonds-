@@ -792,6 +792,83 @@ input[type=number]:focus,input[type=tel]:focus{outline:none;border-color:var(--i
 .qty{height:46px;align-items:stretch}
 .qty input{height:100%;padding:0 8px;min-width:0}
 .qty .icon-btn{height:100%;width:44px;border:none;border-radius:0;margin:0}
+
+/* ===== Price list v3 ===== */
+.btn.sm{min-height:36px;padding:0 12px;font-size:.86rem}
+.plist{display:none}
+@media(max-width:700px){
+  .p-table{display:none}
+  .plist{display:grid}
+}
+.pl{display:grid;grid-template-columns:40px minmax(0,1fr) auto;gap:12px;align-items:center;padding:13px 16px;border-top:1px solid var(--line);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.pl:first-child{border-top:none}
+.pl:active{background:#FAFBFB}
+.pl .gi{width:40px;height:40px;border-radius:12px;background:#E8EEF7;color:#2F5B94;display:flex;align-items:center;justify-content:center}
+.pl.mem .gi{background:var(--warn-soft);color:var(--warn)}
+.pl .t{font-weight:700;font-size:1rem;line-height:1.25}
+.pl .t small{font-weight:500;color:var(--muted);font-size:.8rem;margin-left:4px}
+.pl .s{display:flex;flex-wrap:wrap;gap:4px 10px;font-size:.8rem;color:var(--muted);margin-top:3px;font-variant-numeric:tabular-nums}
+.pl .s b{color:var(--ink-2);font-weight:600}
+.pl .v{text-align:right;font-variant-numeric:tabular-nums}
+.pl .v b{display:block;font-size:1.12rem;font-weight:800;letter-spacing:-.01em;white-space:nowrap}
+.pl .v small{display:inline-block;margin-top:3px;font-size:.74rem;font-weight:700;color:var(--ok);background:var(--ok-soft);padding:1px 7px;border-radius:999px;white-space:nowrap}
+.pl-group{padding:9px 16px;font-size:.76rem;font-weight:700;color:var(--muted);background:#FAFBFB;border-top:1px solid var(--line);letter-spacing:.03em}
+.pl-group:first-child{border-top:none}
+
+/* package list (editor) */
+.pkr{display:grid;grid-template-columns:40px minmax(0,1fr) auto auto;gap:12px;align-items:center;padding:12px 10px 12px 20px;border-top:1px solid var(--line);cursor:pointer;transition:background .15s}
+.pkr:first-child{border-top:none}
+.pkr:hover{background:#FAFBFB}
+.pkr .gi{width:40px;height:40px;border-radius:12px;background:#E8EEF7;color:#2F5B94;display:flex;align-items:center;justify-content:center}
+.pkr.mem .gi{background:var(--warn-soft);color:var(--warn)}
+.pkr .t{font-weight:600;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.pkr .s{font-size:.82rem;color:var(--muted);font-variant-numeric:tabular-nums}
+.pkr .tag{font-size:.72rem;font-weight:700;padding:2px 8px;border-radius:999px;background:#E8EEF7;color:#2F5B94;white-space:nowrap}
+.pkr.mem .tag{background:var(--warn-soft);color:var(--warn)}
+@media(max-width:900px){.pkr{padding:12px 6px 12px 14px;gap:10px}}
+@media(max-width:420px){.pkr .tag{display:none}.pkr{grid-template-columns:40px minmax(0,1fr) auto}}
+
+/* package sheet */
+.pk-sheet{padding-bottom:0}
+@media(min-width:901px){.pk-sheet{width:480px}}
+.pk-sheet-h{display:flex;align-items:center;justify-content:space-between;margin:0 0 6px}
+.pk-sheet-h h3{margin:0 4px}
+.pk-sheet-h .icon-btn{color:var(--muted)}
+.pk-sheet-h .icon-btn:hover{background:var(--bg);color:var(--ink)}
+.pk-form{padding:4px 4px 8px;gap:16px}
+.type-pick{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.type-pick button{display:grid;grid-template-columns:auto 1fr;grid-template-rows:auto auto;column-gap:10px;row-gap:2px;align-items:center;text-align:left;padding:12px;border-radius:14px;border:1.5px solid var(--line-2);background:#fff;cursor:pointer;color:var(--ink);transition:border-color .15s,background .15s,box-shadow .15s}
+.type-pick .ti{grid-row:1/3;width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;background:#E8EEF7;color:#2F5B94}
+.type-pick button[data-v=member] .ti{background:var(--warn-soft);color:var(--warn)}
+.type-pick b{font-weight:700;font-size:.95rem}
+.type-pick small{font-size:.74rem;color:var(--muted);line-height:1.3}
+.type-pick button[aria-checked="true"]{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink),0 8px 18px -12px rgba(22,34,43,.6)}
+.type-pick button[aria-checked="true"]::after{content:"";position:absolute}
+.type-pick button{position:relative}
+.type-pick button[aria-checked="true"]::before{content:"✓";position:absolute;top:8px;right:10px;width:18px;height:18px;border-radius:50%;background:var(--ink);color:#fff;font-size:.68rem;font-weight:800;display:flex;align-items:center;justify-content:center}
+@media(max-width:380px){.type-pick small{display:none}}
+.grid2.keep2{grid-template-columns:1fr 1fr !important;gap:12px}
+.unit{display:flex;align-items:stretch;border:1px solid var(--line-2);border-radius:10px;overflow:hidden;background:#fff;transition:border-color .15s,box-shadow .15s}
+.unit:focus-within{border-color:var(--ink);box-shadow:0 0 0 3px rgba(22,34,43,.08)}
+.unit input{border:none !important;box-shadow:none !important;border-radius:0;min-width:0;font-weight:600;padding:11px 12px}
+.unit span{display:flex;align-items:center;padding:0 12px;background:var(--bg);color:var(--muted);font-weight:600}
+.unit.pre span{border-right:1px solid var(--line-2)}
+.unit:not(.pre) span{border-left:1px solid var(--line-2)}
+.pk-prev{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));border-radius:12px;background:var(--side);color:#C9D3D6;overflow:hidden}
+.pk-prev div{padding:12px 14px;display:grid;gap:2px;border-left:1px solid rgba(255,255,255,.08)}
+.pk-prev div:first-child{border-left:none}
+.pk-prev span{font-size:.74rem}
+.pk-prev b{color:#fff;font-size:1.05rem;font-weight:700;font-variant-numeric:tabular-nums;white-space:nowrap}
+.pk-prev b.g{color:#7FD9A6}
+.pk-prev p{grid-column:1/-1;padding:0 14px 10px;font-size:.74rem;color:#9FB0B7}
+.pk-acts{position:sticky;bottom:0;display:flex;align-items:center;gap:8px;padding:12px 4px calc(14px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid var(--line);margin:0 -16px;padding-left:16px;padding-right:16px}
+.pk-acts .sp{flex:1}
+.del-btn{color:var(--accent);border-color:transparent;background:none;padding:0 8px}
+.del-btn:hover{background:var(--accent-soft);border-color:transparent}
+@media(min-width:901px){.pk-acts{margin:0 -16px;border-radius:0 0 18px 18px}}
+.unit input{-moz-appearance:textfield}
+.unit input::-webkit-inner-spin-button,.unit input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
+@media(min-width:901px){.pk-sheet .grab{display:none}.pk-sheet{padding-top:16px}}
 </style>
 </head>
 <body>
@@ -998,19 +1075,16 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- PRICES -->
       <section data-page="prices" hidden>
-        <div class="ph"><div><h1>Price list</h1><p>What each package costs you and what to charge, at today's rate. Tap a row to sell it.</p><p class="np-help" lang="ne">Garena ले मूल्य बदल्यो भने तलको “Packages” मा डलर मूल्य बदलेर Save packages थिच्नुहोस्।</p></div><span class="pill" id="pRatePill"></span></div>
+        <div class="ph"><div><h1>Price list</h1><p>What each package costs you and what to charge, at today's rate. Tap a row to sell it.</p><p class="np-help" lang="ne">Garena ले मूल्य बदल्यो भने तलको “Packages” मा प्याकेज थिच्नुहोस्, डलर मूल्य बदल्नुहोस् र Save package थिच्नुहोस्।</p></div><span class="pill" id="pRatePill"></span></div>
         <div class="card">
           <div class="card-h"><h2>Today's prices</h2><span class="meta" id="pMeta"></span></div>
-          <div class="tbl-wrap" tabindex="0"><table class="limits"><thead><tr><th>PACKAGE</th><th class="r c-usd">GAME $</th><th class="r">YOUR COST</th><th class="r">SELL AT</th><th class="r">PROFIT</th></tr></thead><tbody id="pBoard"></tbody></table></div>
+          <div class="plist" id="pCards"></div>
+          <div class="tbl-wrap p-table" tabindex="0"><table class="limits"><thead><tr><th>PACKAGE</th><th class="r">GAME $</th><th class="r">YOUR COST</th><th class="r">SELL AT</th><th class="r">PROFIT</th></tr></thead><tbody id="pBoard"></tbody></table></div>
         </div>
         <div class="card">
-          <div class="card-h"><h2>Packages</h2><span class="meta" id="peMeta"></span></div>
-          <div class="card-b">
-            <div class="pe pe-h" style="background:none;border:none;padding:0 0 6px"><span>Name</span><span>Diamonds</span><span>Price ($)</span><span>Type</span><span></span></div>
-            <div class="pe-list" id="peList"></div>
-            <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px"><button class="btn" type="button" id="peAdd">+ Add package</button><button class="btn" type="button" id="peReset">Reset to game prices</button></div>
-          </div>
-          <div class="card-f sticky"><span class="help" id="peMsg"></span><button class="btn" type="button" id="peUndo">Undo changes</button><button class="btn accent" type="button" id="peSave"><span class="spin"></span><span class="bt">Save packages</span></button></div>
+          <div class="card-h"><h2>Packages</h2><button class="btn accent sm" type="button" id="peAdd"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add package</button></div>
+          <div class="tbl" id="peList"></div>
+          <div class="card-f"><span class="help" id="peMeta"></span><button class="btn" type="button" id="peReset">Reset to game prices</button></div>
         </div>
       </section>
 
@@ -1093,7 +1167,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <details class="qa"><summary>डायमन्ड पछि पठाउने भए?</summary><p>बिक्री गर्दा “Not yet” छान्नुहोस्। Home को “To send” मा देखिन्छ। पठाएपछि Sales मा ⋮ → Mark as sent थिच्नुहोस्।</p></details>
           <details class="qa"><summary>उधारो कसरी राख्ने?</summary><p>Paid by मा “Udharo” छान्नुहोस् र Money received मा अहिले पाएको रकम मात्र लेख्नुहोस्। पछि पैसा आएपछि बिक्री खोलेर रकम र Paid by बदल्नुहोस्।</p></details>
           <details class="qa"><summary>डलर रेट किन मिलेन?</summary><p>Live rate बजारको रेट हो। बैंक वा कार्डले लिने रेट फरक हुन्छ भने Rate &amp; margin मा “My own rate” छानेर आफ्नो रेट राख्नुहोस्।</p></details>
-          <details class="qa"><summary>Garena ले मूल्य बदल्यो भने?</summary><p>Price list → Packages मा डलर मूल्य बदल्नुहोस् → Save packages। पुराना बिक्रीको हिसाब बदलिँदैन।</p></details>
+          <details class="qa"><summary>Garena ले मूल्य बदल्यो भने?</summary><p>Price list → Packages मा प्याकेज थिच्नुहोस् → डलर मूल्य बदल्नुहोस् → Save package। पुराना बिक्रीको हिसाब बदलिँदैन।</p></details>
           <details class="qa"><summary>इन्टरनेट नहुँदा के हुन्छ?</summary><p>बिक्री फोनमै सेभ हुन्छ र माथि “Waiting to sync” देखिन्छ। नेट आएपछि आफैं Firebase मा जान्छ। पेज बन्द नगर्नुहोस्।</p></details>
           <details class="qa"><summary>गल्ती मेटियो भने?</summary><p>मेटाउनासाथ तल “Undo” आउँछ, थिच्नुहोस्। धेरै मेटियो भने Backup &amp; restore बाट फर्काउनुहोस्।</p></details>
           <details class="qa"><summary>“Permission denied” आयो भने?</summary><p>Firebase को Firestore Rules ठीकसँग राखिएको छैन। Rules फेरि paste गरेर Publish गर्नुहोस्।</p></details>
@@ -1160,6 +1234,28 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
     <a data-go="help"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg><span lang="ne">मद्दत</span></a>
     <a data-logout role="button" tabindex="0" class="danger"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><span>Sign out</span></a>
   </div>
+</div>
+
+<!-- package editor sheet -->
+<div class="sheet pk-sheet" id="sheetPk" role="dialog" aria-modal="true" aria-labelledby="pkT" hidden>
+  <div class="grab"></div>
+  <div class="pk-sheet-h"><h3 id="pkT">Edit package</h3><button class="icon-btn" type="button" id="pkClose" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="form pk-form">
+    <div class="field"><span class="lab">Type</span>
+      <div class="type-pick" id="pkKind" role="radiogroup" aria-label="Package type">
+        <button type="button" role="radio" data-v="topup"><span class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg></span><b>Top-up</b><small>Diamonds go straight to the account</small></button>
+        <button type="button" role="radio" data-v="member"><span class="ti"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg></span><b>Membership</b><small>Weekly or monthly pass</small></button>
+      </div>
+    </div>
+    <label class="field"><span class="lab">Name</span><input id="pkName" maxlength="40" autocomplete="off" placeholder="520 diamonds"/></label>
+    <div class="grid2 keep2">
+      <label class="field"><span class="lab">Diamonds</span><div class="unit"><input id="pkDia" type="number" min="1" step="1" inputmode="numeric" placeholder="520"/><span>💎</span></div></label>
+      <label class="field"><span class="lab">Game price</span><div class="unit pre"><span>$</span><input id="pkUsd" type="number" min="0" step="0.01" inputmode="decimal" placeholder="5.38"/></div></label>
+    </div>
+    <div class="pk-prev" id="pkPrev"></div>
+    <p class="err" id="pkErr" role="alert"></p>
+  </div>
+  <div class="pk-acts"><button class="btn del-btn" type="button" id="pkDel">Delete</button><span class="sp"></span><button class="btn" type="button" id="pkCancel">Cancel</button><button class="btn accent" type="button" id="pkSave">Save package</button></div>
 </div>
 
 <!-- row action menu -->
@@ -1260,6 +1356,7 @@ const svgI = p => `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" s
 const IC = {
   edit:'<path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>', sent:'<path d="m5 12 5 5L20 7"/>', unsent:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>',
   again:'<path d="M3 12a9 9 0 0 1 15.5-6.2L21 8M21 3v5h-5M21 12a9 9 0 0 1-15.5 6.2L3 16M3 21v-5h5"/>', del:'<path d="M3 6h18M8 6V4h8v2M6 6l1 14h10l1-14"/>',
+  up:'<path d="M12 19V5M6 11l6-6 6 6"/>', down:'<path d="M12 5v14M6 13l6 6 6-6"/>',
   list:'<path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/>', copy:'<rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/>',
   money:'<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>', box:'<path d="M21 8 12 3 3 8v8l9 5 9-5z"/><path d="m3 8 9 5 9-5M12 13v8"/>',
   clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>', share:'<circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/>', trend:'<path d="m3 17 6-6 4 4 8-8"/><path d="M14 7h7v7"/>', dollar:'<path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>'
@@ -1411,10 +1508,10 @@ $('bMore').addEventListener('click', () => openSheet('sheetMore'));
 $('bMore').addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openSheet('sheetMore'); } });
 $('bNew').addEventListener('click', () => newSale());
 $('topMore').addEventListener('click', () => { const sh=$('sheetMore'); if(!sh.hidden){ closeSheets(); return; } openSheet('sheetMore'); const r=$('topMore').getBoundingClientRect(); sh.classList.add('anchored'); sh.style.top=(r.bottom+10)+'px'; sh.style.right=Math.max(12,innerWidth-r.right)+'px'; $('topMore').setAttribute('aria-expanded','true'); });
-$('sheetBg').addEventListener('click', closeSheets);
+$('sheetBg').addEventListener('click', () => { closeSheets(); if(!$('sheetPk').hidden) closePk(); });
 $('userBtn').addEventListener('click', e => { e.stopPropagation(); const m=$('userMenu'); m.hidden=!m.hidden; $('userBtn').setAttribute('aria-expanded', !m.hidden); });
 document.addEventListener('click', e => { if (!e.target.closest('.user-menu')) $('userMenu').hidden=true; });
-addEventListener('keydown', e => { if (e.key==='Escape'){ closeMenu(); closeSheets(); closeRowMenu(); $('userMenu').hidden=true; if(!$('dlg').hidden) $('dlgNo').click(); } });
+addEventListener('keydown', e => { if (e.key==='Escape'){ closeMenu(); closeSheets(); if(!$('sheetPk').hidden) closePk(); closeRowMenu(); $('userMenu').hidden=true; if(!$('dlg').hidden) $('dlgNo').click(); } });
 
 /* ---------- row action menu (⋮) ---------- */
 let menuFor=null;
@@ -1797,43 +1894,84 @@ function renderPrices(){
   const st=S.settings, pk=st.packages;
   $('pMeta').textContent=`${Number(st.feePct)||0}% fee, ${Number(st.marginPct)||0}% margin, rounded to Rs ${st.roundTo}`;
   $('pBoard').innerHTML=pk.map(p=>{ const c=costOf(p), s=sellOf(p);
-    return `<tr class="click ${p.kind==='member'?'mem':''}" data-sellpk="${esc(p.id)}"><td><span class="pn">${p.kind==='member'?STAR(16):GEM(16)}${esc(p.kind==='member'?p.name+' ('+nf(p.diamonds)+')':nf(p.diamonds)+' diamonds')}</span></td><td class="r c-usd">$${p.usd.toFixed(2)}</td><td class="r">${rs(c)}</td><td class="r sell">${rs(s)}</td><td class="r gain">${rsSigned(s-c)}</td></tr>`; }).join('')
+    return `<tr class="click ${p.kind==='member'?'mem':''}" data-sellpk="${esc(p.id)}"><td><span class="pn">${p.kind==='member'?STAR(16):GEM(16)}${esc(p.kind==='member'?p.name+' ('+nf(p.diamonds)+')':nf(p.diamonds)+' diamonds')}</span></td><td class="r">$${p.usd.toFixed(2)}</td><td class="r">${rs(c)}</td><td class="r sell">${rs(s)}</td><td class="r gain">${rsSigned(s-c)}</td></tr>`; }).join('')
     || `<tr><td colspan="5">${blank('No packages','Add one below.')}</td></tr>`;
-  if (!S.peDraft || !dirty.has('prices')) S.peDraft=clone(pk);
-  renderPe();
+  const card=p=>{ const c=costOf(p), s=sellOf(p), m=p.kind==='member';
+    return `<div class="pl${m?' mem':''}" data-sellpk="${esc(p.id)}" role="button" tabindex="0"><span class="gi">${m?STAR(20):GEM(20)}</span>
+      <div style="min-width:0"><div class="t">${esc(m?p.name:nf(p.diamonds)+' diamonds')}${m?`<small>${nf(p.diamonds)} 💎</small>`:''}</div>
+      <div class="s"><span>$${p.usd.toFixed(2)}</span><span>Cost <b>${rs(c)}</b></span></div></div>
+      <div class="v"><b>${rs(s)}</b><small>${rsSigned(s-c)}</small></div></div>`; };
+  const top=pk.filter(p=>p.kind!=='member'), mem=pk.filter(p=>p.kind==='member');
+  $('pCards').innerHTML=(top.length?'<div class="pl-group">TOP-UP</div>'+top.map(card).join(''):'')+(mem.length?'<div class="pl-group">MEMBERSHIP</div>'+mem.map(card).join(''):'') || blank('No packages','Add one below.');
+  $('peMeta').textContent=pk.length+' package'+(pk.length===1?'':'s')+' · tap one to edit';
+  $('peList').innerHTML=pk.map((p,i)=>{ const m=p.kind==='member';
+    return `<div class="pkr${m?' mem':''}" data-pid="${esc(p.id)}" role="button" tabindex="0"><span class="gi">${m?STAR(20):GEM(20)}</span>
+      <div style="min-width:0"><div class="t">${esc(p.name)}</div><div class="s">${nf(p.diamonds)} 💎 · $${p.usd.toFixed(2)} · sells at ${rs(sellOf(p))}</div></div>
+      <span class="tag">${m?'Membership':'Top-up'}</span><div class="ops">${KEBAB}</div></div>`; }).join('') || blank('No packages','Tap Add package to create one.');
 }
-$('pBoard').addEventListener('click', e => { const r=e.target.closest('[data-sellpk]'); if(r) newSale({pkId:r.dataset.sellpk}); });
-function renderPe(){
-  const d=S.peDraft, ed=$('peList'); if (ed.contains(document.activeElement) && document.activeElement.tagName==='INPUT') return;
-  $('peMeta').textContent=d.length+' package'+(d.length===1?'':'s');
-  ed.innerHTML=d.map((p,i)=>`<div class="pe" data-i="${i}">
-    <input data-k="name" value="${esc(p.name)}" aria-label="Name" maxlength="40"/>
-    <input data-k="diamonds" type="number" min="1" step="1" inputmode="numeric" value="${esc(p.diamonds)}" aria-label="Diamonds"/>
-    <input data-k="usd" type="number" min="0" step="0.01" inputmode="decimal" value="${esc(p.usd)}" aria-label="Price in dollars"/>
-    <select data-k="kind" aria-label="Type"><option value="topup"${p.kind!=='member'?' selected':''}>Top-up</option><option value="member"${p.kind==='member'?' selected':''}>Membership</option></select>
-    <div class="acts"><button type="button" class="icon-btn" data-mv="-1" aria-label="Move up" ${i===0?'disabled':''}>${svgI('<path d="m6 15 6-6 6 6"/>')}</button><button type="button" class="icon-btn" data-mv="1" aria-label="Move down" ${i===d.length-1?'disabled':''}>${svgI('<path d="m6 9 6 6 6-6"/>')}</button><button type="button" class="icon-btn del" data-rm aria-label="Remove">${svgI(IC.del)}</button></div></div>`).join('');
-  $('peMsg').textContent = dirty.has('prices') ? 'Unsaved changes' : 'Saved';
+document.addEventListener('click', e => { if (e.target.closest('#pBoard [data-sellpk], #pCards [data-sellpk]')) newSale({pkId:e.target.closest('[data-sellpk]').dataset.sellpk}); });
+document.addEventListener('keydown', e => { if((e.key==='Enter'||e.key===' ') && e.target.matches('.pl[data-sellpk], .pkr[data-pid]')){ e.preventDefault(); e.target.click(); } });
+
+function savePackages(list, msg, undoList){
+  const st={...S.settings, packages:clone(list)}; S.settings=st; saveSettings(st); renderAll();
+  toast(msg, false, undoList ? {label:'Undo', fn:()=>{ const s2={...S.settings, packages:clone(undoList)}; S.settings=s2; saveSettings(s2); renderAll(); toast('Undone'); }} : null);
 }
-$('peList').addEventListener('input', e => { const row=e.target.closest('[data-i]'); if(!row) return; const p=S.peDraft[+row.dataset.i], k=e.target.dataset.k;
-  if (k==='name') p.name=e.target.value; else if (k==='kind') p.kind=e.target.value; else { const v=parseFloat(e.target.value); if(!isNaN(v)) p[k]= k==='diamonds'?Math.round(v):v; }
-  dirty.add('prices'); $('peMsg').textContent='Unsaved changes'; });
-$('peList').addEventListener('change', e => { if(e.target.tagName==='SELECT'){ const row=e.target.closest('[data-i]'); S.peDraft[+row.dataset.i].kind=e.target.value; dirty.add('prices'); renderPe(); } });
-$('peList').addEventListener('click', e => { const row=e.target.closest('[data-i]'); if(!row) return; const i=+row.dataset.i, d=S.peDraft;
-  const mv=e.target.closest('[data-mv]'); if(mv){ const j=i+Number(mv.dataset.mv); [d[i],d[j]]=[d[j],d[i]]; dirty.add('prices'); renderPe(); return; }
-  if (e.target.closest('[data-rm]')){ d.splice(i,1); dirty.add('prices'); renderPe(); } });
-$('peAdd').addEventListener('click', () => { S.peDraft.push({id:'p'+Date.now().toString(36), name:'New package', diamonds:100, usd:1, kind:'topup'}); dirty.add('prices'); renderPe(); const ins=$('peList').querySelectorAll('input[data-k=name]'); const l=ins[ins.length-1]; l&&(l.focus(),l.select()); });
-$('peReset').addEventListener('click', async () => { if(!await ask('Reset to game prices?','Your package list will be replaced with the prices from the Free Fire top-up screen. Save to keep it.','Reset')) return; S.peDraft=clone(DEFAULT_PACKAGES); dirty.add('prices'); renderPe(); });
-$('peUndo').addEventListener('click', () => { S.peDraft=null; dirty.delete('prices'); renderPrices(); });
-$('peSave').addEventListener('click', async () => {
-  const d=S.peDraft;
-  for (const p of d){ p.name=(p.name||'').trim();
-    if (!p.name){ toast('Every package needs a name.',true); return; }
-    if (!(p.diamonds>=1)){ toast(p.name+': diamonds must be 1 or more.',true); return; }
-    if (!(p.usd>0)){ toast(p.name+': dollar price must be more than 0.',true); return; } }
-  if (!d.length){ toast('Keep at least one package.',true); return; }
-  const st={...S.settings, packages:clone(d)}; btnLoad($('peSave'),true,'Saving…');
-  S.settings=st; S.peDraft=null; dirty.delete('prices'); saveSettings(st); renderPrices(); btnLoad($('peSave'),false,'Save packages'); toast('Packages saved');
+$('peList').addEventListener('click', e => {
+  const row=e.target.closest('[data-pid]'); if(!row) return;
+  const pk=S.settings.packages, i=pk.findIndex(p=>p.id===row.dataset.pid); if(i<0) return; const p=pk[i];
+  const k=e.target.closest('[data-menu]');
+  if (!k){ openPk(p); return; }
+  e.stopPropagation();
+  const move=dir=>{ const l=clone(pk), j=i+dir; [l[i],l[j]]=[l[j],l[i]]; savePackages(l,'Order changed'); };
+  openRowMenu(k, p.name, [
+    {icon:'edit', label:'Edit package', fn:()=>openPk(p)},
+    {icon:'again', label:'Sell this package', fn:()=>newSale({pkId:p.id})},
+    ...(i>0?[{icon:'up', label:'Move up', fn:()=>move(-1)}]:[]),
+    ...(i<pk.length-1?[{icon:'down', label:'Move down', fn:()=>move(1)}]:[]),
+    {icon:'del', label:'Delete package', danger:true, fn:()=>delPk(p)}
+  ]);
 });
+function delPk(p){ const before=clone(S.settings.packages); if (before.length<=1){ toast('Keep at least one package.',true); return; } savePackages(before.filter(x=>x.id!==p.id), p.name+' deleted', before); }
+
+/* package editor sheet */
+let pkEdit=null;
+function openPk(p){
+  pkEdit = p ? clone(p) : {id:null, name:'', diamonds:'', usd:'', kind:'topup'};
+  $('pkT').textContent = p ? 'Edit package' : 'New package';
+  $('pkName').value=pkEdit.name; $('pkDia').value=pkEdit.diamonds; $('pkUsd').value=pkEdit.usd; $('pkErr').textContent='';
+  $('pkDel').hidden=!p; pkEdit.autoName = !p || pkEdit.name===nf(pkEdit.diamonds)+' diamonds' || pkEdit.name===pkEdit.diamonds+' diamonds';
+  $('sheetBg').hidden=false; $('sheetPk').hidden=false; pkRender();
+  setTimeout(()=>$(p?'pkUsd':'pkDia').focus({preventScroll:true}), 120);
+}
+function closePk(){ $('sheetPk').hidden=true; if ($('sheetMore').hidden) $('sheetBg').hidden=true; pkEdit=null; }
+function pkRender(){
+  document.querySelectorAll('#pkKind button').forEach(b=>b.setAttribute('aria-checked',String(b.dataset.v===pkEdit.kind)));
+  $('pkName').placeholder = pkEdit.kind==='member' ? 'Weekly' : ((Number($('pkDia').value)||520)+' diamonds');
+  const usd=Number($('pkUsd').value), dia=Number($('pkDia').value);
+  if (usd>0){ const t={usd, diamonds:dia||0, kind:pkEdit.kind}, c=costOf(t), s=sellOf(t);
+    $('pkPrev').innerHTML=`<div><span>Your cost</span><b>${rs(c)}</b></div><div><span>Sell at</span><b>${rs(s)}</b></div><div><span>Profit each</span><b class="g">${rsSigned(s-c)}</b></div><p>At Rs ${rs2(rateNow())} per dollar, ${Number(S.settings.feePct)||0}% fee, ${Number(S.settings.marginPct)||0}% margin</p>`; }
+  else $('pkPrev').innerHTML='<div style="grid-column:1/-1"><span>Enter the game price in dollars to see your cost and selling price.</span></div>';
+}
+$('pkKind').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; pkEdit.kind=b.dataset.v; pkRender(); });
+$('pkDia').addEventListener('input', () => { if (pkEdit.autoName && pkEdit.kind!=='member') $('pkName').value = $('pkDia').value ? Number($('pkDia').value)+' diamonds' : ''; pkRender(); });
+$('pkUsd').addEventListener('input', pkRender);
+$('pkName').addEventListener('input', () => { pkEdit.autoName=false; });
+$('pkClose').addEventListener('click', closePk);
+$('pkCancel').addEventListener('click', closePk);
+$('pkDel').addEventListener('click', () => { const p=S.settings.packages.find(x=>x.id===pkEdit.id); closePk(); if(p) delPk(p); });
+$('pkSave').addEventListener('click', () => {
+  const name=$('pkName').value.trim() || ($('pkName').placeholder||'').trim(), dia=Math.round(Number($('pkDia').value)), usd=Number($('pkUsd').value);
+  const err=m=>{ $('pkErr').textContent=m; };
+  if (!(dia>=1)) { err('Enter how many diamonds this package gives.'); $('pkDia').focus(); return; }
+  if (!(usd>0)) { err('Enter the price in dollars from the game, e.g. 5.38'); $('pkUsd').focus(); return; }
+  if (!name) { err('Give the package a name.'); $('pkName').focus(); return; }
+  const before=clone(S.settings.packages), list=clone(before), p={id:pkEdit.id||('p'+Date.now().toString(36)), name, diamonds:dia, usd:Math.round(usd*100)/100, kind:pkEdit.kind};
+  const i=list.findIndex(x=>x.id===p.id); if (i>=0) list[i]=p; else list.push(p);
+  closePk(); savePackages(list, i>=0 ? p.name+' updated' : p.name+' added', before);
+});
+$('sheetPk').addEventListener('keydown', e => { if (e.key==='Enter' && e.target.tagName==='INPUT'){ e.preventDefault(); $('pkSave').click(); } });
+$('peAdd').addEventListener('click', () => openPk(null));
+$('peReset').addEventListener('click', async () => { if(!await ask('Reset to game prices?','Your package list will be replaced with the prices from the Free Fire top-up screen.','Reset')) return; const before=clone(S.settings.packages); savePackages(clone(DEFAULT_PACKAGES),'Packages reset to game prices', before); });
 
 /* ---------- rate & margin ---------- */
 function renderRatePage(){
@@ -2024,7 +2162,7 @@ onAuthStateChanged(auth, async user => {
   if (user && !ADMINS.includes((user.email||'').toLowerCase())) { await signOut(auth); $('loginView').hidden=false; $('appView').hidden=true; $('lErr').textContent='This account doesn\u2019t have access to Diamond Counter.'; return; }
   $('loginView').hidden = !!user; $('appView').hidden = !user;
   if (!user) {
-    stopIdle(); S.uid=null; S.sales=[]; S.loaded=false; S.settings=clone(DEFAULT_SETTINGS); S.form=null; S.editId=null; S.peDraft=null; S.rateDraft=null; dirty.clear();
+    stopIdle(); S.uid=null; S.sales=[]; S.loaded=false; S.settings=clone(DEFAULT_SETTINGS); S.form=null; S.editId=null; S.rateDraft=null; dirty.clear(); closePk();
     if (signedOutMsg) { $('lOk').textContent=signedOutMsg; $('lOk').hidden=false; signedOutMsg=''; }
     $('forgotForm').hidden=true; $('loginForm').hidden=false;
     setTimeout(()=>$('lEmail').focus(), 50);
