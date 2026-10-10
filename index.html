@@ -1058,6 +1058,36 @@ input[type=datetime-local]{width:100%;padding:10px 12px;border:1px solid var(--l
 .w-live span{min-width:0}
 .w-live button{font-size:.84rem}
 .w-live span{flex:1 1 0}
+
+/* ===== sale details sheet ===== */
+@media(min-width:901px){.sale-sheet{width:560px}}
+.sale-sheet{padding-bottom:calc(16px + env(safe-area-inset-bottom,0px))}
+.sv-ic{width:46px;height:46px;border-radius:13px;background:#E8EEF7;color:#2F5B94;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.sv-ic.mem{background:var(--warn-soft);color:var(--warn)}
+.sv-badges{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 0}
+.sv-badges .badge{margin-left:0}
+.badge.ok-b{background:var(--ok-soft);color:var(--ok)}
+.sv-money{margin:12px 0 4px}
+.sv-sec{border:1px solid var(--line);border-radius:14px;padding:4px 14px 10px;margin-top:10px}
+.sv-sec .cu-h{margin:10px 0 4px}
+.sv-dl{display:grid;grid-template-columns:minmax(110px,40%) 1fr;gap:7px 12px;margin:0;font-size:.92rem}
+.sv-dl dt{color:var(--muted)}
+.sv-dl dd{margin:0;text-align:right;font-variant-numeric:tabular-nums;overflow-wrap:anywhere}
+.sv-dl dd b{font-weight:700}
+.sv-dl .gtx{color:var(--ok)} .sv-dl .rtx{color:var(--accent)} .sv-dl .wtx{color:var(--warn)}
+.mini{border:1px solid var(--line-2);background:#fff;border-radius:999px;padding:3px 10px;font-size:.78rem;font-weight:600;cursor:pointer;color:var(--ink-2);margin-left:4px}
+.mini:hover{border-color:var(--ink)}
+.sv-note{margin:10px 0 0;padding:10px 14px;border-radius:12px;background:var(--warn-soft);color:var(--ink-2);font-size:.9rem}
+.sv-acts{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:14px}
+.sv-acts .btn{justify-content:center;min-height:44px}
+.sv-acts .btn svg{flex-shrink:0}
+.sv-acts .del-btn{grid-column:1/-1}
+@media(min-width:601px){.sv-acts{grid-template-columns:repeat(3,1fr)}}
+.sv-acts{grid-template-columns:1fr 1fr !important}
+.sv-acts .btn{min-height:40px;font-size:.88rem}
+.sv-main{position:sticky;bottom:calc(-16px - env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:1fr 1.4fr;gap:8px;margin:14px -16px calc(-16px - env(safe-area-inset-bottom,0px));padding:12px 16px calc(14px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid var(--line);z-index:2}
+.sv-main .btn{justify-content:center;min-height:48px;font-size:.95rem}
+@media(min-width:901px){.sv-main{border-radius:0 0 18px 18px}}
 </style>
 </head>
 <body>
@@ -1513,6 +1543,20 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
   </div>
 </div>
 
+<!-- sale detail sheet -->
+<div class="sheet pk-sheet sale-sheet" id="sheetSale" role="dialog" aria-modal="true" aria-labelledby="svTitle" hidden>
+  <div class="grab"></div>
+  <div class="pk-sheet-h"><div class="cu-head"><span class="sv-ic" id="svIc"></span><div><h3 id="svTitle">Sale</h3><small id="svSub"></small></div></div><button class="icon-btn" type="button" id="svClose" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="sv-badges" id="svBadges"></div>
+  <div class="cu-stats sv-money" id="svMoney"></div>
+  <div class="sv-sec"><h4 class="cu-h">Customer</h4><dl class="sv-dl" id="svCust"></dl></div>
+  <div class="sv-sec"><h4 class="cu-h">Payment</h4><dl class="sv-dl" id="svPay"></dl></div>
+  <div class="sv-sec"><h4 class="cu-h">Cost &amp; profit</h4><dl class="sv-dl" id="svCost"></dl></div>
+  <p class="sv-note" id="svNote" hidden></p>
+  <div class="sv-acts" id="svActs"></div>
+  <div class="sv-main" id="svMain"></div>
+</div>
+
 <!-- customer detail sheet -->
 <div class="sheet pk-sheet cust-sheet" id="sheetCust" role="dialog" aria-modal="true" aria-labelledby="cuName" hidden>
   <div class="grab"></div>
@@ -1901,7 +1945,7 @@ $('bMore').addEventListener('click', () => openSheet('sheetMore'));
 $('bMore').addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openSheet('sheetMore'); } });
 $('bNew').addEventListener('click', () => newSale());
 $('topMore').addEventListener('click', () => { const sh=$('sheetMore'); if(!sh.hidden){ closeSheets(); return; } openSheet('sheetMore'); const r=$('topMore').getBoundingClientRect(); sh.classList.add('anchored'); sh.style.top=(r.bottom+10)+'px'; sh.style.right=Math.max(12,innerWidth-r.right)+'px'; $('topMore').setAttribute('aria-expanded','true'); });
-$('sheetBg').addEventListener('click', () => { if(!$('sheetCust').hidden) closeCust(); closeSheets(); if(!$('sheetPk').hidden) closePk(); if(!$('sheetCard').hidden) closeCard(); });
+$('sheetBg').addEventListener('click', () => { if(!$('sheetSale').hidden) closeSaleView(); if(!$('sheetCust').hidden) closeCust(); closeSheets(); if(!$('sheetPk').hidden) closePk(); if(!$('sheetCard').hidden) closeCard(); });
 $('userBtn').addEventListener('click', e => { e.stopPropagation(); const m=$('userMenu'); m.hidden=!m.hidden; $('userBtn').setAttribute('aria-expanded', !m.hidden); });
 document.addEventListener('click', e => { if (!e.target.closest('.user-menu')) $('userMenu').hidden=true; });
 addEventListener('keydown', e => { if (e.key==='Escape'){ closeMenu(); closeSheets(); if(!$('sheetPk').hidden) closePk(); closeRowMenu(); $('userMenu').hidden=true; if(!$('dlg').hidden) $('dlgNo').click(); } });
@@ -1927,7 +1971,7 @@ addEventListener('resize', closeRowMenu);
 /* =========================================================
    RENDER
    ========================================================= */
-function renderAll(){ computeBook(); renderRateBits(); renderCounts(); renderPage(currentPage); }
+function renderAll(){ computeBook(); if (!$('sheetSale').hidden){ const s=S.sales.find(x=>x.id===$('sheetSale').dataset.id); if (s) openSaleView(s); else closeSaleView(); } renderRateBits(); renderCounts(); renderPage(currentPage); }
 function renderPage(p){
   ({overview:renderHome, card:renderCardPage, sell:renderSell, sales:renderSales, customers:renderCustomers, prices:renderPrices, rate:renderRatePage, reports:renderReports, backup:renderBackup})[p]?.();
 }
@@ -2084,11 +2128,53 @@ function saleRow(s, withMenu=true, asPkg=false){
 document.addEventListener('click', e => {
   const k=e.target.closest('.sale [data-menu]');
   if (k){ e.preventDefault(); e.stopPropagation(); const s=S.sales.find(x=>x.id===k.closest('.sale').dataset.sale); if(s) saleMenu(k,s); return; }
-  const row=e.target.closest('.sale[data-sale]'); if(row){ const s=S.sales.find(x=>x.id===row.dataset.sale); if(s) editSale(s); }
+  const row=e.target.closest('.sale[data-sale]'); if(row){ const s=S.sales.find(x=>x.id===row.dataset.sale); if(s){ if(!$('sheetCust').hidden) closeCust(); openSaleView(s); } }
 });
 document.addEventListener('keydown', e => { if((e.key==='Enter'||e.key===' ') && e.target.matches('.sale[data-sale]')){ e.preventDefault(); e.target.click(); } });
+/* ---------- sale details (view first, edit on request) ---------- */
+function openSaleView(s){
+  const mem=isMem(s), p=profitOf(s), due=dueOf(s), disc=discOf(s), gross=grossOf(s), cost=costOfSale(s), usd=(+s.usd||0)*(s.qty||1), rev=revenueOf(s);
+  $('svIc').className='sv-ic'+(mem?' mem':''); $('svIc').innerHTML=mem?STAR(22):GEM(22);
+  $('svTitle').textContent=s.pkgName+(s.qty>1?' × '+s.qty:'');
+  $('svSub').textContent=new Date(s.at).toLocaleString('en-GB',{weekday:'short',day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit'})+(s.updatedAt?' · edited '+fmtWhen(s.updatedAt):'');
+  $('svBadges').innerHTML=(s.status==='pending'?'<span class="badge wait">Not delivered yet</span>':'<span class="badge ok-b">Delivered</span>')+(s.method==='Credit'?(due?`<span class="badge due">Outstanding ${rs(due)}</span>`:'<span class="badge ok-b">Credit paid</span>'):'')+(disc?`<span class="badge edited">Discount ${rs(disc)}</span>`:'');
+  $('svMoney').innerHTML=`<div><span>Customer paid</span><b>${rs(s.received)}</b></div><div><span>Sale value</span><b>${rs(rev)}</b></div><div><span>Cost</span><b>${rs(cost)}</b></div><div class="${p<0?'w':''}"><span>Profit</span><b class="${p<0?'':'g'}">${rsSigned(p)}</b></div>`;
+  const row=(k,v)=>v==null||v===''?'':`<dt>${k}</dt><dd>${v}</dd>`;
+  const c=custKey(s)!=='walkin';
+  $('svCust').innerHTML=row('Name', esc(s.customer||'Walk-in'))+row('Phone', s.phone?`<a class="link" href="tel:${esc(digits(s.phone))}">${esc(s.phone)}</a>`:'–')+row('Free Fire UID', s.uid?`<span class="num">${esc(s.uid)}</span> <button type="button" class="mini" data-sv="uid">Copy</button>`:'–')+(c?row('', '<button type="button" class="mini" data-sv="cust">Open customer profile</button>'):'');
+  $('svPay').innerHTML=row('List price', rs(gross))+(disc?row('Discount', '− '+rs(disc)):'')+row('Net price', '<b>'+rs(rev)+'</b>')+row('Amount received', rs(s.received))+(s.method==='Credit'?row('Outstanding', due?`<b class="wtx">${rs(due)}</b>`:'Paid'):'')+row('Payment method', esc(s.method==='Credit'?'Credit (pay later)':s.method))+(s.paidAt?row('Paid on', fmtWhen(s.paidAt)):'');
+  $('svCost').innerHTML=row('Dollars used', '$'+usd.toFixed(2)+' ('+nf(s.diamonds)+' 💎)')+row('Cost per dollar', usd?'Rs '+rs2(cost/usd)+(BOOK.saleCost.has(s.id)?' · from card':' · estimate'):'–')+row('Cost', rs(cost))+row('Profit', `<b class="${p<0?'rtx':'gtx'}">${rsSigned(p)}</b>`+(rev?` <span class="help">(${Math.round(p/rev*100)}% margin)</span>`:''));
+  $('svNote').hidden=!s.note; $('svNote').textContent=s.note?'📝 '+s.note:'';
+  const w=waNumber(s.phone);
+  $('svMain').innerHTML=`<button class="btn" type="button" data-sv="edit">${svgI(IC.edit)}Edit</button>`+
+    (s.status==='pending'?`<button class="btn primary" type="button" data-sv="sent">${svgI(IC.sent)}Mark delivered</button>`:due?`<button class="btn primary" type="button" data-sv="pay">${svgI(IC.money)}Record payment</button>`:`<button class="btn accent" type="button" data-sv="again">${svgI(IC.again)}Sell again</button>`);
+  $('svActs').innerHTML=(s.status==='pending'&&due?`<button class="btn" type="button" data-sv="pay">${svgI(IC.money)}Record payment</button>`:'')+
+    (s.status!=='pending'?`<button class="btn" type="button" data-sv="unsent">${svgI(IC.unsent)}Mark not delivered</button>`:'')+
+    `<button class="btn" type="button" data-sv="receipt">${svgI(IC.share)}${w?'WhatsApp receipt':'Share receipt'}</button>`+
+    (s.status==='pending'||due?`<button class="btn" type="button" data-sv="again">${svgI(IC.again)}Sell again</button>`:'')+
+    `<button class="btn del-btn" type="button" data-sv="del">${svgI(IC.del)}Delete</button>`;
+  $('sheetSale').dataset.id=s.id; $('sheetBg').hidden=false; $('sheetSale').hidden=false;
+}
+function closeSaleView(){ $('sheetSale').hidden=true; if ($('sheetMore').hidden && $('sheetPk').hidden && $('sheetCard').hidden && $('sheetCust').hidden) $('sheetBg').hidden=true; }
+$('svClose').addEventListener('click', closeSaleView);
+addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('sheetSale').hidden) closeSaleView(); });
+$('sheetSale').addEventListener('click', async e=>{
+  const b=e.target.closest('[data-sv]'); if(!b) return;
+  const s=S.sales.find(x=>x.id===$('sheetSale').dataset.id); if(!s){ closeSaleView(); return; }
+  const k=b.dataset.sv;
+  if (k==='edit'){ closeSaleView(); editSale(s); }
+  else if (k==='sent'||k==='unsent'){ setSent(s,k==='sent'); setTimeout(()=>{ const n=S.sales.find(x=>x.id===s.id); if(n && !$('sheetSale').hidden) openSaleView(n); },60); }
+  else if (k==='pay'){ collectMenu(b,s); }
+  else if (k==='receipt'){ sendReceipt(s); }
+  else if (k==='again'){ closeSaleView(); newSale({customer:s.customer, phone:s.phone, uid:s.uid, pkgId:s.pkgId}); }
+  else if (k==='uid'){ copy(s.uid); }
+  else if (k==='cust'){ closeSaleView(); openCust(custKey(s)); }
+  else if (k==='del'){ if (!await ask('Delete this sale?', (s.customer||'Walk-in')+', '+s.pkgName+', '+rs(s.received)+'. You can undo right after.', 'Delete')) return; closeSaleView(); delSale(s); }
+});
+
 function saleMenu(btn, s){
   openRowMenu(btn, (s.customer||'Walk-in')+', '+s.pkgName, [
+    {icon:'list', label:'View details', fn:()=>openSaleView(s)},
     {icon:'edit', label:'Edit sale', fn:()=>editSale(s)},
     s.status==='pending' ? {icon:'sent', label:'Mark as delivered', fn:()=>setSent(s,true)} : {icon:'unsent', label:'Mark as undelivered', fn:()=>setSent(s,false)},
     ...(s.method==='Credit'?[{icon:'money', label:'Record payment', fn:()=>collectMenu(btn,s)}]:[]),
@@ -2637,11 +2723,11 @@ function openCust(key){
   $('cuList').innerHTML=list.slice(0,12).map(s=>saleRow(s,false,true)).join('')+(list.length>12?`<div class="more-row"><button class="btn sm" type="button" data-cu="all">See all ${list.length}</button></div>`:'');
   $('sheetCust').dataset.key=key; $('sheetBg').hidden=false; $('sheetCust').hidden=false;
 }
-function closeCust(){ $('sheetCust').hidden=true; if ($('sheetMore').hidden && $('sheetPk').hidden && $('sheetCard').hidden) $('sheetBg').hidden=true; }
+function closeCust(){ $('sheetCust').hidden=true; if ($('sheetMore').hidden && $('sheetPk').hidden && $('sheetCard').hidden && $('sheetSale').hidden) $('sheetBg').hidden=true; }
 $('cuClose').addEventListener('click', closeCust);
 $('sheetCust').addEventListener('click', e=>{
   const key=$('sheetCust').dataset.key, c=customers().find(x=>x.key===key); if(!c) return;
-  if (e.target.closest('.sale[data-sale]')){ closeCust(); return; }   // row click opens edit via the global handler
+  if (e.target.closest('.sale[data-sale]')) return;   // row click opens the sale details via the global handler
   const b=e.target.closest('[data-cu]'); if(!b) return; const k=b.dataset.cu;
   if (k==='again'){ closeCust(); newSale({customer:c.name, phone:c.phone, uid:c.uid, pkgId:c.pkgId}); }
   else if (k==='wa'){ open('https://wa.me/'+waNumber(c.phone),'_blank','noopener'); }
