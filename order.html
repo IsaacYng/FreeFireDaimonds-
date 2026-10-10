@@ -178,6 +178,32 @@ textarea{min-height:64px;resize:vertical}
 .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
 .toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;font-size:.9rem;z-index:10;opacity:0;pointer-events:none;transition:opacity .2s}
 .toast.show{opacity:1}
+/* tabs + account */
+.tabs{display:flex;gap:6px;margin-top:16px;position:relative;z-index:2}
+.tabs a{display:inline-flex;align-items:center;gap:6px;padding:8px 14px;border-radius:999px;color:#DCE4E7;text-decoration:none;font-weight:700;font-size:.88rem;border:1px solid rgba(255,255,255,.15);background:rgba(255,255,255,.05)}
+.tabs a.on{background:#fff;color:var(--ink);border-color:#fff}
+.tabs i{width:8px;height:8px;border-radius:50%;background:#FFB020}
+.acct{display:grid;gap:12px}
+.idcard{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:16px;border-radius:16px;background:linear-gradient(140deg,#16222B,#2B3D49);color:#fff}
+.idcard span{display:block;font-size:.78rem;color:#9FB0B7}
+.idcard b{display:block;font-size:1.7rem;font-weight:800;letter-spacing:.08em}
+.idcard small{color:#B9C6CB;font-size:.8rem}
+.idcard .btn{background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.25);color:#fff}
+.hint{margin:0;font-size:.84rem;color:var(--muted)}
+.gbox{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:12px 14px;border-radius:14px;border:1.5px dashed var(--line-2)}
+.gbox b{display:block;font-size:.95rem}.gbox small{color:var(--muted);font-size:.8rem}
+.gbox .g{width:22px;height:22px;border-radius:50%;background:#fff;color:#4285F4;font-weight:800;display:inline-flex;align-items:center;justify-content:center;font-size:.85rem}
+.stats{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:8px}
+.stats div{background:var(--bg);border-radius:12px;padding:10px;display:grid;gap:2px;min-width:0}
+.stats span{font-size:.72rem;color:var(--muted)}
+.stats b{font-weight:800;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:420px){.stats{grid-template-columns:1fr 1fr}}
+.ohist{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:12px 18px;border-top:1px solid var(--line);text-decoration:none;color:var(--ink)}
+.ohist:first-of-type{border-top:none}
+.ohist small{display:block;color:var(--muted);font-size:.8rem;margin-top:2px}
+.sb{display:inline-block;font-size:.7rem;font-weight:800;padding:2px 8px;border-radius:999px;margin-left:6px;vertical-align:1px}
+.sb.new{background:var(--warn-soft);color:var(--warn)}.sb.done{background:var(--blue-soft);color:var(--blue)}.sb.dlv{background:var(--ok-soft);color:var(--ok)}.sb.rej{background:var(--accent-soft);color:var(--accent-2)}
+.uids{display:flex;flex-wrap:wrap;gap:6px}.uids span{padding:5px 10px;border-radius:999px;background:var(--bg);font-weight:700;font-size:.86rem;font-variant-numeric:tabular-nums}
 footer{text-align:center;color:var(--muted);font-size:.8rem;padding:6px 16px 24px}
 @media(max-width:380px){.steps div em{display:none}.steps div{justify-content:center}}
 @media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
@@ -193,6 +219,7 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;padding:6px 16px 24p
     <h1 data-t="h1"></h1>
     <p data-t="sub"></p>
     <div class="trust"><span data-t="t1"></span><span data-t="t2"></span><span data-t="t3"></span></div>
+    <nav class="tabs" aria-label="Sections"><a href="#" data-tab="shop" data-t="tabShop"></a><a href="#account" data-tab="account"><span data-t="tabAcct"></span><i id="acctDot" hidden></i></a></nav>
   </div>
   <svg class="r" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><path fill="rgba(255,255,255,.05)" d="M0 120 L120 70 L210 98 L330 40 L450 92 L560 60 L700 110 L820 52 L960 96 L1080 44 L1200 88 L1320 58 L1440 84 V220 H0Z"/><path fill="rgba(255,255,255,.07)" d="M0 160 L160 122 L300 150 L460 114 L600 146 L760 120 L900 152 L1040 126 L1200 156 L1340 130 L1440 146 V220 H0Z"/></svg>
 </header>
@@ -210,7 +237,8 @@ footer{text-align:center;color:var(--muted);font-size:.8rem;padding:6px 16px 24p
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-import { getFirestore, doc, getDoc, collection, addDoc } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, collection, addDoc, query, where, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+import { getAuth, onAuthStateChanged, signInAnonymously, GoogleAuthProvider, linkWithPopup, linkWithRedirect, signInWithPopup, signInWithCredential, signOut, getRedirectResult } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 const app = initializeApp({
   apiKey: "AIzaSyCLSEXvViC9U_pOemMfNUkivNQSO2ayggA",
   authDomain: "free-fire-daimonds-2e4f1.firebaseapp.com",
@@ -218,8 +246,9 @@ const app = initializeApp({
   storageBucket: "free-fire-daimonds-2e4f1.firebasestorage.app",
   messagingSenderId: "331335997414",
   appId: "1:331335997414:web:f08d9b253c82238052e827"
-});
+}, 'shop');   // own app name: customer sign-in never touches the admin session on this site
 const db = getFirestore(app);
+const auth = getAuth(app);
 
 /* ---------- text in both languages ---------- */
 const T = {
@@ -239,7 +268,13 @@ const T = {
     mine:'Your orders', closedT:'Orders are paused', closedP:'The shop isn’t taking online orders right now. Please check back later or message on WhatsApp.',
     loadFail:'Ordering isn’t open right now.', loadFailP:'Please message the shop directly.', updated:t=>'Prices updated '+t, msgShop:'Message the shop',
     faqT:'Questions', faq:[['How fast will I get my diamonds?','Usually within minutes after your payment is confirmed. Track your order with the link you get after ordering.'],['Is it safe?','We only need your UID, never your password. Diamonds are topped up directly to your account.'],['I entered the wrong UID','Message the shop on WhatsApp right away with your order code, before it is delivered.'],['Can I pay later?','Pay when you order using the payment details shown, then send the screenshot on WhatsApp.']],
-    waMsg:(c,lines,t,u,n)=>`Namaste! I placed order #${c} 🙏\n${lines}\nTotal: ${t}\nUID: ${u}\nName: ${n}`},
+    waMsg:(c,lines,t,u,n)=>`Namaste! I placed order #${c} 🙏\n${lines}\nTotal: ${t}\nUID: ${u}\nName: ${n}`,
+    tabShop:'🛒 Order', tabAcct:'👤 My account', cid:'Customer ID', guest:'Guest on this phone', googleAcc:g=>'Signed in as '+g,
+    saveG:'Save my account with Google', saveGP:'Keep your order history if you change phone. Takes 5 seconds.', signOut:'Sign out', switchG:'Sign in with Google',
+    st_new:'Waiting', st_done:'Accepted', st_dlv:'Delivered', st_rej:'Rejected', ordersT:'Order history', noOrders:'No orders yet', noOrdersP:'Your orders will show here.',
+    statOrders:'Orders', statSpent:'Spent', statDia:'Diamonds', statWait:'Waiting', profile:'My details', ffUids:'Saved UIDs', save:'Save', saved:'Saved',
+    authFail:'Couldn’t start your account. Check your internet and reload.', authOff:'Online accounts aren’t switched on yet. Please message the shop.', gFail:'Google sign-in didn’t finish. Try again.',
+    youId:'Your customer ID', idHint:'Tell the shop this ID if you message about an order.', startOrder:'Start an order', reorder:'Order again'},
   ne:{h1:'Free Fire डायमन्ड अर्डर गर्नुहोस्', sub:'डायमन्ड छान्नुहोस्, UID लेख्नुहोस्, पैसा तिर्नुहोस्, हामी तपाईंको खातामा टप-अप गर्छौं।', t1:'⚡ छिटो डेलिभरी', t2:'🎯 सिधै तपाईंको UID मा', t3:'💳 eSewa · Khalti · बैंक',
     s1:'छान्नुहोस्', s2:'विवरण', s3:'पक्का', topup:'टप-अप', member:'मेम्बरसिप', diamonds:'डायमन्ड', dtotal:'डायमन्ड जम्मा', per100:'प्रति १०० 💎', best:'सबैभन्दा सस्तो', pop:'लोकप्रिय',
     calcL:'ठ्याक्कै कति डायमन्ड चाहियो? सस्तो मिलान हामी निकाल्छौं।', calcP:'जस्तै 1000', find:'खोज्नुहोस्', calcRes:(n,p)=>`${n} 💎 थपियो, ${p}`, order:'तपाईंको अर्डर', each:'प्रति',
@@ -256,7 +291,13 @@ const T = {
     mine:'तपाईंका अर्डर', closedT:'अहिले अर्डर बन्द छ', closedP:'पसलले अहिले अनलाइन अर्डर लिइरहेको छैन। पछि हेर्नुहोस् वा WhatsApp गर्नुहोस्।',
     loadFail:'अहिले अर्डर खुला छैन।', loadFailP:'कृपया पसललाई सिधै सम्पर्क गर्नुहोस्।', updated:t=>'मूल्य अपडेट: '+t, msgShop:'पसललाई सन्देश',
     faqT:'प्रश्नहरू', faq:[['डायमन्ड कति छिटो आउँछ?','पेमेन्ट पक्का भएपछि प्रायः केही मिनेटमै। अर्डरपछि पाउने लिंकबाट ट्र्याक गर्न सकिन्छ।'],['सुरक्षित छ?','हामीलाई तपाईंको UID मात्र चाहिन्छ, पासवर्ड कहिल्यै होइन। डायमन्ड सिधै खातामा टप-अप हुन्छ।'],['गलत UID लेखें','डेलिभरी हुनुअघि नै अर्डर कोडसहित WhatsApp मा तुरुन्त सम्पर्क गर्नुहोस्।'],['पछि तिर्न मिल्छ?','अर्डर गर्दा देखिएको माध्यमबाट तिर्नुहोस्, अनि स्क्रिनसट WhatsApp मा पठाउनुहोस्।']],
-    waMsg:(c,lines,t,u,n)=>`नमस्ते! मैले अर्डर #${c} पठाएँ 🙏\n${lines}\nजम्मा: ${t}\nUID: ${u}\nनाम: ${n}`}
+    waMsg:(c,lines,t,u,n)=>`नमस्ते! मैले अर्डर #${c} पठाएँ 🙏\n${lines}\nजम्मा: ${t}\nUID: ${u}\nनाम: ${n}`,
+    tabShop:'🛒 अर्डर', tabAcct:'👤 मेरो खाता', cid:'ग्राहक ID', guest:'यो फोनमा अतिथि', googleAcc:g=>g+' बाट साइन इन',
+    saveG:'Google सँग खाता सेभ गर्नुहोस्', saveGP:'फोन फेरे पनि अर्डर इतिहास रहन्छ। ५ सेकेन्ड लाग्छ।', signOut:'साइन आउट', switchG:'Google बाट साइन इन',
+    st_new:'पर्खँदै', st_done:'स्वीकृत', st_dlv:'पठाइयो', st_rej:'रद्द', ordersT:'अर्डर इतिहास', noOrders:'अहिलेसम्म अर्डर छैन', noOrdersP:'तपाईंका अर्डर यहाँ देखिन्छन्।',
+    statOrders:'अर्डर', statSpent:'खर्च', statDia:'डायमन्ड', statWait:'पर्खँदै', profile:'मेरो विवरण', ffUids:'सेभ भएका UID', save:'सेभ', saved:'सेभ भयो',
+    authFail:'खाता सुरु हुन सकेन। इन्टरनेट जाँचेर रिलोड गर्नुहोस्।', authOff:'अनलाइन खाता अझै खुला छैन। पसललाई सम्पर्क गर्नुहोस्।', gFail:'Google साइन इन पूरा भएन। फेरि प्रयास गर्नुहोस्।',
+    youId:'तपाईंको ग्राहक ID', idHint:'अर्डरबारे सम्पर्क गर्दा यो ID भन्नुहोस्।', startOrder:'अर्डर सुरु गर्नुहोस्', reorder:'फेरि अर्डर'}
 };
 let L = (()=>{ try{ return localStorage.getItem('dc-lang') || ((navigator.language||'').startsWith('ne')?'ne':'en'); }catch(_){ return 'en'; } })();
 const t = (k,...a) => { const v=(T[L][k]??T.en[k]); return typeof v==='function'?v(...a):v; };
@@ -304,7 +345,7 @@ document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',(
 
 function stepsBar(){ return `<div class="steps">${[1,2,3].map(i=>`<div class="${step===i?'on':step>i?'ok':''}"><span>${step>i?'✓':i}</span><em>${t('s'+i)}</em></div>`).join('')}</div>`; }
 function mineBar(){
-  const list=store.get('dc-orders',[]).slice(0,6); if(!list.length) return '';
+  const list=(myLoaded?MY:store.get('dc-orders',[])).slice(0,6); if(!list.length) return '';
   return `<p class="grp">${t('mine')}</p><div class="mine">${list.map(o=>`<a href="?o=${encodeURIComponent(o.id)}"><b>#${esc(code(o.id))}</b><small>${esc(rs(o.total))} · ${esc(ago(o.at))}</small></a>`).join('')}</div>`;
 }
 function notices(){
@@ -361,7 +402,7 @@ function viewDone(){
   const trackUrl=location.origin+location.pathname+'?o='+encodeURIComponent(o.id), num=((P.shop.pay||'').match(/9[78]\d{8}/)||[])[0];
   return `<div class="card"><div class="card-b done">
     <div class="big">✅</div><h2>${t('sentT')}</h2><p>${esc(t('sentP',o.name,o.uid))}</p>
-    <div class="code">${t('yourCode')} #${esc(code(o.id))}</div>
+    <div class="code">${t('yourCode')} #${esc(code(o.id))}</div>${CP?`<p class="hint" style="margin-top:-6px">${t('cid')}: <b>${esc(CP.code)}</b> · <a class="link" href="#account">${t('tabAcct')}</a></p>`:''}
     <div class="sum" style="text-align:left">${o.items.map(i=>`<div><span>${i.qty} × ${esc(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')}</span><b class="num">${rs(i.price*i.qty)}</b></div>`).join('')}<div class="t"><b>${t('payNow',rs(o.total))}</b></div></div>
     ${P.shop.pay?`<div class="pay" style="text-align:left"><b>${t('pay')}</b><span>${esc(P.shop.pay)}</span>${num?`<button class="btn sm cp" type="button" data-copy="${num}">${t('copy')} ${num}</button>`:''}</div>`:''}
     <div class="btns">
@@ -386,10 +427,66 @@ async function viewTrack(id){
     <ol class="tl">${steps}</ol>
     <div class="sum">${(o.items||[]).map(i=>`<div><span>${i.qty} × ${esc(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')}</span><b class="num">${rs(i.price*i.qty)}</b></div>`).join('')}<div class="t"><b>${t('total')}</b><b class="num">${rs(o.total||0)}</b></div></div>
     <dl class="kv"><dt>UID</dt><dd>${esc(o.uid)}</dd><dt>${t('name')}</dt><dd>${esc(o.name)}</dd></dl>
-    <div class="btns"><button class="btn ink block" type="button" id="refresh">${t('refresh')}</button>${w?`<a class="btn wa block" href="https://wa.me/${w}?text=${encodeURIComponent('#'+code(id))}" target="_blank" rel="noopener">${t('msgShop')}</a>`:''}<a class="btn block" href="${location.pathname}">${t('toShop')}</a></div>
+    <div class="btns"><button class="btn ink block" type="button" id="refresh">${t('refresh')}</button>${P&&P.packages.length?`<button class="btn accent block" type="button" id="reorder">${t('reorder')}</button>`:''}${w?`<a class="btn wa block" href="https://wa.me/${w}?text=${encodeURIComponent('#'+code(id))}" target="_blank" rel="noopener">${t('msgShop')}</a>`:''}<a class="btn block" href="${location.pathname}">${t('toShop')}</a></div>
   </div></div>`;
   $('refresh').onclick=()=>viewTrack(id);
+  const ro=$('reorder'); if (ro) ro.onclick=()=>{ cart=(o.items||[]).filter(i=>P.packages.some(p=>p.id===i.pkId)).map(i=>({id:i.pkId, qty:i.qty})); step=1; history.pushState(null,'',location.pathname); route(); scrollTo({top:0}); };
   if (!rej && !dlv) trackTimer=setTimeout(()=>viewTrack(id), 30000);
+}
+
+/* ---------- customer account ---------- */
+let CU=null, CP=null, MY=[], myLoaded=false;   // auth user, customer profile, my orders
+const mkCode = () => { const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789'; let s='C-'; for(let i=0;i<5;i++) s+=A[Math.floor(Math.random()*A.length)]; return s; };
+async function loadProfile(){
+  const ref=doc(db,'customers',CU.uid); let s=null; try{ s=await getDoc(ref); }catch(e){ console.warn(e); }
+  if (s && s.exists()) CP=s.data();
+  else { CP={code:mkCode(), name:me.name||'', phone:me.phone||'', ffUids:me.uid?[me.uid]:[], createdAt:Date.now(), updatedAt:Date.now(), email:CU.email||''}; try{ await setDoc(ref, CP); }catch(e){ console.warn(e); } }
+  if (!me.name && CP.name) me.name=CP.name; if (!me.phone && CP.phone) me.phone=CP.phone; if (!me.uid && (CP.ffUids||[])[0]) me.uid=CP.ffUids[0];
+}
+async function saveProfile(patch){
+  CP={...CP, ...patch, updatedAt:Date.now(), email:CU&&CU.email||''};
+  try{ await setDoc(doc(db,'customers',CU.uid), CP); return true; }catch(e){ console.warn(e); return false; }
+}
+async function loadMine(){
+  if (!CU) return; try{ const s=await getDocs(query(collection(db,'orders'), where('cid','==',CU.uid))); MY=s.docs.map(d=>({id:d.id, ...d.data()})).sort((a,b)=>b.at-a.at); }catch(e){ console.warn(e); }
+  myLoaded=true; $('acctDot').hidden=!MY.some(o=>o.status==='done'&&!o.delivered);
+}
+const stOf = o => o.status==='rejected'?'rej':o.delivered?'dlv':o.status==='done'?'done':'new';
+async function googleSave(){
+  const prov=new GoogleAuthProvider();
+  try{
+    if (CU && CU.isAnonymous){ try{ await linkWithPopup(CU, prov); }catch(e){
+        if ((e.code||'').includes('credential-already-in-use')){ const cred=GoogleAuthProvider.credentialFromError(e); await signInWithCredential(auth, cred); }
+        else if ((e.code||'').includes('popup-blocked')||(e.code||'').includes('operation-not-supported')){ await linkWithRedirect(CU, prov); return; }
+        else throw e; } }
+    else await signInWithPopup(auth, prov);
+    CU=auth.currentUser; await loadProfile(); await saveProfile({}); await loadMine(); toast(t('saved')); viewAccount();
+  }catch(e){ console.warn(e); toast(t('gFail')); }
+}
+function viewAccount(){
+  $('bar').hidden=true;
+  if (!CU || !CP){ $('app').innerHTML='<div class="card"><div class="state"><span class="spin"></span></div></div>'; return; }
+  const acc=MY.filter(o=>o.status==='done'), spent=acc.reduce((s,o)=>s+(o.total||0),0), dia=acc.reduce((s,o)=>s+(o.items||[]).reduce((x,i)=>x+i.diamonds*i.qty,0),0), wait=MY.filter(o=>o.status==='new').length;
+  const badge=o=>{ const k=stOf(o); return `<span class="sb ${k}">${t('st_'+k)}</span>`; };
+  $('app').innerHTML=`<div class="card"><div class="card-b acct">
+      <div class="idcard"><div><span>${t('youId')}</span><b>${esc(CP.code)}</b><small>${CU.isAnonymous?t('guest'):esc(t('googleAcc',CU.email||''))}</small></div><button class="btn sm" type="button" data-copy="${esc(CP.code)}">${t('copy')}</button></div>
+      <p class="hint">${t('idHint')}</p>
+      ${CU.isAnonymous?`<div class="gbox"><div><b>${t('saveG')}</b><small>${t('saveGP')}</small></div><button class="btn ink" type="button" id="gSave"><span class="g">G</span>Google</button></div>`:`<button class="btn sm" type="button" id="outBtn">${t('signOut')}</button>`}
+      <div class="stats"><div><span>${t('statOrders')}</span><b>${MY.length}</b></div><div><span>${t('statSpent')}</span><b>${rs(spent)}</b></div><div><span>${t('statDia')}</span><b>${nf(dia)}</b></div><div><span>${t('statWait')}</span><b>${wait}</b></div></div>
+    </div></div>
+    <div class="card"><div class="card-h"><h2>${t('ordersT')}</h2></div>
+      ${!myLoaded?'<div class="state"><span class="spin"></span></div>':MY.length?MY.map(o=>`<a class="ohist" href="?o=${encodeURIComponent(o.id)}"><div><b>#${esc(code(o.id))} ${badge(o)}</b><small>${esc((o.items||[]).map(i=>i.qty+' × '+(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')).join(', '))}</small><small>UID ${esc(o.uid)} · ${esc(ago(o.at))}</small></div><b class="num">${rs(o.total||0)}</b></a>`).join('')
+        :`<div class="state"><b>${t('noOrders')}</b>${t('noOrdersP')}<p><a class="btn accent" href="#">${t('startOrder')}</a></p></div>`}
+    </div>
+    <div class="card"><div class="card-h"><h2>${t('profile')}</h2></div><div class="card-b">
+      <label class="field"><span class="lab">${t('name')}</span><input type="text" id="pName" maxlength="60" value="${esc(CP.name||'')}"/></label>
+      <label class="field"><span class="lab">${t('wa')}</span><input type="tel" id="pPhone" maxlength="15" value="${esc(CP.phone||'')}"/></label>
+      ${(CP.ffUids||[]).length?`<div class="field"><span class="lab">${t('ffUids')}</span><div class="uids">${CP.ffUids.map(u=>`<span>${esc(u)}</span>`).join('')}</div></div>`:''}
+      <button class="btn ink" type="button" id="pSave">${t('save')}</button>
+    </div></div>`;
+  const g=$('gSave'); if (g) g.onclick=googleSave;
+  const out=$('outBtn'); if (out) out.onclick=async()=>{ await signOut(auth); };
+  $('pSave').onclick=async()=>{ const ok=await saveProfile({name:$('pName').value.trim().slice(0,60), phone:$('pPhone').value.trim().slice(0,15)}); me.name=CP.name; me.phone=CP.phone; toast(ok?t('saved'):t('sendFail')); };
 }
 
 /* ---------- render + events ---------- */
@@ -429,19 +526,30 @@ $('barBtn').addEventListener('click', async ()=>{
     const items=cart.map(l=>{ const p=pk(l.id); return {pkId:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind, qty:l.qty, price:p.price}; });
     const b=$('barBtn'); b.disabled=true; b.textContent='…';
     try{
-      const data={name:me.name, phone:me.phone, uid:me.uid, items, method, note:me.note||'', at:Date.now(), status:'new', total:total()};
+      if (!CU) throw new Error('no-auth');
+      const data={name:me.name, phone:me.phone, uid:me.uid, items, method, note:me.note||'', at:Date.now(), status:'new', total:total(), cid:CU.uid, ccode:CP?CP.code:''};
       const ref=await addDoc(collection(db,'orders'), data);
       store.set('dc-last-order', Date.now());
       store.set('dc-orders', [{id:ref.id, at:data.at, total:data.total}, ...store.get('dc-orders',[])].slice(0,20));
       last={id:ref.id, ...data}; me.note=''; step=4; render(); scrollTo({top:0,behavior:'smooth'});
-    }catch(e2){ console.error(e2); err(t('sendFail')); b.disabled=false; b.textContent=t('send'); }
+      if (CP) saveProfile({name:me.name, phone:me.phone, ffUids:[me.uid, ...(CP.ffUids||[]).filter(u=>u!==me.uid)].slice(0,5)}); MY.unshift({id:ref.id, ...data});
+    }catch(e2){ console.error(e2); err((e2.message==='no-auth')?t('authFail'):t('sendFail')); b.disabled=false; b.textContent=t('send'); }
   }
 });
 
 function route(){
-  const id=new URLSearchParams(location.search).get('o');
-  if (id) viewTrack(id); else render();
+  const id=new URLSearchParams(location.search).get('o'), acct=location.hash==='#account';
+  document.querySelectorAll('[data-tab]').forEach(a=>a.classList.toggle('on', !id && (a.dataset.tab==='account')===acct));
+  if (id) viewTrack(id); else if (acct) viewAccount(); else render();
 }
+addEventListener('hashchange', ()=>{ if (new URLSearchParams(location.search).get('o') && location.hash!=='#account'){ return; } if (new URLSearchParams(location.search).get('o')){ history.replaceState(null,'',location.pathname+location.hash); } route(); scrollTo({top:0}); });
+document.querySelectorAll('[data-tab]').forEach(a=>a.addEventListener('click', e=>{ e.preventDefault(); const acct=a.dataset.tab==='account'; history.pushState(null,'',location.pathname+(acct?'#account':'')); route(); scrollTo({top:0}); }));
+addEventListener('popstate', route);
+onAuthStateChanged(auth, async u=>{
+  if (!u){ try{ await signInAnonymously(auth); }catch(e){ console.warn(e); CU=null; if ((e.code||'').includes('operation-not-allowed')||(e.code||'').includes('admin-restricted')) toast(t('authOff')); } return; }
+  CU=u; await loadProfile(); await loadMine(); route();
+});
+getRedirectResult(auth).catch(()=>{});
 (async()=>{
   paintStatic();
   try{

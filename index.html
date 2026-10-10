@@ -1165,6 +1165,7 @@ input[type=datetime-local]{width:100%;padding:10px 12px;border:1px solid var(--l
 .switch[aria-checked="true"] i{background:var(--ok-bar)}
 .switch[aria-checked="true"] i::after{left:19px}
 .o-code{font-size:.74rem;color:var(--muted);font-weight:600;margin-left:4px}
+.o-cid{color:var(--ink-2);font-weight:700}
 </style>
 </head>
 <body>
@@ -1551,18 +1552,33 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         <div class="pk-seg help-tabs" id="helpTabs" role="tablist"><button type="button" role="tab" data-t="guide" aria-checked="true">Page guide · पेज गाइड</button><button type="button" role="tab" data-t="faq" aria-checked="false">FAQ · प्रश्नहरू</button><button type="button" role="tab" data-t="gloss" aria-checked="false">Glossary · शब्दावली</button></div>
         <div class="card faq" id="tab-guide">
           <details class="qa bi" id="h-overview"><summary><span><b lang="ne">ड्यासबोर्ड</b><small>Dashboard</small></span></summary><div class="bi-body"><p lang="ne">माथि Today, 7 days वा This month छान्नुहोस्। कार्डहरूले त्यो अवधिको Revenue (आम्दानी), Gross profit (कुल नाफा), बिक्री भएका डायमन्ड र Transactions (कारोबार संख्या) देखाउँछन्, साथै अघिल्लो अवधिसँगको तुलना (↑/↓ %)। “Pending delivery” मा डायमन्ड पठाउन बाँकी अर्डर र “Accounts receivable” मा ग्राहकबाट उठाउन बाँकी रकम देखिन्छ। Quick sell थिचेर एकै पटकमा बिक्री सुरु गर्न सकिन्छ। दिनको अन्त्यमा “Share day report” थिचेर आजको हिसाब WhatsApp मा पठाउन सकिन्छ।</p><p class="en">Choose Today, 7 days or This month at the top. The cards show revenue, gross profit, diamonds sold and number of transactions for that period, compared with the previous period (↑/↓ %). “Pending delivery” lists orders not yet delivered and “Accounts receivable” lists amounts customers still owe. Use Quick sell to start a sale in one tap, and “Share day report” at the end of the day to send today’s summary on WhatsApp.</p></div></details>
-          <details class="qa bi" id="h-orders"><summary><span><b lang="ne">ग्राहक अर्डर</b><small>Orders</small></span></summary><div class="bi-body"><p lang="ne">Share order page थिचेर लिंक ग्राहकलाई पठाउनुहोस्। ग्राहकले प्याकेज, UID र नाम हालेर अर्डर पठाउँछन्; यहाँ “New” मा आउँछ र Dashboard मा सूचना देखिन्छ। Accept &amp; record sale थिच्दा सबै विवरण भरिएर बिक्री खुल्छ, Save गरेपछि अर्डर “Accepted” मा जान्छ। पहिलो पटक तलको Firestore Rules Firebase console मा paste गरेर Publish गर्नुहोस्, अनि order.html फाइल पनि GitHub repo मा राख्नुहोस्।</p><p class="en">Tap Share order page and send the link to customers. They choose packages, enter their UID and name, and the order arrives here under “New” with an alert on the dashboard. Accept &amp; record sale opens a filled-in sale; after saving, the order moves to “Accepted”. First time only: paste these Firestore rules in the Firebase console and publish, and put order.html in your GitHub repo next to index.html.</p><pre class="rules">rules_version = '2';
+          <details class="qa bi" id="h-orders"><summary><span><b lang="ne">ग्राहक अर्डर</b><small>Orders</small></span></summary><div class="bi-body"><p lang="ne">Share order page थिचेर लिंक ग्राहकलाई पठाउनुहोस्। ग्राहकले प्याकेज, UID र नाम हालेर अर्डर पठाउँछन्; यहाँ “New” मा आउँछ र Dashboard मा सूचना देखिन्छ। Accept &amp; record sale थिच्दा सबै विवरण भरिएर बिक्री खुल्छ, Save गरेपछि अर्डर “Accepted” मा जान्छ। पहिलो पटक: Firebase → Authentication → Sign-in method मा Anonymous र Google दुवै Enable गर्नुहोस्, तलको Firestore Rules paste गरेर Publish गर्नुहोस्, अनि order.html फाइल पनि GitHub repo मा राख्नुहोस्। ग्राहकले आफ्नो Customer ID, अर्डर इतिहास र स्थिति “My account” मा हेर्न सक्छन्।</p><p class="en">Tap Share order page and send the link to customers. They choose packages, enter their UID and name, and the order arrives here under “New” with an alert on the dashboard. Accept &amp; record sale opens a filled-in sale; after saving, the order moves to “Accepted”. First time only: in Firebase → Authentication → Sign-in method enable both Anonymous and Google, paste these Firestore rules and publish, and put order.html in your GitHub repo next to index.html. Customers see their Customer ID, order history and status under “My account”.</p><pre class="rules">rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
+    function isAdmin() {
+      return request.auth != null &amp;&amp; request.auth.token.email == 'yonghangissac@gmail.com';
+    }
     match /users/{uid}/{document=**} {
       allow read, write: if request.auth != null &amp;&amp; request.auth.uid == uid;
     }
     match /public/{doc} {
       allow read: if true;
-      allow write: if request.auth != null &amp;&amp; request.auth.token.email == 'yonghangissac@gmail.com';
+      allow write: if isAdmin();
+    }
+    match /customers/{cid} {
+      allow read: if request.auth != null &amp;&amp; (request.auth.uid == cid || isAdmin());
+      allow create, update: if request.auth != null &amp;&amp; request.auth.uid == cid
+        &amp;&amp; request.resource.data.keys().hasOnly(['code','name','phone','ffUids','createdAt','updatedAt','email'])
+        &amp;&amp; request.resource.data.code is string &amp;&amp; request.resource.data.code.size() &lt;= 10
+        &amp;&amp; request.resource.data.name is string &amp;&amp; request.resource.data.name.size() &lt;= 60
+        &amp;&amp; request.resource.data.phone is string &amp;&amp; request.resource.data.phone.size() &lt;= 15
+        &amp;&amp; request.resource.data.ffUids is list &amp;&amp; request.resource.data.ffUids.size() &lt;= 5;
+      allow delete: if isAdmin();
     }
     match /orders/{id} {
-      allow create: if request.resource.data.keys().hasOnly(['name','phone','uid','items','method','note','at','status','total'])
+      allow create: if request.auth != null
+        &amp;&amp; request.resource.data.cid == request.auth.uid
+        &amp;&amp; request.resource.data.keys().hasOnly(['name','phone','uid','items','method','note','at','status','total','cid','ccode'])
         &amp;&amp; request.resource.data.status == 'new'
         &amp;&amp; request.resource.data.name is string &amp;&amp; request.resource.data.name.size() &gt; 0 &amp;&amp; request.resource.data.name.size() &lt;= 60
         &amp;&amp; request.resource.data.uid is string &amp;&amp; request.resource.data.uid.size() &lt;= 14
@@ -1570,7 +1586,8 @@ service cloud.firestore {
         &amp;&amp; request.resource.data.note is string &amp;&amp; request.resource.data.note.size() &lt;= 200
         &amp;&amp; request.resource.data.items is list &amp;&amp; request.resource.data.items.size() &gt; 0 &amp;&amp; request.resource.data.items.size() &lt;= 12;
       allow get: if true;
-      allow list, update, delete: if request.auth != null &amp;&amp; request.auth.token.email == 'yonghangissac@gmail.com';
+      allow list: if isAdmin() || (request.auth != null &amp;&amp; resource.data.cid == request.auth.uid);
+      allow update, delete: if isAdmin();
     }
   }
 }</pre></div></details>
@@ -2293,7 +2310,7 @@ function openSaleView(s){
   $('svMoney').innerHTML=`<div><span>Customer paid</span><b>${rs(s.received)}</b></div><div><span>Sale value</span><b>${rs(rev)}</b></div><div><span>Cost</span><b>${rs(cost)}</b></div><div class="${p<0?'w':''}"><span>Profit</span><b class="${p<0?'':'g'}">${rsSigned(p)}</b></div>`;
   const row=(k,v)=>v==null||v===''?'':`<dt>${k}</dt><dd>${v}</dd>`;
   const c=custKey(s)!=='walkin';
-  $('svCust').innerHTML=row('Name', esc(s.customer||'Walk-in'))+row('Phone', s.phone?`<a class="link" href="tel:${esc(digits(s.phone))}">${esc(s.phone)}</a>`:'–')+row('Free Fire UID', s.uid?`<span class="num">${esc(s.uid)}</span> <button type="button" class="mini" data-sv="uid">Copy</button>`:'–')+(c?row('', '<button type="button" class="mini" data-sv="cust">Open customer profile</button>'):'');
+  $('svCust').innerHTML=row('Name', esc(s.customer||'Walk-in'))+row('Phone', s.phone?`<a class="link" href="tel:${esc(digits(s.phone))}">${esc(s.phone)}</a>`:'–')+(s.ccode?row('Online customer ID', '🪪 '+esc(s.ccode)):'')+row('Free Fire UID', s.uid?`<span class="num">${esc(s.uid)}</span> <button type="button" class="mini" data-sv="uid">Copy</button>`:'–')+(c?row('', '<button type="button" class="mini" data-sv="cust">Open customer profile</button>'):'');
   $('svPay').innerHTML=row('List price', rs(gross))+(disc?row('Discount', '− '+rs(disc)):'')+row('Net price', '<b>'+rs(rev)+'</b>')+row('Amount received', rs(s.received))+(s.method==='Credit'?row('Outstanding', due?`<b class="wtx">${rs(due)}</b>`:'Paid'):'')+row('Payment method', esc(s.method==='Credit'?'Credit (pay later)':s.method))+(s.paidAt?row('Paid on', fmtWhen(s.paidAt)):'');
   $('svCost').innerHTML=row('Dollars used', '$'+usd.toFixed(2)+' ('+nf(s.diamonds)+' 💎)')+row('Cost per dollar', usd?'Rs '+rs2(cost/usd)+(BOOK.saleCost.has(s.id)?' · from card':' · estimate'):'–')+row('Cost', rs(cost))+row('Profit', `<b class="${p<0?'rtx':'gtx'}">${rsSigned(p)}</b>`+(rev?` <span class="help">(${Math.round(p/rev*100)}% margin)</span>`:''));
   $('svNote').hidden=!s.note; $('svNote').textContent=s.note?'📝 '+s.note:'';
@@ -2405,7 +2422,7 @@ function customers(){
     if(!c){ c={key:k, name:s.customer||'', phone:s.phone||'', uid:s.uid||'', n:0, recv:0, rev:0, dia:0, profit:0, last:0, lastPkg:'', pend:0, ords:new Set(), due:0}; m.set(k,c); }
     c.ords.add(s.orderId||s.id); c.due+=dueOf(s);
     c.n++; c.disc=(c.disc||0)+discOf(s); c.recv+=Number(s.received)||0; c.rev+=revenueOf(s); c.dia+=Number(s.diamonds)||0; c.profit+=profitOf(s); if(s.status==='pending') c.pend++;
-    if(s.at>c.last){ c.last=s.at; c.lastPkg=s.pkgName; c.name=s.customer||c.name; c.phone=s.phone||c.phone; c.uid=s.uid||c.uid; c.pkgId=s.pkgId; } });
+    if(s.at>c.last){ c.last=s.at; c.lastPkg=s.pkgName; c.name=s.customer||c.name; c.phone=s.phone||c.phone; c.uid=s.uid||c.uid; c.pkgId=s.pkgId; } if (s.ccode) c.ccode=s.ccode; });
   const ly=S.settings.loyalty||{};
   return [...m.values()].map(c=>{ c.buys=c.ords.size; c.vip=(+ly.vipAt>0) && c.rev>=+ly.vipAt; c.toReward=(+ly.every>0&&+ly.pct>0) ? (+ly.every - (c.buys % +ly.every)) : null; return c; }).sort((a,b)=>b.rev-a.rev);
 }
@@ -2413,7 +2430,7 @@ const custName = k => { const c=customers().find(x=>x.key===k); return c ? (c.na
 function renderCustomers(){
   const all=customers(), q=S.custQ.trim().toLowerCase();
   $('cPill').textContent=all.length+' customer'+(all.length===1?'':'s');
-  const list=q?all.filter(c=>(c.name+' '+c.phone+' '+c.uid).toLowerCase().includes(q)):all;
+  const list=q?all.filter(c=>(c.name+' '+c.phone+' '+c.uid+' '+(c.ccode||'')).toLowerCase().includes(q)):all;
   if (!S.loaded){ $('cList').innerHTML='<div class="skel"></div><div class="skel"></div>'; return; }
   $('cList').innerHTML = list.length ? list.map(c=>{ const ini=(c.name||c.phone||'?').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
     return `<div class="person" data-cust="${esc(c.key)}"><span class="pav"><span class="ph">${esc(ini)}</span></span>
@@ -2444,7 +2461,7 @@ const METHODS=['Cash','eSewa','Khalti','Bank','Credit'];
 function resetForm(pre={}){
   const lines = Array.isArray(pre.lines)&&pre.lines.length ? pre.lines.filter(l=>pkgById(l.pkId)).map(l=>({pkId:l.pkId, qty:Math.max(1,parseInt(l.qty,10)||1)}))
     : (pre.pkId && pkgById(pre.pkId) ? [{pkId:pre.pkId, qty:1}] : []);
-  S.form={ lines, method:METHODS.includes(pre.method)?pre.method:'Cash', status:'done', recvTouched:false, fromOrder:pre.fromOrder||null };
+  S.form={ lines, method:METHODS.includes(pre.method)?pre.method:'Cash', status:'done', recvTouched:false, fromOrder:pre.fromOrder||null, ccode:pre.ccode||'', cid:pre.cid||'' };
   $('fName').value=pre.customer||''; $('fPhone').value=pre.phone||''; $('fUid').value=pre.uid||''; $('fDisc').value=''; $('fNote').value=pre.note||''; $('fRecv').value=''; $('fErr2').textContent='';
   $('custHit').hidden=true; $('rewardHit').hidden=true; $('calcBox').hidden=true; $('calcOut').innerHTML='';
 }
@@ -2601,7 +2618,7 @@ $('sellSave').addEventListener('click', () => {
     const r={ ...base, id: o ? o.id : newId()+i, at, pkgId:x.p.id, pkgName:x.p.kind==='member'?x.p.name+' membership':nf(x.p.diamonds)+' diamonds', kind:x.p.kind||'topup',
       diamonds:x.p.diamonds*x.q, qty:x.q, usd:x.p.usd, rate:o?(o.rate||rateNowR):rateNowR, feePct:o?(o.feePct??0):0,
       cost:Math.round(x.cost*100)/100, listPrice:x.list, discount:ld, price:x.list-ld, received:lr };
-    if (orderId) r.orderId=orderId; if (f.fromOrder) r.orderRef=f.fromOrder; else if (o&&o.orderRef) r.orderRef=o.orderRef; if (o) r.updatedAt=Date.now(); if (o&&o.remindedAt) r.remindedAt=o.remindedAt; if (o&&o.paidAt) r.paidAt=o.paidAt;
+    if (orderId) r.orderId=orderId; if (f.ccode) { r.ccode=f.ccode; r.cid=f.cid; } else if (o&&o.ccode){ r.ccode=o.ccode; r.cid=o.cid; } if (f.fromOrder) r.orderRef=f.fromOrder; else if (o&&o.orderRef) r.orderRef=o.orderRef; if (o) r.updatedAt=Date.now(); if (o&&o.remindedAt) r.remindedAt=o.remindedAt; if (o&&o.paidAt) r.paidAt=o.paidAt;
     recs.push(r); });
   recs.forEach(saveSale);
   if (f.fromOrder) setDoc(doc(db,'orders',f.fromOrder), {status:'done', doneAt:Date.now(), saleIds:recs.map(r=>r.id), delivered:f.status==='done'}, {merge:true}).catch(e=>console.warn(e));
@@ -2940,7 +2957,7 @@ function openCust(key){
   $('cuSub').textContent=[c.phone, c.uid&&'UID '+c.uid, 'Customer since '+new Date(Math.min(...list.map(s=>s.at))).toLocaleDateString('en-GB',{month:'short',year:'numeric'})].filter(Boolean).join(' · ');
   $('cuStats').innerHTML=`<div><span>Total spent</span><b>${rs(c.rev)}</b></div><div><span>Your profit</span><b class="g">${rsSigned(c.profit)}</b></div><div><span>Diamonds</span><b>${nf(c.dia)}</b></div><div class="${due?'w':''}"><span>To collect</span><b>${due?rs(due):'–'}</b></div>`;
   const w=waNumber(c.phone);
-  $('cuSub').textContent=(c.vip?'⭐ VIP · ':'')+$('cuSub').textContent+(c.toReward?` · 🎁 reward in ${c.toReward} buy${c.toReward===1?'':'s'}`:'');
+  $('cuSub').textContent=(c.vip?'⭐ VIP · ':'')+(c.ccode?'🪪 '+c.ccode+' · ':'')+$('cuSub').textContent+(c.toReward?` · 🎁 reward in ${c.toReward} buy${c.toReward===1?'':'s'}`:'');
   $('cuActs').innerHTML=(due?'<button class="btn primary" type="button" data-cu="remind">🔔 Remind to pay</button>':'')+`<button class="btn accent" type="button" data-cu="again">Sell again</button>${w?'<button class="btn" type="button" data-cu="wa">WhatsApp</button>':''}${c.phone?`<a class="btn" href="tel:${esc(digits(c.phone))}">Call</a>`:''}${c.uid?'<button class="btn" type="button" data-cu="uid">Copy UID</button>':''}<button class="btn" type="button" data-cu="all">All sales</button>`;
   $('cuList').innerHTML=list.slice(0,12).map(s=>saleRow(s,false,true)).join('')+(list.length>12?`<div class="more-row"><button class="btn sm" type="button" data-cu="all">See all ${list.length}</button></div>`:'');
   $('sheetCust').dataset.key=key; $('sheetBg').hidden=false; $('sheetCust').hidden=false;
@@ -3063,7 +3080,7 @@ function renderOrders(){
   $('oList').innerHTML = list.length ? list.map(o=>{ const items=(o.items||[]).map(i=>`${i.qty} × ${esc(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')}`).join(', ');
     return `<div class="ord" data-oid="${esc(o.id)}"><div class="o-top"><b>${esc(o.name||'Customer')} <small class="o-code">#${esc(o.id.slice(0,6).toUpperCase())}</small></b><span>${esc(ago(o.at))}</span></div>
       <div class="o-items">${items}</div>
-      <div class="o-meta"><span>Total <b>${rs(o.total||0)}</b></span>${o.uid?`<span>UID <b>${esc(o.uid)}</b></span>`:''}${o.phone?`<span>📞 ${esc(o.phone)}</span>`:''}<span>Pays by ${esc(o.method||'–')}</span></div>
+      <div class="o-meta">${o.ccode?`<span class="o-cid">🪪 ${esc(o.ccode)} · ${S.orders.filter(x=>x.cid&&x.cid===o.cid).length} order${S.orders.filter(x=>x.cid&&x.cid===o.cid).length===1?'':'s'}</span>`:''}<span>Total <b>${rs(o.total||0)}</b></span>${o.uid?`<span>UID <b>${esc(o.uid)}</b></span>`:''}${o.phone?`<span>📞 ${esc(o.phone)}</span>`:''}<span>Pays by ${esc(o.method||'–')}</span></div>
       ${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}
       <div class="o-acts">${o.status==='new'?`<button class="btn accent" type="button" data-oa="accept">Accept &amp; record sale</button>${waNumber(o.phone)?'<button class="btn" type="button" data-oa="wa">WhatsApp</button>':''}<button class="btn" type="button" data-oa="reject">Reject</button>`:o.status==='done'?(o.delivered?'<span class="o-ok">✓ Delivered</span>':'<span class="o-ok wtx">✓ Recorded · not delivered yet</span>')+'<button class="btn sm" type="button" data-oa="del">Remove</button>':'<button class="btn" type="button" data-oa="restore">Move back to new</button><button class="btn del-btn" type="button" data-oa="del">Delete</button>'}</div></div>`; }).join('')
     : blank(S.oFilter==='new'?'No new orders':'Nothing here', S.oFilter==='new'?'Share your order page so customers can order themselves.':'');
@@ -3073,7 +3090,7 @@ $('oList').addEventListener('click', async e=>{
   const b=e.target.closest('[data-oa]'); if(!b) return; const o=S.orders.find(x=>x.id===b.closest('[data-oid]').dataset.oid); if(!o) return; const k=b.dataset.oa, ref=doc(db,'orders',o.id);
   if (k==='accept'){ const lines=(o.items||[]).filter(i=>pkgById(i.pkId)).map(i=>({pkId:i.pkId, qty:i.qty}));
     if (lines.length<(o.items||[]).length) toast('Some packages in this order are no longer in your list',true);
-    newSale({customer:o.name, phone:o.phone, uid:o.uid, lines, method:o.method==='Cash'||!o.method?'Cash':o.method, note:o.note||'', fromOrder:o.id}); }
+    newSale({customer:o.name, phone:o.phone, uid:o.uid, lines, method:o.method==='Cash'||!o.method?'Cash':o.method, note:o.note||'', fromOrder:o.id, ccode:o.ccode||'', cid:o.cid||''}); }
   else if (k==='wa'){ open('https://wa.me/'+waNumber(o.phone)+'?text='+encodeURIComponent('Namaste '+(o.name||'')+' ji 🙏 Tapai ko order paayo: '+(o.items||[]).map(i=>i.qty+' × '+(i.kind==='member'?i.name:i.diamonds+' 💎')).join(', ')+'. Total '+rs(o.total||0)+'.'+((S.settings.shop||{}).pay?' Payment: '+S.settings.shop.pay:'')),'_blank','noopener'); }
   else if (k==='reject'){ setDoc(ref,{status:'rejected'},{merge:true}).catch(fail('Couldn\u2019t update the order.')); toast('Order rejected', false, {label:'Undo', fn:()=>setDoc(ref,{status:'new'},{merge:true})}); }
   else if (k==='restore'){ setDoc(ref,{status:'new'},{merge:true}).catch(fail('Couldn\u2019t update the order.')); }
