@@ -1,0 +1,707 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Diamond Counter</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400..800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#EEF1FA; --surface:#FFFFFF; --ink:#181C45; --muted:#5B6190; --line:#D8DCEE;
+  --band:#181C45; --band-ink:#F2F4FF; --band-muted:#AEB4E4;
+  --blue:#2F5BFF; --blue-soft:#E3E9FF; --gold:#FFC233; --gold-ink:#2E2200;
+  --good:#167A4E; --good-soft:#DDF3E8; --bad:#B8362F; --bad-soft:#FBE3E1;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#0F1130; --surface:#1A1D45; --ink:#ECEEFF; --muted:#A3A8D6; --line:#2C3066;
+    --band:#070920; --band-ink:#F2F4FF; --band-muted:#9CA3D9;
+    --blue:#8AA2FF; --blue-soft:#25306B; --gold:#FFC94D; --gold-ink:#2B1F00;
+    --good:#5BD49A; --good-soft:#123A2B; --bad:#FF8A80; --bad-soft:#4A1D1D;
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#0F1130; --surface:#1A1D45; --ink:#ECEEFF; --muted:#A3A8D6; --line:#2C3066;
+  --band:#070920; --band-ink:#F2F4FF; --band-muted:#9CA3D9;
+  --blue:#8AA2FF; --blue-soft:#25306B; --gold:#FFC94D; --gold-ink:#2B1F00;
+  --good:#5BD49A; --good-soft:#123A2B; --bad:#FF8A80; --bad-soft:#4A1D1D;
+  color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--ink);
+  font-family:"Archivo",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
+.num{font-variant-numeric:tabular-nums}
+button,input,select,textarea{font:inherit;color:inherit}
+button{cursor:pointer}
+:focus-visible{outline:3px solid var(--blue);outline-offset:2px}
+.wrap{max-width:720px;margin:0 auto;padding:0 16px}
+
+/* Rate band — the one loud element */
+.band{background:var(--band);color:var(--band-ink);padding:18px 0 22px;position:relative;overflow:hidden}
+.band::after{content:"";position:absolute;right:-40px;top:-30px;width:180px;height:180px;
+  background:conic-gradient(from 45deg,#5C7CFF22,#9FB4FF33,#5C7CFF11,#9FB4FF33,#5C7CFF22);
+  transform:rotate(45deg);border-radius:18px;pointer-events:none}
+.shop{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:14px;color:var(--band-muted)}
+.shop strong{color:var(--band-ink);font-weight:700;font-stretch:112%}
+.rate{margin-top:14px;display:flex;align-items:flex-end;gap:14px;flex-wrap:wrap}
+.rate-big{font-stretch:125%;font-weight:800;font-size:clamp(44px,13vw,76px);line-height:.9;letter-spacing:-.02em}
+.rate-big small{font-size:.38em;font-weight:600;letter-spacing:0;margin-right:4px;color:var(--band-muted)}
+.rate-per{font-size:15px;color:var(--band-muted);padding-bottom:6px}
+.rate-status{margin-top:10px;font-size:14px;color:var(--band-muted);display:flex;align-items:center;gap:10px;flex-wrap:wrap;position:relative;z-index:1}
+.dot{width:8px;height:8px;border-radius:50%;background:#7C8199;display:inline-block}
+.dot.ok{background:#4ADE80;box-shadow:0 0 0 4px #4ADE8033}
+.dot.warn{background:#FFC233}
+.dot.load{background:#8AA2FF;animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.3}}
+@media (prefers-reduced-motion:reduce){.dot.load{animation:none}}
+.ghost{background:transparent;border:1px solid #ffffff40;color:var(--band-ink);border-radius:999px;padding:5px 12px;font-size:13px}
+
+/* Tabs */
+.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+.tabs .wrap{display:flex;gap:4px}
+.tab{flex:1;background:none;border:0;padding:14px 4px 12px;font-weight:600;color:var(--muted);border-bottom:3px solid transparent;font-size:15px}
+.tab[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--gold)}
+main{padding:18px 0 110px}
+h2{font-stretch:112%;font-weight:750;font-size:20px;margin:22px 0 4px}
+.lead{color:var(--muted);font-size:14px;margin:0 0 12px}
+
+/* Price board */
+.board{background:var(--surface);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.board-head,.row{display:grid;grid-template-columns:1.4fr .8fr 1fr 1fr;gap:8px;align-items:center;padding:0 14px}
+.board-head{font-size:12px;color:var(--muted);padding-top:10px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.board-head span:not(:first-child),.row .r{text-align:right}
+.row{width:100%;background:none;border:0;border-bottom:1px solid var(--line);min-height:58px;text-align:left}
+.row:last-child{border-bottom:0}
+.row:hover{background:var(--blue-soft)}
+.gem{display:flex;align-items:center;gap:8px;font-weight:700;font-stretch:112%;font-size:17px}
+.gem svg{flex:none}
+.gem em{font-style:normal;font-weight:500;font-size:12px;color:var(--muted);display:block;font-stretch:100%}
+.usd{color:var(--muted);font-size:14px}
+.cost{font-size:14px;color:var(--muted)}
+.sell{font-weight:750;font-size:17px}
+.section-label{padding:10px 14px 6px;font-size:13px;font-weight:600;color:var(--blue);background:var(--blue-soft)}
+
+/* Records */
+.summary{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px}
+.sum{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 14px}
+.sum h3{margin:0 0 6px;font-size:14px;font-weight:650;color:var(--muted)}
+.sum dl{margin:0;display:grid;grid-template-columns:auto 1fr;gap:2px 10px;font-size:14px}
+.sum dt{color:var(--muted)}
+.sum dd{margin:0;text-align:right;font-weight:650}
+.sum dd.profit{color:var(--good)}
+.tools{display:flex;gap:8px;margin:14px 0 10px;flex-wrap:wrap}
+.search{flex:1 1 200px;min-width:0;padding:11px 14px;border-radius:10px;border:1px solid var(--line);background:var(--surface)}
+.chips{display:flex;gap:6px;flex-wrap:wrap}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;font-size:14px;font-weight:600}
+.chip[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.list{display:flex;flex-direction:column;gap:8px}
+.rec{background:var(--surface);border:1px solid var(--line);border-radius:12px}
+.rec-main{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding:12px 14px;width:100%;background:none;border:0;text-align:left}
+.rec-name{font-weight:700;font-size:16px}
+.rec-amt{font-weight:750;text-align:right;font-size:16px}
+.rec-sub{font-size:13px;color:var(--muted)}
+.rec-profit{font-size:13px;text-align:right;color:var(--good);font-weight:600}
+.rec-profit.neg{color:var(--bad)}
+.badge{display:inline-block;font-size:11px;font-weight:700;padding:2px 7px;border-radius:6px;margin-left:6px;vertical-align:2px}
+.badge.pending{background:var(--gold);color:var(--gold-ink)}
+.rec-more{border-top:1px dashed var(--line);padding:10px 14px 12px;font-size:14px;display:none}
+.rec.open .rec-more{display:block}
+.rec-more dl{display:grid;grid-template-columns:auto 1fr;gap:3px 12px;margin:0 0 10px}
+.rec-more dt{color:var(--muted)}
+.rec-more dd{margin:0;word-break:break-word}
+.rec-actions{display:flex;gap:8px;flex-wrap:wrap}
+.btn{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:9px 14px;font-weight:600;font-size:14px}
+.btn.danger{color:var(--bad);border-color:var(--bad)}
+.btn.danger.armed{background:var(--bad);color:#fff}
+.btn.primary{background:var(--gold);border-color:var(--gold);color:var(--gold-ink)}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:12px;padding:22px;text-align:center;color:var(--muted)}
+
+/* Settings */
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field label{font-size:14px;font-weight:600}
+.field .hint{font-size:13px;color:var(--muted)}
+.input{padding:11px 12px;border-radius:10px;border:1px solid var(--line);background:var(--surface);width:100%}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.seg{display:flex;border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
+.seg button{flex:1;border:0;background:none;padding:10px;font-weight:600;font-size:14px;color:var(--muted)}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.pk-edit{display:grid;grid-template-columns:1.5fr .9fr .9fr auto;gap:6px;align-items:center;margin-bottom:6px}
+.pk-edit .input{padding:9px 10px;font-size:14px}
+.x{border:0;background:none;color:var(--bad);font-size:20px;width:36px;height:36px;border-radius:8px}
+.note{font-size:13px;color:var(--muted);background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:12px 14px;margin-top:18px}
+
+/* Sheet */
+.scrim{position:fixed;inset:0;background:#0A0C2299;z-index:20;display:none}
+.scrim.show{display:block}
+.sheet{position:fixed;left:0;right:0;bottom:0;z-index:21;background:var(--surface);
+  border-radius:18px 18px 0 0;max-height:92%;overflow:auto;transform:translateY(105%);
+  transition:transform .22s ease-out;padding:0 0 calc(16px + env(safe-area-inset-bottom,0px))}
+.sheet.show{transform:none}
+@media (prefers-reduced-motion:reduce){.sheet{transition:none}}
+.sheet .wrap{padding-top:8px}
+.grab{width:42px;height:5px;border-radius:3px;background:var(--line);margin:8px auto 4px}
+.sheet h2{margin-top:6px}
+.pick{display:flex;gap:6px;overflow-x:auto;padding-bottom:6px;margin-bottom:12px}
+.pick button{flex:none;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:8px 12px;font-weight:700;font-size:14px;text-align:left}
+.pick button span{display:block;font-weight:500;font-size:12px;color:var(--muted)}
+.pick button[aria-pressed="true"]{border-color:var(--blue);background:var(--blue-soft);box-shadow:inset 0 0 0 1px var(--blue)}
+.calc{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;background:var(--bg);border-radius:12px;padding:10px 12px;margin:4px 0 14px;font-size:13px;color:var(--muted)}
+.calc b{display:block;font-size:17px;color:var(--ink)}
+.calc b.good{color:var(--good)} .calc b.bad{color:var(--bad)}
+.save{width:100%;padding:15px;border-radius:12px;border:0;background:var(--gold);color:var(--gold-ink);font-weight:800;font-size:17px;font-stretch:112%}
+.err{color:var(--bad);font-size:13px;min-height:18px}
+
+.fab{position:fixed;right:16px;bottom:calc(18px + env(safe-area-inset-bottom,0px));z-index:10;
+  background:var(--gold);color:var(--gold-ink);border:0;border-radius:999px;padding:15px 22px;font-weight:800;font-size:16px;
+  box-shadow:0 6px 18px #181C4540}
+.toast{position:fixed;left:50%;bottom:calc(84px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);
+  background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:10px;font-size:14px;font-weight:600;z-index:30;display:none}
+.toast.show{display:block}
+.gate{position:fixed;inset:0;z-index:40;background:var(--band);display:flex;align-items:center;justify-content:center;
+  padding:calc(20px + env(safe-area-inset-top,0px)) 20px calc(20px + env(safe-area-inset-bottom,0px));overflow:auto}
+.gate-box{background:var(--surface);color:var(--ink);border-radius:18px;padding:26px 22px;width:100%;max-width:380px}
+.gate-box h1{font-stretch:125%;font-weight:800;font-size:28px;margin:6px 0 2px;letter-spacing:-.01em}
+.gate-mark{font-size:30px}
+[hidden]{display:none!important}
+@media (max-width:420px){
+  .board-head,.row{grid-template-columns:1.3fr .7fr 1fr;padding:0 12px}
+  .board-head .c-cost,.row .cost{display:none}
+}
+</style>
+</head>
+<body>
+
+<header class="band">
+  <div class="wrap">
+    <div class="shop"><strong>Diamond Counter</strong><span id="storeMode">Not signed in</span></div>
+    <div class="rate">
+      <div class="rate-big num" id="rateBig"><small>Rs</small>—</div>
+      <div class="rate-per">for 1 US dollar</div>
+    </div>
+    <div class="rate-status"><span class="dot load" id="rateDot"></span><span id="rateText">Getting today's rate…</span>
+      <button class="ghost" id="refreshBtn" type="button">Refresh rate</button></div>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sections">
+  <div class="wrap" role="tablist">
+    <button class="tab" role="tab" aria-selected="true" data-tab="sell">Price list</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="records">Records</button>
+    <button class="tab" role="tab" aria-selected="false" data-tab="settings">Settings</button>
+  </div>
+</nav>
+
+<main class="wrap">
+  <section id="tab-sell">
+    <h2>Today's prices</h2>
+    <p class="lead" id="sellLead"></p>
+    <div class="board" id="board"></div>
+  </section>
+
+  <section id="tab-records" hidden>
+    <div class="summary" id="summary"></div>
+    <div class="tools">
+      <input class="search" id="search" type="search" placeholder="Search name, phone or UID" aria-label="Search records">
+      <div class="chips" id="filters">
+        <button class="chip" aria-pressed="true" data-f="all">All</button>
+        <button class="chip" aria-pressed="false" data-f="today">Today</button>
+        <button class="chip" aria-pressed="false" data-f="pending">Pending</button>
+      </div>
+    </div>
+    <div class="list" id="list"></div>
+    <div style="margin-top:14px" id="exportWrap"><button class="btn" id="exportBtn" type="button">Download records (CSV)</button></div>
+  </section>
+
+  <section id="tab-settings" hidden>
+    <h2>Dollar rate</h2>
+    <p class="lead">Live uses the market rate and refreshes every 30 minutes. Manual lets you type the rate your bank or card actually charges.</p>
+    <div class="field">
+      <div class="seg" id="rateMode">
+        <button type="button" data-v="live">Live rate</button>
+        <button type="button" data-v="manual">Manual rate</button>
+      </div>
+    </div>
+    <div class="field">
+      <label for="manualRate">Manual rate (Rs per $1)</label>
+      <input class="input num" id="manualRate" type="number" step="0.01" min="1" inputmode="decimal">
+      <span class="hint">Also used as a backup when the live rate can't load.</span>
+    </div>
+    <h2>Your price</h2>
+    <p class="lead">Selling price = dollar cost + card fee + your margin, rounded up.</p>
+    <div class="grid2">
+      <div class="field"><label for="feePct">Card / bank fee %</label><input class="input num" id="feePct" type="number" step="0.1" min="0" inputmode="decimal"></div>
+      <div class="field"><label for="marginPct">Your margin %</label><input class="input num" id="marginPct" type="number" step="0.5" min="0" inputmode="decimal"></div>
+    </div>
+    <div class="field">
+      <label>Round selling price up to</label>
+      <div class="seg" id="roundTo">
+        <button type="button" data-v="1">Rs 1</button>
+        <button type="button" data-v="5">Rs 5</button>
+        <button type="button" data-v="10">Rs 10</button>
+      </div>
+    </div>
+    <h2>Packages</h2>
+    <p class="lead">Name, diamonds, and the in-game dollar price. Change these when Garena changes prices.</p>
+    <div id="pkEditor"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:8px">
+      <button class="btn" id="addPk" type="button">Add package</button>
+      <button class="btn" id="resetPk" type="button">Reset to game prices</button>
+    </div>
+    <p class="note" id="storeNote"></p>
+    <button class="btn" id="signOutBtn" type="button" style="margin-top:10px">Sign out</button>
+  </section>
+</main>
+
+<button class="fab" id="fab" type="button">+ New sale</button>
+
+<div class="scrim" id="scrim"></div>
+<div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+  <div class="grab"></div>
+  <div class="wrap">
+    <h2 id="sheetTitle">New sale</h2>
+    <div class="pick" id="pick" aria-label="Package"></div>
+    <div class="grid2">
+      <div class="field"><label for="fName">Customer name</label><input class="input" id="fName" autocomplete="off"></div>
+      <div class="field"><label for="fPhone">Phone</label><input class="input num" id="fPhone" type="tel" inputmode="tel" autocomplete="off"></div>
+    </div>
+    <div class="grid2">
+      <div class="field"><label for="fUid">Free Fire UID</label><input class="input num" id="fUid" inputmode="numeric" autocomplete="off"></div>
+      <div class="field"><label for="fQty">Quantity</label><input class="input num" id="fQty" type="number" min="1" value="1" inputmode="numeric"></div>
+    </div>
+    <div class="field"><label for="fRecv">Money received (Rs)</label><input class="input num" id="fRecv" type="number" min="0" inputmode="decimal"></div>
+    <div class="calc">
+      <div>Diamonds<b class="num" id="cDia">0</b></div>
+      <div>Your cost<b class="num" id="cCost">Rs 0</b></div>
+      <div>Profit<b class="num" id="cProfit">Rs 0</b></div>
+    </div>
+    <div class="field"><label>Paid by</label>
+      <div class="seg" id="fMethod">
+        <button type="button" data-v="Cash">Cash</button>
+        <button type="button" data-v="eSewa">eSewa</button>
+        <button type="button" data-v="Khalti">Khalti</button>
+        <button type="button" data-v="Bank">Bank</button>
+      </div>
+    </div>
+    <div class="field"><label>Diamonds sent?</label>
+      <div class="seg" id="fStatus">
+        <button type="button" data-v="done">Yes, sent</button>
+        <button type="button" data-v="pending">Not yet</button>
+      </div>
+    </div>
+    <div class="field"><label for="fNote">Note (optional)</label><input class="input" id="fNote" autocomplete="off"></div>
+    <div class="err" id="fErr"></div>
+    <button class="save" id="saveSale" type="button">Save sale</button>
+    <div style="text-align:center;margin-top:8px"><button class="btn" id="cancelSale" type="button" style="border:0">Cancel</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast" role="status"></div>
+
+<div class="gate" id="gate">
+  <form class="gate-box" id="loginForm">
+    <div class="gate-mark">💎</div>
+    <h1>Diamond Counter</h1>
+    <p class="lead">Sign in to see your sales.</p>
+    <div class="field"><label for="loginEmail">Email</label><input class="input" id="loginEmail" type="email" autocomplete="username" required></div>
+    <div class="field"><label for="loginPass">Password</label><input class="input" id="loginPass" type="password" autocomplete="current-password" required></div>
+    <div class="err" id="loginErr"></div>
+    <button class="save" id="loginBtn" type="submit">Sign in</button>
+  </form>
+</div>
+
+<script type="module">
+/* ---------- Firebase ---------- */
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-analytics.js";
+import { getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager,
+  doc, collection, setDoc, deleteDoc, onSnapshot, query, orderBy, writeBatch } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyCLSEXvViC9U_pOemMfNUkivNQSO2ayggA",
+  authDomain: "free-fire-daimonds-2e4f1.firebaseapp.com",
+  projectId: "free-fire-daimonds-2e4f1",
+  storageBucket: "free-fire-daimonds-2e4f1.firebasestorage.app",
+  messagingSenderId: "331335997414",
+  appId: "1:331335997414:web:f08d9b253c82238052e827",
+  measurementId: "G-9DTV337MC4"
+};
+const app = initializeApp(firebaseConfig);
+isSupported().then(ok => { if (ok) getAnalytics(app); }).catch(() => {});
+const auth = getAuth(app);
+// Offline cache: sales saved without internet sync automatically when the connection returns
+const fdb = initializeFirestore(app, { localCache: persistentLocalCache({ tabManager: persistentMultipleTabManager() }) });
+
+/* ---------- Defaults (from the in-game top-up screen) ---------- */
+const DEFAULT_PACKAGES = [
+  {id:"d100", name:"100 diamonds", diamonds:100, usd:1.14, kind:"topup"},
+  {id:"d310", name:"310 diamonds", diamonds:310, usd:3.45, kind:"topup"},
+  {id:"d520", name:"520 diamonds", diamonds:520, usd:5.38, kind:"topup"},
+  {id:"d1060", name:"1060 diamonds", diamonds:1060, usd:11.54, kind:"topup"},
+  {id:"d2180", name:"2180 diamonds", diamonds:2180, usd:22.32, kind:"topup"},
+  {id:"d5600", name:"5600 diamonds", diamonds:5600, usd:53.12, kind:"topup"},
+  {id:"wlite", name:"Weekly Lite", diamonds:90, usd:0.49, kind:"member"},
+  {id:"weekly", name:"Weekly", diamonds:445, usd:2.25, kind:"member"},
+  {id:"monthly", name:"Monthly", diamonds:2500, usd:10.86, kind:"member"}
+];
+const FALLBACK_RATE = 154.00;
+const DEFAULT_SETTINGS = {rateMode:"live", manualRate:FALLBACK_RATE, feePct:0, marginPct:10, roundTo:5,
+  packages:DEFAULT_PACKAGES, lastLiveRate:null, lastLiveAt:null};
+
+let settings = clone(DEFAULT_SETTINGS);
+let sales = [];
+let live = {status:"loading"};
+let filter = "all";
+
+function clone(o){return JSON.parse(JSON.stringify(o))}
+function $(id){return document.getElementById(id)}
+function esc(s){return String(s==null?"":s).replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]))}
+function rs(n){return "Rs " + Math.round(n).toLocaleString("en-IN")}
+function rs2(n){return Number(n).toLocaleString("en-IN",{minimumFractionDigits:2,maximumFractionDigits:2})}
+function when(t){const d=new Date(t);return d.toLocaleDateString("en-GB",{day:"numeric",month:"short"})+", "+d.toLocaleTimeString("en-US",{hour:"numeric",minute:"2-digit"})}
+function dayKey(t){const d=new Date(t);return d.getFullYear()+"-"+d.getMonth()+"-"+d.getDate()}
+function monthKey(t){const d=new Date(t);return d.getFullYear()+"-"+d.getMonth()}
+function newId(){return "s"+Date.now().toString(36)+Math.random().toString(36).slice(2,7)}
+
+/* ---------- Storage: Firestore  users/{uid}/sales/{id}  +  users/{uid}/meta/settings ---------- */
+let uid = null;
+function salesCol(){ return collection(fdb, "users", uid, "sales"); }
+function settingsRef(){ return doc(fdb, "users", uid, "meta", "settings"); }
+function fail(msg){ return err => { console.error(err); toast(msg); }; }
+// Writes go to the offline cache first, so the UI never waits for the network
+const store = {
+  async saveSettings(s){ setDoc(settingsRef(), s).catch(fail("Couldn't save settings. Check you're signed in.")); },
+  async saveSale(r){ setDoc(doc(salesCol(), r.id), r).catch(fail("Couldn't save the sale to the cloud.")); },
+  async deleteSale(id){ deleteDoc(doc(salesCol(), id)).catch(fail("Couldn't delete the sale.")); }
+};
+
+let unsubs = [];
+function startSync(){
+  unsubs.push(onSnapshot(settingsRef(), snap => {
+    if (snap.metadata.hasPendingWrites || saveTimer) return; // don't overwrite what's being typed
+    settings = Object.assign(clone(DEFAULT_SETTINGS), snap.exists() ? snap.data() : {});
+    renderAll();
+  }, fail("Couldn't load settings.")));
+  unsubs.push(onSnapshot(query(salesCol(), orderBy("at", "desc")), snap => {
+    sales = snap.docs.map(d => d.data());
+    renderSummary(); renderList();
+    $("storeMode").textContent = snap.metadata.hasPendingWrites || snap.metadata.fromCache ? "Waiting to sync…" : "Synced";
+  }, fail("Couldn't load sales.")));
+}
+function stopSync(){ unsubs.forEach(u => u()); unsubs = []; }
+
+// One-time move of sales saved by the old browser-only version
+const LS_KEY = "diamondCounter.v1";
+async function migrateLocal(){
+  let d; try { d = JSON.parse(localStorage.getItem(LS_KEY)); } catch(e) { d = null; }
+  if (!d) return;
+  const list = d.sales || [];
+  for (let i = 0; i < list.length; i += 400) {
+    const batch = writeBatch(fdb);
+    list.slice(i, i + 400).forEach(r => batch.set(doc(salesCol(), r.id), r));
+    await batch.commit();
+  }
+  if (d.settings) await setDoc(settingsRef(), Object.assign(clone(DEFAULT_SETTINGS), d.settings), { merge: true });
+  localStorage.removeItem(LS_KEY);
+  if (list.length) toast(list.length + " old sales moved to the cloud");
+}
+
+function applyLoaded(d){
+  if(d.settings) settings = Object.assign(clone(DEFAULT_SETTINGS), d.settings);
+  sales = (d.sales||[]).slice().sort((a,b)=>b.at-a.at);
+}
+
+let saveTimer=null;
+function persistSettings(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(()=>{saveTimer=null;if(uid) store.saveSettings(clone(settings))},400);
+}
+
+/* ---------- Rate + pricing ---------- */
+function rate(){
+  if(settings.rateMode==="manual") return Number(settings.manualRate)||FALLBACK_RATE;
+  if(live.status==="ok") return live.rate;
+  return Number(settings.lastLiveRate)||Number(settings.manualRate)||FALLBACK_RATE;
+}
+function costOf(p){return p.usd*rate()*(1+(Number(settings.feePct)||0)/100)}
+function sellOf(p){const r=Number(settings.roundTo)||1;return Math.ceil(costOf(p)*(1+(Number(settings.marginPct)||0)/100)/r)*r}
+
+async function fetchRate(){
+  live={status:"loading"}; renderRate();
+  try{
+    const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),8000);
+    const res=await fetch("https://open.er-api.com/v6/latest/USD",{signal:ctl.signal});
+    clearTimeout(t);
+    const j=await res.json();
+    const n=j && j.rates && j.rates.NPR;
+    if(!n) throw new Error("no NPR");
+    live={status:"ok", rate:n, at:Date.now()};
+    settings.lastLiveRate=n; settings.lastLiveAt=live.at; persistSettings();
+  }catch(e){ live={status:"failed"}; }
+  renderAll();
+}
+
+/* ---------- Render ---------- */
+function renderRate(){
+  $("rateBig").innerHTML='<small>Rs</small>'+rs2(rate());
+  const dot=$("rateDot"), txt=$("rateText");
+  $("refreshBtn").hidden = settings.rateMode==="manual";
+  if(settings.rateMode==="manual"){dot.className="dot warn";txt.textContent="Manual rate, change it in Settings";return}
+  if(live.status==="loading"){dot.className="dot load";txt.textContent="Getting today's rate…";return}
+  if(live.status==="ok"){dot.className="dot ok";txt.textContent="Live market rate, updated "+when(live.at);return}
+  dot.className="dot warn";
+  txt.textContent = settings.lastLiveRate
+    ? "Live rate didn't load. Showing the last one, from "+when(settings.lastLiveAt)+"."
+    : "Live rate didn't load. Using your manual rate.";
+}
+
+const GEM='<svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z" fill="#5C86FF"/><path d="M2 9h20L12 21z" fill="#2F5BFF"/><path d="M8 9l4-6 4 6-4 12z" fill="#9FB8FF" opacity=".7"/></svg>';
+
+function renderBoard(){
+  const pk=settings.packages;
+  const fee=Number(settings.feePct)||0, m=Number(settings.marginPct)||0;
+  $("sellLead").textContent="Tap a package to record a sale. Cost includes "+fee+"% fee, price adds "+m+"% margin.";
+  const head='<div class="board-head"><span>Package</span><span>Game $</span><span class="c-cost">Your cost</span><span>Sell at</span></div>';
+  const row=p=>'<button class="row" type="button" data-pk="'+esc(p.id)+'"><span class="gem">'+GEM+'<span>'+esc(p.kind==="member"?p.name:p.diamonds)+'<em>'+esc(p.kind==="member"?p.diamonds+" diamonds total":"diamonds")+'</em></span></span>'+
+    '<span class="r usd num">$'+Number(p.usd).toFixed(2)+'</span><span class="r cost num">'+rs(costOf(p))+'</span><span class="r sell num">'+rs(sellOf(p))+'</span></button>';
+  const top=pk.filter(p=>p.kind!=="member"), mem=pk.filter(p=>p.kind==="member");
+  let h=head+top.map(row).join("");
+  if(mem.length) h+='<div class="section-label">Memberships</div>'+mem.map(row).join("");
+  if(!pk.length) h='<div class="empty">No packages yet. Add them in Settings.</div>';
+  $("board").innerHTML=h;
+}
+
+function stats(list){
+  return list.reduce((a,s)=>{a.n++;a.dia+=s.diamonds;a.recv+=s.received;a.profit+=s.received-s.cost;return a},{n:0,dia:0,recv:0,profit:0});
+}
+function renderSummary(){
+  const now=Date.now();
+  const t=stats(sales.filter(s=>dayKey(s.at)===dayKey(now)));
+  const mo=stats(sales.filter(s=>monthKey(s.at)===monthKey(now)));
+  const block=(title,x)=>'<div class="sum"><h3>'+title+'</h3><dl class="num"><dt>Sales</dt><dd>'+x.n+'</dd><dt>Diamonds</dt><dd>'+x.dia.toLocaleString("en-IN")+'</dd><dt>Received</dt><dd>'+rs(x.recv)+'</dd><dt>Profit</dt><dd class="profit">'+rs(x.profit)+'</dd></dl></div>';
+  $("summary").innerHTML=block("Today",t)+block("This month",mo);
+}
+
+function renderList(){
+  const q=$("search").value.trim().toLowerCase();
+  const today=dayKey(Date.now());
+  const rows=sales.filter(s=>{
+    if(filter==="today"&&dayKey(s.at)!==today) return false;
+    if(filter==="pending"&&s.status!=="pending") return false;
+    if(q && !((s.customer||"")+" "+(s.phone||"")+" "+(s.uid||"")).toLowerCase().includes(q)) return false;
+    return true;
+  });
+  if(!rows.length){
+    $("list").innerHTML='<div class="empty">'+(sales.length?"No sales match this filter.":"No sales yet. Tap a price or “New sale” to record your first one.")+'</div>';
+    return;
+  }
+  $("list").innerHTML=rows.map(s=>{
+    const p=s.received-s.cost;
+    return '<div class="rec" data-id="'+esc(s.id)+'">'+
+      '<button class="rec-main" type="button" data-open="'+esc(s.id)+'" aria-expanded="false">'+
+        '<span class="rec-name">'+esc(s.customer||"Walk-in")+(s.status==="pending"?'<span class="badge pending">Not sent</span>':'')+'</span>'+
+        '<span class="rec-amt num">'+rs(s.received)+'</span>'+
+        '<span class="rec-sub num">'+esc(s.pkgName)+(s.qty>1?" ×"+s.qty:"")+((s.qty>1||/membership/.test(s.pkgName))?', '+s.diamonds.toLocaleString("en-IN")+' diamonds':'')+', '+when(s.at)+'</span>'+
+        '<span class="rec-profit num'+(p<0?" neg":"")+'">'+(p<0?"−":"+")+rs(Math.abs(p))+'</span>'+
+      '</button>'+
+      '<div class="rec-more"><dl class="num">'+
+        '<dt>Phone</dt><dd>'+esc(s.phone||"—")+'</dd>'+
+        '<dt>FF UID</dt><dd>'+esc(s.uid||"—")+'</dd>'+
+        '<dt>Paid by</dt><dd>'+esc(s.method)+'</dd>'+
+        '<dt>Dollar cost</dt><dd>$'+(s.usd*s.qty).toFixed(2)+' at Rs '+rs2(s.rate)+'</dd>'+
+        '<dt>Your cost</dt><dd>'+rs(s.cost)+'</dd>'+
+        (s.note?'<dt>Note</dt><dd>'+esc(s.note)+'</dd>':'')+
+      '</dl><div class="rec-actions">'+
+        '<button class="btn primary" type="button" data-toggle="'+esc(s.id)+'">'+(s.status==="pending"?"Mark as sent":"Mark as not sent")+'</button>'+
+        '<button class="btn danger" type="button" data-del="'+esc(s.id)+'">Delete</button>'+
+      '</div></div></div>';
+  }).join("");
+}
+
+function renderSettings(){
+  document.querySelectorAll("#rateMode button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===settings.rateMode)));
+  document.querySelectorAll("#roundTo button").forEach(b=>b.setAttribute("aria-pressed",String(Number(b.dataset.v)===Number(settings.roundTo))));
+  if(document.activeElement!==$("manualRate")) $("manualRate").value=settings.manualRate;
+  if(document.activeElement!==$("feePct")) $("feePct").value=settings.feePct;
+  if(document.activeElement!==$("marginPct")) $("marginPct").value=settings.marginPct;
+  const ed=$("pkEditor");
+  if(!ed.contains(document.activeElement)){
+    ed.innerHTML='<div class="pk-edit" style="font-size:12px;color:var(--muted)"><span>Name</span><span>Diamonds</span><span>Price $</span><span></span></div>'+
+      settings.packages.map((p,i)=>'<div class="pk-edit" data-i="'+i+'">'+
+        '<input class="input" data-k="name" value="'+esc(p.name)+'" aria-label="Package name">'+
+        '<input class="input num" data-k="diamonds" type="number" min="1" inputmode="numeric" value="'+esc(p.diamonds)+'" aria-label="Diamonds">'+
+        '<input class="input num" data-k="usd" type="number" min="0" step="0.01" inputmode="decimal" value="'+esc(p.usd)+'" aria-label="Price in dollars">'+
+        '<button class="x" type="button" data-rm="'+i+'" aria-label="Remove '+esc(p.name)+'">×</button></div>').join("");
+  }
+  $("storeNote").textContent=uid?"Signed in as "+(auth.currentUser&&auth.currentUser.email||"")+". Sales and settings sync to Firebase, and work offline until the internet is back.":"";
+}
+
+function renderAll(){renderRate();renderBoard();renderSummary();renderList();renderSettings();renderPick();updateCalc()}
+
+/* ---------- Tabs ---------- */
+document.querySelectorAll(".tab").forEach(t=>t.addEventListener("click",()=>{
+  document.querySelectorAll(".tab").forEach(x=>x.setAttribute("aria-selected",String(x===t)));
+  ["sell","records","settings"].forEach(n=>$("tab-"+n).hidden=(n!==t.dataset.tab));
+  window.scrollTo({top:0});
+}));
+
+/* ---------- Sale sheet ---------- */
+let form={pkId:null, method:"Cash", status:"done", recvTouched:false};
+function pkg(id){return settings.packages.find(p=>p.id===id)}
+function renderPick(){
+  $("pick").innerHTML=settings.packages.map(p=>'<button type="button" data-pick="'+esc(p.id)+'" aria-pressed="'+(p.id===form.pkId)+'">'+esc(p.kind==="member"?p.name:p.diamonds+" 💎")+'<span class="num">'+rs(sellOf(p))+'</span></button>').join("");
+  document.querySelectorAll("#fMethod button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===form.method)));
+  document.querySelectorAll("#fStatus button").forEach(b=>b.setAttribute("aria-pressed",String(b.dataset.v===form.status)));
+}
+function qty(){return Math.max(1,parseInt($("fQty").value,10)||1)}
+function updateCalc(){
+  const p=pkg(form.pkId);
+  if(!p){$("cDia").textContent="0";$("cCost").textContent="Rs 0";$("cProfit").textContent="Rs 0";return}
+  const q=qty(), cost=costOf(p)*q;
+  if(!form.recvTouched) $("fRecv").value=sellOf(p)*q;
+  const recv=Number($("fRecv").value)||0, pr=recv-cost;
+  $("cDia").textContent=(p.diamonds*q).toLocaleString("en-IN");
+  $("cCost").textContent=rs(cost);
+  const el=$("cProfit"); el.textContent=(pr<0?"−":"")+rs(Math.abs(pr)); el.className="num "+(pr<0?"bad":"good");
+}
+function openSheet(pkId){
+  form={pkId:pkId||(settings.packages[0]&&settings.packages[0].id), method:"Cash", status:"done", recvTouched:false};
+  ["fName","fPhone","fUid","fNote"].forEach(i=>$(i).value=""); $("fQty").value=1; $("fErr").textContent="";
+  renderPick(); updateCalc();
+  $("scrim").classList.add("show"); $("sheet").classList.add("show");
+  setTimeout(()=>$("fName").focus(),230);
+  const btn=document.querySelector('#pick [aria-pressed="true"]'); if(btn) btn.scrollIntoView({inline:"center",block:"nearest"});
+}
+function closeSheet(){$("scrim").classList.remove("show");$("sheet").classList.remove("show")}
+$("fab").addEventListener("click",()=>openSheet());
+$("board").addEventListener("click",e=>{const b=e.target.closest("[data-pk]");if(b) openSheet(b.dataset.pk)});
+$("scrim").addEventListener("click",closeSheet);
+$("cancelSale").addEventListener("click",closeSheet);
+document.addEventListener("keydown",e=>{if(e.key==="Escape") closeSheet()});
+$("pick").addEventListener("click",e=>{const b=e.target.closest("[data-pick]");if(!b)return;form.pkId=b.dataset.pick;form.recvTouched=false;renderPick();updateCalc()});
+$("fMethod").addEventListener("click",e=>{const b=e.target.closest("button");if(b){form.method=b.dataset.v;renderPick()}});
+$("fStatus").addEventListener("click",e=>{const b=e.target.closest("button");if(b){form.status=b.dataset.v;renderPick()}});
+$("fQty").addEventListener("input",()=>{form.recvTouched=false;updateCalc()});
+$("fRecv").addEventListener("input",()=>{form.recvTouched=true;updateCalc()});
+
+$("saveSale").addEventListener("click",async()=>{
+  const p=pkg(form.pkId);
+  if(!p){$("fErr").textContent="Pick a package first.";return}
+  const recv=Number($("fRecv").value);
+  if(!(recv>=0) || $("fRecv").value===""){$("fErr").textContent="Enter how much money you received.";return}
+  const q=qty();
+  const r={id:newId(), at:Date.now(), customer:$("fName").value.trim(), phone:$("fPhone").value.trim(), uid:$("fUid").value.trim(),
+    pkgId:p.id, pkgName:p.kind==="member"?p.name+" membership":p.diamonds+" diamonds", diamonds:p.diamonds*q, qty:q, usd:p.usd,
+    rate:Math.round(rate()*100)/100, cost:Math.round(costOf(p)*q*100)/100, received:recv, method:form.method, status:form.status, note:$("fNote").value.trim()};
+  $("saveSale").disabled=true;
+  try{ await store.saveSale(r); sales.unshift(r); closeSheet(); renderSummary(); renderList(); toast("Sale saved"); }
+  catch(e){ $("fErr").textContent="Couldn't save the sale. Check your connection and tap Save sale again."; }
+  $("saveSale").disabled=false;
+});
+
+/* ---------- Records actions ---------- */
+let armed=null;
+$("list").addEventListener("click",async e=>{
+  const o=e.target.closest("[data-open]");
+  if(o){const rec=o.closest(".rec");const open=rec.classList.toggle("open");o.setAttribute("aria-expanded",String(open));return}
+  const t=e.target.closest("[data-toggle]");
+  if(t){const s=sales.find(x=>x.id===t.dataset.toggle);if(!s)return;
+    const prev=s.status; s.status=s.status==="pending"?"done":"pending";
+    try{await store.saveSale(s)}catch(err){s.status=prev;toast("Couldn't update. Try again.")}
+    renderSummary();renderList();reopen(s.id);return}
+  const d=e.target.closest("[data-del]");
+  if(d){
+    if(armed!==d.dataset.del){armed=d.dataset.del;d.classList.add("armed");d.textContent="Tap again to delete";setTimeout(()=>{if(armed===d.dataset.del){armed=null;d.classList.remove("armed");d.textContent="Delete"}},3000);return}
+    armed=null;
+    try{await store.deleteSale(d.dataset.del);sales=sales.filter(x=>x.id!==d.dataset.del);renderSummary();renderList();toast("Sale deleted")}
+    catch(err){toast("Couldn't delete. Try again.")}
+  }
+});
+function reopen(id){const r=document.querySelector('.rec[data-id="'+CSS.escape(id)+'"]');if(r){r.classList.add("open");r.querySelector(".rec-main").setAttribute("aria-expanded","true")}}
+$("search").addEventListener("input",renderList);
+$("filters").addEventListener("click",e=>{const b=e.target.closest("[data-f]");if(!b)return;filter=b.dataset.f;
+  document.querySelectorAll("#filters .chip").forEach(c=>c.setAttribute("aria-pressed",String(c===b)));renderList()});
+
+/* ---------- CSV export ---------- */
+function csv(){
+  const head=["Date","Customer","Phone","FF UID","Package","Qty","Diamonds","Dollar price","Rate","Cost (Rs)","Received (Rs)","Profit (Rs)","Paid by","Status","Note"];
+  const q=v=>'"'+String(v==null?"":v).replace(/"/g,'""')+'"';
+  const lines=sales.map(s=>[new Date(s.at).toLocaleString("en-GB"),s.customer,s.phone,s.uid,s.pkgName,s.qty,s.diamonds,(s.usd*s.qty).toFixed(2),s.rate,s.cost.toFixed(2),s.received,(s.received-s.cost).toFixed(2),s.method,s.status==="pending"?"Not sent":"Sent",s.note].map(q).join(","));
+  return "\uFEFF"+[head.map(q).join(",")].concat(lines).join("\n");
+}
+$("exportBtn").addEventListener("click",async()=>{
+  if(!sales.length){toast("No sales to download yet");return}
+  const name="diamond-sales-"+new Date().toISOString().slice(0,10)+".csv";
+  const a=document.createElement("a");a.href=URL.createObjectURL(new Blob([csv()],{type:"text/csv"}));a.download=name;a.click();
+  setTimeout(()=>URL.revokeObjectURL(a.href),2000);
+});
+
+/* ---------- Settings handlers ---------- */
+$("rateMode").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;settings.rateMode=b.dataset.v;persistSettings();
+  if(settings.rateMode==="live"&&live.status!=="ok") fetchRate(); else renderAll()});
+$("roundTo").addEventListener("click",e=>{const b=e.target.closest("button");if(!b)return;settings.roundTo=Number(b.dataset.v);persistSettings();renderAll()});
+[["manualRate","manualRate"],["feePct","feePct"],["marginPct","marginPct"]].forEach(([id,k])=>{
+  $(id).addEventListener("input",()=>{const v=parseFloat($(id).value);if(isNaN(v)||v<0)return;if(k==="manualRate"&&v<=0)return;settings[k]=v;persistSettings();renderAll()});
+});
+$("pkEditor").addEventListener("input",e=>{
+  const row=e.target.closest("[data-i]");if(!row)return;const p=settings.packages[+row.dataset.i];const k=e.target.dataset.k;
+  if(k==="name") p.name=e.target.value; else {const v=parseFloat(e.target.value);if(isNaN(v)||v<0)return;p[k]=k==="diamonds"?Math.round(v):v}
+  persistSettings();renderBoard();renderPick();
+});
+$("pkEditor").addEventListener("click",e=>{const b=e.target.closest("[data-rm]");if(!b)return;settings.packages.splice(+b.dataset.rm,1);persistSettings();
+  $("pkEditor").innerHTML="";renderAll()});
+$("addPk").addEventListener("click",()=>{settings.packages.push({id:"p"+Date.now().toString(36),name:"New package",diamonds:100,usd:1,kind:"topup"});persistSettings();
+  $("pkEditor").innerHTML="";renderAll();const ins=$("pkEditor").querySelectorAll('input[data-k="name"]');if(ins.length){ins[ins.length-1].focus();ins[ins.length-1].select()}});
+$("resetPk").addEventListener("click",()=>{settings.packages=clone(DEFAULT_PACKAGES);persistSettings();$("pkEditor").innerHTML="";renderAll();toast("Packages reset to game prices")});
+$("refreshBtn").addEventListener("click",fetchRate);
+
+/* ---------- Toast ---------- */
+let tt=null;
+function toast(m){const t=$("toast");t.textContent=m;t.classList.add("show");clearTimeout(tt);tt=setTimeout(()=>t.classList.remove("show"),2200)}
+
+/* ---------- Sign in ---------- */
+$("loginForm").addEventListener("submit", async e => {
+  e.preventDefault();
+  $("loginErr").textContent = ""; $("loginBtn").disabled = true;
+  try { await signInWithEmailAndPassword(auth, $("loginEmail").value.trim(), $("loginPass").value); }
+  catch (err) {
+    const c = err && err.code || "";
+    $("loginErr").textContent = c.includes("invalid") || c.includes("wrong") || c.includes("user-not-found")
+      ? "Email or password is wrong." : c.includes("too-many") ? "Too many tries. Wait a minute and try again."
+      : c.includes("network") ? "No internet. Connect and try again." : "Couldn't sign in (" + c + ").";
+  }
+  $("loginBtn").disabled = false;
+});
+$("signOutBtn").addEventListener("click", () => signOut(auth));
+
+onAuthStateChanged(auth, async user => {
+  stopSync();
+  if (!user) {
+    uid = null; sales = []; settings = clone(DEFAULT_SETTINGS);
+    $("gate").hidden = false; $("loginPass").value = "";
+    renderAll(); return;
+  }
+  uid = user.uid;
+  $("gate").hidden = true;
+  $("storeMode").textContent = "Connecting…";
+  renderAll();
+  try { await migrateLocal(); } catch (e) { console.error(e); }
+  startSync();
+});
+
+/* ---------- Start ---------- */
+renderAll();
+if (settings.rateMode === "live") fetchRate();
+setInterval(() => { if (settings.rateMode === "live") fetchRate(); }, 30*60*1000);
+</script>
+</body>
+</html>
