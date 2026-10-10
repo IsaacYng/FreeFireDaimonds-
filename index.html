@@ -893,6 +893,82 @@ input[type=number]:focus,input[type=tel]:focus{outline:none;border-color:var(--i
 @media(max-width:900px){.bi-body{padding:0 16px 16px}}
 .q-row .sm{display:none}
 @media(max-width:600px){.q-row .lg{display:none}.q-row .sm{display:inline}.q-row .acts{gap:4px}.q-row .due{font-size:.88rem}}
+
+/* ===== Dollar card & P&L ===== */
+.ph-acts{display:flex;gap:8px;flex-wrap:wrap}
+@media(max-width:600px){.ph-acts{width:100%}.ph-acts .btn{flex:1;padding:0 10px}}
+.cardmini{display:grid;grid-template-columns:minmax(220px,auto) 1fr auto;align-items:center;gap:18px;padding:16px 20px;margin-bottom:18px}
+.cardmini .cm-main{display:flex;align-items:center;gap:14px;cursor:pointer}
+.cm-ic{width:46px;height:46px;border-radius:13px;background:linear-gradient(140deg,#16222B,#2B3D49);color:#fff;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.cm-bal{display:grid}
+.cm-bal span{font-size:.8rem;color:var(--muted)}
+.cm-bal b{font-size:1.6rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;line-height:1.15}
+.cm-bal small{font-size:.78rem;color:var(--muted)}
+.cardmini.low .cm-ic{background:linear-gradient(140deg,var(--accent),var(--accent-2))}
+.cardmini.low .cm-bal b{color:var(--accent)}
+.cm-facts{display:flex;flex-wrap:wrap;gap:8px 22px}
+.cm-facts div{display:grid}
+.cm-facts span{font-size:.74rem;color:var(--muted)}
+.cm-facts b{font-weight:700;font-size:.92rem;font-variant-numeric:tabular-nums}
+.cm-facts b.good{color:var(--ok)} .cm-facts b.bad{color:var(--accent)}
+@media(max-width:900px){.cardmini{grid-template-columns:1fr auto;padding:14px}.cm-facts{grid-column:1/-1;grid-row:2;gap:8px 16px}.cm-acts{grid-row:1;grid-column:2}}
+
+.card-hero{position:relative;overflow:hidden;isolation:isolate;border-radius:18px;padding:24px;background:linear-gradient(150deg,#16222B,#22333E);color:#fff;margin-bottom:14px;display:grid;grid-template-columns:auto 1fr;gap:20px 40px;align-items:end;box-shadow:0 24px 50px -30px rgba(22,34,43,.7)}
+.card-hero .ch-l{display:grid}
+.card-hero .ch-l span{font-size:.84rem;color:#9FB0B7}
+.card-hero .ch-l b{font-size:2.6rem;font-weight:800;letter-spacing:-.03em;line-height:1.05;font-variant-numeric:tabular-nums}
+.card-hero .ch-l small{color:#C9D3D6;font-size:.9rem}
+.card-hero .ch-r{display:flex;flex-wrap:wrap;gap:12px 30px;justify-content:flex-end}
+.card-hero .ch-r div{display:grid}
+.card-hero .ch-r span{font-size:.76rem;color:#9FB0B7}
+.card-hero .ch-r b{font-size:1rem;font-weight:700;font-variant-numeric:tabular-nums}
+@media(max-width:700px){.card-hero{grid-template-columns:1fr;padding:20px 18px 26px}.card-hero .ch-r{justify-content:flex-start;gap:10px 22px}}
+
+.ledger td{white-space:nowrap}
+.ledger td.lg-e{white-space:normal;min-width:160px}
+.ledger td.b{font-weight:700}
+.ledger td.neg{color:var(--accent)} .ledger td.gain{color:var(--ok);font-weight:600}
+.ledger tr[data-ce]{cursor:pointer}
+.ledger tr[data-ce]:hover td{background:#FAFBFB}
+.ledger tr.lg-usage td{color:var(--muted)}
+.ledger tr.lg-usage td.b{color:var(--ink)}
+.ledger td .kebab{width:32px;height:32px}
+.lg-tag{display:inline-block;font-size:.7rem;font-weight:700;padding:2px 8px;border-radius:999px;margin-right:8px;vertical-align:1px}
+.lg-tag.load{background:var(--ok-soft);color:var(--ok)}
+.lg-tag.fee{background:var(--accent-soft);color:var(--accent-2)}
+.lg-tag.adj{background:var(--warn-soft);color:var(--warn)}
+.lg-tag.use{background:#E8EEF7;color:#2F5B94}
+
+.price-line{display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;padding:10px 14px;border-radius:10px;background:var(--bg);font-size:.88rem;color:var(--muted)}
+.price-line b{color:var(--ink);font-variant-numeric:tabular-nums}
+.price-line .net{margin-left:auto;color:var(--ink-2)}
+.price-line .net b{font-size:1.05rem}
+.card-use{display:grid;align-content:center;min-height:46px;padding:6px 12px;border:1px dashed var(--line-2);border-radius:10px;background:#FAFBFB}
+.card-use b{font-variant-numeric:tabular-nums}
+.card-use small{font-size:.76rem;color:var(--muted)}
+.card-use.warn{border-color:var(--accent);background:var(--accent-soft)}
+.card-use small.neg{color:var(--accent-2);font-weight:600}
+
+.mnav{display:flex;align-items:center;gap:6px}
+.mnav b{min-width:120px;text-align:center;font-size:.92rem}
+.mnav .icon-btn{width:34px;height:34px;border:1px solid var(--line);background:#fff;color:var(--ink-2)}
+.mnav .icon-btn:disabled{opacity:.35;cursor:default}
+.pl-stmt{width:100%;border-collapse:collapse;font-size:.95rem;font-variant-numeric:tabular-nums}
+.pl-stmt td{padding:9px 0;border-bottom:1px solid var(--line)}
+.pl-stmt td small{display:block;font-size:.76rem;color:var(--muted)}
+.pl-stmt td.r{text-align:right;white-space:nowrap}
+.pl-stmt tr.pl-less td:first-child{padding-left:16px;color:var(--ink-2)}
+.pl-stmt tr.pl-less td.r{color:var(--ink-2)}
+.pl-stmt tr.pl-sub td{font-weight:700;border-bottom:1px solid var(--line-2)}
+.pl-stmt tr.pl-gs td{font-weight:600}
+.pl-stmt tr.pl-total td{font-weight:800;font-size:1.1rem;border-top:2px solid var(--ink);border-bottom:3px double var(--ink);padding:12px 0;color:var(--ok)}
+.pl-stmt tr.pl-total.neg td,.pl-stmt tr.pl-sub.neg td{color:var(--accent)}
+.pl-stmt tr.pl-memo td{padding-top:18px;font-size:.74rem;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;border-bottom:none}
+.pl-stmt tr.pl-m td{color:var(--muted);font-size:.9rem;border-bottom:1px dashed var(--line)}
+.ce-type{display:flex}
+.ce-type button{flex:1}
+input[type=datetime-local]{width:100%;padding:10px 12px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-size:15px;color:var(--ink)}
+.pnl td{white-space:nowrap}
 </style>
 </head>
 <body>
@@ -949,6 +1025,8 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <a data-go="sell"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>New sale</a>
       <a data-go="sales"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>Sales ledger<span class="ct" id="ctS">–</span></a>
       <a data-go="customers"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Customers<span class="ct" id="ctC">–</span></a>
+      <div class="nav-label">FINANCE</div>
+      <a data-go="card"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg>Dollar card<span class="ct" id="ctCard">–</span></a>
       <div class="nav-label">PRICES</div>
       <a data-go="prices"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/></svg>Price list</a>
       <a data-go="rate"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Pricing &amp; FX</a>
@@ -1005,6 +1083,14 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         
         <div class="ov-head"><h2>Overview</h2><button type="button" class="help-link" data-help="overview"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Help</button><span class="ov-cmp" id="ovCmp"></span><div class="pk-seg" id="ovPeriod" role="radiogroup" aria-label="Period"><button type="button" data-v="today">Today</button><button type="button" data-v="week">7 days</button><button type="button" data-v="month">This month</button></div></div>
         <div class="stats kpis" id="kpis"></div>
+        <div class="card cardmini" id="cardMini">
+          <div class="cm-main" data-go="card">
+            <span class="cm-ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg></span>
+            <div class="cm-bal"><span>Dollar card balance</span><b id="cmBal">$0.00</b><small id="cmSub"></small></div>
+          </div>
+          <div class="cm-facts" id="cmFacts"></div>
+          <div class="cm-acts"><button class="btn primary sm" type="button" data-cardact="load">+ Load card</button></div>
+        </div>
         <div class="card" id="qsCard">
           <div class="card-h"><h2>Quick sell</h2><span class="meta">Your most sold packages, one tap to start</span></div>
           <div class="card-b"><div class="pkgs qs" id="quick"></div></div>
@@ -1065,7 +1151,12 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <div class="card-b form">
             <div class="grid2">
               <div class="field"><span class="lab"><label for="fQty">Quantity</label></span><div class="qty"><button type="button" class="icon-btn" data-step="-1" aria-label="One less">−</button><input id="fQty" type="number" min="1" step="1" value="1" inputmode="numeric"/><button type="button" class="icon-btn" data-step="1" aria-label="One more">+</button></div></div>
+              <label class="field"><span class="lab">Discount (Rs) <em id="discHint">optional</em></span><input id="fDisc" type="number" min="0" step="1" inputmode="decimal" placeholder="0"/></label>
+            </div>
+            <div class="price-line" id="priceLine"></div>
+            <div class="grid2">
               <label class="field"><span class="lab">Amount received (Rs) <em id="recvHint"></em></span><input id="fRecv" type="number" min="0" step="1" inputmode="decimal"/></label>
+              <div class="field"><span class="lab">USD from card</span><div class="card-use" id="cardUse">–</div></div>
             </div>
             <div class="calc" id="calc"><div><span>Diamonds</span><b id="cDia">0</b></div><div><span>COGS</span><b id="cCost">Rs 0</b></div><div><span>Gross profit</span><b id="cProfit">Rs 0</b></div><div id="cDueBox" hidden><span>Outstanding</span><b id="cDue" class="warn">Rs 0</b></div></div>
             <div class="field"><span class="lab">Payment method</span><div class="pk-seg" id="fMethod" role="radiogroup" aria-label="Payment method"><button type="button" data-v="Cash">Cash</button><button type="button" data-v="eSewa">eSewa</button><button type="button" data-v="Khalti">Khalti</button><button type="button" data-v="Bank">Bank</button><button type="button" data-v="Credit">Credit</button></div></div>
@@ -1097,6 +1188,26 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         </div>
       </section>
 
+      <!-- DOLLAR CARD -->
+      <section data-page="card" hidden>
+        <div class="ph"><div><h1>Dollar card</h1><p>Card loads, charges and USD balance. Sales draw USD from the card at its weighted average cost, which gives your actual profit.</p><button type="button" class="help-link" data-help="card"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div><div class="ph-acts"><button class="btn" type="button" data-cardact="charge">Record charge</button><button class="btn" type="button" data-cardact="adjust">Reconcile</button><button class="btn accent" type="button" data-cardact="load"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Load card</button></div></div>
+        <div class="note warn" id="cardWarn" hidden></div>
+        <div class="card-hero">
+          <div class="ch-l">
+            <span>Book balance</span>
+            <b id="cdBal">$0.00</b>
+            <small id="cdBalNpr">Rs 0 at cost</small>
+          </div>
+          <div class="ch-r" id="cdHeroFacts"></div>
+          <svg class="w-ridge" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><path fill="rgba(255,255,255,.05)" d="M0 120 L120 70 L210 98 L330 40 L450 92 L560 60 L700 110 L820 52 L960 96 L1080 44 L1200 88 L1320 58 L1440 84 V220 H0Z"/><path fill="rgba(255,255,255,.07)" d="M0 160 L160 122 L300 150 L460 114 L600 146 L760 120 L900 152 L1040 126 L1200 156 L1340 130 L1440 146 V220 H0Z"/></svg>
+        </div>
+        <div class="stats kpis" id="cdStats"></div>
+        <div class="card">
+          <div class="card-h"><h2>Card ledger</h2><div class="pk-seg" id="cdFilter" role="radiogroup" aria-label="Ledger filter"><button type="button" data-v="all">All</button><button type="button" data-v="load">Loads</button><button type="button" data-v="charge">Charges</button><button type="button" data-v="usage">Usage</button></div></div>
+          <div class="tbl-wrap" tabindex="0"><table class="limits ledger"><thead><tr><th>DATE</th><th>ENTRY</th><th class="r">USD</th><th class="r">NPR</th><th class="r">RATE</th><th class="r">BALANCE</th><th></th></tr></thead><tbody id="cdLedger"></tbody></table></div>
+        </div>
+      </section>
+
       <!-- PRICES -->
       <section data-page="prices" hidden>
         <div class="ph"><div><h1>Price list</h1><p>Cost of goods, selling price and profit per unit at today's exchange rate. Tap a package to sell it.</p><button type="button" class="help-link" data-help="prices"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div><span class="pill" id="pRatePill"></span></div>
@@ -1118,7 +1229,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         <div class="card">
           <div class="card-h"><h2>Exchange rate (USD → NPR)</h2><span class="meta" id="rLiveMeta"></span></div>
           <div class="card-b form">
-            <div class="field"><span class="lab">Rate source</span><div class="pk-seg" id="rMode" role="radiogroup" aria-label="Rate source"><button type="button" data-v="live">Live market rate</button><button type="button" data-v="manual">Manual rate</button></div></div>
+            <div class="field"><span class="lab">Rate source</span><div class="pk-seg" id="rMode" role="radiogroup" aria-label="Rate source"><button type="button" data-v="live">Live market rate</button><button type="button" data-v="manual">Manual rate</button><button type="button" data-v="card">Card avg cost</button></div></div>
             <div class="grid2">
               <label class="field"><span class="lab">Manual rate (Rs per USD) <em>also used as fallback</em></span><input id="rManual" type="number" step="0.01" min="1" inputmode="decimal"/></label>
               <div class="field"><span class="lab">Live market rate</span><div style="display:flex;gap:10px;align-items:center"><b id="rLive" class="num" style="font-size:1.35rem;font-weight:700">–</b><button class="btn" type="button" id="rRefresh" style="min-height:36px">Refresh</button></div></div>
@@ -1150,13 +1261,21 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <!-- REPORTS -->
       <section data-page="reports" hidden>
         <div class="ph"><div><h1>Reports</h1><p>Monthly profit &amp; loss, payment methods, best-selling packages and receivables.</p><button type="button" class="help-link" data-help="reports"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div></div>
+        <div class="card stmt">
+          <div class="card-h"><h2>Profit &amp; loss statement</h2><div class="mnav"><button class="icon-btn" type="button" id="stPrev" aria-label="Previous month"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></button><b id="stMonth">–</b><button class="icon-btn" type="button" id="stNext" aria-label="Next month"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></button></div></div>
+          <div class="card-b"><table class="pl-stmt" id="stBody"></table><p class="help" id="stNote" style="margin-top:12px"></p></div>
+        </div>
         <div class="card">
           <div class="card-h"><h2>Monthly P&amp;L</h2><span class="meta">Last 12 months</span></div>
-          <div class="tbl-wrap" tabindex="0"><table class="limits"><thead><tr><th>MONTH</th><th class="r">TXN</th><th class="r">DIAMONDS</th><th class="r">REVENUE</th><th class="r">COGS</th><th class="r">GROSS PROFIT</th><th class="r">MARGIN</th><th class="r">RECEIVABLE</th></tr></thead><tbody id="rpMonths"></tbody></table></div>
+          <div class="tbl-wrap" tabindex="0"><table class="limits pnl"><thead><tr><th>MONTH</th><th class="r">TXN</th><th class="r">GROSS SALES</th><th class="r">DISCOUNTS</th><th class="r">NET REVENUE</th><th class="r">COGS</th><th class="r">GROSS PROFIT</th><th class="r">CARD FEES</th><th class="r">NET PROFIT</th><th class="r">NET MARGIN</th></tr></thead><tbody id="rpMonths"></tbody></table></div>
         </div>
         <div class="hero-o" style="margin-top:18px">
           <div class="card"><div class="card-h"><h2>Revenue by payment method</h2><span class="meta">This month</span></div><div class="tbl" id="rpPay"></div></div>
           <div class="card"><div class="card-h"><h2>Revenue by package</h2><span class="meta">This month</span></div><div class="tbl" id="rpPkg"></div></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Discounts given</h2><span class="meta" id="rpDiscMeta">This month</span></div>
+          <div class="tbl" id="rpDisc"></div>
         </div>
         <div class="card">
           <div class="card-h"><h2>Receivables ledger</h2><span class="meta" id="rpCreditMeta"></span></div>
@@ -1188,12 +1307,13 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         <div class="pk-seg help-tabs" id="helpTabs" role="tablist"><button type="button" role="tab" data-t="guide" aria-checked="true">Page guide · पेज गाइड</button><button type="button" role="tab" data-t="faq" aria-checked="false">FAQ · प्रश्नहरू</button><button type="button" role="tab" data-t="gloss" aria-checked="false">Glossary · शब्दावली</button></div>
         <div class="card faq" id="tab-guide">
           <details class="qa bi" id="h-overview"><summary><span><b lang="ne">ड्यासबोर्ड</b><small>Dashboard</small></span></summary><div class="bi-body"><p lang="ne">माथि Today, 7 days वा This month छान्नुहोस्। कार्डहरूले त्यो अवधिको Revenue (आम्दानी), Gross profit (कुल नाफा), बिक्री भएका डायमन्ड र Transactions (कारोबार संख्या) देखाउँछन्, साथै अघिल्लो अवधिसँगको तुलना (↑/↓ %)। “Pending delivery” मा डायमन्ड पठाउन बाँकी अर्डर र “Accounts receivable” मा ग्राहकबाट उठाउन बाँकी रकम देखिन्छ। Quick sell थिचेर एकै पटकमा बिक्री सुरु गर्न सकिन्छ।</p><p class="en">Choose Today, 7 days or This month at the top. The cards show revenue, gross profit, diamonds sold and number of transactions for that period, compared with the previous period (↑/↓ %). “Pending delivery” lists orders not yet delivered and “Accounts receivable” lists amounts customers still owe. Use Quick sell to start a sale in one tap.</p></div></details>
-          <details class="qa bi" id="h-sell"><summary><span><b lang="ne">नयाँ बिक्री</b><small>New sale</small></span></summary><div class="bi-body"><p lang="ne">प्याकेज छान्नुहोस्, ग्राहकको नाम, फोन र Free Fire UID लेख्नुहोस्। Amount received मा अहिले हातमा आएको रकम लेख्नुहोस्। पूरा पैसा नआएको भए Payment method मा “Credit” (उधारो) छान्नुहोस्; बाँकी रकम Outstanding मा देखिन्छ। डायमन्ड पछि पठाउने भए Delivery status मा “Pending” छान्नुहोस्। अनि Save sale थिच्नुहोस्।</p><p class="en">Pick a package and enter the customer’s name, phone and Free Fire UID. Enter the amount actually received. If the customer has not paid in full, set the payment method to “Credit”; the balance shows as Outstanding. If you will deliver later, set Delivery status to “Pending”. Then tap Save sale.</p></div></details>
+          <details class="qa bi" id="h-sell"><summary><span><b lang="ne">नयाँ बिक्री</b><small>New sale</small></span></summary><div class="bi-body"><p lang="ne">प्याकेज छान्नुहोस्, ग्राहकको नाम, फोन र Free Fire UID लेख्नुहोस्। छुट दिनुभयो भने Discount (Rs) मा लेख्नुहोस्; Net price आफैं घट्छ। Amount received मा अहिले हातमा आएको रकम लेख्नुहोस्। USD from card ले यो बिक्रीमा कार्डबाट कति डलर जान्छ र बाँकी कति रहन्छ देखाउँछ। पूरा पैसा नआएको भए Payment method मा “Credit” (उधारो) छान्नुहोस्; बाँकी रकम Outstanding मा देखिन्छ। डायमन्ड पछि पठाउने भए Delivery status मा “Pending” छान्नुहोस्। अनि Save sale थिच्नुहोस्।</p><p class="en">Pick a package and enter the customer’s name, phone and Free Fire UID. If you give a discount, enter it in Discount (Rs); the net price updates. Enter the amount actually received. USD from card shows how many dollars this sale uses and the balance left. If the customer has not paid in full, set the payment method to “Credit”; the balance shows as Outstanding. If you will deliver later, set Delivery status to “Pending”. Then tap Save sale.</p></div></details>
           <details class="qa bi" id="h-sales"><summary><span><b lang="ne">बिक्री खाता</b><small>Sales ledger</small></span></summary><div class="bi-body"><p lang="ne">सबै कारोबार मितिअनुसार मिलाइएका छन् र हरेक दिनको Revenue र Gross profit (GP) देखिन्छ। नाम, फोन वा UID ले खोज्नुहोस्। “Undelivered” मा पठाउन बाँकी र “Credit” मा उधारो बिक्री छुट्टै हेर्न सकिन्छ। ⋮ थिचेर Edit, Mark as delivered, Record payment, Send receipt वा Delete गर्नुहोस्।</p><p class="en">Every transaction is grouped by date with daily revenue and gross profit (GP). Search by name, phone or UID. Use the “Undelivered” and “Credit” filters to see orders not yet sent and sales on credit. Tap ⋮ to edit, mark as delivered, record a payment, send a receipt or delete.</p></div></details>
+          <details class="qa bi" id="h-card"><summary><span><b lang="ne">डलर कार्ड</b><small>Dollar card</small></span></summary><div class="bi-body"><p lang="ne">हरेक पटक डलर कार्ड लोड गर्दा Load card थिच्नुहोस्: कति USD आयो, कति NPR तिर्नुभयो र बैंक/सेवा शुल्क कति लाग्यो लेख्नुहोस्। एप्लिकेसनले Weighted average cost (WAC) अर्थात् प्रति डलर औसत लागत निकाल्छ। हरेक बिक्रीमा कार्डबाट USD घट्छ र त्यही औसत लागत COGS बन्छ, त्यसैले नाफा वास्तविक (actual) हुन्छ। कार्डको वार्षिक/नवीकरण शुल्क Record charge मा राख्नुहोस्। महिनामा एक पटक कार्ड एपको बाँकी ब्यालेन्स Reconcile मा हालेर Book balance मिलाउनुहोस्।</p><p class="en">Tap Load card every time you top up your dollar card: enter USD received, NPR paid and any bank/service charges. The app keeps a weighted average cost (WAC) per dollar. Each sale draws USD from the card at that average, which becomes COGS, so profit is actual rather than estimated. Record annual or renewal fees with Record charge. Once a month, enter the real balance from your card app in Reconcile to keep the book balance correct.</p></div></details>
           <details class="qa bi" id="h-customers"><summary><span><b lang="ne">ग्राहक</b><small>Customers</small></span></summary><div class="bi-body"><p lang="ne">बिक्रीबाट आफैं बनेको ग्राहक खाता: पहिले फोन, त्यसपछि UID, त्यसपछि नामबाट मिलाइन्छ। हरेक ग्राहकको जम्मा Revenue, Gross profit र डायमन्ड देखिन्छ। ⋮ → Sell again थिच्दा उही ग्राहकको विवरण भरिएर नयाँ बिक्री खुल्छ।</p><p class="en">Customer accounts are built from your sales, matched by phone, then UID, then name. Each shows lifetime revenue, gross profit and diamonds. ⋮ → Sell again opens a new sale with their details filled in.</p></div></details>
           <details class="qa bi" id="h-prices"><summary><span><b lang="ne">मूल्य सूची</b><small>Price list</small></span></summary><div class="bi-body"><p lang="ne">हरेक प्याकेजको COGS (लागत), Selling price (बिक्री मूल्य) र Profit per unit (प्रति एकाइ नाफा) आजको डलर रेटमा देखिन्छ। Garena ले मूल्य बदलेमा Packages मा प्याकेज थिच्नुहोस्, Game price ($) बदल्नुहोस् र Save package थिच्नुहोस्। पुराना कारोबारको हिसाब बदलिँदैन।</p><p class="en">Shows COGS, selling price and profit per unit for every package at today’s exchange rate. When Garena changes a price, tap the package under Packages, update the game price ($) and tap Save package. Past transactions keep their original figures.</p></div></details>
           <details class="qa bi" id="h-rate"><summary><span><b lang="ne">मूल्य निर्धारण र विनिमय दर</b><small>Pricing & FX</small></span></summary><div class="bi-body"><p lang="ne">Selling price = Game price ($) × Exchange rate + Card/bank charges + Markup, माथि राउन्ड गरिएको। बैंक वा कार्डले लिने वास्तविक रेट फरक भए “Manual rate” छान्नुहोस्। Markup बढाए बिक्री मूल्य बढ्छ। Monthly profit target (मासिक नाफा लक्ष्य) पनि यहीँबाट राख्नुहोस्।</p><p class="en">Selling price = game price ($) × exchange rate + card/bank charges + markup, rounded up. If your bank or card uses a different rate, choose “Manual rate”. A higher markup raises the selling price. Set your monthly gross profit target here as well.</p></div></details>
-          <details class="qa bi" id="h-reports"><summary><span><b lang="ne">रिपोर्ट</b><small>Reports</small></span></summary><div class="bi-body"><p lang="ne">Monthly P&L मा हरेक महिनाको Revenue, COGS, Gross profit, Gross margin र Receivable देखिन्छ। Payment method र Package अनुसारको Revenue यो महिनाको हो। Receivables ledger मा सबै उधारो बिक्री र बाँकी रकम छ।</p><p class="en">The monthly P&L shows revenue, COGS, gross profit, gross margin and receivables for each month. Revenue by payment method and by package covers the current month. The receivables ledger lists every credit sale and its outstanding balance.</p></div></details>
+          <details class="qa bi" id="h-reports"><summary><span><b lang="ne">रिपोर्ट</b><small>Reports</small></span></summary><div class="bi-body"><p lang="ne">Profit & loss statement मा महिना छान्नुहोस् (‹ ›)। Gross sales (सूची मूल्यमा बिक्री) − Discounts = Net revenue; Net revenue − COGS = Gross profit; Gross profit − Card fees = Net profit (खुद नाफा)। Memo मा नगद प्राप्त र उठाउन बाँकी रकम छ। Monthly P&L तालिकामा १२ महिनाको तुलना छ। Discounts given मा कुन ग्राहकलाई कति छुट दिनुभयो देखिन्छ।</p><p class="en">Pick a month in the profit & loss statement (‹ ›). Gross sales (at list price) − discounts = net revenue; net revenue − COGS = gross profit; gross profit − card fees = net profit. The memo shows cash received and receivables. The monthly P&L table compares 12 months, and Discounts given shows how much discount each customer received.</p></div></details>
           <details class="qa bi" id="h-backup"><summary><span><b lang="ne">ब्याकअप र रिस्टोर</b><small>Backup & restore</small></span></summary><div class="bi-body"><p lang="ne">महिनामा एक पटक Download backup थिच्नुहोस् र फाइल सुरक्षित राख्नुहोस्। केही मेटियो भने Restore from a backup बाट फर्काउन सकिन्छ (अहिलेको डाटा फाइलकोले बदलिन्छ)। Excel मा हिसाब चाहिए Export CSV थिच्नुहोस्।</p><p class="en">Download a backup once a month and keep the file safe. If anything is deleted, restore it from that file (current data is replaced by the file). Use Export CSV for Excel or Google Sheets.</p></div></details>
           <details class="qa bi" id="h-account"><summary><span><b lang="ne">खाता र सुरक्षा</b><small>Account & security</small></span></summary><div class="bi-body"><p lang="ne">पासवर्ड बदल्ने, reset link पठाउने र साइन आउट गर्ने ठाउँ। 👁 थिच्दा पासवर्ड देखिन्छ। ३० मिनेट केही नगरे सुरक्षाका लागि आफैं साइन आउट हुन्छ।</p><p class="en">Change your password, send a reset link or sign out. Tap 👁 to show the password. For security you are signed out after 30 minutes of inactivity.</p></div></details>
         </div>
@@ -1201,6 +1321,8 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <details class="qa bi"><summary><span><b lang="ne">पुरानो ग्राहकलाई छिटो कसरी बेच्ने?</b><small>How do I sell to a returning customer quickly?</small></span></summary><div class="bi-body"><p lang="ne">नाम लेख्दा पुराना ग्राहकको नाम देखिन्छ; छान्दा फोन र UID आफैं भरिन्छ। Customers मा ⋮ → Sell again थिचे पनि हुन्छ।</p><p class="en">Start typing the name and pick it from the suggestions; phone and UID fill in automatically. You can also use ⋮ → Sell again on the Customers page.</p></div></details>
           <details class="qa bi"><summary><span><b lang="ne">उधारो बिक्री कसरी राख्ने र पछि पैसा कसरी उठाउने?</b><small>How do I record a credit sale and collect later?</small></span></summary><div class="bi-body"><p lang="ne">Payment method मा “Credit” छान्नुहोस् र Amount received मा अहिले पाएको रकम (वा 0) लेख्नुहोस्। पैसा आएपछि Dashboard को Accounts receivable मा Record payment थिचेर भुक्तानी माध्यम (Cash, eSewa…) छान्नुहोस्।</p><p class="en">Set the payment method to “Credit” and enter what you received now (or 0). When the customer pays, tap Record payment under Accounts receivable on the dashboard and choose how they paid (Cash, eSewa…).</p></div></details>
           <details class="qa bi"><summary><span><b lang="ne">डायमन्ड पछि पठाउने भए?</b><small>What if I deliver the diamonds later?</small></span></summary><div class="bi-body"><p lang="ne">बिक्री गर्दा Delivery status मा “Pending” छान्नुहोस्। Dashboard को Pending delivery मा देखिन्छ। पठाएपछि Delivered थिच्नुहोस्।</p><p class="en">Set Delivery status to “Pending” when recording the sale. It appears under Pending delivery on the dashboard; tap Delivered once sent.</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">कार्ड लोड गर्दा NPR कति काटियो कसरी हेर्ने?</b><small>Where do I see how much NPR each load cost?</small></span></summary><div class="bi-body"><p lang="ne">Dollar card → Card ledger मा “Loads” छान्नुहोस्। हरेक लोडको USD, तिरेको NPR (शुल्कसहित) र Rate (प्रति डलर) देखिन्छ। माथि Total loaded र Load charges मा जम्मा छ।</p><p class="en">Dollar card → Card ledger → “Loads”. Each load shows USD, NPR paid (including charges) and the effective rate per dollar. Totals are in Total loaded and Load charges.</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">अनुमानित नाफा र वास्तविक नाफा किन फरक?</b><small>Why does actual profit differ from the estimate?</small></span></summary><div class="bi-body"><p lang="ne">बिक्री गर्दा देखिने COGS अनुमान हो। कार्ड लोड राखेपछि रिपोर्टहरूले कार्डको वास्तविक औसत लागत (WAC) प्रयोग गर्छन्, र कार्ड शुल्क Net profit बाट घटाइन्छ। त्यसैले Net profit नै तपाईंको वास्तविक नाफा हो।</p><p class="en">The COGS shown while selling is an estimate. Once card loads are recorded, reports use the card’s actual weighted average cost and deduct card fees from net profit, so net profit is your real profit.</p></div></details>
           <details class="qa bi"><summary><span><b lang="ne">Gross profit कसरी हिसाब हुन्छ?</b><small>How is gross profit calculated?</small></span></summary><div class="bi-body"><p lang="ne">Gross profit = Revenue − COGS। COGS = Game price ($) × त्यस दिनको Exchange rate + Card/bank charges। Credit बिक्रीमा पूरा मूल्य Revenue मा गनिन्छ (accrual); नउठेको भाग Accounts receivable मा देखिन्छ।</p><p class="en">Gross profit = revenue − COGS, where COGS = game price ($) × that day’s exchange rate + card/bank charges. Credit sales count at full price (accrual basis); the unpaid part appears in accounts receivable.</p></div></details>
           <details class="qa bi"><summary><span><b lang="ne">डलर रेट बैंकसँग किन मिलेन?</b><small>Why doesn’t the exchange rate match my bank?</small></span></summary><div class="bi-body"><p lang="ne">Live rate बजारको मध्य रेट हो। बैंक वा कार्डले लिने रेट फरक हुन्छ भने Pricing & FX मा “Manual rate” छानेर आफ्नो रेट राख्नुहोस्, वा Card/bank charges % थप्नुहोस्।</p><p class="en">The live rate is the mid-market rate. If your bank or card charges more, choose “Manual rate” in Pricing & FX and enter your rate, or add a card/bank charges %.</p></div></details>
           <details class="qa bi"><summary><span><b lang="ne">Garena ले मूल्य बदल्यो भने?</b><small>What if Garena changes a price?</small></span></summary><div class="bi-body"><p lang="ne">Price list → Packages मा प्याकेज थिच्नुहोस् → Game price ($) बदल्नुहोस् → Save package। पुराना कारोबारको हिसाब बदलिँदैन।</p><p class="en">Price list → Packages → tap the package → update the game price ($) → Save package. Past transactions are not affected.</p></div></details>
@@ -1220,6 +1342,13 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
             <tr><td><b>Credit sale</b></td><td lang="ne" class="ne-c">उधारो बिक्री</td><td>Sale where the customer pays later.</td></tr>
             <tr><td><b>Pending delivery</b></td><td lang="ne" class="ne-c">पठाउन बाँकी</td><td>Paid or recorded, but diamonds not yet sent.</td></tr>
             <tr><td><b>Exchange rate (FX)</b></td><td lang="ne" class="ne-c">विनिमय दर</td><td>Rupees per US dollar used for costing.</td></tr>
+            <tr><td><b>Gross sales</b></td><td lang="ne" class="ne-c">सूची मूल्यमा बिक्री</td><td>Sales at list price, before discounts.</td></tr>
+            <tr><td><b>Discount</b></td><td lang="ne" class="ne-c">छुट</td><td>Amount taken off the list price for a customer.</td></tr>
+            <tr><td><b>Net revenue</b></td><td lang="ne" class="ne-c">खुद आम्दानी</td><td>Gross sales − discounts.</td></tr>
+            <tr><td><b>Net profit</b></td><td lang="ne" class="ne-c">खुद नाफा</td><td>Gross profit − card fees and adjustments.</td></tr>
+            <tr><td><b>WAC (weighted average cost)</b></td><td lang="ne" class="ne-c">औसत लागत</td><td>Average NPR cost of each USD on your card, including load charges.</td></tr>
+            <tr><td><b>Book balance</b></td><td lang="ne" class="ne-c">हिसाबको ब्यालेन्स</td><td>USD the app expects on your card: loads − sales − fees.</td></tr>
+            <tr><td><b>Reconciliation</b></td><td lang="ne" class="ne-c">मिलान</td><td>Matching the book balance to the real card balance; any shortfall is written off.</td></tr>
             <tr><td><b>Transaction (txn)</b></td><td lang="ne" class="ne-c">कारोबार</td><td>One recorded sale.</td></tr>
             <tr><td><b>Run-rate</b></td><td lang="ne" class="ne-c">दैनिक गति</td><td>Profit needed per day to hit the monthly target.</td></tr>
           </tbody></table></div>
@@ -1277,6 +1406,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
   <div class="grab"></div>
   <h3>All sections</h3>
   <div class="sheet-grid">
+    <a data-go="card"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg><span>Dollar card</span></a>
     <a data-go="customers"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg><span>Customers</span></a>
     <a data-go="rate"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Pricing &amp; FX</span></a>
     <a data-go="reports"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-6"/></svg><span>Reports</span></a>
@@ -1285,6 +1415,38 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
     <a data-go="help"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg><span>Help · मद्दत</span></a>
     <a data-logout role="button" tabindex="0" class="danger"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><span>Sign out</span></a>
   </div>
+</div>
+
+<!-- dollar card entry sheet -->
+<div class="sheet pk-sheet" id="sheetCard" role="dialog" aria-modal="true" aria-labelledby="ceT" hidden>
+  <div class="grab"></div>
+  <div class="pk-sheet-h"><h3 id="ceT">Load card</h3><button class="icon-btn" type="button" id="ceClose" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
+  <div class="form pk-form">
+    <div class="pk-seg ce-type" id="ceType" role="radiogroup" aria-label="Entry type"><button type="button" data-v="load">Load</button><button type="button" data-v="charge">Charge / fee</button><button type="button" data-v="adjust">Reconcile</button></div>
+    <div class="ce-f" data-for="load">
+      <div class="grid2 keep2">
+        <label class="field"><span class="lab">USD loaded</span><div class="unit pre"><span>$</span><input id="ceUsd" type="number" min="0" step="0.01" inputmode="decimal" placeholder="50.00"/></div></label>
+        <label class="field"><span class="lab">NPR paid</span><div class="unit pre"><span>Rs</span><input id="ceNpr" type="number" min="0" step="1" inputmode="decimal" placeholder="7,750"/></div></label>
+      </div>
+      <label class="field"><span class="lab">Bank / service charges (NPR) <em>optional, added to cost</em></span><div class="unit pre"><span>Rs</span><input id="ceFee" type="number" min="0" step="1" inputmode="decimal" placeholder="0"/></div></label>
+    </div>
+    <div class="ce-f" data-for="charge">
+      <div class="grid2 keep2">
+        <label class="field"><span class="lab">Charged in USD <em>from card</em></span><div class="unit pre"><span>$</span><input id="ceCUsd" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"/></div></label>
+        <label class="field"><span class="lab">Charged in NPR <em>from bank</em></span><div class="unit pre"><span>Rs</span><input id="ceCNpr" type="number" min="0" step="1" inputmode="decimal" placeholder="0"/></div></label>
+      </div>
+    </div>
+    <div class="ce-f" data-for="adjust">
+      <label class="field"><span class="lab">Actual card balance now <em>from your card app</em></span><div class="unit pre"><span>$</span><input id="ceActual" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"/></div></label>
+    </div>
+    <div class="grid2 keep2">
+      <label class="field"><span class="lab">Date</span><input id="ceDate" type="datetime-local"/></label>
+      <label class="field"><span class="lab">Note <em id="ceNoteHint">optional</em></span><input id="ceNote" maxlength="80" autocomplete="off" placeholder="e.g. Nabil dollar card"/></label>
+    </div>
+    <div class="pk-prev" id="cePrev"></div>
+    <p class="err" id="ceErr" role="alert"></p>
+  </div>
+  <div class="pk-acts"><button class="btn del-btn" type="button" id="ceDel">Delete</button><span class="sp"></span><button class="btn" type="button" id="ceCancel">Cancel</button><button class="btn accent" type="button" id="ceSave">Save</button></div>
 </div>
 
 <!-- package editor sheet -->
@@ -1388,7 +1550,10 @@ const monthKey = t => { const d=new Date(t); return d.getFullYear()+'-'+String(d
 const newId = () => 's' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
 // accrual basis: a credit sale counts as revenue at full price; the unpaid part sits in accounts receivable
 const revenueOf = s => Math.max(Number(s.received)||0, s.method==='Credit' ? Number(s.price ?? s.received)||0 : 0);
-const profitOf = s => revenueOf(s) - (Number(s.cost)||0);
+const discOf = s => (Number(s.discount)||0) + (s.method!=='Credit' && s.price!=null && Number(s.price)>Number(s.received) ? Number(s.price)-Number(s.received) : 0);
+const grossOf = s => revenueOf(s) + discOf(s);                          // value at list price
+const costOfSale = s => (BOOK.active && BOOK.saleCost.has(s.id)) ? BOOK.saleCost.get(s.id) : (Number(s.cost)||0);   // actual card cost (WAC) when card data exists
+const profitOf = s => revenueOf(s) - costOfSale(s);
 const isMem = s => s.kind === 'member' || /membership/i.test(s.pkgName||'');
 const priceOf = s => Number(s.price ?? s.received) || 0;                 // what the customer should pay
 const dueOf = s => s.method==='Credit' ? Math.max(0, priceOf(s) - (Number(s.received)||0)) : 0;
@@ -1398,8 +1563,43 @@ const dayLabel = t => { const d=startOfDay(t), td=startOfDay(); if(d===td) retur
 const S = {
   uid:null, settings:clone(DEFAULT_SETTINGS), sales:[], loaded:false,
   live:{status:'loading'}, filter:'all', search:'', shown:60, custQ:'', custFilter:null,
-  editId:null, form:null, peDraft:null, rateDraft:null, period:'today', chDays:7
+  editId:null, form:null, peDraft:null, rateDraft:null, period:'today', chDays:7,
+  card:[], cardLoaded:false, cdFilter:'all', stOff:0
 };
+
+/* =========================================================
+   DOLLAR CARD BOOK — weighted average cost (WAC) of USD on the card
+   loads add USD at (NPR paid + charges); sales, USD fees and
+   reconciliation shortfalls take USD out at the running average
+   ========================================================= */
+let BOOK={active:false, saleCost:new Map(), usd:0, npr:0, avg:0, expense:[], ledger:[], entryInfo:new Map()};
+function computeBook(){
+  const B={active:S.card.length>0, saleCost:new Map(), usd:0, npr:0, avg:0, loadedUsd:0, paidNpr:0, loadFees:0, nLoads:0, usedUsd:0, usedCost:0, expense:[], ledger:[], entryInfo:new Map(), lastLoad:null, preLoad:0};
+  if (!B.active){ BOOK=B; return; }
+  const ev=[...S.card.map(c=>({t:c.at,c})), ...S.sales.map(s=>({t:s.at,s}))].sort((x,y)=>x.t-y.t || (x.c?-1:1));
+  let usd=0, npr=0, lastAvg=0, day=null, seenLoad=false;
+  const avg=()=> usd>0.0001 ? npr/usd : lastAvg;
+  const flush=()=>{ if(day){ B.ledger.push(day); day=null; } };
+  for (const e of ev){
+    if (e.c){ flush(); const c=e.c; let info;
+      if (c.type==='load'){ const u=+c.usd||0, cost=(+c.npr||0)+(+c.fee||0); usd+=u; npr+=cost; B.loadedUsd+=u; B.paidNpr+=+c.npr||0; B.loadFees+=+c.fee||0; B.nLoads++; B.lastLoad=c; seenLoad=true; info={dUsd:u, npr:cost, rate:u?cost/u:0}; }
+      else if (c.type==='charge'){ const u=+c.usd||0, a=avg(), val=u*a, exp=(+c.npr||0)+val; usd-=u; npr-=val; B.expense.push({at:c.at, amt:exp, c}); info={dUsd:-u, npr:exp, rate:u?a:0}; }
+      else { const diff=(+c.actual||0)-usd, a=avg(); let val=0; if (diff<0){ val=-diff*a; npr-=val; B.expense.push({at:c.at, amt:val, c}); } usd+=diff; info={dUsd:diff, npr:val, rate:diff<0?a:0}; }
+      if (usd>0.0001) lastAvg=npr/usd;
+      info.bal=usd; B.entryInfo.set(c.id,info); B.ledger.push({kind:c.type, at:c.at, c, ...info});
+    } else {
+      const s=e.s, u=(+s.usd||0)*(s.qty||1); let a=avg();
+      if (!seenLoad || !a){ a = u ? (Number(s.cost)||0)/u : 0; if(!seenLoad) B.preLoad++; }
+      const cost=u*a; usd-=u; npr-=cost; B.saleCost.set(s.id,cost); B.usedUsd+=u; B.usedCost+=cost;
+      const k=startOfDay(s.at); if (!day||day.k!==k){ flush(); day={kind:'usage',k,at:s.at,n:0,dUsd:0,npr:0}; }
+      day.n++; day.dUsd-=u; day.npr+=cost; day.at=s.at; day.bal=usd; day.rate=day.dUsd?day.npr/-day.dUsd:0;
+      if (usd>0.0001) lastAvg=npr/usd;
+    }
+  }
+  flush();
+  B.usd=usd; B.npr=usd>0?npr:0; B.avg=usd>0.0001?npr/usd:lastAvg;
+  BOOK=B;
+}
 
 const GEM = (sz=18) => `<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg>`;
 const STAR = (sz=18) => `<svg width="${sz}" height="${sz}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>`;
@@ -1450,11 +1650,13 @@ function download(name, text, type){ const a=document.createElement('a'); a.href
    PRICING
    ========================================================= */
 function rateNow(st=S.settings){
+  if (st.rateMode==='card' && BOOK.active && BOOK.avg>0) return BOOK.avg;
   if (st.rateMode==='manual') return Number(st.manualRate)||FALLBACK_RATE;
   if (S.live.status==='ok') return S.live.rate;
   return Number(st.lastLiveRate)||Number(st.manualRate)||FALLBACK_RATE;
 }
-const costOf = (p, st=S.settings) => p.usd * rateNow(st) * (1 + (Number(st.feePct)||0)/100);
+const cardBasis = (st=S.settings) => st.rateMode==='card' && BOOK.active && BOOK.avg>0;   // card WAC already includes charges
+const costOf = (p, st=S.settings) => p.usd * rateNow(st) * (1 + (cardBasis(st)?0:(Number(st.feePct)||0))/100);
 const sellOf = (p, st=S.settings) => { const r=Number(st.roundTo)||1; return Math.ceil(costOf(p,st) * (1 + (Number(st.marginPct)||0)/100) / r) * r; };
 const pkgLabel = p => p.kind==='member' ? p.name : nf(p.diamonds)+' 💎';
 const pkgById = id => S.settings.packages.find(p => p.id===id);
@@ -1473,6 +1675,7 @@ async function fetchRate(){
 }
 function rateLine(){
   const st=S.settings;
+  if (st.rateMode==='card') return BOOK.active&&BOOK.avg>0 ? ['ok','Dollar card average cost'] : ['warn','No card loads yet, using market rate'];
   if (st.rateMode==='manual') return ['warn','Manual exchange rate'];
   if (S.live.status==='loading') return ['load','Getting today\u2019s rate…'];
   if (S.live.status==='ok') return ['ok','Live FX rate, updated '+fmtTime(S.live.at)];
@@ -1497,6 +1700,7 @@ function startSync(){
     if (!Array.isArray(S.settings.packages) || !S.settings.packages.length) S.settings.packages = clone(DEFAULT_PACKAGES);
     renderAll();
   }, fail('Couldn\u2019t load settings.')));
+  unsubs.push(onSnapshot(cardCol(), snap => { S.card=snap.docs.map(d=>d.data()); S.cardLoaded=true; renderAll(); }, fail('Couldn\u2019t load the dollar card.')));
   unsubs.push(onSnapshot(query(salesCol(), orderBy('at','desc')), {includeMetadataChanges:true}, snap => {
     S.sales = snap.docs.map(d => d.data()); S.loaded = true;
     const m=snap.metadata;
@@ -1504,6 +1708,9 @@ function startSync(){
     renderAll();
   }, fail('Couldn\u2019t load sales.')));
 }
+function cardCol(){ return collection(db,'users',S.uid,'card'); }
+function saveCard(c){ return setDoc(doc(cardCol(), c.id), c).catch(fail('Couldn\u2019t save the card entry.')); }
+function removeCard(id){ return deleteDoc(doc(cardCol(), id)).catch(fail('Couldn\u2019t delete the card entry.')); }
 function stopSync(){ unsubs.forEach(u=>u()); unsubs=[]; }
 addEventListener('offline', () => S.uid && setStatus('', 'Offline'));
 addEventListener('online', () => S.uid && setStatus('ok','Synced'));
@@ -1522,7 +1729,7 @@ async function migrateLocal(){
 /* =========================================================
    NAVIGATION (same pattern as admin)
    ========================================================= */
-const titles = { overview:'Dashboard', sell:'New sale', sales:'Sales ledger', customers:'Customers', prices:'Price list', rate:'Pricing & FX', reports:'Reports', backup:'Backup & restore', account:'Account & security', help:'Help · मद्दत' };
+const titles = { overview:'Dashboard', sell:'New sale', sales:'Sales ledger', card:'Dollar card', customers:'Customers', prices:'Price list', rate:'Pricing & FX', reports:'Reports', backup:'Backup & restore', account:'Account & security', help:'Help · मद्दत' };
 let currentPage='overview';
 const dirty=new Set();
 async function go(p, opts={}){
@@ -1563,7 +1770,7 @@ $('bMore').addEventListener('click', () => openSheet('sheetMore'));
 $('bMore').addEventListener('keydown', e => { if(e.key==='Enter'||e.key===' '){ e.preventDefault(); openSheet('sheetMore'); } });
 $('bNew').addEventListener('click', () => newSale());
 $('topMore').addEventListener('click', () => { const sh=$('sheetMore'); if(!sh.hidden){ closeSheets(); return; } openSheet('sheetMore'); const r=$('topMore').getBoundingClientRect(); sh.classList.add('anchored'); sh.style.top=(r.bottom+10)+'px'; sh.style.right=Math.max(12,innerWidth-r.right)+'px'; $('topMore').setAttribute('aria-expanded','true'); });
-$('sheetBg').addEventListener('click', () => { closeSheets(); if(!$('sheetPk').hidden) closePk(); });
+$('sheetBg').addEventListener('click', () => { closeSheets(); if(!$('sheetPk').hidden) closePk(); if(!$('sheetCard').hidden) closeCard(); });
 $('userBtn').addEventListener('click', e => { e.stopPropagation(); const m=$('userMenu'); m.hidden=!m.hidden; $('userBtn').setAttribute('aria-expanded', !m.hidden); });
 document.addEventListener('click', e => { if (!e.target.closest('.user-menu')) $('userMenu').hidden=true; });
 addEventListener('keydown', e => { if (e.key==='Escape'){ closeMenu(); closeSheets(); if(!$('sheetPk').hidden) closePk(); closeRowMenu(); $('userMenu').hidden=true; if(!$('dlg').hidden) $('dlgNo').click(); } });
@@ -1589,9 +1796,9 @@ addEventListener('resize', closeRowMenu);
 /* =========================================================
    RENDER
    ========================================================= */
-function renderAll(){ renderRateBits(); renderCounts(); renderPage(currentPage); }
+function renderAll(){ computeBook(); renderRateBits(); renderCounts(); renderPage(currentPage); }
 function renderPage(p){
-  ({overview:renderHome, sell:renderSell, sales:renderSales, customers:renderCustomers, prices:renderPrices, rate:renderRatePage, reports:renderReports, backup:renderBackup})[p]?.();
+  ({overview:renderHome, card:renderCardPage, sell:renderSell, sales:renderSales, customers:renderCustomers, prices:renderPrices, rate:renderRatePage, reports:renderReports, backup:renderBackup})[p]?.();
 }
 function renderRateBits(){
   const [k,txt]=rateLine(), r=rateNow();
@@ -1604,10 +1811,11 @@ function renderRateBits(){
 function renderCounts(){
   $('ctS').textContent = S.loaded ? S.sales.length : '–';
   $('ctC').textContent = S.loaded ? customers().length : '–';
+  $('ctCard').textContent = BOOK.active ? '$'+BOOK.usd.toFixed(0) : '–';
 }
 
 /* ---------- home ---------- */
-function stats(list){ return list.reduce((a,s)=>{ a.n++; a.dia+=Number(s.diamonds)||0; a.recv+=Number(s.received)||0; a.rev+=revenueOf(s); a.cost+=Number(s.cost)||0; a.profit+=profitOf(s); return a; }, {n:0,dia:0,recv:0,rev:0,cost:0,profit:0}); }
+function stats(list){ return list.reduce((a,s)=>{ a.n++; a.dia+=Number(s.diamonds)||0; a.recv+=Number(s.received)||0; a.rev+=revenueOf(s); a.cost+=costOfSale(s); a.disc+=discOf(s); a.gross+=grossOf(s); a.profit+=profitOf(s); return a; }, {n:0,dia:0,recv:0,rev:0,cost:0,profit:0,disc:0,gross:0}); }
 function periodRange(p){
   const now=Date.now(), sd=startOfDay();
   if (p==='today') return {from:sd, to:now, pFrom:sd-864e5, pTo:sd, cmp:'vs yesterday'};
@@ -1644,6 +1852,14 @@ function renderHome(){
     ['', IC.list, 'Transactions', String(cur.n), delta(cur.n,prev.n), new Set(inRange(R.from,Infinity).map(custKey).filter(x=>x!=='walkin')).size+' customers']
   ];
   $('kpis').innerHTML = k.map(([c,i,l,v,dl,sub])=>`<div class="stat ${c}"><span class="k-ic">${svgI(i)}</span><span>${l}</span><b>${S.loaded?v:'–'}</b><small>${S.loaded?dl:''}${sub?'<em style="font-style:normal">'+esc(sub)+'</em>':''}</small></div>`).join('');
+  // dollar card mini
+  const tp0=topPackages()[0];
+  if (BOOK.active){ const low = tp0 && BOOK.usd < tp0.p.usd;
+    $('cmBal').textContent='$'+BOOK.usd.toFixed(2); $('cardMini').classList.toggle('low', BOOK.usd<0 || !!low);
+    $('cmSub').textContent = BOOK.usd<0 ? 'Negative: a load is missing' : 'Rs '+nf(BOOK.npr)+' at cost'+(low?' · low balance':'');
+    const live=S.live.status==='ok'?S.live.rate:null;
+    $('cmFacts').innerHTML=`<div><span>Avg cost / USD</span><b>Rs ${rs2(BOOK.avg)}</b></div>`+(live?`<div><span>vs live rate</span><b class="${BOOK.avg>live?'bad':'good'}">${BOOK.avg>live?'+':'−'}Rs ${rs2(Math.abs(BOOK.avg-live))}</b></div>`:'')+(tp0?`<div><span>Covers ${esc(tp0.p.kind==='member'?tp0.p.name:nf(tp0.p.diamonds)+' 💎')}</span><b>${Math.max(0,Math.floor(BOOK.usd/tp0.p.usd))} more</b></div>`:'')+(BOOK.lastLoad?`<div><span>Last load</span><b>$${(+BOOK.lastLoad.usd).toFixed(2)} · ${esc(dayLabel(BOOK.lastLoad.at))}</b></div>`:'');
+  } else { $('cmBal').textContent='Not set up'; $('cardMini').classList.remove('low'); $('cmSub').textContent='Add your first load to track USD balance and actual profit'; $('cmFacts').innerHTML=''; }
   // quick sell
   const tp=topPackages();
   $('quick').innerHTML = tp.map(({p,n})=>`<button type="button" class="${p.kind==='member'?'mem':''}" data-quick="${esc(p.id)}"><b>${p.kind==='member'?STAR(16):GEM(16)}${esc(p.kind==='member'?p.name:nf(p.diamonds))}</b><span>${rs(sellOf(p))}</span><small>${n?n+' sold in 30 days':'Not sold yet'}</small></button>`).join('');
@@ -1722,7 +1938,7 @@ document.addEventListener('click', e => { const f=e.target.closest('[data-filter
 function saleRow(s, withMenu=true){
   const p=profitOf(s), name=s.customer||'Walk-in';
   const due=dueOf(s), badges=(s.status==='pending'?'<span class="badge wait">Undelivered</span>':'')+(s.method==='Credit'?(due?`<span class="badge due">Outstanding ${rs(due)}</span>`:'<span class="badge draft">Credit</span>'):'');
-  const sub=[esc(s.pkgName)+(s.qty>1?' ×'+s.qty:''), (s.qty>1||isMem(s))?nf(s.diamonds)+' diamonds':null, fmtWhen(s.at), s.method!=='Credit'?esc(s.method):null].filter(Boolean).join(' · ');
+  const sub=[esc(s.pkgName)+(s.qty>1?' ×'+s.qty:''), (s.qty>1||isMem(s))?nf(s.diamonds)+' diamonds':null, fmtWhen(s.at), s.method!=='Credit'?esc(s.method):null, discOf(s)?'disc '+rs(discOf(s)):null].filter(Boolean).join(' · ');
   return `<div class="sale${isMem(s)?' mem':''}${withMenu?'':' nomenu'}" data-sale="${esc(s.id)}" role="button" tabindex="0">
     <span class="gi">${isMem(s)?STAR(18):GEM(18)}</span>
     <div style="min-width:0"><div class="t">${esc(name)}${badges}</div><div class="s">${sub}</div></div>
@@ -1806,7 +2022,7 @@ function customers(){
   const m=new Map();
   S.sales.forEach(s=>{ const k=custKey(s); if(k==='walkin') return; let c=m.get(k);
     if(!c){ c={key:k, name:s.customer||'', phone:s.phone||'', uid:s.uid||'', n:0, recv:0, rev:0, dia:0, profit:0, last:0, lastPkg:'', pend:0}; m.set(k,c); }
-    c.n++; c.recv+=Number(s.received)||0; c.rev+=revenueOf(s); c.dia+=Number(s.diamonds)||0; c.profit+=profitOf(s); if(s.status==='pending') c.pend++;
+    c.n++; c.disc=(c.disc||0)+discOf(s); c.recv+=Number(s.received)||0; c.rev+=revenueOf(s); c.dia+=Number(s.diamonds)||0; c.profit+=profitOf(s); if(s.status==='pending') c.pend++;
     if(s.at>c.last){ c.last=s.at; c.lastPkg=s.pkgName; c.name=s.customer||c.name; c.phone=s.phone||c.phone; c.uid=s.uid||c.uid; c.pkgId=s.pkgId; } });
   return [...m.values()].sort((a,b)=>b.rev-a.rev);
 }
@@ -1819,7 +2035,7 @@ function renderCustomers(){
   $('cList').innerHTML = list.length ? list.map(c=>{ const ini=(c.name||c.phone||'?').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
     return `<div class="person" data-cust="${esc(c.key)}"><span class="pav"><span class="ph">${esc(ini)}</span></span>
       <div class="pn"><b>${esc(c.name||'No name')}${c.pend?'<span class="badge wait">'+c.pend+' undelivered</span>':''}</b><small>Last bought ${esc(c.lastPkg)}, ${fmtWhen(c.last)}</small>
-      <div class="chips">${c.phone?`<a href="tel:${esc(digits(c.phone))}">${esc(c.phone)}</a>`:''}${c.uid?`<i class="c-l">UID ${esc(c.uid)}</i>`:''}<i>${c.n} txn</i><i>${nf(c.dia)} 💎</i></div></div>
+      <div class="chips">${c.phone?`<a href="tel:${esc(digits(c.phone))}">${esc(c.phone)}</a>`:''}${c.uid?`<i class="c-l">UID ${esc(c.uid)}</i>`:''}<i>${c.n} txn</i><i>${nf(c.dia)} 💎</i>${c.disc?`<i class="c-h">Discount ${rs(c.disc)}</i>`:''}</div></div>
       <div class="pa"><span class="pc" style="text-align:right"><b style="display:block;color:var(--ink);font-size:.95rem">${rs(c.rev)}</b><small>${rsSigned(c.profit)}</small></span>${KEBAB}</div></div>`; }).join('')
     : all.length ? blank('No customers match','Try a different name, phone or UID.') : blank('No customers yet','Customers appear here after you record sales with their name, phone or UID.');
 }
@@ -1843,7 +2059,7 @@ $('cList').addEventListener('click', e => {
 function resetForm(pre={}){
   const firstPk=S.settings.packages[0];
   S.form={ pkId: pre.pkId && pkgById(pre.pkId) ? pre.pkId : (firstPk&&firstPk.id), method:'Cash', status:'done', recvTouched:false };
-  $('fName').value=pre.customer||''; $('fPhone').value=pre.phone||''; $('fUid').value=pre.uid||''; $('fQty').value=1; $('fNote').value=''; $('fRecv').value=''; $('fErr2').textContent='';
+  $('fName').value=pre.customer||''; $('fPhone').value=pre.phone||''; $('fUid').value=pre.uid||''; $('fQty').value=1; $('fDisc').value=''; $('fNote').value=''; $('fRecv').value=''; $('fErr2').textContent='';
 }
 async function newSale(pre){
   if (currentPage==='sell' && dirty.has('sell') && !await ask('Start a new sale?','The sale you were filling in will be cleared.','Start new')) return;
@@ -1855,7 +2071,7 @@ async function newSale(pre){
 async function editSale(s){
   if (!await go('sell')) return;
   S.editId=s.id; S.form={pkId:s.pkgId, method:s.method||'Cash', status:s.status||'done', recvTouched:true, orig:s};
-  $('fName').value=s.customer||''; $('fPhone').value=s.phone||''; $('fUid').value=s.uid||''; $('fQty').value=s.qty||1; $('fNote').value=s.note||''; $('fRecv').value=s.received; $('fErr2').textContent='';
+  $('fName').value=s.customer||''; $('fPhone').value=s.phone||''; $('fUid').value=s.uid||''; $('fQty').value=s.qty||1; $('fDisc').value=s.discount||''; $('fNote').value=s.note||''; $('fRecv').value=s.received; $('fErr2').textContent='';
   $('crumb').textContent='Edit sale'; dirty.delete('sell'); renderSell();
 }
 function formPkg(){ const f=S.form; if(!f) return null; return pkgById(f.pkId) || (f.orig && f.orig.pkgId===f.pkId ? {id:f.orig.pkgId, name:f.orig.pkgName, diamonds:f.orig.diamonds/(f.orig.qty||1), usd:f.orig.usd, kind:isMem(f.orig)?'member':'topup'} : null); }
@@ -1863,6 +2079,7 @@ function formCost(p, q){
   const o=S.form.orig;
   if (o && o.pkgId===p.id) return (Number(o.cost)||0)/(o.qty||1)*q;   // editing: keep the rate used at the time of sale
   if (o) return p.usd*(o.rate||rateNow())*(1+((o.feePct??S.settings.feePct)||0)/100)*q;
+  if (BOOK.active && BOOK.avg>0) return p.usd*BOOK.avg*q;   // actual: card weighted average cost
   return costOf(p)*q;
 }
 function renderSell(){
@@ -1884,16 +2101,24 @@ function renderSell(){
 function updateCalc(){
   const p=formPkg(); const q=Math.max(1,parseInt($('fQty').value,10)||1);
   if (!p){ ['cDia','cCost','cProfit'].forEach(i=>$(i).textContent='–'); return; }
-  const cost=formCost(p,q), suggested=(S.form.orig&&S.form.orig.pkgId===p.id)?priceOf(S.form.orig)/(S.form.orig.qty||1)*q:(pkgById(p.id)?sellOf(p)*q:0);
-  if (!S.form.recvTouched) $('fRecv').value=Math.round(suggested);
-  $('recvHint').textContent = 'selling price '+rs(suggested);
+  const o=S.form.orig, cost=formCost(p,q);
+  const listUnit=(o&&o.pkgId===p.id) ? (Number(o.listPrice ?? (priceOf(o)+(Number(o.discount)||0)))||0)/(o.qty||1) : (pkgById(p.id)?sellOf(p):0);
+  const list=Math.round(listUnit*q), disc=Math.min(list, Math.max(0, Math.round(Number($('fDisc').value)||0))), suggested=list-disc;
+  S.form.listPrice=list; S.form.discount=disc;
+  if (!S.form.recvTouched) $('fRecv').value = S.form.method==='Credit' ? 0 : suggested;
+  $('recvHint').textContent = 'net price '+rs(suggested);
+  $('discHint').textContent = disc ? Math.round(disc/list*100)+'% off' : 'optional';
+  $('priceLine').innerHTML = `<span>List price <b>${rs(list)}</b></span>${disc?`<span>− Discount <b>${rs(disc)}</b></span>`:''}<span class="net">Net price <b>${rs(suggested)}</b></span>`;
+  const useUsd=p.usd*q, origUse=(o&&o.pkgId===p.id)?(Number(o.usd)||0)*(o.qty||1):0;
+  if (BOOK.active){ const after=BOOK.usd+origUse-useUsd; $('cardUse').innerHTML=`<b>$${useUsd.toFixed(2)}</b><small class="${after<0?'neg':''}">${after<0?'Card short by $'+(-after).toFixed(2):'Balance after $'+after.toFixed(2)}</small>`; $('cardUse').className='card-use'+(after<0?' warn':''); }
+  else { $('cardUse').innerHTML=`<b>$${useUsd.toFixed(2)}</b><small><a class="link" data-go="card">Track card balance</a></small>`; $('cardUse').className='card-use'; }
   const recv=Number($('fRecv').value)||0, pr=(S.form.method==='Credit'?Math.max(recv,Math.round(suggested)):recv)-cost;
   $('cDia').textContent=nf(p.diamonds*q); $('cCost').textContent=rs(cost);
   $('cProfit').textContent=rsSigned(pr); $('cProfit').className=pr<0?'bad':'good';
   const credit=S.form.method==='Credit', due=Math.max(0,Math.round(suggested)-recv);
   $('cDueBox').hidden=!credit; $('calc').classList.toggle('four',credit); $('cDue').textContent=rs(due);
   S.form.price=Math.round(suggested);
-  $('sellHelp').textContent = S.editId ? 'Cost stays at the exchange rate on the sale date' : 'Cost at Rs '+rs2(rateNow())+' / USD';
+  $('sellHelp').textContent = S.editId ? 'COGS estimate keeps the sale-date rate' : (BOOK.active&&BOOK.avg>0?'COGS at card avg Rs '+rs2(BOOK.avg):'COGS at Rs '+rs2(rateNow()))+' / USD';
 }
 $('pkPick').addEventListener('click', e => { const b=e.target.closest('[data-pk]'); if(!b) return; S.form.pkId=b.dataset.pk; if(!S.editId||!S.form.orig||S.form.orig.pkgId!==b.dataset.pk) S.form.recvTouched=false; dirty.add('sell'); renderSell(); });
 $('fMethod').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; const was=S.form.method; S.form.method=b.dataset.v;
@@ -1904,6 +2129,7 @@ $('fStatus').addEventListener('click', e => { const b=e.target.closest('button')
 $('fQty').addEventListener('input', () => { S.form.recvTouched=false; dirty.add('sell'); updateCalc(); });
 document.querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>{ const q=Math.max(1,(parseInt($('fQty').value,10)||1)+Number(b.dataset.step)); $('fQty').value=q; $('fQty').dispatchEvent(new Event('input')); }));
 $('fRecv').addEventListener('input', () => { S.form.recvTouched=true; dirty.add('sell'); updateCalc(); });
+$('fDisc').addEventListener('input', () => { if (S.form.method!=='Credit') S.form.recvTouched=false; dirty.add('sell'); updateCalc(); });
 ['fName','fPhone','fUid','fNote'].forEach(i=>$(i).addEventListener('input',()=>dirty.add('sell')));
 function matchCustomer(){
   const n=$('fName').value.trim().toLowerCase(), ph=digits($('fPhone').value), uid=$('fUid').value.trim();
@@ -1935,13 +2161,101 @@ $('sellSave').addEventListener('click', () => {
     diamonds:p.diamonds*q, qty:q, usd:p.usd,
     rate: o ? (o.rate||Math.round(rateNow()*100)/100) : Math.round(rateNow()*100)/100,
     feePct: o ? (o.feePct ?? (Number(S.settings.feePct)||0)) : (Number(S.settings.feePct)||0),
-    cost, price:S.form.price ?? recv, received:recv, method:S.form.method, status:S.form.status, note:$('fNote').value.trim()
+    cost, listPrice:S.form.listPrice ?? (S.form.price ?? recv), discount:S.form.discount||0, price:S.form.price ?? recv, received:recv, method:S.form.method, status:S.form.status, note:$('fNote').value.trim()
   };
   if (o) r.updatedAt=Date.now();
   saveSale(r);
   dirty.delete('sell'); const wasEdit=!!S.editId; S.editId=null; S.form=null; $('custHit').hidden=true;
   toast(wasEdit?'Sale updated':'Sale recorded: revenue '+rs(revenueOf(r))+', GP '+rsSigned(profitOf(r)), false, (!wasEdit && (r.phone||navigator.share)) ? {label:'Send receipt', fn:()=>sendReceipt(r)} : null);
   if (wasEdit) go('sales'); else { resetForm(); renderSell(); scrollTo({top:0,behavior:'smooth'}); }
+});
+
+/* ---------- dollar card page ---------- */
+function renderCardPage(){
+  const B=BOOK, live=S.live.status==='ok'?S.live.rate:null;
+  const w=$('cardWarn');
+  if (!B.active){ w.hidden=false; w.className='note info'; w.innerHTML='<div><b>Start here:</b> record each time you load your dollar card (USD received and NPR paid). Sales then draw USD at the card’s weighted average cost, and every report shows your actual profit instead of an estimate.</div>'; }
+  else if (B.usd<-0.005){ w.hidden=false; w.className='note bad'; w.innerHTML=`<div><b>Book balance is negative ($${B.usd.toFixed(2)}).</b> More USD was used in sales than loaded. Add the missing load, or use Reconcile with your real card balance.</div>`; }
+  else if (B.preLoad){ w.hidden=false; w.className='note warn'; w.innerHTML=`<div>${B.preLoad} sale${B.preLoad===1?'':'s'} happened before your first recorded load, so ${B.preLoad===1?'its':'their'} cost uses the market-rate estimate. Add earlier loads for exact figures.</div>`; }
+  else w.hidden=true;
+  $('cdBal').textContent=(B.usd<0?'−$':'$')+Math.abs(B.usd).toFixed(2);
+  $('cdBalNpr').textContent = B.active ? 'Rs '+nf(B.npr)+' at cost' : 'No loads recorded';
+  $('cdHeroFacts').innerHTML = `<div><span>Avg cost / USD (WAC)</span><b>${B.active&&B.avg?'Rs '+rs2(B.avg):'–'}</b></div><div><span>Live market rate</span><b>${live?'Rs '+rs2(live):'–'}</b></div><div><span>Last load</span><b>${B.lastLoad?'$'+(+B.lastLoad.usd).toFixed(2)+', '+esc(dayLabel(B.lastLoad.at)):'–'}</b></div>`;
+  const exp=B.expense.reduce((t,x)=>t+x.amt,0);
+  const k=[
+    ['money', IC.dollar, 'Total loaded', '$'+nf(B.loadedUsd||0), `Rs ${nf(B.paidNpr||0)} paid · ${B.nLoads||0} load${B.nLoads===1?'':'s'}`],
+    ['', IC.list, 'Load charges', rs(B.loadFees||0), B.loadedUsd?'Avg load rate Rs '+rs2(((B.paidNpr||0)+(B.loadFees||0))/B.loadedUsd):''],
+    ['gem', '<path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/>', 'USD used in sales', '$'+(B.usedUsd||0).toFixed(2), 'COGS '+rs(B.usedCost||0)],
+    ['', IC.del, 'Card fees & adjustments', rs(exp), B.expense.length+' entr'+(B.expense.length===1?'y':'ies')]
+  ];
+  $('cdStats').innerHTML=k.map(([c,i,l,v,sub])=>`<div class="stat ${c}"><span class="k-ic">${svgI(i)}</span><span>${l}</span><b>${v}</b><small><em style="font-style:normal">${esc(sub)}</em></small></div>`).join('');
+  document.querySelectorAll('#cdFilter button').forEach(b=>b.setAttribute('aria-checked',String(b.dataset.v===S.cdFilter)));
+  const f=S.cdFilter, rows=B.ledger.filter(r=>f==='all'||(f==='load'&&r.kind==='load')||(f==='charge'&&(r.kind==='charge'||r.kind==='adjust'))||(f==='usage'&&r.kind==='usage')).slice().reverse();
+  const label=r=> r.kind==='load'?'<span class="lg-tag load">Load</span>'+esc(r.c.note||''):r.kind==='charge'?'<span class="lg-tag fee">Charge</span>'+esc(r.c.note||''):r.kind==='adjust'?'<span class="lg-tag adj">Reconcile</span>'+esc(r.c.note||'Actual $'+(+r.c.actual).toFixed(2)):'<span class="lg-tag use">Sales</span>'+r.n+' transaction'+(r.n===1?'':'s');
+  $('cdLedger').innerHTML = rows.length ? rows.map(r=>`<tr class="lg-${r.kind}"${r.c?` data-ce="${esc(r.c.id)}"`:''}><td>${r.kind==='usage'?esc(dayLabel(r.at)):fmtWhen(r.at)}</td><td class="lg-e">${label(r)}</td><td class="r ${r.dUsd<0?'neg':'gain'}">${Math.abs(r.dUsd)<0.005?'–':(r.dUsd<0?'−':'+')+'$'+Math.abs(r.dUsd).toFixed(2)}</td><td class="r">${r.npr?rs(r.npr):'–'}</td><td class="r">${r.rate?rs2(r.rate):'–'}</td><td class="r b">${r.bal<0?'−':''}$${Math.abs(r.bal).toFixed(2)}</td><td class="r">${r.c?KEBAB:''}</td></tr>`).join('')
+    : `<tr><td colspan="7">${blank(B.active?'Nothing here':'No card entries yet','Tap Load card to record your first load.')}</td></tr>`;
+}
+$('cdFilter').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; S.cdFilter=b.dataset.v; renderCardPage(); });
+$('cdLedger').addEventListener('click', e=>{ const tr=e.target.closest('[data-ce]'); if(!tr) return; const c=S.card.find(x=>x.id===tr.dataset.ce); if(!c) return;
+  const k=e.target.closest('[data-menu]'); if(!k){ openCard(c.type,c); return; } e.stopPropagation();
+  openRowMenu(k, ({load:'Load',charge:'Charge',adjust:'Reconciliation'})[c.type]+', '+fmtWhen(c.at), [{icon:'edit',label:'Edit entry',fn:()=>openCard(c.type,c)},{icon:'del',label:'Delete entry',danger:true,fn:()=>delCard(c)}]); });
+function delCard(c){ removeCard(c.id); toast('Card entry deleted', false, {label:'Undo', fn:()=>{ saveCard(c); toast('Restored'); }}); }
+document.addEventListener('click', e=>{ const b=e.target.closest('[data-cardact]'); if(b) openCard(b.dataset.cardact, null); });
+
+/* card entry sheet */
+let ceEdit=null;
+const toLocalInput = t => { const d=new Date(t); d.setMinutes(d.getMinutes()-d.getTimezoneOffset()); return d.toISOString().slice(0,16); };
+function openCard(type, c){
+  ceEdit={type, id:c?c.id:null, orig:c};
+  $('ceT').textContent = c ? 'Edit card entry' : ({load:'Load card',charge:'Record charge',adjust:'Reconcile balance'})[type];
+  $('ceUsd').value=c&&type==='load'?c.usd:''; $('ceNpr').value=c&&type==='load'?c.npr:''; $('ceFee').value=c&&type==='load'?(c.fee||''):'';
+  $('ceCUsd').value=c&&type==='charge'?(c.usd||''):''; $('ceCNpr').value=c&&type==='charge'?(c.npr||''):''; $('ceActual').value=c&&type==='adjust'?c.actual:'';
+  $('ceNote').value=c?(c.note||''):''; $('ceDate').value=toLocalInput(c?c.at:Date.now()); $('ceErr').textContent=''; $('ceDel').hidden=!c;
+  $('ceType').hidden=!!c;
+  $('sheetBg').hidden=false; $('sheetCard').hidden=false; ceRender();
+  setTimeout(()=>$(type==='load'?'ceUsd':type==='charge'?'ceNote':'ceActual').focus({preventScroll:true}),120);
+}
+function closeCard(){ $('sheetCard').hidden=true; if ($('sheetMore').hidden && $('sheetPk').hidden) $('sheetBg').hidden=true; ceEdit=null; }
+function ceRender(){
+  const t=ceEdit.type; document.querySelectorAll('#ceType button').forEach(b=>b.setAttribute('aria-checked',String(b.dataset.v===t)));
+  document.querySelectorAll('.ce-f').forEach(f=>f.hidden=f.dataset.for!==t);
+  $('ceNoteHint').textContent = t==='charge' ? 'required, e.g. annual fee' : 'optional';
+  $('ceNote').placeholder = t==='load' ? 'e.g. Nabil dollar card' : t==='charge' ? 'e.g. card renewal fee' : 'e.g. monthly check';
+  const B=BOOK, base=ceEdit.orig ? (B.entryInfo.get(ceEdit.orig.id)||{}) : null;
+  const balNow = B.usd - (base && ceEdit.orig.type!=='adjust' ? (base.dUsd||0) : 0);
+  const live=S.live.status==='ok'?S.live.rate:null; let h='';
+  if (t==='load'){ const u=+$('ceUsd').value||0, n=+$('ceNpr').value||0, f=+$('ceFee').value||0;
+    if (u>0 && n>0){ const r=(n+f)/u, nb=balNow+u, na=(Math.max(0,B.usd>0?B.npr:0)+n+f)/(Math.max(0,B.usd)+u||1);
+      h=`<div><span>Effective rate</span><b>Rs ${rs2(r)}</b></div><div><span>Balance after</span><b>$${nb.toFixed(2)}</b></div><div><span>${live?'vs live rate':'Total cost'}</span><b class="${live&&r>live?'':'g'}">${live?(r>live?'+':'−')+'Rs '+rs2(Math.abs(r-live)):rs(n+f)}</b></div><p>Total cost Rs ${nf(n+f)}${f?' incl. Rs '+nf(f)+' charges':''}${ceEdit.orig?'':' · new average ≈ Rs '+rs2(na)+' / USD'}</p>`; }
+    else h='<div style="grid-column:1/-1"><span>Enter USD loaded and NPR paid to see the effective rate.</span></div>'; }
+  else if (t==='charge'){ const u=+$('ceCUsd').value||0, n=+$('ceCNpr').value||0, ex=u*(B.avg||rateNow())+n;
+    h=`<div><span>Expense</span><b>${rs(ex)}</b></div><div><span>USD out</span><b>$${u.toFixed(2)}</b></div><div><span>Balance after</span><b>$${(balNow-u).toFixed(2)}</b></div><p>Recorded as a card expense in the P&amp;L (below gross profit).</p>`; }
+  else { const act=$('ceActual').value===''?null:+$('ceActual').value, book=ceEdit.orig?(base.bal-(base.dUsd||0)):B.usd;
+    if (act==null) h=`<div style="grid-column:1/-1"><span>Book balance is $${book.toFixed(2)}. Enter the balance shown in your card app.</span></div>`;
+    else { const diff=act-book; h=`<div><span>Book balance</span><b>$${book.toFixed(2)}</b></div><div><span>Difference</span><b class="${diff<0?'':'g'}">${diff<0?'−':'+'}$${Math.abs(diff).toFixed(2)}</b></div><div><span>${diff<0?'Written off':'Effect'}</span><b>${diff<0?rs(-diff*(B.avg||rateNow())):'No cost'}</b></div><p>${Math.abs(diff)<0.005?'Book matches your card.':diff<0?'Shortfall is written off as a card expense at average cost.':'Extra USD is added at zero cost (lowers your average).'}</p>`; } }
+  $('cePrev').innerHTML=h;
+}
+$('ceType').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; ceEdit.type=b.dataset.v; ceRender(); });
+['ceUsd','ceNpr','ceFee','ceCUsd','ceCNpr','ceActual'].forEach(i=>$(i).addEventListener('input', ceRender));
+addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('sheetCard').hidden) closeCard(); });
+$('ceClose').addEventListener('click', closeCard); $('ceCancel').addEventListener('click', closeCard);
+$('ceDel').addEventListener('click', ()=>{ const c=ceEdit.orig; closeCard(); if(c) delCard(c); });
+$('sheetCard').addEventListener('keydown', e=>{ if(e.key==='Enter' && e.target.tagName==='INPUT'){ e.preventDefault(); $('ceSave').click(); } });
+$('ceSave').addEventListener('click', ()=>{
+  const t=ceEdit.type, err=m=>{ $('ceErr').textContent=m; }, at=$('ceDate').value?new Date($('ceDate').value).getTime():Date.now(), note=$('ceNote').value.trim();
+  if (!(at>0)) { err('Choose a valid date.'); return; }
+  const c={id:ceEdit.id||('c'+Date.now().toString(36)+Math.random().toString(36).slice(2,5)), type:t, at, note};
+  if (t==='load'){ c.usd=Math.round((+$('ceUsd').value||0)*100)/100; c.npr=Math.round((+$('ceNpr').value||0)*100)/100; c.fee=Math.round((+$('ceFee').value||0)*100)/100;
+    if (!(c.usd>0)) { err('Enter how many US dollars were loaded.'); $('ceUsd').focus(); return; }
+    if (!(c.npr>0)) { err('Enter how much NPR you paid for this load.'); $('ceNpr').focus(); return; }
+    const r=(c.npr+c.fee)/c.usd; if (r<50||r>400){ err('That works out to Rs '+rs2(r)+' per USD. Check the amounts.'); return; } }
+  else if (t==='charge'){ c.usd=Math.round((+$('ceCUsd').value||0)*100)/100; c.npr=Math.round((+$('ceCNpr').value||0)*100)/100;
+    if (!(c.usd>0||c.npr>0)) { err('Enter the charge in USD, NPR or both.'); return; }
+    if (!note) { err('Add a short note, e.g. annual fee.'); $('ceNote').focus(); return; } }
+  else { if ($('ceActual').value===''){ err('Enter the actual balance from your card app.'); $('ceActual').focus(); return; } c.actual=Math.round((+$('ceActual').value)*100)/100; }
+  const wasEdit=!!ceEdit.orig, before=ceEdit.orig; closeCard(); saveCard(c);
+  toast(wasEdit?'Card entry updated':t==='load'?'Load recorded: $'+c.usd.toFixed(2)+' at Rs '+rs2((c.npr+c.fee)/c.usd):t==='charge'?'Charge recorded':'Balance reconciled', false, {label:'Undo', fn:()=>{ if(before) saveCard(before); else removeCard(c.id); }});
+  if (!wasEdit && t==='load' && S.settings.rateMode!=='card') setTimeout(()=>toast('Tip: set Pricing & FX to “Card avg cost” to price from your card', false, {label:'Use it', fn:()=>{ const st={...S.settings, rateMode:'card'}; S.settings=st; saveSettings(st); renderAll(); toast('Pricing now uses card average cost'); }}), 3200);
 });
 
 /* ---------- price list ---------- */
@@ -1998,7 +2312,7 @@ function openPk(p){
   $('sheetBg').hidden=false; $('sheetPk').hidden=false; pkRender();
   setTimeout(()=>$(p?'pkUsd':'pkDia').focus({preventScroll:true}), 120);
 }
-function closePk(){ $('sheetPk').hidden=true; if ($('sheetMore').hidden) $('sheetBg').hidden=true; pkEdit=null; }
+function closePk(){ $('sheetPk').hidden=true; if ($('sheetMore').hidden && $('sheetCard').hidden) $('sheetBg').hidden=true; pkEdit=null; }
 function pkRender(){
   document.querySelectorAll('#pkKind button').forEach(b=>b.setAttribute('aria-checked',String(b.dataset.v===pkEdit.kind)));
   $('pkName').placeholder = pkEdit.kind==='member' ? 'Weekly' : ((Number($('pkDia').value)||520)+' diamonds');
@@ -2057,10 +2371,35 @@ $('rSave').addEventListener('click', () => {
 });
 
 /* ---------- reports ---------- */
+function monthStats(y,m){
+  const from=new Date(y,m,1).getTime(), to=new Date(y,m+1,1).getTime();
+  const x=stats(S.sales.filter(s=>s.at>=from && s.at<to));
+  x.fees=BOOK.expense.filter(e=>e.at>=from && e.at<to).reduce((t,e)=>t+e.amt,0); x.net=x.profit-x.fees;
+  x.usd=S.sales.filter(s=>s.at>=from && s.at<to).reduce((t,s)=>t+(+s.usd||0)*(s.qty||1),0);
+  return x;
+}
+function renderStatement(){
+  const now=new Date(), d=new Date(now.getFullYear(), now.getMonth()-S.stOff, 1), x=monthStats(d.getFullYear(), d.getMonth());
+  $('stMonth').textContent=d.toLocaleDateString('en-US',{month:'long',year:'numeric'}); $('stNext').disabled=S.stOff===0;
+  const pc=v=>x.rev?Math.round(v/x.rev*100)+'%':'–', row=(l,v,cls='',sub='',neg=false)=>`<tr class="${cls}"><td>${l}${sub?`<small>${sub}</small>`:''}</td><td class="r">${neg&&v?'('+rs(v)+')':rs(v)}</td></tr>`;
+  $('stBody').innerHTML=
+    row('Gross sales', x.gross, 'pl-gs', x.n+' transaction'+(x.n===1?'':'s')+' at list price')+
+    row('Less: Discounts', x.disc, 'pl-less', '', true)+
+    row('Net revenue', x.rev, 'pl-sub')+
+    row('Less: Cost of goods sold', x.cost, 'pl-less', x.usd?'$'+x.usd.toFixed(2)+' at avg Rs '+rs2(x.cost/x.usd):'', true)+
+    row('Gross profit', x.profit, 'pl-sub'+(x.profit<0?' neg':''), 'Gross margin '+pc(x.profit))+
+    row('Less: Card fees & adjustments', x.fees, 'pl-less', '', true)+
+    `<tr class="pl-total${x.net<0?' neg':''}"><td>Net profit<small>Net margin ${pc(x.net)}</small></td><td class="r">${x.net<0?'−':''}${rs(Math.abs(x.net))}</td></tr>`+
+    `<tr class="pl-memo"><td colspan="2">Memo</td></tr>`+row('Cash received', x.recv, 'pl-m')+row('Accounts receivable (unpaid)', Math.max(0,x.rev-x.recv), 'pl-m');
+  $('stNote').textContent = BOOK.active ? (BOOK.preLoad?'COGS uses your dollar card’s weighted average cost; sales before the first recorded load use the market-rate estimate.':'COGS uses your dollar card’s weighted average cost (actual).') : 'COGS is estimated at the exchange rate on each sale date. Record your card loads in Dollar card for actual profit.';
+}
+$('stPrev').addEventListener('click', ()=>{ S.stOff++; renderStatement(); });
+$('stNext').addEventListener('click', ()=>{ if(S.stOff>0){ S.stOff--; renderStatement(); } });
 function renderReports(){
+  renderStatement();
   const rows=[]; const now=new Date();
-  for(let i=0;i<12;i++){ const d=new Date(now.getFullYear(), now.getMonth()-i, 1); const k=monthKey(d); const x=stats(S.sales.filter(s=>monthKey(s.at)===k)); if(i>0 && !x.n) continue; rows.push([d,x,i===0]); }
-  $('rpMonths').innerHTML=rows.map(([d,x,cur])=>`<tr class="${cur?'cur':''}"><td>${d.toLocaleDateString('en-US',{month:'long',year:'numeric'})}</td><td class="r">${x.n}</td><td class="r">${nf(x.dia)}</td><td class="r">${rs(x.rev)}</td><td class="r">${rs(x.cost)}</td><td class="r ${x.profit<0?'neg':'gain'}">${rsSigned(x.profit)}</td><td class="r">${x.rev?Math.round(x.profit/x.rev*100)+'%':'–'}</td><td class="r">${x.rev-x.recv>0?rs(x.rev-x.recv):'–'}</td></tr>`).join('');
+  for(let i=0;i<12;i++){ const d=new Date(now.getFullYear(), now.getMonth()-i, 1); const k=monthKey(d); const x=monthStats(d.getFullYear(), d.getMonth()); if(i>0 && !x.n && !x.fees) continue; rows.push([d,x,i===0]); }
+  $('rpMonths').innerHTML=rows.map(([d,x,cur])=>`<tr class="${cur?'cur':''}"><td>${d.toLocaleDateString('en-US',{month:'long',year:'numeric'})}</td><td class="r">${x.n}</td><td class="r">${rs(x.gross)}</td><td class="r">${x.disc?'('+rs(x.disc)+')':'–'}</td><td class="r">${rs(x.rev)}</td><td class="r">${rs(x.cost)}</td><td class="r ${x.profit<0?'neg':''}">${rsSigned(x.profit)}</td><td class="r">${x.fees?'('+rs(x.fees)+')':'–'}</td><td class="r ${x.net<0?'neg':'gain'}">${rsSigned(x.net)}</td><td class="r">${x.rev?Math.round(x.net/x.rev*100)+'%':'–'}</td></tr>`).join('');
   const month=S.sales.filter(s=>s.at>=startOfMonth());
   const bars=(map,cls,fmt)=>{ const arr=[...map.entries()].sort((a,b)=>b[1].v-a[1].v); const max=Math.max(1,...arr.map(a=>a[1].v));
     return arr.length ? arr.map(([k,o])=>`<div class="like-row"><span class="lt">${esc(k)}<small>${fmt(o)}</small></span><span class="lb"><i class="${cls}" style="width:${o.v/max*100}%"></i></span><span class="ln">${rs(o.v)}</span></div>`).join('') : blank('No activity this month','Transactions recorded this month appear here.'); };
@@ -2068,6 +2407,10 @@ function renderReports(){
   $('rpPay').innerHTML=bars(pay,'b',o=>o.n+' transaction'+(o.n===1?'':'s'));
   const pk=new Map(); month.forEach(s=>{ const o=pk.get(s.pkgName)||{v:0,n:0,p:0}; o.v+=revenueOf(s); o.n+=s.qty||1; o.p+=profitOf(s); pk.set(s.pkgName,o); });
   $('rpPkg').innerHTML=bars(pk,'p',o=>o.n+' units, GP '+rsSigned(o.p));
+  const dm=new Map(); month.filter(s=>discOf(s)>0).forEach(s=>{ const k=custKey(s); const o=dm.get(k)||{name:s.customer||s.phone||s.uid||'Walk-in',n:0,v:0,g:0,key:k}; o.n++; o.v+=discOf(s); o.g+=grossOf(s); dm.set(k,o); });
+  const dl=[...dm.values()].sort((a,b)=>b.v-a.v), dT=dl.reduce((t,o)=>t+o.v,0), gT=stats(month).gross;
+  $('rpDiscMeta').textContent = dT ? 'This month · '+rs(dT)+(gT?' ('+(dT/gT*100).toFixed(1)+'% of gross sales)':'') : 'This month';
+  $('rpDisc').innerHTML = dl.length ? dl.map((o,i)=>`<div class="rank"${o.key!=='walkin'?` data-custgo="${esc(o.key)}"`:''}><span class="no">${i+1}</span><div style="min-width:0"><div class="t">${esc(o.name)}</div><div class="s">${o.n} discounted sale${o.n===1?'':'s'} · ${(o.v/o.g*100).toFixed(1)}% off list</div></div><div class="v"><b>${rs(o.v)}</b></div></div>`).join('') : blank('No discounts this month','Discounts you give on the New sale page appear here by customer.');
   const cr=S.sales.filter(s=>s.method==='Credit');
   const dueT=cr.reduce((t,s)=>t+dueOf(s),0);
   $('rpCreditMeta').textContent=cr.length?cr.length+' credit sale'+(cr.length===1?'':'s')+(dueT?', '+rs(dueT)+' outstanding':''):'';
@@ -2081,15 +2424,15 @@ function showHelpTab(t){ document.querySelectorAll('#helpTabs button').forEach(x
 /* ---------- backup ---------- */
 function renderBackup(){ let t=null; try{ t=Number(localStorage.getItem('dc-backup'))||null; }catch(_){} $('bkLast').textContent = t ? 'Last backup: '+fmtT(t) : 'Never backed up on this device'; }
 $('bkBtn').addEventListener('click', () => {
-  const data={app:'diamond-counter', version:1, exportedAt:new Date().toISOString(), settings:S.settings, sales:S.sales};
+  const data={app:'diamond-counter', version:1, exportedAt:new Date().toISOString(), settings:S.settings, sales:S.sales, card:S.card};
   download('diamond-counter-backup-'+new Date().toISOString().slice(0,10)+'.json', JSON.stringify(data,null,1), 'application/json');
   try{ localStorage.setItem('dc-backup', String(Date.now())); }catch(_){} renderBackup(); toast('Backup downloaded');
 });
 function exportCsv(list){
   if (!list.length){ toast('No transactions to export',true); return; }
-  const head=['Date','Customer','Phone','FF UID','Package','Qty','Diamonds','Dollar price','Rate','COGS (Rs)','Selling price (Rs)','Amount received (Rs)','Outstanding (Rs)','Gross profit (Rs)','Payment method','Delivered','Note'];
+  const head=['Date','Customer','Phone','FF UID','Package','Qty','Diamonds','Dollar price','Rate','COGS est. (Rs)','COGS actual (Rs)','List price (Rs)','Discount (Rs)','Selling price (Rs)','Amount received (Rs)','Outstanding (Rs)','Gross profit (Rs)','Payment method','Delivered','Note'];
   const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
-  const lines=list.map(s=>[new Date(s.at).toLocaleString('en-GB'),s.customer,s.phone,s.uid,s.pkgName,s.qty,s.diamonds,(s.usd*(s.qty||1)).toFixed(2),s.rate,Number(s.cost).toFixed(2),priceOf(s),s.received,dueOf(s),profitOf(s).toFixed(2),s.method,s.status==='pending'?'No':'Yes',s.note].map(q).join(','));
+  const lines=list.map(s=>[new Date(s.at).toLocaleString('en-GB'),s.customer,s.phone,s.uid,s.pkgName,s.qty,s.diamonds,(s.usd*(s.qty||1)).toFixed(2),s.rate,Number(s.cost).toFixed(2),costOfSale(s).toFixed(2),grossOf(s),discOf(s),priceOf(s),s.received,dueOf(s),profitOf(s).toFixed(2),s.method,s.status==='pending'?'No':'Yes',s.note].map(q).join(','));
   download('diamond-sales-'+new Date().toISOString().slice(0,10)+'.csv', '\uFEFF'+[head.map(q).join(',')].concat(lines).join('\n'), 'text/csv');
   toast(list.length+' transactions exported');
 }
@@ -2108,6 +2451,7 @@ $('rsBtn').addEventListener('click', async () => {
   try{
     const old=await getDocs(salesCol()); const ops=[];
     old.docs.forEach(d=>ops.push(['del',d.ref])); restoreData.sales.forEach(s=>ops.push(['set',doc(salesCol(),s.id),s]));
+    if (Array.isArray(restoreData.card)){ const oc=await getDocs(cardCol()); oc.docs.forEach(d=>ops.push(['del',d.ref])); restoreData.card.forEach(c=>ops.push(['set',doc(cardCol(),c.id),c])); }
     for(let i=0;i<ops.length;i+=400){ const batch=writeBatch(db); ops.slice(i,i+400).forEach(o=>o[0]==='del'?batch.delete(o[1]):batch.set(o[1],o[2])); await batch.commit(); }
     if (restoreData.settings) await setDoc(settingsRef(), Object.assign(clone(DEFAULT_SETTINGS), restoreData.settings));
     toast('Backup restored'); restoreData=null; $('rsFile').value=''; $('rsName').textContent='Choose a backup file'; $('rsInfo').textContent='A .json file downloaded from this page';
@@ -2221,7 +2565,7 @@ onAuthStateChanged(auth, async user => {
   if (user && !ADMINS.includes((user.email||'').toLowerCase())) { await signOut(auth); $('loginView').hidden=false; $('appView').hidden=true; $('lErr').textContent='This account doesn\u2019t have access to Diamond Counter.'; return; }
   $('loginView').hidden = !!user; $('appView').hidden = !user;
   if (!user) {
-    stopIdle(); S.uid=null; S.sales=[]; S.loaded=false; S.settings=clone(DEFAULT_SETTINGS); S.form=null; S.editId=null; S.rateDraft=null; dirty.clear(); closePk();
+    stopIdle(); S.uid=null; S.sales=[]; S.loaded=false; S.card=[]; S.cardLoaded=false; S.settings=clone(DEFAULT_SETTINGS); S.form=null; S.editId=null; S.rateDraft=null; dirty.clear(); closePk();
     if (signedOutMsg) { $('lOk').textContent=signedOutMsg; $('lOk').hidden=false; signedOutMsg=''; }
     $('forgotForm').hidden=true; $('loginForm').hidden=false;
     setTimeout(()=>$('lEmail').focus(), 50);
