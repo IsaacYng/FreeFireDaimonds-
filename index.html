@@ -1159,6 +1159,12 @@ input[type=datetime-local]{width:100%;padding:10px 12px;border:1px solid var(--l
 .card-h>div h2{margin:0}
 .card-h>div .meta{display:block;margin-top:2px}
 .rules{margin:4px 0 0;padding:12px;border-radius:10px;background:var(--ink);color:#DCE4E7;font-size:.72rem;line-height:1.5;overflow-x:auto;white-space:pre}
+.switch{display:inline-flex;align-items:center;gap:10px;border:1px solid var(--line-2);background:#fff;border-radius:999px;padding:6px 14px 6px 6px;font-weight:600;cursor:pointer;justify-self:start}
+.switch i{width:40px;height:24px;border-radius:999px;background:#CDD6D7;position:relative;transition:background .15s}
+.switch i::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;transition:left .15s;box-shadow:0 1px 3px rgba(0,0,0,.25)}
+.switch[aria-checked="true"] i{background:var(--ok-bar)}
+.switch[aria-checked="true"] i::after{left:19px}
+.o-code{font-size:.74rem;color:var(--muted);font-weight:600;margin-left:4px}
 </style>
 </head>
 <body>
@@ -1466,6 +1472,8 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         <div class="card">
           <div class="card-h"><h2>Shop details</h2><span class="meta">Shown to customers</span></div>
           <div class="card-b form">
+            <div class="field"><span class="lab">Order page</span><button type="button" class="switch" id="shOpen" role="switch" aria-checked="true"><i></i><span id="shOpenT">Taking orders</span></button></div>
+            <label class="field"><span class="lab">Notice on order page <em>optional</em></span><input id="shNotice" maxlength="140" placeholder="e.g. Delivery within 10 minutes, 8 AM to 9 PM"/></label>
             <label class="field"><span class="lab">Shop name</span><input id="shName" maxlength="40" placeholder="Isaac Diamond Store"/></label>
             <label class="field"><span class="lab">Your WhatsApp number</span><input id="shWa" type="tel" inputmode="tel" maxlength="15" placeholder="98XXXXXXXX"/></label>
             <label class="field"><span class="lab">How customers pay you <em>shown on price list, order page and reminders</em></span><input id="shPay" maxlength="120" placeholder="eSewa / Khalti: 98XXXXXXXX (Isaac Yonghang)"/></label>
@@ -1561,7 +1569,8 @@ service cloud.firestore {
         &amp;&amp; request.resource.data.phone is string &amp;&amp; request.resource.data.phone.size() &lt;= 15
         &amp;&amp; request.resource.data.note is string &amp;&amp; request.resource.data.note.size() &lt;= 200
         &amp;&amp; request.resource.data.items is list &amp;&amp; request.resource.data.items.size() &gt; 0 &amp;&amp; request.resource.data.items.size() &lt;= 12;
-      allow read, update, delete: if request.auth != null &amp;&amp; request.auth.token.email == 'yonghangissac@gmail.com';
+      allow get: if true;
+      allow list, update, delete: if request.auth != null &amp;&amp; request.auth.token.email == 'yonghangissac@gmail.com';
     }
   }
 }</pre></div></details>
@@ -2349,7 +2358,8 @@ function sendReceipt(s){
   copy(t, 'Receipt copied');
 }
 function copy(t, msg){ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast(msg||'UID copied')).catch(()=>toast('Couldn\u2019t copy. UID: '+t,true)); }
-function setSent(s, sent){ const r={...s, status:sent?'done':'pending', updatedAt:Date.now()}; saveSale(r); toast(sent?'Marked as delivered':'Marked as undelivered'); }
+function setSent(s, sent){ const r={...s, status:sent?'done':'pending', updatedAt:Date.now()}; saveSale(r);
+  if (s.orderRef) setDoc(doc(db,'orders',s.orderRef), {delivered:sent, deliveredAt:sent?Date.now():null}, {merge:true}).catch(e=>console.warn(e)); toast(sent?'Marked as delivered':'Marked as undelivered'); }
 function delSale(s){ removeSale(s.id); toast('Sale deleted', false, {label:'Undo', fn:()=>{ saveSale(s); toast('Sale restored'); }}); }
 
 /* ---------- sales page ---------- */
@@ -2591,10 +2601,10 @@ $('sellSave').addEventListener('click', () => {
     const r={ ...base, id: o ? o.id : newId()+i, at, pkgId:x.p.id, pkgName:x.p.kind==='member'?x.p.name+' membership':nf(x.p.diamonds)+' diamonds', kind:x.p.kind||'topup',
       diamonds:x.p.diamonds*x.q, qty:x.q, usd:x.p.usd, rate:o?(o.rate||rateNowR):rateNowR, feePct:o?(o.feePct??0):0,
       cost:Math.round(x.cost*100)/100, listPrice:x.list, discount:ld, price:x.list-ld, received:lr };
-    if (orderId) r.orderId=orderId; if (o) r.updatedAt=Date.now(); if (o&&o.remindedAt) r.remindedAt=o.remindedAt; if (o&&o.paidAt) r.paidAt=o.paidAt;
+    if (orderId) r.orderId=orderId; if (f.fromOrder) r.orderRef=f.fromOrder; else if (o&&o.orderRef) r.orderRef=o.orderRef; if (o) r.updatedAt=Date.now(); if (o&&o.remindedAt) r.remindedAt=o.remindedAt; if (o&&o.paidAt) r.paidAt=o.paidAt;
     recs.push(r); });
   recs.forEach(saveSale);
-  if (f.fromOrder) setDoc(doc(db,'orders',f.fromOrder), {status:'done', doneAt:Date.now(), saleIds:recs.map(r=>r.id)}, {merge:true}).catch(e=>console.warn(e));
+  if (f.fromOrder) setDoc(doc(db,'orders',f.fromOrder), {status:'done', doneAt:Date.now(), saleIds:recs.map(r=>r.id), delivered:f.status==='done'}, {merge:true}).catch(e=>console.warn(e));
   const wasEdit=!!S.editId, r0=recs[0], tRev=recs.reduce((t,r)=>t+revenueOf(r),0), tGp=recs.reduce((t,r)=>t+(revenueOf(r)-r.cost),0);
   dirty.delete('sell'); S.editId=null; S.form=null; hitCust=null; $('custHit').hidden=true;
   toast(wasEdit?'Sale updated':(recs.length>1?'Order recorded ('+recs.length+' items): ':'Sale recorded: ')+rs(tRev)+', profit '+rsSigned(tGp), false, (!wasEdit && (r0.phone||navigator.share)) ? {label:'Send receipt', fn:()=>sendReceipt(S.sales.find(x=>x.id===r0.id)||r0)} : null);
@@ -2825,7 +2835,8 @@ function renderRatePage(){
   if (document.activeElement!==$('rMargin')) $('rMargin').value=d.marginPct;
   if (document.activeElement!==$('rGoal')) $('rGoal').value = Number(S.settings.goal)||0;
   const sh=S.settings.shop||{}, ly=S.settings.loyalty||{};
-  [['shName',sh.name],['shWa',sh.wa],['shPay',sh.pay],['lyVip',ly.vipAt],['lyEvery',ly.every],['lyPct',ly.pct]].forEach(([id,v])=>{ if(document.activeElement!==$(id)) $(id).value=v??''; });
+  $('shOpen').setAttribute('aria-checked', String(sh.open!==false)); $('shOpenT').textContent = sh.open!==false ? 'Taking orders' : 'Orders paused';
+  [['shNotice',sh.notice],['shName',sh.name],['shWa',sh.wa],['shPay',sh.pay],['lyVip',ly.vipAt],['lyEvery',ly.every],['lyPct',ly.pct]].forEach(([id,v])=>{ if(document.activeElement!==$(id)) $(id).value=v??''; });
   $('rMsg').textContent = dirty.has('rate') ? 'Not saved yet' : 'Saved';
   // package picker + step-by-step formula
   const pk=S.settings.packages; if (!pk.find(p=>p.id===S.fxPk)) S.fxPk=(pk.find(p=>p.id==='d520')||pk[0]||{}).id;
@@ -2949,8 +2960,10 @@ $('sheetCust').addEventListener('click', e=>{
 addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('sheetCust').hidden) closeCust(); });
 
 /* ---------- shop details & loyalty ---------- */
-$('shSave').addEventListener('click', ()=>{ const shop={name:$('shName').value.trim(), wa:$('shWa').value.trim(), pay:$('shPay').value.trim()}; const st={...S.settings, shop}; S.settings=st; saveSettings(st); renderAll(); toast('Shop details saved'); });
+$('shSave').addEventListener('click', ()=>{ const shop={name:$('shName').value.trim(), wa:$('shWa').value.trim(), pay:$('shPay').value.trim(), open:$('shOpen').getAttribute('aria-checked')==='true', notice:$('shNotice').value.trim()}; const st={...S.settings, shop}; S.settings=st; saveSettings(st); renderAll(); toast('Shop details saved'); });
 $('lySave').addEventListener('click', ()=>{ const loyalty={vipAt:Math.max(0,Math.round(+$('lyVip').value||0)), every:Math.max(0,Math.round(+$('lyEvery').value||0)), pct:Math.min(50,Math.max(0,+$('lyPct').value||0))}; const st={...S.settings, loyalty}; S.settings=st; saveSettings(st); renderAll(); toast(loyalty.every&&loyalty.pct?'Rewards on: every '+loyalty.every+' buys gets '+loyalty.pct+'% off':'Rewards saved'); });
+
+$('shOpen').addEventListener('click', ()=>{ const on=$('shOpen').getAttribute('aria-checked')!=='true'; $('shOpen').setAttribute('aria-checked',String(on)); $('shOpenT').textContent=on?'Taking orders':'Orders paused (save to apply)'; });
 
 /* ---------- share price list ---------- */
 const orderUrl = () => new URL('order.html', location.href.split('#')[0]).href;
@@ -3048,11 +3061,11 @@ function renderOrders(){
   $('oFilters').innerHTML=[['new','New'],['done','Accepted'],['rejected','Rejected']].map(([k,l])=>`<button type="button" data-of="${k}" aria-pressed="${S.oFilter===k}">${l}<span class="c">${cnt(k)}</span></button>`).join('');
   const list=S.orders.filter(o=>o.status===S.oFilter).sort((p,q)=>q.at-p.at);
   $('oList').innerHTML = list.length ? list.map(o=>{ const items=(o.items||[]).map(i=>`${i.qty} × ${esc(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')}`).join(', ');
-    return `<div class="ord" data-oid="${esc(o.id)}"><div class="o-top"><b>${esc(o.name||'Customer')}</b><span>${esc(ago(o.at))}</span></div>
+    return `<div class="ord" data-oid="${esc(o.id)}"><div class="o-top"><b>${esc(o.name||'Customer')} <small class="o-code">#${esc(o.id.slice(0,6).toUpperCase())}</small></b><span>${esc(ago(o.at))}</span></div>
       <div class="o-items">${items}</div>
       <div class="o-meta"><span>Total <b>${rs(o.total||0)}</b></span>${o.uid?`<span>UID <b>${esc(o.uid)}</b></span>`:''}${o.phone?`<span>📞 ${esc(o.phone)}</span>`:''}<span>Pays by ${esc(o.method||'–')}</span></div>
       ${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}
-      <div class="o-acts">${o.status==='new'?`<button class="btn accent" type="button" data-oa="accept">Accept &amp; record sale</button>${waNumber(o.phone)?'<button class="btn" type="button" data-oa="wa">WhatsApp</button>':''}<button class="btn" type="button" data-oa="reject">Reject</button>`:o.status==='done'?'<span class="o-ok">✓ Recorded as sale</span><button class="btn sm" type="button" data-oa="del">Remove</button>':'<button class="btn" type="button" data-oa="restore">Move back to new</button><button class="btn del-btn" type="button" data-oa="del">Delete</button>'}</div></div>`; }).join('')
+      <div class="o-acts">${o.status==='new'?`<button class="btn accent" type="button" data-oa="accept">Accept &amp; record sale</button>${waNumber(o.phone)?'<button class="btn" type="button" data-oa="wa">WhatsApp</button>':''}<button class="btn" type="button" data-oa="reject">Reject</button>`:o.status==='done'?(o.delivered?'<span class="o-ok">✓ Delivered</span>':'<span class="o-ok wtx">✓ Recorded · not delivered yet</span>')+'<button class="btn sm" type="button" data-oa="del">Remove</button>':'<button class="btn" type="button" data-oa="restore">Move back to new</button><button class="btn del-btn" type="button" data-oa="del">Delete</button>'}</div></div>`; }).join('')
     : blank(S.oFilter==='new'?'No new orders':'Nothing here', S.oFilter==='new'?'Share your order page so customers can order themselves.':'');
 }
 $('oFilters').addEventListener('click', e=>{ const b=e.target.closest('[data-of]'); if(!b) return; S.oFilter=b.dataset.of; renderOrders(); });
@@ -3073,7 +3086,7 @@ $('olShare').addEventListener('click', ()=>shareText('🛒 '+(((S.settings.shop|
 let pubTimer=null, pubJSON=null;
 function publishPrices(){
   if (!S.uid || !S.loaded) return;
-  const sh=S.settings.shop||{}, payload={shop:{name:sh.name||'',wa:sh.wa||'',pay:sh.pay||''}, packages:S.settings.packages.map(p=>({id:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind||'topup', price:sellOf(p)}))};
+  const sh=S.settings.shop||{}, tp=topPackages()[0], payload={shop:{name:sh.name||'',wa:sh.wa||'',pay:sh.pay||'',open:sh.open!==false,notice:sh.notice||''}, popular:tp&&tp.n?tp.p.id:null, packages:S.settings.packages.map(p=>({id:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind||'topup', price:sellOf(p)}))};
   const j=JSON.stringify(payload); if (j===pubJSON) return;
   clearTimeout(pubTimer); pubTimer=setTimeout(()=>{ setDoc(doc(db,'public','prices'), {...payload, updatedAt:Date.now()}).then(()=>{ pubJSON=j; }).catch(e=>console.warn('publish prices',e)); }, 1500);
 }

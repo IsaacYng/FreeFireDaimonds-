@@ -4,111 +4,209 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="theme-color" content="#16222B"/>
+<meta name="description" content="Order Free Fire diamonds online. Pick a package, enter your UID, pay with eSewa, Khalti or bank, and track your order."/>
 <title>Order Free Fire Diamonds</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8E%3C/text%3E%3C/svg%3E"/>
 <link rel="preconnect" href="https://fonts.googleapis.com"/>
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=Mukta:wght@400;600;700&display=swap" rel="stylesheet"/>
 <style>
-:root{--ink:#16222B;--ink-2:#33434C;--muted:#5C6B72;--line:#E1E6E7;--line-2:#CDD6D7;--bg:#F3F5F5;--accent:#B8233A;--accent-2:#9A1B2F;--accent-soft:#FBEAEC;--ok:#2F6B4C;--ok-soft:#E5F2EA;--warn:#9A6212;--warn-soft:#FFF4E0;
-  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
+:root{--ink:#16222B;--ink-2:#33434C;--muted:#5C6B72;--line:#E1E6E7;--line-2:#CDD6D7;--bg:#F3F5F5;--accent:#B8233A;--accent-2:#9A1B2F;--accent-soft:#FBEAEC;--ok:#2F6B4C;--ok-soft:#E5F2EA;--ok-bar:#3E8E63;--warn:#9A6212;--warn-soft:#FFF4E0;--blue:#2F5B94;--blue-soft:#E8EEF7;
+  --display:"Bricolage Grotesque",ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--nep:"Mukta","Bricolage Grotesque",system-ui,sans-serif;
+  box-sizing:border-box;padding-bottom:env(safe-area-inset-bottom,0px)}
 *,*::before,*::after{box-sizing:inherit}
-html{-webkit-text-size-adjust:100%}
+html{-webkit-text-size-adjust:100%;scroll-padding-top:16px}
 body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--display);font-size:16px;line-height:1.45;-webkit-font-smoothing:antialiased}
+body.ne{font-family:var(--nep)}
 button,input,textarea{font:inherit;color:inherit}
 button{cursor:pointer}
 :focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .wrap{max-width:620px;margin:0 auto;padding:0 16px}
-header{position:relative;overflow:hidden;background:linear-gradient(150deg,#16222B,#22333E);color:#fff;padding:calc(26px + env(safe-area-inset-top,0px)) 0 54px}
-header svg.r{position:absolute;left:0;right:0;bottom:0;width:100%;height:70px}
-.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.05rem}
-.mono{width:38px;height:38px;border-radius:11px;background:var(--accent);display:flex;align-items:center;justify-content:center}
-header h1{font-size:clamp(1.7rem,7vw,2.3rem);line-height:1.1;margin:16px 0 6px;letter-spacing:-.02em;font-weight:800}
+.num{font-variant-numeric:tabular-nums}
+
+/* header */
+header{position:relative;overflow:hidden;background:linear-gradient(150deg,#16222B,#22333E);color:#fff;padding:calc(18px + env(safe-area-inset-top,0px)) 0 58px}
+header svg.r{position:absolute;left:0;right:0;bottom:0;width:100%;height:70px;pointer-events:none}
+.top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:1.02rem;min-width:0}
+.brand span:last-child{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.mono{width:38px;height:38px;border-radius:11px;background:var(--accent);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.lang{display:flex;border:1px solid rgba(255,255,255,.2);border-radius:999px;overflow:hidden;flex-shrink:0}
+.lang button{border:none;background:none;color:#B9C6CB;padding:6px 11px;font-size:.8rem;font-weight:700}
+.lang button[aria-pressed="true"]{background:#fff;color:var(--ink)}
+header h1{font-size:clamp(1.65rem,7vw,2.2rem);line-height:1.12;margin:18px 0 6px;letter-spacing:-.02em;font-weight:800}
 header p{margin:0;color:#B9C6CB}
 .trust{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
 .trust span{padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.12);font-size:.8rem;color:#DCE4E7}
-main{margin-top:-30px;position:relative;padding-bottom:120px}
+main{margin-top:-32px;position:relative;padding-bottom:130px}
+
+/* cards */
 .card{background:#fff;border:1px solid var(--line);border-radius:18px;margin-bottom:14px;box-shadow:0 10px 30px -22px rgba(22,34,43,.45)}
-.card-h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:16px 18px;border-bottom:1px solid var(--line)}
-.card-h h2{margin:0;font-size:1.08rem;font-weight:700}
-.step{width:26px;height:26px;border-radius:50%;background:var(--ink);color:#fff;display:inline-flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:800;margin-right:8px}
+.card-h{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:15px 18px;border-bottom:1px solid var(--line)}
+.card-h h2{margin:0;font-size:1.06rem;font-weight:700}
 .card-b{padding:16px 18px}
-.grp{font-size:.76rem;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;margin:4px 0 8px}
-.pkgs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:12px}
-.pk{position:relative;display:grid;gap:2px;text-align:left;padding:14px;border-radius:14px;border:1.5px solid var(--line-2);background:#fff;transition:border-color .15s,box-shadow .15s}
+.notice{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:14px;margin-bottom:12px;font-size:.92rem}
+.notice.info{background:#fff;border:1px solid var(--line);border-left:4px solid var(--blue)}
+.notice.closed{background:var(--accent-soft);border:1px solid #F1C9CF;color:var(--accent-2)}
+.notice b{display:block}
+
+/* steps */
+.steps{display:flex;gap:6px;margin-bottom:12px}
+.steps div{flex:1;display:flex;align-items:center;gap:7px;padding:9px 10px;border-radius:12px;background:#fff;border:1px solid var(--line);font-size:.8rem;font-weight:600;color:var(--muted);min-width:0}
+.steps div span{width:22px;height:22px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:.74rem;font-weight:800;flex-shrink:0}
+.steps div em{font-style:normal;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.steps div.on{border-color:var(--ink);color:var(--ink)}
+.steps div.on span{background:var(--ink);color:#fff}
+.steps div.ok span{background:var(--ok-bar);color:#fff}
+
+/* my orders */
+.mine{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin-bottom:12px;padding:2px}
+.mine::-webkit-scrollbar{display:none}
+.mine a{flex-shrink:0;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:12px;background:#fff;border:1px solid var(--line);text-decoration:none;color:var(--ink);font-size:.84rem}
+.mine a b{font-weight:800}
+.mine a small{color:var(--muted)}
+
+/* packages */
+.grp{font-size:.74rem;font-weight:700;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;margin:6px 0 8px}
+.pkgs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin-bottom:14px}
+.pk{position:relative;display:grid;gap:1px;text-align:left;padding:14px 14px 12px;border-radius:14px;border:1.5px solid var(--line-2);background:#fff;transition:border-color .15s,box-shadow .15s,transform .1s}
 .pk:hover{border-color:var(--ink)}
-.pk b{font-size:1.15rem;font-weight:800;display:flex;align-items:center;gap:6px}
-.pk span{font-weight:700;color:var(--accent)}
-.pk small{font-size:.76rem;color:var(--muted)}
+.pk:active{transform:scale(.98)}
+.pk b{font-size:1.2rem;font-weight:800;display:flex;align-items:center;gap:6px}
+.pk .pr{font-weight:800;color:var(--accent);font-size:1.02rem}
+.pk small{font-size:.74rem;color:var(--muted)}
 .pk.on{border-color:var(--ink);box-shadow:0 0 0 1px var(--ink)}
-.pk .cnt{position:absolute;top:-8px;right:-8px;min-width:26px;height:26px;padding:0 7px;border-radius:999px;background:var(--accent);color:#fff;font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff;font-style:normal}
-.calc{display:flex;gap:8px;padding:12px;border-radius:12px;background:var(--bg);margin-bottom:14px;align-items:center;flex-wrap:wrap}
-.calc label{font-size:.88rem;color:var(--ink-2);flex:1 1 100%}
-.calc input{flex:1;min-width:0}
-.cart{border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.pk .cnt{position:absolute;top:-9px;right:-8px;min-width:26px;height:26px;padding:0 7px;border-radius:999px;background:var(--accent);color:#fff;font-size:.8rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff;font-style:normal}
+.tag{position:absolute;top:-9px;left:10px;font-size:.66rem;font-weight:800;padding:2px 8px;border-radius:999px;letter-spacing:.02em;font-style:normal}
+.tag.best{background:var(--ok-bar);color:#fff}
+.tag.pop{background:#FFB020;color:#3B2600}
+.calc{display:grid;grid-template-columns:1fr auto;gap:8px;padding:12px;border-radius:14px;background:var(--bg);margin-bottom:16px}
+.calc label{grid-column:1/-1;font-size:.88rem;color:var(--ink-2);font-weight:600}
+.calc-res{grid-column:1/-1;font-size:.86rem;color:var(--ok);font-weight:600}
+.cart{border:1px solid var(--line);border-radius:14px;overflow:hidden}
 .cart:empty{display:none}
+.cart-h{padding:8px 12px;font-size:.72rem;font-weight:700;color:var(--muted);letter-spacing:.05em;text-transform:uppercase;background:#FAFBFB;border-bottom:1px solid var(--line)}
 .row{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:10px 12px;border-top:1px solid var(--line)}
-.row:first-child{border-top:none}
+.cart-h+.row{border-top:none}
 .row b{font-weight:700}
 .row small{display:block;font-size:.76rem;color:var(--muted)}
 .qty{display:flex;align-items:center;border:1px solid var(--line-2);border-radius:10px;overflow:hidden}
 .qty button{width:34px;height:34px;border:none;background:var(--bg);font-size:1.1rem;font-weight:700}
-.qty span{min-width:32px;text-align:center;font-weight:700}
+.qty span{min-width:30px;text-align:center;font-weight:700}
+
+/* form */
 .field{display:grid;gap:6px;margin-bottom:14px}
-.lab{font-size:.88rem;font-weight:600;display:flex;justify-content:space-between}
+.lab{font-size:.88rem;font-weight:600;display:flex;justify-content:space-between;gap:8px;align-items:baseline}
 .lab em{font-style:normal;font-weight:500;color:var(--muted);font-size:.8rem}
+.link{background:none;border:none;padding:0;color:var(--accent);font-weight:600;font-size:.82rem;text-decoration:underline}
 input[type=text],input[type=tel],input[type=number],textarea{width:100%;padding:12px 13px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-size:16px}
 input:focus,textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(22,34,43,.08)}
-textarea{min-height:70px;resize:vertical}
+input.big{font-size:1.25rem;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
+textarea{min-height:64px;resize:vertical}
+.howto{padding:12px 14px;border-radius:12px;background:var(--blue-soft);color:var(--ink-2);font-size:.88rem;margin:-4px 0 14px}
+.howto ol{margin:6px 0 0;padding-left:20px}
 .seg{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
 .seg button{padding:10px 4px;border-radius:10px;border:1.5px solid var(--line-2);background:#fff;font-weight:600;font-size:.9rem}
 .seg button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:#fff}
-.pay{padding:12px 14px;border-radius:12px;background:var(--warn-soft);color:var(--ink-2);font-size:.9rem;margin-bottom:14px}
-.pay b{display:block}
+.check{display:flex;align-items:center;gap:10px;font-size:.9rem;color:var(--ink-2);margin:4px 0 6px}
+.check input{width:18px;height:18px;accent-color:var(--ink)}
 .err{color:var(--accent);font-weight:600;font-size:.9rem;min-height:1.2em;margin:0 0 6px}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:12px;border:1px solid var(--line-2);background:#fff;font-weight:700}
+
+/* review */
+.uidbox{text-align:center;padding:16px;border-radius:14px;border:2px dashed var(--ink);margin-bottom:14px}
+.uidbox span{display:block;font-size:.8rem;color:var(--muted);font-weight:600}
+.uidbox b{display:block;font-size:2rem;font-weight:800;letter-spacing:.08em;font-variant-numeric:tabular-nums;margin:2px 0}
+.uidbox small{color:var(--muted);font-size:.8rem}
+.sum{background:var(--bg);border-radius:12px;padding:10px 14px;margin-bottom:14px;font-size:.92rem}
+.sum div{display:flex;justify-content:space-between;gap:10px;padding:4px 0}
+.sum .t{border-top:1px solid var(--line-2);margin-top:6px;padding-top:10px;font-size:1.05rem}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.92rem;margin-bottom:14px}
+.kv dt{color:var(--muted)} .kv dd{margin:0;text-align:right;font-weight:600;overflow-wrap:anywhere}
+.pay{padding:12px 14px;border-radius:12px;background:var(--warn-soft);color:var(--ink-2);font-size:.92rem;margin-bottom:14px;display:grid;gap:8px}
+.pay b{display:block}
+.pay .cp{justify-self:start}
+
+/* buttons */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:46px;padding:0 18px;border-radius:12px;border:1px solid var(--line-2);background:#fff;font-weight:700;text-decoration:none;color:var(--ink);text-align:center}
+.btn.sm{min-height:34px;padding:0 12px;font-size:.84rem;border-radius:10px}
 .btn.accent{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.ink{background:var(--ink);border-color:var(--ink);color:#fff}
+.btn.wa{background:#1FAF5A;border-color:#1FAF5A;color:#fff}
 .btn.block{width:100%}
-a.btn{text-decoration:none;text-align:center}
-.btn:disabled{opacity:.6}
+.btn:disabled{opacity:.55;cursor:not-allowed}
+.btns{display:grid;gap:10px}
+
+/* sticky bar */
 .bar{position:fixed;left:0;right:0;bottom:0;z-index:5;background:#fff;border-top:1px solid var(--line);padding:12px 16px calc(12px + env(safe-area-inset-bottom,0px));box-shadow:0 -12px 30px -20px rgba(22,34,43,.5)}
 .bar .wrap{display:flex;align-items:center;gap:12px;padding:0}
 .bar .tot{flex:1;min-width:0}
 .bar .tot small{display:block;color:var(--muted);font-size:.8rem}
 .bar .tot b{font-size:1.3rem;font-weight:800}
-.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
-.done{text-align:center;padding:26px 18px}
-.done .big{font-size:3rem}
-.done h2{margin:6px 0;font-size:1.4rem}
+.bar .btn{min-width:150px}
+
+/* done / tracking */
+.done{text-align:center}
+.done .big{font-size:3rem;line-height:1}
+.done h2{margin:8px 0 4px;font-size:1.45rem}
 .done p{color:var(--muted);margin:0 0 14px}
-.sum{text-align:left;background:var(--bg);border-radius:12px;padding:12px 14px;margin:14px 0;font-size:.92rem}
-.sum div{display:flex;justify-content:space-between;gap:10px;padding:3px 0}
-.state{padding:40px 18px;text-align:center;color:var(--muted)}
-.spin{width:22px;height:22px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:s .8s linear infinite;display:inline-block}
+.code{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:var(--ink);color:#fff;font-weight:800;letter-spacing:.08em;margin-bottom:14px}
+.tl{list-style:none;margin:0 0 16px;padding:0;text-align:left}
+.tl li{position:relative;display:grid;grid-template-columns:34px 1fr;gap:12px;padding:0 0 18px}
+.tl li::before{content:"";position:absolute;left:16px;top:32px;bottom:2px;width:2px;background:var(--line)}
+.tl li:last-child{padding-bottom:0}.tl li:last-child::before{display:none}
+.tl .dot{width:34px;height:34px;border-radius:50%;background:var(--bg);border:2px solid var(--line-2);display:flex;align-items:center;justify-content:center;font-size:.9rem;font-weight:800;color:var(--muted);position:relative;z-index:1}
+.tl li.ok .dot{background:var(--ok-bar);border-color:var(--ok-bar);color:#fff}
+.tl li.ok::before{background:var(--ok-bar)}
+.tl li.now .dot{background:#fff;border-color:var(--ink);color:var(--ink);box-shadow:0 0 0 4px rgba(22,34,43,.08)}
+.tl li.bad .dot{background:var(--accent);border-color:var(--accent);color:#fff}
+.tl b{display:block;padding-top:6px}
+.tl small{color:var(--muted);font-size:.82rem}
+
+/* faq */
+.faq details{border-top:1px solid var(--line)}
+.faq details:first-of-type{border-top:none}
+.faq summary{list-style:none;cursor:pointer;padding:14px 18px;font-weight:600;display:flex;justify-content:space-between;gap:10px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:800;color:var(--muted)}
+.faq details[open] summary::after{content:"−"}
+.faq details p{margin:0;padding:0 18px 14px;color:var(--ink-2);font-size:.92rem}
+
+.state{padding:44px 18px;text-align:center;color:var(--muted)}
+.state b{color:var(--ink);display:block;font-size:1.05rem;margin-bottom:4px}
+.spin{width:24px;height:24px;border:3px solid var(--line);border-top-color:var(--accent);border-radius:50%;animation:s .8s linear infinite;display:inline-block}
 @keyframes s{to{transform:rotate(360deg)}}
-footer{text-align:center;color:var(--muted);font-size:.8rem;padding:10px 0 20px}
+.hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:#fff;padding:10px 16px;border-radius:12px;font-weight:600;font-size:.9rem;z-index:10;opacity:0;pointer-events:none;transition:opacity .2s}
+.toast.show{opacity:1}
+footer{text-align:center;color:var(--muted);font-size:.8rem;padding:6px 16px 24px}
+@media(max-width:380px){.steps div em{display:none}.steps div{justify-content:center}}
+@media (prefers-reduced-motion:reduce){*{transition:none !important;animation:none !important}}
 </style>
 </head>
 <body>
 <header>
   <div class="wrap">
-    <div class="brand"><span class="mono"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg></span><span id="shopName">Free Fire Diamonds</span></div>
-    <h1>Order Free Fire diamonds</h1>
-    <p>Choose your diamonds, enter your UID, and we’ll top up your account.</p>
-    <div class="trust"><span>⚡ Fast delivery</span><span>🎯 Straight to your UID</span><span>💳 eSewa · Khalti · Bank</span></div>
+    <div class="top">
+      <div class="brand"><span class="mono"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg></span><span id="shopName">Free Fire Diamonds</span></div>
+      <div class="lang" role="group" aria-label="Language"><button type="button" data-lang="en">EN</button><button type="button" data-lang="ne">नेपाली</button></div>
+    </div>
+    <h1 data-t="h1"></h1>
+    <p data-t="sub"></p>
+    <div class="trust"><span data-t="t1"></span><span data-t="t2"></span><span data-t="t3"></span></div>
   </div>
   <svg class="r" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><path fill="rgba(255,255,255,.05)" d="M0 120 L120 70 L210 98 L330 40 L450 92 L560 60 L700 110 L820 52 L960 96 L1080 44 L1200 88 L1320 58 L1440 84 V220 H0Z"/><path fill="rgba(255,255,255,.07)" d="M0 160 L160 122 L300 150 L460 114 L600 146 L760 120 L900 152 L1040 126 L1200 156 L1340 130 L1440 146 V220 H0Z"/></svg>
 </header>
 
-<main class="wrap" id="app">
-  <div class="card"><div class="state"><span class="spin"></span><p>Loading prices…</p></div></div>
+<main class="wrap">
+  <div id="app"><div class="card"><div class="state"><span class="spin"></span></div></div></div>
+  <div class="card faq" id="faq"></div>
 </main>
-<footer>Prices update automatically. Questions? Message the shop on WhatsApp.</footer>
+<footer id="foot"></footer>
 
 <div class="bar" id="bar" hidden>
-  <div class="wrap"><div class="tot"><small id="barItems">0 items</small><b id="barTotal">Rs 0</b></div><button class="btn accent" type="button" id="barBtn">Continue</button></div>
+  <div class="wrap"><div class="tot"><small id="barItems"></small><b id="barTotal" class="num">Rs 0</b></div><button class="btn accent" type="button" id="barBtn"></button></div>
 </div>
+<div class="toast" id="toast" role="status"></div>
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
@@ -122,16 +220,68 @@ const app = initializeApp({
   appId: "1:331335997414:web:f08d9b253c82238052e827"
 });
 const db = getFirestore(app);
+
+/* ---------- text in both languages ---------- */
+const T = {
+  en:{h1:'Order Free Fire diamonds', sub:'Pick your diamonds, enter your UID, pay, and we top up your account.', t1:'⚡ Fast delivery', t2:'🎯 Straight to your UID', t3:'💳 eSewa · Khalti · Bank',
+    s1:'Choose', s2:'Details', s3:'Confirm', topup:'Top-up', member:'Membership', diamonds:'diamonds', dtotal:'diamonds total', per100:'per 100 💎', best:'BEST VALUE', pop:'POPULAR',
+    calcL:'Need an exact amount? We’ll find the cheapest mix.', calcP:'e.g. 1000', find:'Find', calcRes:(n,p)=>`Added ${n} 💎 for ${p}`, order:'Your order', each:'each',
+    items:n=>n+' item'+(n===1?'':'s'), cont:'Continue', review:'Review order', send:'Confirm & send', back:'Back',
+    uid:'Free Fire UID', req:'required', how:'Where is my UID?', howSteps:['Open Free Fire','Tap your profile picture (top left)','Your UID is the number under your name'],
+    name:'Your name', wa:'WhatsApp number', waHint:'so we can confirm', payBy:'I will pay by', note:'Note', opt:'optional', notePh:'Anything we should know',
+    remember:'Remember my details on this phone', checkUid:'Check your UID carefully', uidWarn:'Diamonds go to this UID and can’t be moved later.',
+    total:'Total', pay:'How to pay', copy:'Copy', copied:'Copied', sendFail:'Couldn’t send the order. Check your internet and try again.',
+    eUid:'Enter your Free Fire UID (numbers only).', eName:'Enter your name.', eWa:'Check your WhatsApp number.', eWait:'You just sent an order. Please wait a minute.',
+    sentT:'Order sent!', sentP:(n,u)=>`Thank you, ${n}. We’ll top up UID ${u} after your payment is confirmed.`, yourCode:'Order code',
+    payNow:a=>`Pay ${a} now`, waShot:'Send payment screenshot on WhatsApp', track:'Track this order', another:'Place another order', shareTrack:'Save tracking link',
+    trackT:'Order status', st1:'Order received', st2:'Payment confirmed', st3:'Diamonds delivered', st2w:'Waiting for the shop to check your payment', st3w:'Coming soon after payment is confirmed',
+    rej:'Order cancelled', rejP:'This order was cancelled by the shop. Message us on WhatsApp if you have questions.', refresh:'Refresh', toShop:'Back to shop', notFound:'Order not found. Check the link.',
+    mine:'Your orders', closedT:'Orders are paused', closedP:'The shop isn’t taking online orders right now. Please check back later or message on WhatsApp.',
+    loadFail:'Ordering isn’t open right now.', loadFailP:'Please message the shop directly.', updated:t=>'Prices updated '+t, msgShop:'Message the shop',
+    faqT:'Questions', faq:[['How fast will I get my diamonds?','Usually within minutes after your payment is confirmed. Track your order with the link you get after ordering.'],['Is it safe?','We only need your UID, never your password. Diamonds are topped up directly to your account.'],['I entered the wrong UID','Message the shop on WhatsApp right away with your order code, before it is delivered.'],['Can I pay later?','Pay when you order using the payment details shown, then send the screenshot on WhatsApp.']],
+    waMsg:(c,lines,t,u,n)=>`Namaste! I placed order #${c} 🙏\n${lines}\nTotal: ${t}\nUID: ${u}\nName: ${n}`},
+  ne:{h1:'Free Fire डायमन्ड अर्डर गर्नुहोस्', sub:'डायमन्ड छान्नुहोस्, UID लेख्नुहोस्, पैसा तिर्नुहोस्, हामी तपाईंको खातामा टप-अप गर्छौं।', t1:'⚡ छिटो डेलिभरी', t2:'🎯 सिधै तपाईंको UID मा', t3:'💳 eSewa · Khalti · बैंक',
+    s1:'छान्नुहोस्', s2:'विवरण', s3:'पक्का', topup:'टप-अप', member:'मेम्बरसिप', diamonds:'डायमन्ड', dtotal:'डायमन्ड जम्मा', per100:'प्रति १०० 💎', best:'सबैभन्दा सस्तो', pop:'लोकप्रिय',
+    calcL:'ठ्याक्कै कति डायमन्ड चाहियो? सस्तो मिलान हामी निकाल्छौं।', calcP:'जस्तै 1000', find:'खोज्नुहोस्', calcRes:(n,p)=>`${n} 💎 थपियो, ${p}`, order:'तपाईंको अर्डर', each:'प्रति',
+    items:n=>n+' वटा', cont:'अगाडि', review:'अर्डर हेर्नुहोस्', send:'पक्का गरेर पठाउनुहोस्', back:'पछाडि',
+    uid:'Free Fire UID', req:'अनिवार्य', how:'मेरो UID कहाँ छ?', howSteps:['Free Fire खोल्नुहोस्','माथि बायाँ आफ्नो प्रोफाइल फोटो थिच्नुहोस्','नामको तल भएको नम्बर नै UID हो'],
+    name:'तपाईंको नाम', wa:'WhatsApp नम्बर', waHint:'पक्का गर्न', payBy:'पैसा तिर्ने माध्यम', note:'नोट', opt:'चाहे', notePh:'केही भन्नु छ भने',
+    remember:'मेरो विवरण यो फोनमा सम्झनुहोस्', checkUid:'आफ्नो UID राम्ररी जाँच्नुहोस्', uidWarn:'डायमन्ड यही UID मा जान्छ, पछि सार्न मिल्दैन।',
+    total:'जम्मा', pay:'कसरी तिर्ने', copy:'कपी', copied:'कपी भयो', sendFail:'अर्डर पठाउन सकिएन। इन्टरनेट जाँचेर फेरि प्रयास गर्नुहोस्।',
+    eUid:'Free Fire UID लेख्नुहोस् (नम्बर मात्र)।', eName:'आफ्नो नाम लेख्नुहोस्।', eWa:'WhatsApp नम्बर जाँच्नुहोस्।', eWait:'भर्खरै अर्डर पठाउनुभयो। एक मिनेट पर्खनुहोस्।',
+    sentT:'अर्डर पठाइयो!', sentP:(n,u)=>`धन्यवाद, ${n}। पैसा पक्का भएपछि UID ${u} मा टप-अप गरिन्छ।`, yourCode:'अर्डर कोड',
+    payNow:a=>`अहिले ${a} तिर्नुहोस्`, waShot:'WhatsApp मा पेमेन्ट स्क्रिनसट पठाउनुहोस्', track:'अर्डर ट्र्याक गर्नुहोस्', another:'अर्को अर्डर', shareTrack:'ट्र्याकिङ लिंक सेभ गर्नुहोस्',
+    trackT:'अर्डरको अवस्था', st1:'अर्डर प्राप्त भयो', st2:'पेमेन्ट पक्का भयो', st3:'डायमन्ड पठाइयो', st2w:'पसलले पेमेन्ट जाँच गर्दैछ', st3w:'पेमेन्ट पक्का भएपछि छिट्टै',
+    rej:'अर्डर रद्द भयो', rejP:'पसलले यो अर्डर रद्द गर्‍यो। प्रश्न भए WhatsApp मा सम्पर्क गर्नुहोस्।', refresh:'रिफ्रेस', toShop:'पसलमा फर्कनुहोस्', notFound:'अर्डर भेटिएन। लिंक जाँच्नुहोस्।',
+    mine:'तपाईंका अर्डर', closedT:'अहिले अर्डर बन्द छ', closedP:'पसलले अहिले अनलाइन अर्डर लिइरहेको छैन। पछि हेर्नुहोस् वा WhatsApp गर्नुहोस्।',
+    loadFail:'अहिले अर्डर खुला छैन।', loadFailP:'कृपया पसललाई सिधै सम्पर्क गर्नुहोस्।', updated:t=>'मूल्य अपडेट: '+t, msgShop:'पसललाई सन्देश',
+    faqT:'प्रश्नहरू', faq:[['डायमन्ड कति छिटो आउँछ?','पेमेन्ट पक्का भएपछि प्रायः केही मिनेटमै। अर्डरपछि पाउने लिंकबाट ट्र्याक गर्न सकिन्छ।'],['सुरक्षित छ?','हामीलाई तपाईंको UID मात्र चाहिन्छ, पासवर्ड कहिल्यै होइन। डायमन्ड सिधै खातामा टप-अप हुन्छ।'],['गलत UID लेखें','डेलिभरी हुनुअघि नै अर्डर कोडसहित WhatsApp मा तुरुन्त सम्पर्क गर्नुहोस्।'],['पछि तिर्न मिल्छ?','अर्डर गर्दा देखिएको माध्यमबाट तिर्नुहोस्, अनि स्क्रिनसट WhatsApp मा पठाउनुहोस्।']],
+    waMsg:(c,lines,t,u,n)=>`नमस्ते! मैले अर्डर #${c} पठाएँ 🙏\n${lines}\nजम्मा: ${t}\nUID: ${u}\nनाम: ${n}`}
+};
+let L = (()=>{ try{ return localStorage.getItem('dc-lang') || ((navigator.language||'').startsWith('ne')?'ne':'en'); }catch(_){ return 'en'; } })();
+const t = (k,...a) => { const v=(T[L][k]??T.en[k]); return typeof v==='function'?v(...a):v; };
+
+/* ---------- helpers ---------- */
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const nf = n => Math.round(n).toLocaleString('en-IN'), rs = n => 'Rs ' + nf(n);
-const GEM='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F5B94" stroke-width="2" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/></svg>';
-const STAR='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D18A1F" stroke-width="2" stroke-linejoin="round"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>';
-let P=null, cart=[], step=1, method='eSewa';
-const pk = id => P.packages.find(p=>p.id===id);
-const total = () => cart.reduce((t,l)=>t+pk(l.id).price*l.qty,0);
-const items = () => cart.reduce((t,l)=>t+l.qty,0);
 const waNum = p => { let d=String(p||'').replace(/\D/g,''); if (d.length===13&&d.startsWith('977')) d=d.slice(3); return /^9[78]\d{8}$/.test(d)?'977'+d:''; };
+const code = id => String(id||'').slice(0,6).toUpperCase();
+const ago = ts => { const m=Math.round((Date.now()-ts)/60000); if (m<1) return L==='ne'?'भर्खरै':'just now'; if (m<60) return m+(L==='ne'?' मिनेट अघि':' min ago'); const h=Math.round(m/60); if (h<24) return h+(L==='ne'?' घण्टा अघि':'h ago'); return Math.round(h/24)+(L==='ne'?' दिन अघि':' days ago'); };
+const GEM='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#2F5B94" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/></svg>';
+const STAR='<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#D18A1F" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>';
+let tt; function toast(m){ const el=$('toast'); el.textContent=m; el.classList.add('show'); clearTimeout(tt); tt=setTimeout(()=>el.classList.remove('show'),2200); }
+function copy(txt){ (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).then(()=>toast(t('copied'))).catch(()=>prompt('',txt)); }
+const store = { get(k,d){ try{ return JSON.parse(localStorage.getItem(k)) ?? d; }catch(_){ return d; } }, set(k,v){ try{ localStorage.setItem(k,JSON.stringify(v)); }catch(_){} } };
+
+/* ---------- state ---------- */
+let P=null, cart=[], step=1, method='eSewa', last=null, calcMsg='';
+const me = store.get('dc-me', {name:'',phone:'',uid:'',remember:true});
+const pk = id => P.packages.find(p=>p.id===id);
+const total = () => cart.reduce((s,l)=>s+pk(l.id).price*l.qty,0);
+const count = () => cart.reduce((s,l)=>s+l.qty,0);
+const label = p => p.kind==='member' ? p.name : nf(p.diamonds)+' 💎';
+const isOpen = () => !P || P.shop.open!==false;
 
 function bestMix(N){
   const list=P.packages.filter(p=>p.kind!=='member'&&p.diamonds>0); if(!list.length||!(N>0)||N>200000) return null;
@@ -141,81 +291,171 @@ function bestMix(N){
   return [...m.entries()].map(([i,q])=>({id:list[i].id, qty:q}));
 }
 
+/* ---------- static bits ---------- */
+function paintStatic(){
+  document.documentElement.lang = L==='ne'?'ne':'en'; document.body.classList.toggle('ne', L==='ne');
+  document.querySelectorAll('[data-t]').forEach(el=>el.textContent=t(el.dataset.t));
+  document.querySelectorAll('[data-lang]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.lang===L)));
+  $('faq').innerHTML=`<div class="card-h"><h2>${t('faqT')}</h2></div>`+t('faq').map(([q,a])=>`<details><summary>${esc(q)}</summary><p>${esc(a)}</p></details>`).join('');
+  const w=P&&waNum(P.shop.wa);
+  $('foot').innerHTML = (P&&P.updatedAt?esc(t('updated',ago(P.updatedAt)))+' · ':'')+(w?`<a class="link" href="https://wa.me/${w}" target="_blank" rel="noopener">${t('msgShop')}</a>`:'');
+}
+document.querySelectorAll('[data-lang]').forEach(b=>b.addEventListener('click',()=>{ L=b.dataset.lang; try{ localStorage.setItem('dc-lang',L); }catch(_){} paintStatic(); route(); }));
+
+function stepsBar(){ return `<div class="steps">${[1,2,3].map(i=>`<div class="${step===i?'on':step>i?'ok':''}"><span>${step>i?'✓':i}</span><em>${t('s'+i)}</em></div>`).join('')}</div>`; }
+function mineBar(){
+  const list=store.get('dc-orders',[]).slice(0,6); if(!list.length) return '';
+  return `<p class="grp">${t('mine')}</p><div class="mine">${list.map(o=>`<a href="?o=${encodeURIComponent(o.id)}"><b>#${esc(code(o.id))}</b><small>${esc(rs(o.total))} · ${esc(ago(o.at))}</small></a>`).join('')}</div>`;
+}
+function notices(){
+  let h='';
+  if (!isOpen()) h+=`<div class="notice closed"><span>⛔</span><div><b>${t('closedT')}</b>${t('closedP')}</div></div>`;
+  if (P.shop.notice) h+=`<div class="notice info"><span>📢</span><div>${esc(P.shop.notice)}</div></div>`;
+  return h;
+}
+
+/* ---------- step 1: choose ---------- */
+function viewChoose(){
+  const top=P.packages.filter(p=>p.kind!=='member'), mem=P.packages.filter(p=>p.kind==='member'), q=id=>{ const l=cart.find(x=>x.id===id); return l?l.qty:0; };
+  const best=top.length>1 ? top.reduce((a,b)=>(b.price/b.diamonds<a.price/a.diamonds?b:a)) : null;
+  const tile=p=>`<button type="button" class="pk${q(p.id)?' on':''}" data-add="${esc(p.id)}" ${isOpen()?'':'disabled'}>
+      ${best&&p.id===best.id?`<i class="tag best">${t('best')}</i>`:P.popular===p.id?`<i class="tag pop">${t('pop')}</i>`:''}
+      <b>${p.kind==='member'?STAR:GEM}${esc(p.kind==='member'?p.name:nf(p.diamonds))}</b>
+      <span class="pr num">${rs(p.price)}</span>
+      <small>${p.kind==='member'?nf(p.diamonds)+' '+t('dtotal'):'Rs '+(p.price/p.diamonds*100).toFixed(0)+' '+t('per100')}</small>
+      ${q(p.id)?`<i class="cnt">×${q(p.id)}</i>`:''}</button>`;
+  return mineBar()+notices()+stepsBar()+`<div class="card"><div class="card-b">
+    <div class="calc"><label for="need">${t('calcL')}</label><input type="number" id="need" min="1" inputmode="numeric" placeholder="${t('calcP')}"/><button class="btn ink" type="button" id="needGo" ${isOpen()?'':'disabled'}>${t('find')}</button>${calcMsg?`<div class="calc-res">${esc(calcMsg)}</div>`:''}</div>
+    ${top.length?`<p class="grp">${t('topup')}</p><div class="pkgs">${top.map(tile).join('')}</div>`:''}
+    ${mem.length?`<p class="grp">${t('member')}</p><div class="pkgs">${mem.map(tile).join('')}</div>`:''}
+    <div class="cart">${cart.length?`<div class="cart-h">${t('order')}</div>`+cart.map((l,i)=>{ const p=pk(l.id); return `<div class="row" data-i="${i}"><div><b>${esc(label(p))}</b><small>${rs(p.price)} ${t('each')}</small></div><div class="qty"><button type="button" data-q="-1" aria-label="−">−</button><span>${l.qty}</span><button type="button" data-q="1" aria-label="+">+</button></div><b class="num">${rs(p.price*l.qty)}</b></div>`; }).join(''):''}</div>
+  </div></div>`;
+}
+/* ---------- step 2: details ---------- */
+function viewDetails(){
+  return stepsBar()+`<div class="card"><div class="card-h"><h2>${t('s2')}</h2><button class="btn sm" type="button" data-go="1">${t('back')}</button></div><div class="card-b">
+    <div class="field"><span class="lab"><label for="uid">${t('uid')}</label><button type="button" class="link" id="howBtn">${t('how')}</button></span><input type="tel" inputmode="numeric" class="big" id="uid" maxlength="14" placeholder="123456789" autocomplete="off" value="${esc(me.uid)}"/></div>
+    <div class="howto" id="howto" hidden><b>${t('how')}</b><ol>${t('howSteps').map(s=>`<li>${esc(s)}</li>`).join('')}</ol></div>
+    <label class="field"><span class="lab">${t('name')}</span><input type="text" id="name" maxlength="60" autocomplete="name" placeholder="Ram Rai" value="${esc(me.name)}"/></label>
+    <label class="field"><span class="lab">${t('wa')} <em>${t('waHint')}</em></span><input type="tel" inputmode="tel" id="phone" maxlength="15" autocomplete="tel" placeholder="98XXXXXXXX" value="${esc(me.phone)}"/></label>
+    <div class="field"><span class="lab">${t('payBy')}</span><div class="seg" id="method">${['eSewa','Khalti','Bank','Cash'].map(m=>`<button type="button" data-m="${m}" aria-pressed="${m===method}">${m}</button>`).join('')}</div></div>
+    <label class="field"><span class="lab">${t('note')} <em>${t('opt')}</em></span><textarea id="note" maxlength="200" placeholder="${t('notePh')}">${esc(me.note||'')}</textarea></label>
+    <label class="check"><input type="checkbox" id="remember" ${me.remember!==false?'checked':''}/>${t('remember')}</label>
+    <div class="hp" aria-hidden="true"><label>Website<input type="text" id="website" tabindex="-1" autocomplete="off"/></label></div>
+    <p class="err" id="err" role="alert"></p>
+  </div></div>`;
+}
+/* ---------- step 3: confirm ---------- */
+function viewConfirm(){
+  return stepsBar()+`<div class="card"><div class="card-h"><h2>${t('s3')}</h2><button class="btn sm" type="button" data-go="2">${t('back')}</button></div><div class="card-b">
+    <div class="uidbox"><span>${t('checkUid')}</span><b>${esc(me.uid)}</b><small>${t('uidWarn')}</small></div>
+    <div class="sum">${cart.map(l=>{ const p=pk(l.id); return `<div><span>${l.qty} × ${esc(label(p))}</span><b class="num">${rs(p.price*l.qty)}</b></div>`; }).join('')}<div class="t"><b>${t('total')}</b><b class="num">${rs(total())}</b></div></div>
+    <dl class="kv"><dt>${t('name')}</dt><dd>${esc(me.name)}</dd>${me.phone?`<dt>${t('wa')}</dt><dd>${esc(me.phone)}</dd>`:''}<dt>${t('payBy')}</dt><dd>${esc(method)}</dd>${me.note?`<dt>${t('note')}</dt><dd>${esc(me.note)}</dd>`:''}</dl>
+    ${P.shop.pay?`<div class="pay"><b>${t('pay')}</b><span>${esc(P.shop.pay)}</span></div>`:''}
+    <p class="err" id="err" role="alert"></p>
+  </div></div>`;
+}
+/* ---------- done ---------- */
+function viewDone(){
+  const o=last, w=waNum(P.shop.wa), lines=o.items.map(i=>'• '+i.qty+' × '+(i.kind==='member'?i.name:i.diamonds+' 💎')).join('\n');
+  const trackUrl=location.origin+location.pathname+'?o='+encodeURIComponent(o.id), num=((P.shop.pay||'').match(/9[78]\d{8}/)||[])[0];
+  return `<div class="card"><div class="card-b done">
+    <div class="big">✅</div><h2>${t('sentT')}</h2><p>${esc(t('sentP',o.name,o.uid))}</p>
+    <div class="code">${t('yourCode')} #${esc(code(o.id))}</div>
+    <div class="sum" style="text-align:left">${o.items.map(i=>`<div><span>${i.qty} × ${esc(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')}</span><b class="num">${rs(i.price*i.qty)}</b></div>`).join('')}<div class="t"><b>${t('payNow',rs(o.total))}</b></div></div>
+    ${P.shop.pay?`<div class="pay" style="text-align:left"><b>${t('pay')}</b><span>${esc(P.shop.pay)}</span>${num?`<button class="btn sm cp" type="button" data-copy="${num}">${t('copy')} ${num}</button>`:''}</div>`:''}
+    <div class="btns">
+      ${w?`<a class="btn wa block" href="https://wa.me/${w}?text=${encodeURIComponent(t('waMsg',code(o.id),lines,rs(o.total),o.uid,o.name))}" target="_blank" rel="noopener">${t('waShot')}</a>`:''}
+      <a class="btn ink block" href="?o=${encodeURIComponent(o.id)}">${t('track')}</a>
+      <button class="btn block" type="button" data-copy="${esc(trackUrl)}">${t('shareTrack')}</button>
+      <button class="btn block" type="button" id="again">${t('another')}</button>
+    </div></div></div>`;
+}
+/* ---------- tracking ---------- */
+let trackTimer=null;
+async function viewTrack(id){
+  const app=$('app'); $('bar').hidden=true; clearTimeout(trackTimer);
+  if (!app.querySelector('.tl')) app.innerHTML='<div class="card"><div class="state"><span class="spin"></span></div></div>';
+  let o=null; try{ const s=await getDoc(doc(db,'orders',id)); if (s.exists()) o=s.data(); }catch(e){ console.error(e); }
+  if (!o){ app.innerHTML=`<div class="card"><div class="state"><b>${t('notFound')}</b><p><a class="btn" href="${location.pathname}">${t('toShop')}</a></p></div></div>`; return; }
+  const w=P&&waNum(P.shop.wa), rej=o.status==='rejected', acc=o.status==='done', dlv=!!o.delivered;
+  const li=(cls,icon,title,sub)=>`<li class="${cls}"><span class="dot">${icon}</span><div><b>${title}</b><small>${sub}</small></div></li>`;
+  const steps = rej ? li('ok','✓',t('st1'),esc(ago(o.at)))+li('bad','✕',t('rej'),t('rejP'))
+    : li('ok','✓',t('st1'),esc(ago(o.at)))+li(acc?'ok':'now',acc?'✓':'2',t('st2'),acc&&o.doneAt?esc(ago(o.doneAt)):t('st2w'))+li(dlv?'ok':acc?'now':'',dlv?'✓':'3',t('st3'),dlv&&o.deliveredAt?esc(ago(o.deliveredAt)):t('st3w'));
+  app.innerHTML=`<div class="card"><div class="card-h"><h2>${t('trackT')}</h2><span class="code" style="margin:0;padding:5px 12px;font-size:.84rem">#${esc(code(id))}</span></div><div class="card-b">
+    <ol class="tl">${steps}</ol>
+    <div class="sum">${(o.items||[]).map(i=>`<div><span>${i.qty} × ${esc(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')}</span><b class="num">${rs(i.price*i.qty)}</b></div>`).join('')}<div class="t"><b>${t('total')}</b><b class="num">${rs(o.total||0)}</b></div></div>
+    <dl class="kv"><dt>UID</dt><dd>${esc(o.uid)}</dd><dt>${t('name')}</dt><dd>${esc(o.name)}</dd></dl>
+    <div class="btns"><button class="btn ink block" type="button" id="refresh">${t('refresh')}</button>${w?`<a class="btn wa block" href="https://wa.me/${w}?text=${encodeURIComponent('#'+code(id))}" target="_blank" rel="noopener">${t('msgShop')}</a>`:''}<a class="btn block" href="${location.pathname}">${t('toShop')}</a></div>
+  </div></div>`;
+  $('refresh').onclick=()=>viewTrack(id);
+  if (!rej && !dlv) trackTimer=setTimeout(()=>viewTrack(id), 30000);
+}
+
+/* ---------- render + events ---------- */
 function render(){
   const app=$('app');
-  if (step===1){
-    const top=P.packages.filter(p=>p.kind!=='member'), mem=P.packages.filter(p=>p.kind==='member'), q=id=>{ const l=cart.find(x=>x.id===id); return l?l.qty:0; };
-    const tile=p=>`<button type="button" class="pk${q(p.id)?' on':''}" data-add="${esc(p.id)}"><b>${p.kind==='member'?STAR:GEM}${esc(p.kind==='member'?p.name:nf(p.diamonds))}</b><span>${rs(p.price)}</span>${p.kind==='member'?`<small>${nf(p.diamonds)} diamonds total</small>`:'<small>diamonds</small>'}${q(p.id)?`<i class="cnt">×${q(p.id)}</i>`:''}</button>`;
-    app.innerHTML=`<div class="card"><div class="card-h"><h2><span class="step">1</span>Choose diamonds</h2></div><div class="card-b">
-      <div class="calc"><label for="need">Need a specific amount? We’ll find the cheapest mix.</label><input type="number" id="need" min="1" inputmode="numeric" placeholder="e.g. 1000"/><button class="btn ink" type="button" id="needGo">Find</button></div>
-      ${top.length?'<p class="grp">Top-up</p><div class="pkgs">'+top.map(tile).join('')+'</div>':''}
-      ${mem.length?'<p class="grp">Membership</p><div class="pkgs">'+mem.map(tile).join('')+'</div>':''}
-      <div class="cart">${cart.map((l,i)=>{ const p=pk(l.id); return `<div class="row" data-i="${i}"><div><b>${esc(p.kind==='member'?p.name:nf(p.diamonds)+' 💎')}</b><small>${rs(p.price)} each</small></div><div class="qty"><button type="button" data-q="-1">−</button><span>${l.qty}</span><button type="button" data-q="1">+</button></div><b>${rs(p.price*l.qty)}</b></div>`; }).join('')}</div>
-    </div></div>`;
-    $('needGo').onclick=()=>{ const r=bestMix(Math.round(+$('need').value||0)); if(r){ cart=r; render(); } };
-    $('need').onkeydown=e=>{ if(e.key==='Enter') $('needGo').click(); };
-  } else if (step===2){
-    app.innerHTML=`<div class="card"><div class="card-h"><h2><span class="step">2</span>Your details</h2><button class="btn" type="button" id="back" style="min-height:36px;padding:0 12px">Back</button></div><div class="card-b">
-      <div class="sum">${cart.map(l=>{ const p=pk(l.id); return `<div><span>${l.qty} × ${esc(p.kind==='member'?p.name:nf(p.diamonds)+' 💎')}</span><b>${rs(p.price*l.qty)}</b></div>`; }).join('')}<div style="border-top:1px solid var(--line-2);margin-top:6px;padding-top:8px"><b>Total</b><b>${rs(total())}</b></div></div>
-      <label class="field"><span class="lab">Free Fire UID <em>required</em></span><input type="tel" inputmode="numeric" id="uid" maxlength="14" placeholder="123456789" autocomplete="off"/></label>
-      <label class="field"><span class="lab">Your name</span><input type="text" id="name" maxlength="60" autocomplete="name" placeholder="Ram Rai"/></label>
-      <label class="field"><span class="lab">WhatsApp number <em>so we can confirm</em></span><input type="tel" inputmode="tel" id="phone" maxlength="15" autocomplete="tel" placeholder="98XXXXXXXX"/></label>
-      <div class="field"><span class="lab">I will pay by</span><div class="seg" id="method">${['eSewa','Khalti','Bank','Cash'].map(m=>`<button type="button" data-m="${m}" aria-pressed="${m===method}">${m}</button>`).join('')}</div></div>
-      ${P.shop.pay?`<div class="pay"><b>How to pay</b>${esc(P.shop.pay)}</div>`:''}
-      <label class="field"><span class="lab">Note <em>optional</em></span><textarea id="note" maxlength="200" placeholder="Anything we should know"></textarea></label>
-      <div class="hp" aria-hidden="true"><label>Website<input type="text" id="website" tabindex="-1" autocomplete="off"/></label></div>
-      <p class="err" id="err" role="alert"></p>
-    </div></div>`;
-    $('back').onclick=()=>{ step=1; render(); };
-  }
-  bar();
+  app.innerHTML = step===1 ? viewChoose() : step===2 ? viewDetails() : step===3 ? viewConfirm() : viewDone();
+  const bar=$('bar'), show=step<4 && cart.length>0 && isOpen();
+  bar.hidden=!show; $('barItems').textContent=t('items',count()); $('barTotal').textContent=rs(total());
+  $('barBtn').textContent = step===1 ? t('cont') : step===2 ? t('review') : t('send');
+  if (step===1){ const go=()=>{ const r=bestMix(Math.round(+$('need').value||0)); if(r){ cart=r; const d=r.reduce((s,l)=>s+pk(l.id).diamonds*l.qty,0); calcMsg=t('calcRes',nf(d),rs(total())); render(); } }; $('needGo').onclick=go; $('need').onkeydown=e=>{ if(e.key==='Enter') go(); }; }
+  if (step===2){ $('howBtn').onclick=()=>{ $('howto').hidden=!$('howto').hidden; }; }
+  if (step===4){ $('again').onclick=()=>{ cart=[]; step=1; calcMsg=''; render(); scrollTo({top:0}); }; }
 }
-function bar(){
-  const show=step<3 && cart.length>0; $('bar').hidden=!show;
-  $('barItems').textContent=items()+' item'+(items()===1?'':'s'); $('barTotal').textContent=rs(total());
-  $('barBtn').textContent= step===1 ? 'Continue' : 'Send order';
-}
+function readDetails(){ me.uid=$('uid').value.replace(/\D/g,''); me.name=$('name').value.trim(); me.phone=$('phone').value.trim(); me.note=$('note').value.trim(); me.remember=$('remember').checked; }
 document.addEventListener('click', e=>{
-  const a=e.target.closest('[data-add]'); if(a){ const l=cart.find(x=>x.id===a.dataset.add); if(l) l.qty++; else cart.push({id:a.dataset.add, qty:1}); render(); return; }
+  const a=e.target.closest('[data-add]'); if(a){ const l=cart.find(x=>x.id===a.dataset.add); if(l) l.qty++; else cart.push({id:a.dataset.add, qty:1}); calcMsg=''; render(); return; }
   const q=e.target.closest('[data-q]'); if(q){ const i=+q.closest('[data-i]').dataset.i; cart[i].qty+=+q.dataset.q; if(cart[i].qty<1) cart.splice(i,1); render(); return; }
-  const m=e.target.closest('[data-m]'); if(m){ method=m.dataset.m; document.querySelectorAll('#method button').forEach(b=>b.setAttribute('aria-pressed',String(b===m))); }
+  const m=e.target.closest('[data-m]'); if(m){ method=m.dataset.m; document.querySelectorAll('#method button').forEach(b=>b.setAttribute('aria-pressed',String(b===m))); return; }
+  const g=e.target.closest('[data-go]'); if(g){ if(step===2) readDetails(); step=+g.dataset.go; render(); scrollTo({top:0,behavior:'smooth'}); return; }
+  const c=e.target.closest('[data-copy]'); if(c){ copy(c.dataset.copy); }
 });
 $('barBtn').addEventListener('click', async ()=>{
-  if (step===1){ step=2; render(); scrollTo({top:0,behavior:'smooth'}); setTimeout(()=>$('uid').focus(),300); return; }
-  const err=t=>{ $('err').textContent=t; };
-  const uid=$('uid').value.replace(/\D/g,''), name=$('name').value.trim(), phone=$('phone').value.trim(), note=$('note').value.trim();
-  if ($('website').value) return;   // bot trap
-  if (!/^\d{6,14}$/.test(uid)) { err('Enter your Free Fire UID (numbers only, from your profile).'); $('uid').focus(); return; }
-  if (!name) { err('Enter your name.'); $('name').focus(); return; }
-  if (phone && phone.replace(/\D/g,'').length<7) { err('Check your WhatsApp number.'); $('phone').focus(); return; }
-  let last=0; try{ last=+localStorage.getItem('dc-last-order')||0; }catch(_){}
-  if (Date.now()-last<60000) { err('You just sent an order. Please wait a minute before sending another.'); return; }
-  const its=cart.map(l=>{ const p=pk(l.id); return {pkId:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind, qty:l.qty, price:p.price}; });
-  const b=$('barBtn'); b.disabled=true; b.textContent='Sending…';
-  try{
-    await addDoc(collection(db,'orders'), {name, phone, uid, items:its, method, note, at:Date.now(), status:'new', total:total()});
-    try{ localStorage.setItem('dc-last-order', String(Date.now())); }catch(_){}
-    done({name, uid, its, total:total()});
-  }catch(e){ console.error(e); err('Couldn’t send the order. Check your internet and try again.'); b.disabled=false; bar(); }
+  if (step===1){ step=2; render(); scrollTo({top:0,behavior:'smooth'}); setTimeout(()=>{ const u=$('uid'); if(u&&!u.value) u.focus(); },350); return; }
+  if (step===2){
+    const err=x=>{ $('err').textContent=x; };
+    if ($('website').value) return;   // bot trap
+    readDetails();
+    if (!/^\d{6,14}$/.test(me.uid)) { err(t('eUid')); $('uid').focus(); return; }
+    if (!me.name) { err(t('eName')); $('name').focus(); return; }
+    if (me.phone && me.phone.replace(/\D/g,'').length<7) { err(t('eWa')); $('phone').focus(); return; }
+    store.set('dc-me', me.remember ? {name:me.name, phone:me.phone, uid:me.uid, remember:true} : {remember:false});
+    step=3; render(); scrollTo({top:0,behavior:'smooth'}); return;
+  }
+  if (step===3){
+    const err=x=>{ $('err').textContent=x; };
+    if (Date.now()-(+store.get('dc-last-order',0))<60000) { err(t('eWait')); return; }
+    const items=cart.map(l=>{ const p=pk(l.id); return {pkId:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind, qty:l.qty, price:p.price}; });
+    const b=$('barBtn'); b.disabled=true; b.textContent='…';
+    try{
+      const data={name:me.name, phone:me.phone, uid:me.uid, items, method, note:me.note||'', at:Date.now(), status:'new', total:total()};
+      const ref=await addDoc(collection(db,'orders'), data);
+      store.set('dc-last-order', Date.now());
+      store.set('dc-orders', [{id:ref.id, at:data.at, total:data.total}, ...store.get('dc-orders',[])].slice(0,20));
+      last={id:ref.id, ...data}; me.note=''; step=4; render(); scrollTo({top:0,behavior:'smooth'});
+    }catch(e2){ console.error(e2); err(t('sendFail')); b.disabled=false; b.textContent=t('send'); }
+  }
 });
-function done(o){
-  step=3; bar(); scrollTo({top:0,behavior:'smooth'});
-  const w=waNum(P.shop.wa), msg='Namaste! Maile order pathaye 🙏\n'+o.its.map(i=>'• '+i.qty+' × '+(i.kind==='member'?i.name:i.diamonds+' diamonds')).join('\n')+'\nTotal: '+rs(o.total)+'\nUID: '+o.uid+'\nName: '+o.name;
-  $('app').innerHTML=`<div class="card"><div class="done"><div class="big">✅</div><h2>Order sent!</h2><p>Thank you, ${esc(o.name)}. Your diamonds will be sent to UID <b>${esc(o.uid)}</b> once payment is confirmed.</p>
-    <div class="sum">${o.its.map(i=>`<div><span>${i.qty} × ${esc(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')}</span><b>${rs(i.price*i.qty)}</b></div>`).join('')}<div style="border-top:1px solid var(--line-2);margin-top:6px;padding-top:8px"><b>Pay</b><b>${rs(o.total)}</b></div></div>
-    ${P.shop.pay?`<div class="pay"><b>How to pay</b>${esc(P.shop.pay)}</div>`:''}
-    ${w?`<a class="btn accent block" href="https://wa.me/${w}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">Send payment screenshot on WhatsApp</a>`:''}
-    <button class="btn block" type="button" id="again" style="margin-top:10px">Place another order</button></div></div>`;
-  $('again').onclick=()=>{ cart=[]; step=1; render(); scrollTo({top:0}); };
+
+function route(){
+  const id=new URLSearchParams(location.search).get('o');
+  if (id) viewTrack(id); else render();
 }
 (async()=>{
+  paintStatic();
   try{
     const s=await getDoc(doc(db,'public','prices'));
     if (!s.exists() || !(s.data().packages||[]).length) throw new Error('empty');
     P=s.data(); P.shop=P.shop||{};
-    if (P.shop.name){ $('shopName').textContent=P.shop.name; document.title='Order diamonds · '+P.shop.name; }
-    render();
-  }catch(e){ console.error(e); $('app').innerHTML='<div class="card"><div class="state"><b style="color:var(--ink)">Ordering isn’t open right now.</b><p>Please message the shop directly.</p></div></div>'; }
+    if (P.shop.name){ $('shopName').textContent=P.shop.name; document.title=(L==='ne'?'डायमन्ड अर्डर · ':'Order diamonds · ')+P.shop.name; }
+    paintStatic(); route();
+  }catch(e){
+    console.error(e);
+    const id=new URLSearchParams(location.search).get('o');
+    if (id){ P={shop:{},packages:[]}; viewTrack(id); return; }
+    $('app').innerHTML=`<div class="card"><div class="state"><b>${t('loadFail')}</b>${t('loadFailP')}</div></div>`;
+  }
 })();
 </script>
 </body>
