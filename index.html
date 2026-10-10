@@ -1088,6 +1088,77 @@ input[type=datetime-local]{width:100%;padding:10px 12px;border:1px solid var(--l
 .sv-main{position:sticky;bottom:calc(-16px - env(safe-area-inset-bottom,0px));display:grid;grid-template-columns:1fr 1.4fr;gap:8px;margin:14px -16px calc(-16px - env(safe-area-inset-bottom,0px));padding:12px 16px calc(14px + env(safe-area-inset-bottom,0px));background:#fff;border-top:1px solid var(--line);z-index:2}
 .sv-main .btn{justify-content:center;min-height:48px;font-size:.95rem}
 @media(min-width:901px){.sv-main{border-radius:0 0 18px 18px}}
+
+/* ===== v9: alerts ===== */
+.alerts{display:grid;gap:10px;margin-bottom:14px}
+.alerts:empty{display:none}
+.alert{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:12px;align-items:center;padding:12px 14px;border-radius:14px;border:1px solid var(--line);background:#fff;cursor:pointer}
+.alert .ai{width:38px;height:38px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.15rem;background:var(--bg)}
+.alert b{display:block;font-weight:700}
+.alert small{display:block;font-size:.8rem;color:var(--muted)}
+.alert.info{border-color:#C9D7EC;background:#F3F7FD}.alert.info .ai{background:#E2EBF8}
+.alert.bad{border-color:#F1C9CF;background:#FDF4F5}.alert.bad .ai{background:var(--accent-soft)}.alert.bad b{color:var(--accent-2)}
+.alert.warn{border-color:#F0DDB8;background:#FFF9EE}.alert.warn .ai{background:var(--warn-soft)}
+.ct.hot.on{background:var(--accent);color:#fff}
+
+/* ===== cart & calculator ===== */
+.pk-tip{margin:0 0 10px;font-size:.84rem}
+.pkgs button{position:relative}
+.pkgs button .cnt{position:absolute;top:-7px;right:-7px;min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:var(--accent);color:#fff;font-style:normal;font-size:.74rem;font-weight:800;display:flex;align-items:center;justify-content:center;box-shadow:0 0 0 2px #fff}
+.cart{margin-top:14px;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.cart:empty{display:none}
+.cart-h{padding:9px 14px;font-size:.74rem;font-weight:700;color:var(--muted);letter-spacing:.04em;text-transform:uppercase;background:#FAFBFB;border-bottom:1px solid var(--line)}
+.cart-row{display:grid;grid-template-columns:minmax(0,1fr) auto auto auto;gap:10px;align-items:center;padding:10px 8px 10px 14px;border-top:1px solid var(--line)}
+.cart-h+.cart-row{border-top:none}
+.cr-n b{display:block;font-weight:700}
+.cr-n small{font-size:.76rem;color:var(--muted)}
+.cr-t{font-variant-numeric:tabular-nums;min-width:70px;text-align:right}
+.cr-x{width:32px;height:32px;color:var(--muted);font-size:1.2rem}
+.cr-x:hover{color:var(--accent);background:var(--accent-soft)}
+.qty.sm{height:36px;grid-template-columns:32px 44px 32px}
+.qty.sm .icon-btn{width:32px;font-size:1.05rem}
+.qty.sm input{padding:0 2px;font-size:.95rem}
+@media(max-width:420px){.cart-row{grid-template-columns:minmax(0,1fr) auto auto;}.cart-row .cr-t{grid-column:1;grid-row:2;text-align:left;font-size:.85rem;color:var(--ink-2)}.cart-row .qty{grid-row:1/3;grid-column:2}.cart-row .cr-x{grid-row:1/3;grid-column:3}}
+.calc-box{border:1px dashed var(--line-2);border-radius:14px;padding:12px 14px;margin-bottom:14px;background:#FAFBFB}
+.calc-row{display:flex;gap:8px}
+.calc-row .unit{flex:1}
+.calc-res{margin-top:12px;display:grid;gap:8px;padding:12px;border-radius:12px;background:var(--ink);color:#fff}
+.calc-res .cr-top{display:flex;justify-content:space-between;align-items:baseline}
+.calc-res .cr-top span{color:#9FB0B7;font-size:.84rem}
+.calc-res .cr-top b{font-size:1.35rem;font-weight:800}
+.cr-lines{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.cr-lines span{padding:4px 10px;border-radius:999px;background:rgba(255,255,255,.1);font-weight:700;font-size:.86rem}
+.cr-lines i{font-style:normal;color:#9FB0B7}
+.calc-res small{color:#9FB0B7;font-size:.78rem}
+.calc-res .btn{justify-self:start}
+
+/* ===== loyalty ===== */
+.reward{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:10px 12px;border-radius:10px;background:linear-gradient(120deg,#FFF4E0,#FDECEF);border:1px solid #F0DDB8;font-size:.9rem}
+.reward .ok{color:var(--ok);font-weight:700;white-space:nowrap}
+.vip{color:#9A6212}
+.vip-b{display:inline-block;font-size:.68rem;font-weight:800;padding:1px 7px;border-radius:999px;background:#FFF1D6;color:#9A6212;margin-right:6px;vertical-align:2px}
+.person .chips .c-r{background:#FFF1D6;color:#9A6212}
+.person .chips .c-w{background:var(--warn-soft);color:var(--warn)}
+.wtx{color:var(--warn)}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media(max-width:600px){.grid3{grid-template-columns:1fr}}
+
+/* ===== orders ===== */
+.ord{padding:14px 20px;border-top:1px solid var(--line);display:grid;gap:6px}
+.ord:first-child{border-top:none}
+.o-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}
+.o-top b{font-size:1.02rem}
+.o-top span{font-size:.8rem;color:var(--muted)}
+.o-items{font-weight:600;color:var(--ink-2)}
+.o-meta{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.84rem;color:var(--muted)}
+.o-meta b{color:var(--ink)}
+.o-note{margin:0;padding:8px 10px;border-radius:8px;background:var(--bg);font-size:.86rem}
+.o-acts{display:flex;flex-wrap:wrap;gap:8px;margin-top:4px;align-items:center}
+.o-ok{color:var(--ok);font-weight:700;font-size:.88rem;margin-right:auto}
+@media(max-width:900px){.ord{padding:14px}}
+.card-h>div h2{margin:0}
+.card-h>div .meta{display:block;margin-top:2px}
+.rules{margin:4px 0 0;padding:12px;border-radius:10px;background:var(--ink);color:#DCE4E7;font-size:.72rem;line-height:1.5;overflow-x:auto;white-space:pre}
 </style>
 </head>
 <body>
@@ -1141,6 +1212,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
     <nav class="nav" aria-label="Sections">
       <a data-go="overview"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Dashboard</a>
       <div class="nav-label">SELL</div>
+      <a data-go="orders"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.1 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.9A2 2 0 0 0 16.8 4H7.2a2 2 0 0 0-1.7 1.1z"/></svg>Orders<span class="ct hot" id="ctO">–</span></a>
       <a data-go="sell"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>New sale</a>
       <a data-go="sales"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>Sales ledger<span class="ct" id="ctS">–</span></a>
       <a data-go="customers"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Customers<span class="ct" id="ctC">–</span></a>
@@ -1200,6 +1272,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <div class="w-acts"><button class="btn accent" type="button" data-go="sell"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New sale</button><button class="btn ghost" type="button" id="wShare"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>Share day report</button></div>
         </div>
         
+        <div class="alerts" id="alerts"></div>
         <div class="ov-head"><h2>Overview</h2><button type="button" class="help-link" data-help="overview"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Help</button><span class="ov-cmp" id="ovCmp"></span><div class="pk-seg" id="ovPeriod" role="radiogroup" aria-label="Period"><button type="button" data-v="today">Today</button><button type="button" data-v="week">7 days</button><button type="button" data-v="month">This month</button></div></div>
         <div class="stats kpis" id="kpis"></div>
         <div class="card cardmini" id="cardMini">
@@ -1246,17 +1319,36 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         </div>
       </section>
 
+      <!-- ORDERS -->
+      <section data-page="orders" hidden>
+        <div class="ph"><div><h1>Orders</h1><p>Orders customers send from your order page. Accept one to turn it into a sale.</p><button type="button" class="help-link" data-help="orders"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div><div class="ph-acts"><button class="btn" type="button" id="olCopy">Copy order link</button><button class="btn accent" type="button" id="olShare"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>Share order page</button></div></div>
+        <div class="note warn" id="ordWarn" hidden></div>
+        <div class="card">
+          <div class="fchips" id="oFilters"></div>
+          <div class="tbl" id="oList"></div>
+        </div>
+      </section>
+
       <!-- NEW SALE -->
       <section data-page="sell" hidden>
         <div class="ph"><div><h1 id="sellTitle">New sale</h1><p>Record a transaction. Selling price and COGS use today's exchange rate.</p><button type="button" class="help-link" data-help="sell"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div><span class="pill" id="sellRatePill"></span></div>
         <div class="card">
-          <div class="card-h"><h2>Package</h2><a class="link" data-go="prices">Edit prices</a></div>
-          <div class="card-b"><div class="pkgs" id="pkPick" role="radiogroup" aria-label="Package"></div></div>
+          <div class="card-h"><h2 id="pkTitle">Packages</h2><button class="btn sm" type="button" id="calcBtn">🧮 Diamond calculator</button></div>
+          <div class="card-b">
+            <div class="calc-box" id="calcBox" hidden>
+              <label class="field"><span class="lab">Customer wants how many diamonds?</span><div class="calc-row"><div class="unit"><input id="calcN" type="number" min="1" step="1" inputmode="numeric" placeholder="1000"/><span>💎</span></div><button class="btn primary" type="button" id="calcGo">Find best</button></div></label>
+              <div id="calcOut"></div>
+            </div>
+            <p class="help pk-tip" id="pkTip">Tap a package to add it. Tap again to add one more.</p>
+            <div class="pkgs" id="pkPick" aria-label="Packages"></div>
+            <div class="cart" id="cart"></div>
+          </div>
         </div>
         <div class="card">
           <div class="card-h"><h2>Customer</h2><span class="meta">Name is enough for walk-ins</span></div>
           <div class="card-b form">
             <div class="cust-hit" id="custHit" hidden></div>
+            <div class="reward" id="rewardHit" hidden></div>
             <label class="field"><span class="lab">Customer name</span><input id="fName" list="custList" autocomplete="off" placeholder="Ram Rai"/></label>
             <datalist id="custList"></datalist>
             <div class="grid2">
@@ -1269,14 +1361,12 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <div class="card-h"><h2>Payment</h2></div>
           <div class="card-b form">
             <div class="grid2">
-              <div class="field"><span class="lab"><label for="fQty">Quantity</label></span><div class="qty"><button type="button" class="icon-btn" data-step="-1" aria-label="One less">−</button><input id="fQty" type="number" min="1" step="1" value="1" inputmode="numeric"/><button type="button" class="icon-btn" data-step="1" aria-label="One more">+</button></div></div>
+              
               <label class="field"><span class="lab">Discount (Rs) <em id="discHint">optional</em></span><input id="fDisc" type="number" min="0" step="1" inputmode="decimal" placeholder="0"/></label>
+              <label class="field"><span class="lab">Amount received (Rs) <em id="recvHint"></em></span><input id="fRecv" type="number" min="0" step="1" inputmode="decimal"/></label>
             </div>
             <div class="price-line" id="priceLine"></div>
-            <div class="grid2">
-              <label class="field"><span class="lab">Amount received (Rs) <em id="recvHint"></em></span><input id="fRecv" type="number" min="0" step="1" inputmode="decimal"/></label>
-              <div class="field"><span class="lab">USD from card</span><div class="card-use" id="cardUse">–</div></div>
-            </div>
+            <div class="field"><span class="lab">Dollars from card</span><div class="card-use" id="cardUse">–</div></div>
             <div class="calc" id="calc"><div><span>Diamonds</span><b id="cDia">0</b></div><div><span>COGS</span><b id="cCost">Rs 0</b></div><div><span>Gross profit</span><b id="cProfit">Rs 0</b></div><div id="cDueBox" hidden><span>Outstanding</span><b id="cDue" class="warn">Rs 0</b></div></div>
             <div class="field"><span class="lab">Payment method</span><div class="pk-seg" id="fMethod" role="radiogroup" aria-label="Payment method"><button type="button" data-v="Cash">Cash</button><button type="button" data-v="eSewa">eSewa</button><button type="button" data-v="Khalti">Khalti</button><button type="button" data-v="Bank">Bank</button><button type="button" data-v="Credit">Credit</button></div></div>
             <div class="field"><span class="lab">Delivery status</span><div class="pk-seg" id="fStatus" role="radiogroup" aria-label="Delivery status"><button type="button" data-v="done">Delivered</button><button type="button" data-v="pending">Pending</button></div></div>
@@ -1335,7 +1425,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <section data-page="prices" hidden>
         <div class="ph"><div><h1>Price list</h1><p>Cost of goods, selling price and profit per unit at today's exchange rate. Tap a package to sell it.</p><button type="button" class="help-link" data-help="prices"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div><span class="pill" id="pRatePill"></span></div>
         <div class="card">
-          <div class="card-h"><h2>Today's prices</h2><span class="meta" id="pMeta"></span></div>
+          <div class="card-h"><div><h2>Today's prices</h2><span class="meta" id="pMeta"></span></div><button class="btn primary sm" type="button" id="shareList"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>Share with customers</button></div>
           <div class="plist" id="pCards"></div>
           <div class="tbl-wrap p-table" tabindex="0"><table class="limits"><thead><tr><th>PACKAGE</th><th class="r">GAME $</th><th class="r">COGS</th><th class="r">SELLING PRICE</th><th class="r">PROFIT / UNIT</th></tr></thead><tbody id="pBoard"></tbody></table></div>
         </div>
@@ -1374,6 +1464,27 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           </div>
         </div>
         <div class="card">
+          <div class="card-h"><h2>Shop details</h2><span class="meta">Shown to customers</span></div>
+          <div class="card-b form">
+            <label class="field"><span class="lab">Shop name</span><input id="shName" maxlength="40" placeholder="Isaac Diamond Store"/></label>
+            <label class="field"><span class="lab">Your WhatsApp number</span><input id="shWa" type="tel" inputmode="tel" maxlength="15" placeholder="98XXXXXXXX"/></label>
+            <label class="field"><span class="lab">How customers pay you <em>shown on price list, order page and reminders</em></span><input id="shPay" maxlength="120" placeholder="eSewa / Khalti: 98XXXXXXXX (Isaac Yonghang)"/></label>
+          </div>
+          <div class="card-f"><button class="btn accent" type="button" id="shSave"><span class="spin"></span><span class="bt">Save shop details</span></button></div>
+        </div>
+        <div class="card">
+          <div class="card-h"><h2>Loyalty rewards</h2><span class="meta">Keeps customers coming back</span></div>
+          <div class="card-b form">
+            <div class="grid3">
+              <label class="field"><span class="lab">VIP after spending</span><div class="unit pre"><span>Rs</span><input id="lyVip" type="number" min="0" step="500" inputmode="numeric"/></div></label>
+              <label class="field"><span class="lab">Reward every</span><div class="unit"><input id="lyEvery" type="number" min="0" step="1" inputmode="numeric"/><span>buys</span></div></label>
+              <label class="field"><span class="lab">Reward discount</span><div class="unit"><input id="lyPct" type="number" min="0" max="50" step="1" inputmode="numeric"/><span>%</span></div></label>
+            </div>
+            <p class="help">Example: reward every 10 buys at 5% means the 10th, 20th, 30th… purchase gets a 5% discount suggestion on the New sale page. Set 0 to turn off.</p>
+          </div>
+          <div class="card-f"><button class="btn accent" type="button" id="lySave"><span class="spin"></span><span class="bt">Save rewards</span></button></div>
+        </div>
+        <div class="card">
           <div class="card-h"><h2>Monthly profit target</h2><span class="meta">Shown on the dashboard</span></div>
           <div class="card-b form">
             <label class="field"><span class="lab">Profit you want each month (Rs) <em>0 = none</em></span><input id="rGoal" type="number" step="500" min="0" inputmode="numeric"/></label>
@@ -1388,6 +1499,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         <div class="card stmt">
           <div class="card-h"><h2>Profit &amp; loss statement</h2><div class="mnav"><button class="icon-btn" type="button" id="stPrev" aria-label="Previous month"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></button><b id="stMonth">–</b><button class="icon-btn" type="button" id="stNext" aria-label="Next month"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></button></div></div>
           <div class="card-b"><table class="pl-stmt" id="stBody"></table><p class="help" id="stNote" style="margin-top:12px"></p></div>
+          <div class="card-f"><span class="help">Download this month's full statement</span><button class="btn" type="button" id="stXls"><span class="spin"></span><span class="bt">Excel</span></button><button class="btn accent" type="button" id="stPdf">PDF</button></div>
         </div>
         <div class="card">
           <div class="card-h"><h2>Monthly P&amp;L</h2><span class="meta">Last 12 months</span></div>
@@ -1431,6 +1543,28 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         <div class="pk-seg help-tabs" id="helpTabs" role="tablist"><button type="button" role="tab" data-t="guide" aria-checked="true">Page guide · पेज गाइड</button><button type="button" role="tab" data-t="faq" aria-checked="false">FAQ · प्रश्नहरू</button><button type="button" role="tab" data-t="gloss" aria-checked="false">Glossary · शब्दावली</button></div>
         <div class="card faq" id="tab-guide">
           <details class="qa bi" id="h-overview"><summary><span><b lang="ne">ड्यासबोर्ड</b><small>Dashboard</small></span></summary><div class="bi-body"><p lang="ne">माथि Today, 7 days वा This month छान्नुहोस्। कार्डहरूले त्यो अवधिको Revenue (आम्दानी), Gross profit (कुल नाफा), बिक्री भएका डायमन्ड र Transactions (कारोबार संख्या) देखाउँछन्, साथै अघिल्लो अवधिसँगको तुलना (↑/↓ %)। “Pending delivery” मा डायमन्ड पठाउन बाँकी अर्डर र “Accounts receivable” मा ग्राहकबाट उठाउन बाँकी रकम देखिन्छ। Quick sell थिचेर एकै पटकमा बिक्री सुरु गर्न सकिन्छ। दिनको अन्त्यमा “Share day report” थिचेर आजको हिसाब WhatsApp मा पठाउन सकिन्छ।</p><p class="en">Choose Today, 7 days or This month at the top. The cards show revenue, gross profit, diamonds sold and number of transactions for that period, compared with the previous period (↑/↓ %). “Pending delivery” lists orders not yet delivered and “Accounts receivable” lists amounts customers still owe. Use Quick sell to start a sale in one tap, and “Share day report” at the end of the day to send today’s summary on WhatsApp.</p></div></details>
+          <details class="qa bi" id="h-orders"><summary><span><b lang="ne">ग्राहक अर्डर</b><small>Orders</small></span></summary><div class="bi-body"><p lang="ne">Share order page थिचेर लिंक ग्राहकलाई पठाउनुहोस्। ग्राहकले प्याकेज, UID र नाम हालेर अर्डर पठाउँछन्; यहाँ “New” मा आउँछ र Dashboard मा सूचना देखिन्छ। Accept &amp; record sale थिच्दा सबै विवरण भरिएर बिक्री खुल्छ, Save गरेपछि अर्डर “Accepted” मा जान्छ। पहिलो पटक तलको Firestore Rules Firebase console मा paste गरेर Publish गर्नुहोस्, अनि order.html फाइल पनि GitHub repo मा राख्नुहोस्।</p><p class="en">Tap Share order page and send the link to customers. They choose packages, enter their UID and name, and the order arrives here under “New” with an alert on the dashboard. Accept &amp; record sale opens a filled-in sale; after saving, the order moves to “Accepted”. First time only: paste these Firestore rules in the Firebase console and publish, and put order.html in your GitHub repo next to index.html.</p><pre class="rules">rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    match /users/{uid}/{document=**} {
+      allow read, write: if request.auth != null &amp;&amp; request.auth.uid == uid;
+    }
+    match /public/{doc} {
+      allow read: if true;
+      allow write: if request.auth != null &amp;&amp; request.auth.token.email == 'yonghangissac@gmail.com';
+    }
+    match /orders/{id} {
+      allow create: if request.resource.data.keys().hasOnly(['name','phone','uid','items','method','note','at','status','total'])
+        &amp;&amp; request.resource.data.status == 'new'
+        &amp;&amp; request.resource.data.name is string &amp;&amp; request.resource.data.name.size() &gt; 0 &amp;&amp; request.resource.data.name.size() &lt;= 60
+        &amp;&amp; request.resource.data.uid is string &amp;&amp; request.resource.data.uid.size() &lt;= 14
+        &amp;&amp; request.resource.data.phone is string &amp;&amp; request.resource.data.phone.size() &lt;= 15
+        &amp;&amp; request.resource.data.note is string &amp;&amp; request.resource.data.note.size() &lt;= 200
+        &amp;&amp; request.resource.data.items is list &amp;&amp; request.resource.data.items.size() &gt; 0 &amp;&amp; request.resource.data.items.size() &lt;= 12;
+      allow read, update, delete: if request.auth != null &amp;&amp; request.auth.token.email == 'yonghangissac@gmail.com';
+    }
+  }
+}</pre></div></details>
           <details class="qa bi" id="h-sell"><summary><span><b lang="ne">नयाँ बिक्री</b><small>New sale</small></span></summary><div class="bi-body"><p lang="ne">प्याकेज छान्नुहोस्, ग्राहकको नाम, फोन र Free Fire UID लेख्नुहोस्। छुट दिनुभयो भने Discount (Rs) मा लेख्नुहोस्; Net price आफैं घट्छ। Amount received मा अहिले हातमा आएको रकम लेख्नुहोस्। USD from card ले यो बिक्रीमा कार्डबाट कति डलर जान्छ र बाँकी कति रहन्छ देखाउँछ। पूरा पैसा नआएको भए Payment method मा “Credit” (उधारो) छान्नुहोस्; बाँकी रकम Outstanding मा देखिन्छ। डायमन्ड पछि पठाउने भए Delivery status मा “Pending” छान्नुहोस्। अनि Save sale थिच्नुहोस्।</p><p class="en">Pick a package and enter the customer’s name, phone and Free Fire UID. If you give a discount, enter it in Discount (Rs); the net price updates. Enter the amount actually received. USD from card shows how many dollars this sale uses and the balance left. If the customer has not paid in full, set the payment method to “Credit”; the balance shows as Outstanding. If you will deliver later, set Delivery status to “Pending”. Then tap Save sale.</p></div></details>
           <details class="qa bi" id="h-sales"><summary><span><b lang="ne">बिक्री खाता</b><small>Sales ledger</small></span></summary><div class="bi-body"><p lang="ne">सबै कारोबार मितिअनुसार मिलाइएका छन् र हरेक दिनको Revenue र Gross profit (GP) देखिन्छ। नाम, फोन वा UID ले खोज्नुहोस्। “Undelivered” मा पठाउन बाँकी र “Credit” मा उधारो बिक्री छुट्टै हेर्न सकिन्छ। ⋮ थिचेर Edit, Mark as delivered, Record payment, Send receipt वा Delete गर्नुहोस्।</p><p class="en">Every transaction is grouped by date with daily revenue and gross profit (GP). Search by name, phone or UID. Use the “Undelivered” and “Credit” filters to see orders not yet sent and sales on credit. Tap ⋮ to edit, mark as delivered, record a payment, send a receipt or delete.</p></div></details>
           <details class="qa bi" id="h-card"><summary><span><b lang="ne">डलर कार्ड</b><small>Dollar card</small></span></summary><div class="bi-body"><p lang="ne">सुरुमा Set opening balance थिचेर अहिले कार्डमा कति डलर छ र ती डलरको जम्मा रुपैयाँ मूल्य कति हो लेख्नुहोस्; त्योभन्दा अघिको हिसाब गनिँदैन। त्यसपछि हरेक पटक कार्ड लोड गर्दा Load card थिच्नुहोस्: कति USD आयो, कति NPR तिर्नुभयो र बैंक/सेवा शुल्क कति लाग्यो लेख्नुहोस्। एप्लिकेसनले Weighted average cost (WAC) अर्थात् प्रति डलर औसत लागत निकाल्छ। हरेक बिक्रीमा कार्डबाट USD घट्छ र त्यही औसत लागत COGS बन्छ, त्यसैले नाफा वास्तविक (actual) हुन्छ। कार्ड शुल्क, इन्टरनेट, यातायात जस्ता खर्च Add expense मा राख्नुहोस्; यी Reports मा Net profit बाट घट्छन्। महिनामा एक पटक कार्ड एपको बाँकी ब्यालेन्स Reconcile मा हालेर Book balance मिलाउनुहोस्। Card account summary मा महिनाअनुसार Opening balance + Loads − Used in sales − Fees = Closing balance (USD र NPR दुवैमा) देखिन्छ।</p><p class="en">First tap Set opening balance and enter the dollars on your card right now and their total value in rupees; nothing before that date is counted. Then tap Load card every time you top up your dollar card: enter USD received, NPR paid and any bank/service charges. The app keeps a weighted average cost (WAC) per dollar. Each sale draws USD from the card at that average, which becomes COGS, so profit is actual rather than estimated. Record card fees, internet, transport and other costs with Add expense; they are taken off net profit in Reports. Once a month, enter the real balance from your card app in Reconcile to keep the book balance correct. The card account summary shows, for each month, opening balance + loads − used in sales − fees = closing balance, in both USD and NPR.</p></div></details>
@@ -1445,6 +1579,10 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <details class="qa bi"><summary><span><b lang="ne">पुरानो ग्राहकलाई छिटो कसरी बेच्ने?</b><small>How do I sell to a returning customer quickly?</small></span></summary><div class="bi-body"><p lang="ne">नाम लेख्दा पुराना ग्राहकको नाम देखिन्छ; छान्दा फोन र UID आफैं भरिन्छ। Customers मा ⋮ → Sell again थिचे पनि हुन्छ।</p><p class="en">Start typing the name and pick it from the suggestions; phone and UID fill in automatically. You can also use ⋮ → Sell again on the Customers page.</p></div></details>
           <details class="qa bi"><summary><span><b lang="ne">उधारो बिक्री कसरी राख्ने र पछि पैसा कसरी उठाउने?</b><small>How do I record a credit sale and collect later?</small></span></summary><div class="bi-body"><p lang="ne">Payment method मा “Credit” छान्नुहोस् र Amount received मा अहिले पाएको रकम (वा 0) लेख्नुहोस्। पैसा आएपछि Dashboard को Accounts receivable मा Record payment थिचेर भुक्तानी माध्यम (Cash, eSewa…) छान्नुहोस्।</p><p class="en">Set the payment method to “Credit” and enter what you received now (or 0). When the customer pays, tap Record payment under Accounts receivable on the dashboard and choose how they paid (Cash, eSewa…).</p></div></details>
           <details class="qa bi"><summary><span><b lang="ne">डायमन्ड पछि पठाउने भए?</b><small>What if I deliver the diamonds later?</small></span></summary><div class="bi-body"><p lang="ne">बिक्री गर्दा Delivery status मा “Pending” छान्नुहोस्। Dashboard को Pending delivery मा देखिन्छ। पठाएपछि Delivered थिच्नुहोस्।</p><p class="en">Set Delivery status to “Pending” when recording the sale. It appears under Pending delivery on the dashboard; tap Delivered once sent.</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">ग्राहकलाई निश्चित डायमन्ड चाहियो भने?</b><small>A customer wants an exact number of diamonds</small></span></summary><div class="bi-body"><p lang="ne">New sale मा 🧮 Diamond calculator थिच्नुहोस्, कति डायमन्ड चाहियो लेख्नुहोस् र Find best थिच्नुहोस्। सबैभन्दा सस्तो प्याकेज मिलान देखिन्छ; Add to order थिच्दा सिधै अर्डरमा थपिन्छ। एउटै अर्डरमा जति प्याकेज पनि थप्न सकिन्छ।</p><p class="en">On New sale tap 🧮 Diamond calculator, enter the diamonds wanted and tap Find best. The cheapest mix of packages appears; Add to order puts it straight in the order. One order can hold any number of packages.</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">उधारो रिमाइन्डर कसरी पठाउने?</b><small>How do I send a payment reminder?</small></span></summary><div class="bi-body"><p lang="ne">Dashboard को Accounts receivable मा Remind 🔔 थिच्नुहोस्, वा ग्राहक प्रोफाइल/बिक्री विवरणमा “Remind to pay”। बाँकी सबै रकम सहितको WhatsApp सन्देश तयार हुन्छ। एक हप्ताभन्दा पुरानो उधारो Dashboard मा सूचनामा आउँछ।</p><p class="en">Tap Remind 🔔 under Accounts receivable on the dashboard, or “Remind to pay” in a customer profile or sale details. A WhatsApp message listing everything they owe is prepared. Credit older than a week shows as an alert on the dashboard.</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">VIP र रिवार्ड कसरी काम गर्छ?</b><small>How do VIP and rewards work?</small></span></summary><div class="bi-body"><p lang="ne">Pricing → Loyalty rewards मा सेट गर्नुहोस्। तोकिएको रकमभन्दा बढी किन्ने ग्राहक ⭐ VIP हुन्छन्। हरेक N औं खरिदमा New sale मा 🎁 रिवार्ड छुट देखिन्छ; Apply थिच्दा छुट लाग्छ।</p><p class="en">Set them in Pricing → Loyalty rewards. Customers who spend more than the set amount become ⭐ VIP. On every Nth purchase, New sale shows a 🎁 reward discount; tap Apply to use it.</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">महिनाको हिसाब PDF/Excel मा कसरी निकाल्ने?</b><small>How do I download the monthly statement?</small></span></summary><div class="bi-body"><p lang="ne">Reports → Profit & loss statement मा महिना छान्नुहोस्, तल PDF वा Excel थिच्नुहोस्। PDF मा प्रिन्ट विन्डो खुल्छ, त्यहाँ “Save as PDF” छान्नुहोस्। Excel मा P&L, Sales, Customers र Expenses छुट्टाछुट्टै sheet मा आउँछन्।</p><p class="en">Pick the month in Reports → Profit & loss statement and tap PDF or Excel below it. PDF opens the print window; choose “Save as PDF”. Excel has separate sheets for P&L, Sales, Customers and Expenses.</p></div></details>
           <details class="qa bi"><summary><span><b lang="ne">कार्ड लोड गर्दा NPR कति काटियो कसरी हेर्ने?</b><small>Where do I see how much NPR each load cost?</small></span></summary><div class="bi-body"><p lang="ne">Dollar card → Card ledger मा “Loads” छान्नुहोस्। हरेक लोडको USD, तिरेको NPR (शुल्कसहित) र Rate (प्रति डलर) देखिन्छ। माथि Total loaded र Load charges मा जम्मा छ।</p><p class="en">Dollar card → Card ledger → “Loads”. Each load shows USD, NPR paid (including charges) and the effective rate per dollar. Totals are in Total loaded and Load charges.</p></div></details>
           <details class="qa bi"><summary><span><b lang="ne">अनुमानित नाफा र वास्तविक नाफा किन फरक?</b><small>Why does actual profit differ from the estimate?</small></span></summary><div class="bi-body"><p lang="ne">बिक्री गर्दा देखिने COGS अनुमान हो। कार्ड लोड राखेपछि रिपोर्टहरूले कार्डको वास्तविक औसत लागत (WAC) प्रयोग गर्छन्, र कार्ड शुल्क Net profit बाट घटाइन्छ। त्यसैले Net profit नै तपाईंको वास्तविक नाफा हो।</p><p class="en">The COGS shown while selling is an estimate. Once card loads are recorded, reports use the card’s actual weighted average cost and deduct card fees from net profit, so net profit is your real profit.</p></div></details>
           <details class="qa bi"><summary><span><b lang="ne">Gross profit कसरी हिसाब हुन्छ?</b><small>How is gross profit calculated?</small></span></summary><div class="bi-body"><p lang="ne">Gross profit = Revenue − COGS। COGS = Game price ($) × त्यस दिनको Exchange rate + Card/bank charges। Credit बिक्रीमा पूरा मूल्य Revenue मा गनिन्छ (accrual); नउठेको भाग Accounts receivable मा देखिन्छ।</p><p class="en">Gross profit = revenue − COGS, where COGS = game price ($) × that day’s exchange rate + card/bank charges. Credit sales count at full price (accrual basis); the unpaid part appears in accounts receivable.</p></div></details>
@@ -1532,6 +1670,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
   <div class="grab"></div>
   <h3>All sections</h3>
   <div class="sheet-grid">
+    <a data-go="orders"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.5 5.1 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.5-6.9A2 2 0 0 0 16.8 4H7.2a2 2 0 0 0-1.7 1.1z"/></svg><span>Orders</span></a>
     <a data-go="card"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20M6 15h4"/></svg><span>Dollar card</span></a>
     <a data-go="customers"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg><span>Customers</span></a>
     <a data-go="rate"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Pricing</span></a>
@@ -1686,7 +1825,7 @@ const DEFAULT_PACKAGES = [
   {id:'weekly', name:'Weekly', diamonds:445, usd:2.25, kind:'member'},
   {id:'monthly', name:'Monthly', diamonds:2500, usd:10.86, kind:'member'}
 ];
-const DEFAULT_SETTINGS = { rateMode:'live', manualRate:FALLBACK_RATE, feePct:0, marginPct:10, roundTo:5, packages:DEFAULT_PACKAGES, lastLiveRate:null, lastLiveAt:null, goal:0 };
+const DEFAULT_SETTINGS = { rateMode:'live', manualRate:FALLBACK_RATE, feePct:0, marginPct:10, roundTo:5, packages:DEFAULT_PACKAGES, lastLiveRate:null, lastLiveAt:null, shop:{name:'',wa:'',pay:''}, loyalty:{vipAt:5000, every:10, pct:5}, goal:0 };
 
 /* =========================================================
    STATE + HELPERS
@@ -1722,7 +1861,7 @@ const S = {
   uid:null, settings:clone(DEFAULT_SETTINGS), sales:[], loaded:false,
   live:{status:'loading'}, filter:'all', search:'', shown:60, custQ:'', custFilter:null,
   editId:null, form:null, peDraft:null, rateDraft:null, period:'today', chDays:7,
-  card:[], cardLoaded:false, cdFilter:'all', stOff:0, cdOff:0
+  card:[], cardLoaded:false, cdFilter:'all', stOff:0, cdOff:0, orders:[], ordersOk:null, oFilter:'new'
 };
 
 /* =========================================================
@@ -1875,6 +2014,7 @@ function startSync(){
     if (!Array.isArray(S.settings.packages) || !S.settings.packages.length) S.settings.packages = clone(DEFAULT_PACKAGES);
     renderAll();
   }, fail('Couldn\u2019t load settings.')));
+  unsubs.push(onSnapshot(collection(db,'orders'), snap => { S.orders=snap.docs.map(d=>({id:d.id, ...d.data()})); S.ordersOk=true; renderAll(); }, e => { console.warn('orders',e); S.ordersOk=false; renderAll(); }));
   unsubs.push(onSnapshot(cardCol(), snap => { S.card=snap.docs.map(d=>d.data()); S.cardLoaded=true; renderAll(); }, fail('Couldn\u2019t load the dollar card.')));
   unsubs.push(onSnapshot(query(salesCol(), orderBy('at','desc')), {includeMetadataChanges:true}, snap => {
     S.sales = snap.docs.map(d => d.data()); S.loaded = true;
@@ -1904,7 +2044,7 @@ async function migrateLocal(){
 /* =========================================================
    NAVIGATION (same pattern as admin)
    ========================================================= */
-const titles = { overview:'Dashboard', sell:'New sale', sales:'Sales ledger', card:'Dollar card', customers:'Customers', prices:'Price list', rate:'Pricing', reports:'Reports', backup:'Backup & restore', account:'Account & security', help:'Help · मद्दत' };
+const titles = { overview:'Dashboard', sell:'New sale', sales:'Sales ledger', card:'Dollar card', orders:'Orders', customers:'Customers', prices:'Price list', rate:'Pricing', reports:'Reports', backup:'Backup & restore', account:'Account & security', help:'Help · मद्दत' };
 let currentPage='overview';
 const dirty=new Set();
 async function go(p, opts={}){
@@ -1971,9 +2111,9 @@ addEventListener('resize', closeRowMenu);
 /* =========================================================
    RENDER
    ========================================================= */
-function renderAll(){ computeBook(); if (!$('sheetSale').hidden){ const s=S.sales.find(x=>x.id===$('sheetSale').dataset.id); if (s) openSaleView(s); else closeSaleView(); } renderRateBits(); renderCounts(); renderPage(currentPage); }
+function renderAll(){ computeBook(); if (!$('sheetSale').hidden){ const s=S.sales.find(x=>x.id===$('sheetSale').dataset.id); if (s) openSaleView(s); else closeSaleView(); } renderRateBits(); renderCounts(); renderPage(currentPage); publishPrices(); }
 function renderPage(p){
-  ({overview:renderHome, card:renderCardPage, sell:renderSell, sales:renderSales, customers:renderCustomers, prices:renderPrices, rate:renderRatePage, reports:renderReports, backup:renderBackup})[p]?.();
+  ({overview:renderHome, orders:renderOrders, card:renderCardPage, sell:renderSell, sales:renderSales, customers:renderCustomers, prices:renderPrices, rate:renderRatePage, reports:renderReports, backup:renderBackup})[p]?.();
 }
 function renderRateBits(){
   const [k,txt]=rateLine(), r=rateNow();
@@ -1985,6 +2125,7 @@ function renderRateBits(){
 function renderCounts(){
   $('ctS').textContent = S.loaded ? S.sales.length : '–';
   $('ctC').textContent = S.loaded ? customers().length : '–';
+  const nNew=S.orders.filter(o=>o.status==='new').length; $('ctO').textContent = nNew||'–'; $('ctO').classList.toggle('on', nNew>0);
   $('ctCard').textContent = BOOK.active ? '$'+BOOK.usd.toFixed(0) : '–';
 }
 
@@ -2029,6 +2170,7 @@ function renderHome(){
     ['', IC.list, 'Transactions', String(cur.n), delta(cur.n,prev.n), new Set(inRange(R.from,Infinity).map(custKey).filter(x=>x!=='walkin')).size+' customers']
   ];
   $('kpis').innerHTML = k.map(([c,i,l,v,dl,sub])=>`<div class="stat ${c}"><span class="k-ic">${svgI(i)}</span><span>${l}</span><b>${S.loaded?v:'–'}</b><small>${S.loaded?dl:''}${sub?'<em style="font-style:normal">'+esc(sub)+'</em>':''}</small></div>`).join('');
+  renderAlerts();
   // dollar card mini
   const tp0=topPackages()[0];
   if (BOOK.active){ const low = tp0 && BOOK.usd < tp0.p.usd;
@@ -2036,7 +2178,8 @@ function renderHome(){
     $('cmSub').textContent = BOOK.usd<0 ? 'Negative: a load is missing' : 'Rs '+nf(BOOK.npr)+' at cost'+(low?' · low balance':'');
     const live=S.live.status==='ok'?S.live.rate:null;
     $('cmFacts').innerHTML=`<div><span>Cost per dollar</span><b>Rs ${rs2(BOOK.avg)}</b></div>`+(live?`<div><span>Market today</span><b>Rs ${rs2(live)}</b></div>`:'')+(tp0?`<div><span>Enough for</span><b>${Math.max(0,Math.floor(BOOK.usd/tp0.p.usd))} × ${esc(tp0.p.kind==='member'?tp0.p.name:nf(tp0.p.diamonds)+' 💎')}</b></div>`:'')+(BOOK.lastLoad?`<div><span>Last load</span><b>$${(+BOOK.lastLoad.usd).toFixed(2)} · ${esc(dayLabel(BOOK.lastLoad.at))}</b></div>`:'');
-    const mP=cardPeriod(startOfMonth(), Infinity);
+    const mP=cardPeriod(startOfMonth(), Infinity), U=cardUsage();
+    if (U && U.perDay>0) $('cmFacts').innerHTML += `<div><span>Lasts about</span><b class="${U.left<2?'bad':''}">${U.left<1?'less than a day':Math.floor(U.left)+' day'+(Math.floor(U.left)===1?'':'s')}</b></div>`;
     $('cmFacts').innerHTML += `<div><span>Loaded this month</span><b>$${mP.load.usd.toFixed(2)}</b></div><div><span>Used this month</span><b>$${(-mP.sale.usd).toFixed(2)}</b></div>`;
   } else { $('cmBal').textContent='Not set up'; $('cardMini').classList.remove('low'); $('cmSub').textContent='Set an opening balance to track USD and actual profit'; $('cmFacts').innerHTML=''; }
   $('cmAct').textContent = BOOK.opening ? '+ Load card' : 'Set opening balance'; $('cmAct').dataset.cardact = BOOK.opening ? 'load' : 'opening';
@@ -2052,7 +2195,7 @@ function renderHome(){
   // accounts receivable
   const dues=S.sales.filter(s=>dueOf(s)>0).sort((a,b)=>a.at-b.at), dueTot=dues.reduce((t,s)=>t+dueOf(s),0);
   $('duePill').textContent=rs(dueTot); $('duePill').className='pill'+(dueTot?' warn':'');
-  $('dueList').innerHTML = !S.loaded ? '<div class="skel"></div>' : dues.length ? dues.slice(0,5).map(s=>`<div class="q-row"><div style="min-width:0"><div class="t">${esc(s.customer||'Walk-in')}</div><div class="s">${esc(s.pkgName)} · ${esc(dayLabel(s.at))}${s.phone?' · '+esc(s.phone):''}</div></div><div class="acts"><span class="due" style="align-self:center">${rs(dueOf(s))}</span><button class="btn primary" type="button" data-collect="${esc(s.id)}"><span class="lg">Record payment</span><span class="sm">Receive</span></button></div></div>`).join('')+(dues.length>5?`<div class="q-more"><a class="link" data-go="sales" data-filter="credit">See all ${dues.length}</a></div>`:'')
+  $('dueList').innerHTML = !S.loaded ? '<div class="skel"></div>' : dues.length ? dues.slice(0,5).map(s=>`<div class="q-row"><div style="min-width:0"><div class="t">${esc(s.customer||'Walk-in')}</div><div class="s">${esc(s.pkgName)} · ${esc(dayLabel(s.at))}${s.remindedAt?' · reminded '+esc(ago(s.remindedAt)):''}</div></div><div class="acts"><span class="due" style="align-self:center">${rs(dueOf(s))}</span><button class="btn" type="button" data-remind="${esc(custKey(s)==='walkin'?'sale:'+s.id:custKey(s))}" title="Send reminder"><span class="lg">Remind</span><span class="sm">🔔</span></button><button class="btn primary" type="button" data-collect="${esc(s.id)}"><span class="lg">Record payment</span><span class="sm">Receive</span></button></div></div>`).join('')+(dues.length>5?`<div class="q-more"><a class="link" data-go="sales" data-filter="credit">See all ${dues.length}</a></div>`:'')
     : '<div class="q-empty"><i>✓</i>No outstanding receivables.</div>';
   renderChart();
   renderGoal();
@@ -2150,6 +2293,7 @@ function openSaleView(s){
     (s.status==='pending'?`<button class="btn primary" type="button" data-sv="sent">${svgI(IC.sent)}Mark delivered</button>`:due?`<button class="btn primary" type="button" data-sv="pay">${svgI(IC.money)}Record payment</button>`:`<button class="btn accent" type="button" data-sv="again">${svgI(IC.again)}Sell again</button>`);
   $('svActs').innerHTML=(s.status==='pending'&&due?`<button class="btn" type="button" data-sv="pay">${svgI(IC.money)}Record payment</button>`:'')+
     (s.status!=='pending'?`<button class="btn" type="button" data-sv="unsent">${svgI(IC.unsent)}Mark not delivered</button>`:'')+
+    (due?`<button class="btn" type="button" data-sv="remind">🔔 Send reminder</button>`:'')+
     `<button class="btn" type="button" data-sv="receipt">${svgI(IC.share)}${w?'WhatsApp receipt':'Share receipt'}</button>`+
     (s.status==='pending'||due?`<button class="btn" type="button" data-sv="again">${svgI(IC.again)}Sell again</button>`:'')+
     `<button class="btn del-btn" type="button" data-sv="del">${svgI(IC.del)}Delete</button>`;
@@ -2166,6 +2310,7 @@ $('sheetSale').addEventListener('click', async e=>{
   else if (k==='sent'||k==='unsent'){ setSent(s,k==='sent'); setTimeout(()=>{ const n=S.sales.find(x=>x.id===s.id); if(n && !$('sheetSale').hidden) openSaleView(n); },60); }
   else if (k==='pay'){ collectMenu(b,s); }
   else if (k==='receipt'){ sendReceipt(s); }
+  else if (k==='remind'){ remind(custKey(s)==='walkin'?'sale:'+s.id:custKey(s)); }
   else if (k==='again'){ closeSaleView(); newSale({customer:s.customer, phone:s.phone, uid:s.uid, pkgId:s.pkgId}); }
   else if (k==='uid'){ copy(s.uid); }
   else if (k==='cust'){ closeSaleView(); openCust(custKey(s)); }
@@ -2178,6 +2323,7 @@ function saleMenu(btn, s){
     {icon:'edit', label:'Edit sale', fn:()=>editSale(s)},
     s.status==='pending' ? {icon:'sent', label:'Mark as delivered', fn:()=>setSent(s,true)} : {icon:'unsent', label:'Mark as undelivered', fn:()=>setSent(s,false)},
     ...(s.method==='Credit'?[{icon:'money', label:'Record payment', fn:()=>collectMenu(btn,s)}]:[]),
+    ...(dueOf(s)?[{icon:'clock', label:'Send payment reminder', fn:()=>remind(custKey(s)==='walkin'?'sale:'+s.id:custKey(s))}]:[]),
     {icon:'share', label: waNumber(s.phone)?'Send receipt on WhatsApp':'Share receipt', fn:()=>sendReceipt(s)},
     {icon:'again', label:'Sell again to this customer', fn:()=>newSale({customer:s.customer, phone:s.phone, uid:s.uid, pkgId:s.pkgId})},
     ...(s.uid?[{icon:'copy', label:'Copy Free Fire UID', fn:()=>copy(s.uid)}]:[]),
@@ -2190,7 +2336,10 @@ function collectMenu(btn, s){
 }
 const waNumber = p => { let d=digits(p); if (d.length===13 && d.startsWith('977')) d=d.slice(3); return /^9[78]\d{8}$/.test(d) ? '977'+d : ''; };
 function receiptText(s){
-  return ['Diamond Counter receipt', '', (s.customer?'Customer: '+s.customer:null), (s.uid?'Free Fire UID: '+s.uid:null), 'Package: '+s.pkgName+(s.qty>1?' ×'+s.qty:''), 'Diamonds: '+nf(s.diamonds),
+  const shop=(S.settings.shop||{}).name||'Diamond Counter';
+  if (s.orderId){ const lines=S.sales.filter(x=>x.orderId===s.orderId), rev=lines.reduce((t,x)=>t+revenueOf(x),0), rec=lines.reduce((t,x)=>t+(+x.received||0),0), due=lines.reduce((t,x)=>t+dueOf(x),0), dia=lines.reduce((t,x)=>t+(+x.diamonds||0),0);
+    return [shop+' receipt', '', (s.customer?'Customer: '+s.customer:null), (s.uid?'Free Fire UID: '+s.uid:null), '', ...lines.map(x=>'• '+x.pkgName+(x.qty>1?' ×'+x.qty:'')+': '+rs(revenueOf(x))), '', 'Total diamonds: '+nf(dia), 'Total: '+rs(rev), 'Paid: '+rs(rec)+(due?' ('+rs(due)+' still due)':' via '+s.method), 'Delivery: '+(lines.some(x=>x.status==='pending')?'Pending, coming soon':'Delivered ✅'), 'Date: '+fmtWhen(s.at), '', 'Thank you! 💎'].filter(x=>x!==null).join('\n'); }
+  return [shop+' receipt', '', (s.customer?'Customer: '+s.customer:null), (s.uid?'Free Fire UID: '+s.uid:null), 'Package: '+s.pkgName+(s.qty>1?' ×'+s.qty:''), 'Diamonds: '+nf(s.diamonds),
     'Amount paid: '+rs(s.received)+(s.method==='Credit'?' (on credit'+(dueOf(s)?', '+rs(dueOf(s))+' outstanding':'')+')':' via '+s.method), 'Delivery: '+(s.status==='pending'?'Pending, coming soon':'Delivered ✅'), 'Date: '+fmtWhen(s.at), '', 'Thank you! 💎'].filter(x=>x!==null).join('\n');
 }
 function sendReceipt(s){
@@ -2243,10 +2392,12 @@ const custKey = s => digits(s.phone) ? 'p:'+digits(s.phone).slice(-10) : (s.uid|
 function customers(){
   const m=new Map();
   S.sales.forEach(s=>{ const k=custKey(s); if(k==='walkin') return; let c=m.get(k);
-    if(!c){ c={key:k, name:s.customer||'', phone:s.phone||'', uid:s.uid||'', n:0, recv:0, rev:0, dia:0, profit:0, last:0, lastPkg:'', pend:0}; m.set(k,c); }
+    if(!c){ c={key:k, name:s.customer||'', phone:s.phone||'', uid:s.uid||'', n:0, recv:0, rev:0, dia:0, profit:0, last:0, lastPkg:'', pend:0, ords:new Set(), due:0}; m.set(k,c); }
+    c.ords.add(s.orderId||s.id); c.due+=dueOf(s);
     c.n++; c.disc=(c.disc||0)+discOf(s); c.recv+=Number(s.received)||0; c.rev+=revenueOf(s); c.dia+=Number(s.diamonds)||0; c.profit+=profitOf(s); if(s.status==='pending') c.pend++;
     if(s.at>c.last){ c.last=s.at; c.lastPkg=s.pkgName; c.name=s.customer||c.name; c.phone=s.phone||c.phone; c.uid=s.uid||c.uid; c.pkgId=s.pkgId; } });
-  return [...m.values()].sort((a,b)=>b.rev-a.rev);
+  const ly=S.settings.loyalty||{};
+  return [...m.values()].map(c=>{ c.buys=c.ords.size; c.vip=(+ly.vipAt>0) && c.rev>=+ly.vipAt; c.toReward=(+ly.every>0&&+ly.pct>0) ? (+ly.every - (c.buys % +ly.every)) : null; return c; }).sort((a,b)=>b.rev-a.rev);
 }
 const custName = k => { const c=customers().find(x=>x.key===k); return c ? (c.name||c.phone||c.uid) : 'Customer'; };
 function renderCustomers(){
@@ -2256,8 +2407,8 @@ function renderCustomers(){
   if (!S.loaded){ $('cList').innerHTML='<div class="skel"></div><div class="skel"></div>'; return; }
   $('cList').innerHTML = list.length ? list.map(c=>{ const ini=(c.name||c.phone||'?').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
     return `<div class="person" data-cust="${esc(c.key)}"><span class="pav"><span class="ph">${esc(ini)}</span></span>
-      <div class="pn"><b>${esc(c.name||'No name')}${c.pend?'<span class="badge wait">'+c.pend+' undelivered</span>':''}</b><small>Last bought ${esc(c.lastPkg)}, ${fmtWhen(c.last)}</small>
-      <div class="chips">${c.phone?`<a href="tel:${esc(digits(c.phone))}">${esc(c.phone)}</a>`:''}${c.uid?`<i class="c-l">UID ${esc(c.uid)}</i>`:''}<i>${c.n} txn</i><i>${nf(c.dia)} 💎</i>${c.disc?`<i class="c-h">Discount ${rs(c.disc)}</i>`:''}</div></div>
+      <div class="pn"><b>${c.vip?'<span class="vip-b">⭐ VIP</span>':''}${esc(c.name||'No name')}${c.pend?'<span class="badge wait">'+c.pend+' undelivered</span>':''}</b><small>Last bought ${esc(c.lastPkg)}, ${fmtWhen(c.last)}</small>
+      <div class="chips">${c.phone?`<a href="tel:${esc(digits(c.phone))}">${esc(c.phone)}</a>`:''}${c.uid?`<i class="c-l">UID ${esc(c.uid)}</i>`:''}<i>${c.n} txn</i><i>${nf(c.dia)} 💎</i>${c.disc?`<i class="c-h">Discount ${rs(c.disc)}</i>`:''}${c.toReward===1?'<i class="c-r">🎁 next buy gets reward</i>':''}${c.due?`<i class="c-w">Owes ${rs(c.due)}</i>`:''}</div></div>
       <div class="pa"><span class="pc" style="text-align:right"><b style="display:block;color:var(--ink);font-size:.95rem">${rs(c.rev)}</b><small>${rsSigned(c.profit)}</small></span>${KEBAB}</div></div>`; }).join('')
     : all.length ? blank('No customers match','Try a different name, phone or UID.') : blank('No customers yet','Customers appear here after you record sales with their name, phone or UID.');
 }
@@ -2278,26 +2429,31 @@ $('cList').addEventListener('click', e => {
   ]);
 });
 
-/* ---------- new / edit sale ---------- */
+/* ---------- new / edit sale (an order can hold several packages) ---------- */
+const METHODS=['Cash','eSewa','Khalti','Bank','Credit'];
 function resetForm(pre={}){
-  const firstPk=S.settings.packages[0];
-  S.form={ pkId: pre.pkId && pkgById(pre.pkId) ? pre.pkId : (firstPk&&firstPk.id), method:'Cash', status:'done', recvTouched:false };
-  $('fName').value=pre.customer||''; $('fPhone').value=pre.phone||''; $('fUid').value=pre.uid||''; $('fQty').value=1; $('fDisc').value=''; $('fNote').value=''; $('fRecv').value=''; $('fErr2').textContent='';
+  const lines = Array.isArray(pre.lines)&&pre.lines.length ? pre.lines.filter(l=>pkgById(l.pkId)).map(l=>({pkId:l.pkId, qty:Math.max(1,parseInt(l.qty,10)||1)}))
+    : (pre.pkId && pkgById(pre.pkId) ? [{pkId:pre.pkId, qty:1}] : []);
+  S.form={ lines, method:METHODS.includes(pre.method)?pre.method:'Cash', status:'done', recvTouched:false, fromOrder:pre.fromOrder||null };
+  $('fName').value=pre.customer||''; $('fPhone').value=pre.phone||''; $('fUid').value=pre.uid||''; $('fDisc').value=''; $('fNote').value=pre.note||''; $('fRecv').value=''; $('fErr2').textContent='';
+  $('custHit').hidden=true; $('rewardHit').hidden=true; $('calcBox').hidden=true; $('calcOut').innerHTML='';
 }
 async function newSale(pre){
   if (currentPage==='sell' && dirty.has('sell') && !await ask('Start a new sale?','The sale you were filling in will be cleared.','Start new')) return;
   dirty.delete('sell'); S.editId=null; resetForm(pre||{});
   if (pre) dirty.add('sell');
   await go('sell', {force:true});
-  setTimeout(()=>$(pre&&pre.customer?'fQty':'fName').focus({preventScroll:true}),80);
+  if (pre && (pre.customer||pre.phone||pre.uid)) matchCustomer();
+  setTimeout(()=>$(pre&&pre.customer?'fRecv':'fName').focus({preventScroll:true}),80);
 }
 async function editSale(s){
   if (!await go('sell')) return;
-  S.editId=s.id; S.form={pkId:s.pkgId, method:s.method||'Cash', status:s.status||'done', recvTouched:true, orig:s};
-  $('fName').value=s.customer||''; $('fPhone').value=s.phone||''; $('fUid').value=s.uid||''; $('fQty').value=s.qty||1; $('fDisc').value=s.discount||''; $('fNote').value=s.note||''; $('fRecv').value=s.received; $('fErr2').textContent='';
+  S.editId=s.id; S.form={lines:[{pkId:s.pkgId, qty:s.qty||1}], method:s.method||'Cash', status:s.status||'done', recvTouched:true, orig:s};
+  $('fName').value=s.customer||''; $('fPhone').value=s.phone||''; $('fUid').value=s.uid||''; $('fDisc').value=s.discount||''; $('fNote').value=s.note||''; $('fRecv').value=s.received; $('fErr2').textContent='';
+  $('custHit').hidden=true; $('rewardHit').hidden=true; $('calcBox').hidden=true;
   $('crumb').textContent='Edit sale'; dirty.delete('sell'); renderSell();
 }
-function formPkg(){ const f=S.form; if(!f) return null; return pkgById(f.pkId) || (f.orig && f.orig.pkgId===f.pkId ? {id:f.orig.pkgId, name:f.orig.pkgName, diamonds:f.orig.diamonds/(f.orig.qty||1), usd:f.orig.usd, kind:isMem(f.orig)?'member':'topup'} : null); }
+function linePkg(l){ const o=S.form&&S.form.orig; return pkgById(l.pkId) || (o && o.pkgId===l.pkId ? {id:o.pkgId, name:o.pkgName, diamonds:o.diamonds/(o.qty||1), usd:o.usd, kind:isMem(o)?'member':'topup'} : null); }
 function formCost(p, q){
   const o=S.form.orig;
   if (o && o.pkgId===p.id) return (Number(o.cost)||0)/(o.qty||1)*q;   // editing: keep the rate used at the time of sale
@@ -2305,92 +2461,144 @@ function formCost(p, q){
   if (BOOK.active && BOOK.avg>0) return p.usd*BOOK.avg*q;   // actual: card weighted average cost
   return costOf(p)*q;
 }
+function lineList(p, q){ const o=S.form.orig; return Math.round((o&&o.pkgId===p.id) ? (Number(o.listPrice ?? (priceOf(o)+(Number(o.discount)||0)))||0)/(o.qty||1)*q : (pkgById(p.id)?sellOf(p)*q:0)); }
+const pkLabel = p => p.kind==='member' ? p.name : nf(p.diamonds)+' 💎';
 function renderSell(){
   if (!S.form) resetForm();
   const f=S.form, editing=!!S.editId;
-  $('sellTitle').textContent=editing?'Edit sale':'New sale';
-  $('sellSave').querySelector('.bt').textContent=editing?'Update sale':'Save sale';
+  $('sellTitle').textContent=editing?'Edit sale':(f.fromOrder?'Accept order':'New sale');
+  $('sellSave').querySelector('.bt').textContent=editing?'Update sale':(f.lines.length>1?'Save order ('+f.lines.length+' items)':'Save sale');
   $('sellCancel').textContent=editing?'Cancel edit':'Clear';
+  $('pkTitle').textContent=editing?'Package':'Packages'; $('calcBtn').hidden=editing;
+  $('pkTip').textContent = editing ? 'Tap a package to change it.' : f.lines.length ? 'Tap more packages to add them to this order.' : 'Tap a package to add it. Tap again to add one more.';
+  const inCart=id=>{ const l=f.lines.find(x=>x.pkId===id); return l?l.qty:0; };
   const pk=S.settings.packages, top=pk.filter(p=>p.kind!=='member'), mem=pk.filter(p=>p.kind==='member');
-  const btn=p=>`<button type="button" role="radio" class="${p.kind==='member'?'mem':''}" data-pk="${esc(p.id)}" aria-checked="${p.id===f.pkId}"><b>${p.kind==='member'?STAR(16):GEM(16)}${esc(p.kind==='member'?p.name:nf(p.diamonds))}</b><span>${rs(sellOf(p))}${p.kind==='member'?' · '+nf(p.diamonds)+' 💎':''}</span></button>`;
+  const btn=p=>{ const n=inCart(p.id); return `<button type="button" class="${p.kind==='member'?'mem':''}" data-pk="${esc(p.id)}" aria-checked="${n>0}"><b>${p.kind==='member'?STAR(16):GEM(16)}${esc(p.kind==='member'?p.name:nf(p.diamonds))}</b><span>${rs(sellOf(p))}${p.kind==='member'?' · '+nf(p.diamonds)+' 💎':''}</span>${n&&!editing?`<i class="cnt">×${n}</i>`:''}</button>`; };
   let h=(top.length?'<span class="grp">Top-up</span>'+top.map(btn).join(''):'')+(mem.length?'<span class="grp">Membership</span>'+mem.map(btn).join(''):'');
-  if (f.orig && !pkgById(f.orig.pkgId)) h='<span class="grp">This sale’s package (no longer in your list)</span>'+`<button type="button" role="radio" data-pk="${esc(f.orig.pkgId)}" aria-checked="${f.pkId===f.orig.pkgId}"><b>${GEM(16)}${esc(f.orig.pkgName)}</b><span>${rs(f.orig.received/(f.orig.qty||1))}</span></button>`+h;
+  if (f.orig && !pkgById(f.orig.pkgId)) h='<span class="grp">This sale’s package (no longer in your list)</span>'+`<button type="button" data-pk="${esc(f.orig.pkgId)}" aria-checked="${inCart(f.orig.pkgId)>0}"><b>${GEM(16)}${esc(f.orig.pkgName)}</b><span>${rs(f.orig.received/(f.orig.qty||1))}</span></button>`+h;
   $('pkPick').innerHTML=h||blank('No packages','Add packages in Price list.');
+  $('cart').innerHTML = f.lines.length ? `<div class="cart-h">${editing?'Item':'This order'}</div>`+f.lines.map((l,i)=>{ const p=linePkg(l); if(!p) return ''; const lt=lineList(p,l.qty);
+    return `<div class="cart-row" data-i="${i}"><div class="cr-n"><b>${esc(pkLabel(p))}</b><small>${rs(lt/l.qty)} each</small></div><div class="qty sm"><button type="button" class="icon-btn" data-cq="-1" aria-label="One less">−</button><input type="number" min="1" value="${l.qty}" data-cqi aria-label="Quantity"/><button type="button" class="icon-btn" data-cq="1" aria-label="One more">+</button></div><b class="cr-t">${rs(lt)}</b>${editing?'':`<button type="button" class="icon-btn cr-x" data-crm aria-label="Remove">×</button>`}</div>`; }).join('') : '';
   document.querySelectorAll('#fMethod button').forEach(b=>b.setAttribute('aria-checked', String(b.dataset.v===f.method)));
   document.querySelectorAll('#fStatus button').forEach(b=>b.setAttribute('aria-checked', String(b.dataset.v===f.status)));
   $('custList').innerHTML=customers().filter(c=>c.name).slice(0,200).map(c=>`<option value="${esc(c.name)}">${esc([c.phone,c.uid&&'UID '+c.uid].filter(Boolean).join(', '))}</option>`).join('');
   updateCalc();
 }
-function updateCalc(){
-  const p=formPkg(); const q=Math.max(1,parseInt($('fQty').value,10)||1);
-  if (!p){ ['cDia','cCost','cProfit'].forEach(i=>$(i).textContent='–'); return; }
-  const o=S.form.orig, cost=formCost(p,q);
-  const listUnit=(o&&o.pkgId===p.id) ? (Number(o.listPrice ?? (priceOf(o)+(Number(o.discount)||0)))||0)/(o.qty||1) : (pkgById(p.id)?sellOf(p):0);
-  const list=Math.round(listUnit*q), disc=Math.min(list, Math.max(0, Math.round(Number($('fDisc').value)||0))), suggested=list-disc;
-  S.form.listPrice=list; S.form.discount=disc;
-  if (!S.form.recvTouched) $('fRecv').value = S.form.method==='Credit' ? 0 : suggested;
-  $('recvHint').textContent = 'net price '+rs(suggested);
-  $('discHint').textContent = disc ? Math.round(disc/list*100)+'% off' : 'optional';
-  $('priceLine').innerHTML = `<span>List price <b>${rs(list)}</b></span>${disc?`<span>− Discount <b>${rs(disc)}</b></span>`:''}<span class="net">Net price <b>${rs(suggested)}</b></span>`;
-  const useUsd=p.usd*q, origUse=(o&&o.pkgId===p.id)?(Number(o.usd)||0)*(o.qty||1):0;
-  if (BOOK.active){ const after=BOOK.usd+origUse-useUsd; $('cardUse').innerHTML=`<b>$${useUsd.toFixed(2)}</b><small class="${after<0?'neg':''}">${after<0?'Card short by $'+(-after).toFixed(2):'Balance after $'+after.toFixed(2)}</small>`; $('cardUse').className='card-use'+(after<0?' warn':''); }
-  else { $('cardUse').innerHTML=`<b>$${useUsd.toFixed(2)}</b><small><a class="link" data-go="card">Track card balance</a></small>`; $('cardUse').className='card-use'; }
-  const recv=Number($('fRecv').value)||0, pr=(S.form.method==='Credit'?Math.max(recv,Math.round(suggested)):recv)-cost;
-  $('cDia').textContent=nf(p.diamonds*q); $('cCost').textContent=rs(cost);
-  $('cProfit').textContent=rsSigned(pr); $('cProfit').className=pr<0?'bad':'good';
-  const credit=S.form.method==='Credit', due=Math.max(0,Math.round(suggested)-recv);
-  $('cDueBox').hidden=!credit; $('calc').classList.toggle('four',credit); $('cDue').textContent=rs(due);
-  S.form.price=Math.round(suggested);
-  $('sellHelp').textContent = S.editId ? 'COGS estimate keeps the sale-date rate' : 'Cost at Rs '+rs2(BOOK.active&&BOOK.avg>0?BOOK.avg:rateNow())+' per dollar';
+function formTotals(){
+  const ls=S.form.lines.map(l=>{ const p=linePkg(l); if(!p) return null; return {l, p, q:l.qty, cost:formCost(p,l.qty), list:lineList(p,l.qty)}; }).filter(Boolean);
+  const T={ls, list:0, cost:0, usd:0, dia:0}; ls.forEach(x=>{ T.list+=x.list; T.cost+=x.cost; T.usd+=x.p.usd*x.q; T.dia+=x.p.diamonds*x.q; }); return T;
 }
-$('pkPick').addEventListener('click', e => { const b=e.target.closest('[data-pk]'); if(!b) return; S.form.pkId=b.dataset.pk; if(!S.editId||!S.form.orig||S.form.orig.pkgId!==b.dataset.pk) S.form.recvTouched=false; dirty.add('sell'); renderSell(); });
+function updateCalc(){
+  const T=formTotals();
+  if (!T.ls.length){ ['cDia','cCost','cProfit'].forEach(i=>$(i).textContent='–'); $('priceLine').innerHTML='<span>Pick a package above</span>'; $('cardUse').innerHTML='–'; $('cardUse').className='card-use'; $('recvHint').textContent=''; if(!S.form.recvTouched) $('fRecv').value=''; $('cDueBox').hidden=true; $('calc').classList.remove('four'); return; }
+  const o=S.form.orig, list=T.list, cost=T.cost, disc=Math.min(list, Math.max(0, Math.round(Number($('fDisc').value)||0))), net=list-disc;
+  S.form.listPrice=list; S.form.discount=disc; S.form.price=net;
+  if (!S.form.recvTouched) $('fRecv').value = S.form.method==='Credit' ? 0 : net;
+  $('recvHint').textContent = 'net price '+rs(net);
+  $('discHint').textContent = disc ? Math.round(disc/list*100)+'% off' : 'optional';
+  $('priceLine').innerHTML = `<span>List price <b>${rs(list)}</b></span>${disc?`<span>− Discount <b>${rs(disc)}</b></span>`:''}<span class="net">Net price <b>${rs(net)}</b></span>`;
+  const origUse=o?(Number(o.usd)||0)*(o.qty||1):0;
+  if (BOOK.active){ const after=BOOK.usd+origUse-T.usd; $('cardUse').innerHTML=`<b>$${T.usd.toFixed(2)}</b><small class="${after<0?'neg':''}">${after<0?'Card short by $'+(-after).toFixed(2)+'. Load first.':'Card balance after $'+after.toFixed(2)}</small>`; $('cardUse').className='card-use'+(after<0?' warn':''); }
+  else { $('cardUse').innerHTML=`<b>$${T.usd.toFixed(2)}</b><small><a class="link" data-go="card">Track card balance</a></small>`; $('cardUse').className='card-use'; }
+  const recv=Number($('fRecv').value)||0, pr=(S.form.method==='Credit'?Math.max(recv,net):recv)-cost;
+  $('cDia').textContent=nf(T.dia); $('cCost').textContent=rs(cost);
+  $('cProfit').textContent=rsSigned(pr); $('cProfit').className=pr<0?'bad':'good';
+  const credit=S.form.method==='Credit', due=Math.max(0,net-recv);
+  $('cDueBox').hidden=!credit; $('calc').classList.toggle('four',credit); $('cDue').textContent=rs(due);
+  $('sellHelp').textContent = S.editId ? 'Cost keeps the rate from the sale date' : 'Cost at Rs '+rs2(BOOK.active&&BOOK.avg>0?BOOK.avg:rateNow())+' per dollar';
+  showReward();
+}
+$('pkPick').addEventListener('click', e => { const b=e.target.closest('[data-pk]'); if(!b) return; const id=b.dataset.pk, f=S.form;
+  if (S.editId){ const q=f.lines[0]?f.lines[0].qty:1; f.lines=[{pkId:id, qty:q}]; if(!f.orig||f.orig.pkgId!==id) f.recvTouched=false; }
+  else { const l=f.lines.find(x=>x.pkId===id); if (l) l.qty++; else f.lines.push({pkId:id, qty:1}); if (f.method!=='Credit') f.recvTouched=false; }
+  dirty.add('sell'); renderSell(); });
+$('cart').addEventListener('click', e => { const row=e.target.closest('[data-i]'); if(!row) return; const f=S.form, l=f.lines[+row.dataset.i]; if(!l) return;
+  const st=e.target.closest('[data-cq]'); if (st){ l.qty=Math.max(1,l.qty+Number(st.dataset.cq)); }
+  else if (e.target.closest('[data-crm]')){ f.lines.splice(+row.dataset.i,1); } else return;
+  if (f.method!=='Credit') f.recvTouched=false; dirty.add('sell'); renderSell(); });
+$('cart').addEventListener('change', e => { if(!e.target.matches('[data-cqi]')) return; const l=S.form.lines[+e.target.closest('[data-i]').dataset.i]; l.qty=Math.max(1,parseInt(e.target.value,10)||1); if (S.form.method!=='Credit') S.form.recvTouched=false; dirty.add('sell'); renderSell(); });
 $('fMethod').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; const was=S.form.method; S.form.method=b.dataset.v;
   if (b.dataset.v==='Credit' && was!=='Credit' && !S.form.recvTouched){ S.form.recvTouched=true; $('fRecv').value=0; }
-  else if (was==='Credit' && b.dataset.v!=='Credit' && S.form.price!=null && !S.editId){ S.form.recvTouched=false; }
+  else if (was==='Credit' && b.dataset.v!=='Credit' && !S.editId){ S.form.recvTouched=false; }
   dirty.add('sell'); renderSell(); });
 $('fStatus').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; S.form.status=b.dataset.v; dirty.add('sell'); renderSell(); });
-$('fQty').addEventListener('input', () => { S.form.recvTouched=false; dirty.add('sell'); updateCalc(); });
-document.querySelectorAll('[data-step]').forEach(b=>b.addEventListener('click',()=>{ const q=Math.max(1,(parseInt($('fQty').value,10)||1)+Number(b.dataset.step)); $('fQty').value=q; $('fQty').dispatchEvent(new Event('input')); }));
 $('fRecv').addEventListener('input', () => { S.form.recvTouched=true; dirty.add('sell'); updateCalc(); });
 $('fDisc').addEventListener('input', () => { if (S.form.method!=='Credit') S.form.recvTouched=false; dirty.add('sell'); updateCalc(); });
 ['fName','fPhone','fUid','fNote'].forEach(i=>$(i).addEventListener('input',()=>dirty.add('sell')));
+
+/* diamond calculator: cheapest mix of top-up packages that gives at least N diamonds */
+function bestMix(N){
+  const pk=S.settings.packages.filter(p=>p.kind!=='member' && p.diamonds>0).map(p=>({p, d:p.diamonds, c:sellOf(p)}));
+  if (!pk.length || !(N>0) || N>200000) return null;
+  const INF=1e15, dp=new Float64Array(N+1).fill(INF), pick=new Int32Array(N+1).fill(-1); dp[0]=0;
+  for (let a=1;a<=N;a++) for (let i=0;i<pk.length;i++){ const prev=Math.max(0,a-pk[i].d), v=dp[prev]+pk[i].c; if (v<dp[a]-1e-9 || (Math.abs(v-dp[a])<1e-9 && pick[a]>=0 && pk[i].d>pk[pick[a]].d)){ dp[a]=v; pick[a]=i; } }
+  const cnt=new Map(); let a=N; while (a>0){ const i=pick[a]; cnt.set(i,(cnt.get(i)||0)+1); a=Math.max(0,a-pk[i].d); }
+  const lines=[...cnt.entries()].map(([i,q])=>({p:pk[i].p, q})).sort((x,y)=>y.p.diamonds-x.p.diamonds);
+  const dia=lines.reduce((t,l)=>t+l.p.diamonds*l.q,0), price=lines.reduce((t,l)=>t+sellOf(l.p)*l.q,0);
+  return {lines, dia, price};
+}
+$('calcBtn').addEventListener('click', ()=>{ $('calcBox').hidden=!$('calcBox').hidden; if(!$('calcBox').hidden) setTimeout(()=>$('calcN').focus(),50); });
+function runCalc(){
+  const N=Math.round(+$('calcN').value||0), r=bestMix(N);
+  if (!r){ $('calcOut').innerHTML='<p class="help">Enter how many diamonds the customer wants.</p>'; return; }
+  const big=S.settings.packages.filter(p=>p.kind!=='member').sort((x,y)=>y.diamonds-x.diamonds)[0];
+  $('calcOut').innerHTML=`<div class="calc-res"><div class="cr-top"><span>Best for ${nf(N)} 💎</span><b>${rs(r.price)}</b></div>
+    <div class="cr-lines">${r.lines.map(l=>`<span>${l.q} × ${nf(l.p.diamonds)} 💎</span>`).join('<i>+</i>')}</div>
+    <small>Customer gets ${nf(r.dia)} diamonds${r.dia>N?' ('+nf(r.dia-N)+' extra)':''} · Rs ${(r.price/r.dia*100).toFixed(1)} per 100 💎</small>
+    <button class="btn accent" type="button" id="calcUse">Add to order</button></div>`;
+  $('calcUse').onclick=()=>{ S.form.lines=r.lines.map(l=>({pkId:l.p.id, qty:l.q})); if(S.form.method!=='Credit') S.form.recvTouched=false; $('calcBox').hidden=true; dirty.add('sell'); renderSell(); toast('Added '+r.lines.reduce((t,l)=>t+l.q,0)+' packages to the order'); };
+}
+$('calcGo').addEventListener('click', runCalc);
+$('calcN').addEventListener('keydown', e=>{ if(e.key==='Enter'){ e.preventDefault(); runCalc(); } });
+
+/* returning customer + loyalty reward */
+let hitCust=null;
 function matchCustomer(){
   const n=$('fName').value.trim().toLowerCase(), ph=digits($('fPhone').value), uid=$('fUid').value.trim();
   const all=customers();
   const c=(ph.length>=7 && all.find(c=>digits(c.phone).endsWith(ph.slice(-10)))) || (uid && all.find(c=>c.uid===uid)) || (n && all.find(c=>c.name.trim().toLowerCase()===n));
-  const hit=$('custHit');
-  if (!c || S.editId){ hit.hidden=true; return; }
+  const hit=$('custHit'); hitCust = (c && !S.editId) ? c : null;
+  if (!hitCust){ hit.hidden=true; showReward(); return; }
   const fill=(id,v)=>{ const el=$(id); if (v && !el.value.trim() && document.activeElement!==el) el.value=v; };
   fill('fName',c.name); fill('fPhone',c.phone); fill('fUid',c.uid);
-  hit.innerHTML=`${svgI(IC.sent)}<span><b>Returning customer.</b> ${c.n} previous transaction${c.n===1?'':'s'}, lifetime revenue ${rs(c.rev)}.</span>`; hit.hidden=false;
+  hit.innerHTML=`${svgI(IC.sent)}<span>${c.vip?'<b class="vip">⭐ VIP</b> ':''}<b>Returning customer.</b> ${c.buys} earlier purchase${c.buys===1?'':'s'}, spent ${rs(c.rev)}.${c.due?` <b class="wtx">Owes ${rs(c.due)}.</b>`:''}</span>`; hit.hidden=false;
+  showReward();
 }
+function showReward(){
+  const box=$('rewardHit'), c=hitCust, ly=S.settings.loyalty||{}, every=+ly.every||0, pct=+ly.pct||0;
+  if (!c || !every || !pct || S.editId || ((c.buys+1) % every)!==0 || !S.form || !S.form.listPrice){ box.hidden=true; return; }
+  const amt=Math.round(S.form.listPrice*pct/100), applied=Math.round(+$('fDisc').value||0)===amt;
+  box.innerHTML=`<span>🎁 <b>${ordinal(c.buys+1)} purchase!</b> Reward: ${pct}% off = ${rs(amt)}</span>${applied?'<b class="ok">Applied ✓</b>':'<button class="btn primary sm" type="button" id="rwApply">Apply</button>'}`;
+  box.hidden=false; const b=$('rwApply'); if (b) b.onclick=()=>{ $('fDisc').value=amt; $('fDisc').dispatchEvent(new Event('input')); };
+}
+const ordinal = n => n+(['th','st','nd','rd'][(n%100>10&&n%100<14)?0:(n%10<4?n%10:0)]||'th');
 ['fName','fPhone','fUid'].forEach(i=>$(i).addEventListener('change', matchCustomer));
 $('sellCancel').addEventListener('click', async () => {
   if (S.editId){ dirty.delete('sell'); S.editId=null; S.form=null; $('custHit').hidden=true; go('sales'); return; }
   if (dirty.has('sell') && !await ask('Clear this sale?','Everything you typed will be removed.','Clear')) return;
-  dirty.delete('sell'); resetForm(); $('custHit').hidden=true; renderSell();
+  dirty.delete('sell'); resetForm(); hitCust=null; renderSell();
 });
 $('sellSave').addEventListener('click', () => {
   $('fErr2').textContent='';
-  const p=formPkg(); if(!p){ $('fErr2').textContent='Pick a package first.'; return; }
-  const q=parseInt($('fQty').value,10); if(!(q>=1)){ $('fErr2').textContent='Quantity must be 1 or more.'; $('fQty').focus(); return; }
+  const T=formTotals(); if(!T.ls.length){ $('fErr2').textContent='Pick a package first.'; $('pkPick').scrollIntoView({block:'center'}); return; }
   const raw=$('fRecv').value.trim(), recv=Number(raw);
   if (raw==='' || !(recv>=0)){ $('fErr2').textContent='Enter the amount received (0 if the full amount is on credit).'; $('fRecv').focus(); return; }
-  const o=S.form.orig, cost=Math.round(formCost(p,q)*100)/100;
-  const r={
-    id: S.editId || newId(), at: o ? o.at : Date.now(),
-    customer:$('fName').value.trim(), phone:$('fPhone').value.trim(), uid:$('fUid').value.trim(),
-    pkgId:p.id, pkgName:p.kind==='member'?p.name+' membership':nf(p.diamonds)+' diamonds', kind:p.kind||'topup',
-    diamonds:p.diamonds*q, qty:q, usd:p.usd,
-    rate: o ? (o.rate||Math.round(rateNow()*100)/100) : Math.round(rateNow()*100)/100,
-    feePct: o ? (o.feePct ?? 0) : 0,
-    cost, listPrice:S.form.listPrice ?? (S.form.price ?? recv), discount:S.form.discount||0, price:S.form.price ?? recv, received:recv, method:S.form.method, status:S.form.status, note:$('fNote').value.trim()
-  };
-  if (o) r.updatedAt=Date.now();
-  saveSale(r);
-  dirty.delete('sell'); const wasEdit=!!S.editId; S.editId=null; S.form=null; $('custHit').hidden=true;
-  toast(wasEdit?'Sale updated':'Sale recorded: revenue '+rs(revenueOf(r))+', GP '+rsSigned(profitOf(r)), false, (!wasEdit && (r.phone||navigator.share)) ? {label:'Send receipt', fn:()=>sendReceipt(r)} : null);
-  if (wasEdit) go('sales'); else { resetForm(); renderSell(); scrollTo({top:0,behavior:'smooth'}); }
+  const o=S.form.orig, f=S.form, disc=f.discount||0, base={ customer:$('fName').value.trim(), phone:$('fPhone').value.trim(), uid:$('fUid').value.trim(), method:f.method, status:f.status, note:$('fNote').value.trim() };
+  const rateNowR=Math.round(rateNow()*100)/100, at=o?o.at:Date.now(), orderId=(!o && T.ls.length>1) ? 'o'+Date.now().toString(36) : (o&&o.orderId)||null;
+  const recs=[]; let dLeft=disc, rLeft=recv;
+  T.ls.forEach((x,i)=>{ const last=i===T.ls.length-1, share=T.list?x.list/T.list:1/T.ls.length;
+    const ld=last?dLeft:Math.round(disc*share), lr=last?rLeft:Math.round(recv*share); dLeft-=ld; rLeft-=lr;
+    const r={ ...base, id: o ? o.id : newId()+i, at, pkgId:x.p.id, pkgName:x.p.kind==='member'?x.p.name+' membership':nf(x.p.diamonds)+' diamonds', kind:x.p.kind||'topup',
+      diamonds:x.p.diamonds*x.q, qty:x.q, usd:x.p.usd, rate:o?(o.rate||rateNowR):rateNowR, feePct:o?(o.feePct??0):0,
+      cost:Math.round(x.cost*100)/100, listPrice:x.list, discount:ld, price:x.list-ld, received:lr };
+    if (orderId) r.orderId=orderId; if (o) r.updatedAt=Date.now(); if (o&&o.remindedAt) r.remindedAt=o.remindedAt; if (o&&o.paidAt) r.paidAt=o.paidAt;
+    recs.push(r); });
+  recs.forEach(saveSale);
+  if (f.fromOrder) setDoc(doc(db,'orders',f.fromOrder), {status:'done', doneAt:Date.now(), saleIds:recs.map(r=>r.id)}, {merge:true}).catch(e=>console.warn(e));
+  const wasEdit=!!S.editId, r0=recs[0], tRev=recs.reduce((t,r)=>t+revenueOf(r),0), tGp=recs.reduce((t,r)=>t+(revenueOf(r)-r.cost),0);
+  dirty.delete('sell'); S.editId=null; S.form=null; hitCust=null; $('custHit').hidden=true;
+  toast(wasEdit?'Sale updated':(recs.length>1?'Order recorded ('+recs.length+' items): ':'Sale recorded: ')+rs(tRev)+', profit '+rsSigned(tGp), false, (!wasEdit && (r0.phone||navigator.share)) ? {label:'Send receipt', fn:()=>sendReceipt(S.sales.find(x=>x.id===r0.id)||r0)} : null);
+  if (wasEdit) go('sales'); else if (f.fromOrder) go('orders'); else { resetForm(); renderSell(); scrollTo({top:0,behavior:'smooth'}); }
 });
 
 /* ---------- dollar card page ---------- */
@@ -2616,6 +2824,8 @@ function renderRatePage(){
   document.querySelectorAll('#mkChips button').forEach(b=>b.setAttribute('aria-pressed',String(Number(b.dataset.v)===Number(d.marginPct))));
   if (document.activeElement!==$('rMargin')) $('rMargin').value=d.marginPct;
   if (document.activeElement!==$('rGoal')) $('rGoal').value = Number(S.settings.goal)||0;
+  const sh=S.settings.shop||{}, ly=S.settings.loyalty||{};
+  [['shName',sh.name],['shWa',sh.wa],['shPay',sh.pay],['lyVip',ly.vipAt],['lyEvery',ly.every],['lyPct',ly.pct]].forEach(([id,v])=>{ if(document.activeElement!==$(id)) $(id).value=v??''; });
   $('rMsg').textContent = dirty.has('rate') ? 'Not saved yet' : 'Saved';
   // package picker + step-by-step formula
   const pk=S.settings.packages; if (!pk.find(p=>p.id===S.fxPk)) S.fxPk=(pk.find(p=>p.id==='d520')||pk[0]||{}).id;
@@ -2719,7 +2929,8 @@ function openCust(key){
   $('cuSub').textContent=[c.phone, c.uid&&'UID '+c.uid, 'Customer since '+new Date(Math.min(...list.map(s=>s.at))).toLocaleDateString('en-GB',{month:'short',year:'numeric'})].filter(Boolean).join(' · ');
   $('cuStats').innerHTML=`<div><span>Total spent</span><b>${rs(c.rev)}</b></div><div><span>Your profit</span><b class="g">${rsSigned(c.profit)}</b></div><div><span>Diamonds</span><b>${nf(c.dia)}</b></div><div class="${due?'w':''}"><span>To collect</span><b>${due?rs(due):'–'}</b></div>`;
   const w=waNumber(c.phone);
-  $('cuActs').innerHTML=`<button class="btn accent" type="button" data-cu="again">Sell again</button>${w?'<button class="btn" type="button" data-cu="wa">WhatsApp</button>':''}${c.phone?`<a class="btn" href="tel:${esc(digits(c.phone))}">Call</a>`:''}${c.uid?'<button class="btn" type="button" data-cu="uid">Copy UID</button>':''}<button class="btn" type="button" data-cu="all">All sales</button>`;
+  $('cuSub').textContent=(c.vip?'⭐ VIP · ':'')+$('cuSub').textContent+(c.toReward?` · 🎁 reward in ${c.toReward} buy${c.toReward===1?'':'s'}`:'');
+  $('cuActs').innerHTML=(due?'<button class="btn primary" type="button" data-cu="remind">🔔 Remind to pay</button>':'')+`<button class="btn accent" type="button" data-cu="again">Sell again</button>${w?'<button class="btn" type="button" data-cu="wa">WhatsApp</button>':''}${c.phone?`<a class="btn" href="tel:${esc(digits(c.phone))}">Call</a>`:''}${c.uid?'<button class="btn" type="button" data-cu="uid">Copy UID</button>':''}<button class="btn" type="button" data-cu="all">All sales</button>`;
   $('cuList').innerHTML=list.slice(0,12).map(s=>saleRow(s,false,true)).join('')+(list.length>12?`<div class="more-row"><button class="btn sm" type="button" data-cu="all">See all ${list.length}</button></div>`:'');
   $('sheetCust').dataset.key=key; $('sheetBg').hidden=false; $('sheetCust').hidden=false;
 }
@@ -2732,9 +2943,140 @@ $('sheetCust').addEventListener('click', e=>{
   if (k==='again'){ closeCust(); newSale({customer:c.name, phone:c.phone, uid:c.uid, pkgId:c.pkgId}); }
   else if (k==='wa'){ open('https://wa.me/'+waNumber(c.phone),'_blank','noopener'); }
   else if (k==='uid'){ copy(c.uid); }
+  else if (k==='remind'){ remind(key); }
   else if (k==='all'){ closeCust(); S.custFilter=key; S.filter='all'; S.search=''; go('sales'); }
 });
 addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('sheetCust').hidden) closeCust(); });
+
+/* ---------- shop details & loyalty ---------- */
+$('shSave').addEventListener('click', ()=>{ const shop={name:$('shName').value.trim(), wa:$('shWa').value.trim(), pay:$('shPay').value.trim()}; const st={...S.settings, shop}; S.settings=st; saveSettings(st); renderAll(); toast('Shop details saved'); });
+$('lySave').addEventListener('click', ()=>{ const loyalty={vipAt:Math.max(0,Math.round(+$('lyVip').value||0)), every:Math.max(0,Math.round(+$('lyEvery').value||0)), pct:Math.min(50,Math.max(0,+$('lyPct').value||0))}; const st={...S.settings, loyalty}; S.settings=st; saveSettings(st); renderAll(); toast(loyalty.every&&loyalty.pct?'Rewards on: every '+loyalty.every+' buys gets '+loyalty.pct+'% off':'Rewards saved'); });
+
+/* ---------- share price list ---------- */
+const orderUrl = () => new URL('order.html', location.href.split('#')[0]).href;
+function shareText(t){ if (navigator.share) navigator.share({text:t}).catch(()=>{}); else open('https://wa.me/?text='+encodeURIComponent(t),'_blank','noopener'); }
+function priceListText(){
+  const sh=S.settings.shop||{}, pk=S.settings.packages, top=pk.filter(p=>p.kind!=='member'), mem=pk.filter(p=>p.kind==='member');
+  return ['💎 '+(sh.name||'Free Fire Diamonds')+' — Price list', new Date().toLocaleDateString('en-GB',{day:'numeric',month:'long',year:'numeric'}), '',
+    ...(top.length?['🔷 TOP-UP', ...top.map(p=>'💎 '+nf(p.diamonds)+' — '+rs(sellOf(p))), '']:[]),
+    ...(mem.length?['⭐ MEMBERSHIP', ...mem.map(p=>'⭐ '+p.name+' ('+nf(p.diamonds)+' 💎) — '+rs(sellOf(p))), '']:[]),
+    ...(sh.pay?['💳 Pay: '+sh.pay]:[]), '🛒 Order online: '+orderUrl(), ...(sh.wa?['📞 WhatsApp: '+sh.wa]:[]), '', 'Fast delivery to your Free Fire UID ✅'].join('\n');
+}
+$('shareList').addEventListener('click', ()=>shareText(priceListText()));
+
+/* ---------- payment reminders ---------- */
+const ago = t => { const m=Math.round((Date.now()-t)/60000); if (m<60) return m<=1?'just now':m+' min ago'; const h=Math.round(m/60); if (h<24) return h+'h ago'; const dd=Math.round(h/24); return dd+' day'+(dd===1?'':'s')+' ago'; };
+function remind(key){
+  const list = key.startsWith('sale:') ? S.sales.filter(s=>s.id===key.slice(5) && dueOf(s)>0) : S.sales.filter(s=>custKey(s)===key && dueOf(s)>0);
+  if (!list.length){ toast('Nothing due for this customer'); return; }
+  const s0=list[0], sh=S.settings.shop||{}, total=list.reduce((t,s)=>t+dueOf(s),0);
+  const t=['Namaste '+(s0.customer||'')+' ji 🙏', '', (sh.name?sh.name+' bata ':'')+'Free Fire diamond ko payment baki cha:', ...list.map(s=>'• '+s.pkgName+(s.qty>1?' ×'+s.qty:'')+' ('+new Date(s.at).toLocaleDateString('en-GB',{day:'numeric',month:'short'})+'): '+rs(dueOf(s))), '', 'Jamma baki: '+rs(total), ...(sh.pay?['Payment: '+sh.pay]:[]), '', 'Dhanyabad! 💎'].join('\n');
+  const w=waNumber(s0.phone);
+  if (w) open('https://wa.me/'+w+'?text='+encodeURIComponent(t),'_blank','noopener'); else shareText(t);
+  const now=Date.now(); list.forEach(s=>saveSale({...s, remindedAt:now}));
+  toast('Reminder for '+rs(total)+' ready to send');
+}
+document.addEventListener('click', e=>{ const b=e.target.closest('[data-remind]'); if(b){ e.stopPropagation(); remind(b.dataset.remind); } });
+
+/* ---------- card refill alert ---------- */
+function cardUsage(){
+  if (!BOOK.active) return null;
+  const now=Date.now(), from=Math.max(isFinite(BOOK.start)?BOOK.start:0, now-7*864e5);
+  const used=BOOK.moves.filter(m=>m.kind==='sale'&&m.at>=from).reduce((t,m)=>t-m.dUsd,0), days=Math.max(1,(now-from)/864e5), perDay=used/days;
+  return {perDay, left: perDay>0 ? Math.max(0,BOOK.usd)/perDay : Infinity, suggest: Math.max(5, Math.ceil((perDay*7-Math.max(0,BOOK.usd))/5)*5)};
+}
+function renderAlerts(){
+  const out=[], nNew=S.orders.filter(o=>o.status==='new');
+  if (nNew.length) out.push(`<div class="alert info" data-go="orders"><span class="ai">📥</span><div><b>${nNew.length} new order${nNew.length===1?'':'s'}</b><small>${esc(nNew.slice(0,2).map(o=>o.name).join(', '))}${nNew.length>2?' and more':''}</small></div><button class="btn primary sm" type="button">Open</button></div>`);
+  const U=cardUsage(), tp0=topPackages()[0];
+  if (BOOK.active && (BOOK.usd<0.01 || (U&&U.left<2) || (tp0&&BOOK.usd<tp0.p.usd))) out.push(`<div class="alert bad"><span class="ai">💳</span><div><b>Dollar card is low: $${Math.max(0,BOOK.usd).toFixed(2)} left</b><small>${U&&U.perDay>0?'You use about $'+U.perDay.toFixed(2)+' a day. Load about $'+U.suggest+' for a week.':'Load your card before the next sale.'}</small></div><button class="btn primary sm" type="button" data-cardact="load">Load</button></div>`);
+  const old=S.sales.filter(s=>dueOf(s)>0 && Date.now()-s.at>7*864e5 && !(s.remindedAt && Date.now()-s.remindedAt<3*864e5));
+  if (old.length){ const t=old.reduce((x,s)=>x+dueOf(s),0); out.push(`<div class="alert warn" data-go="reports"><span class="ai">⏰</span><div><b>${rs(t)} unpaid for over a week</b><small>${old.length} credit sale${old.length===1?'':'s'}. Send reminders from Accounts receivable.</small></div></div>`); }
+  $('alerts').innerHTML=out.join('');
+}
+
+/* ---------- monthly statement: PDF & Excel ---------- */
+function stmtData(){
+  const now=new Date(), d=new Date(now.getFullYear(), now.getMonth()-S.stOff, 1), from=d.getTime(), to=new Date(d.getFullYear(), d.getMonth()+1, 1).getTime();
+  const x=monthStats(d.getFullYear(), d.getMonth()), sales=S.sales.filter(s=>s.at>=from&&s.at<to).sort((p,q)=>p.at-q.at);
+  const ex=BOOK.expense.filter(e=>e.at>=from&&e.at<to), P=BOOK.active&&!(BOOK.start>to)?cardPeriod(from,to):null;
+  const cm=new Map(); sales.forEach(s=>{ const k=custKey(s); const o=cm.get(k)||{name:s.customer||'Walk-in',n:0,rev:0,gp:0,due:0}; o.n++; o.rev+=revenueOf(s); o.gp+=profitOf(s); o.due+=dueOf(s); cm.set(k,o); });
+  return {label:d.toLocaleDateString('en-US',{month:'long',year:'numeric'}), file:d.toISOString().slice(0,7), x, sales, ex, P, custs:[...cm.values()].sort((p,q)=>q.rev-p.rev)};
+}
+$('stPdf').addEventListener('click', ()=>{
+  const D=stmtData(), x=D.x, sh=S.settings.shop||{}, w=open('','_blank');
+  if (!w){ toast('Allow pop-ups to save the PDF',true); return; }
+  const r=v=>(v<0?'−':'')+'Rs '+nf(Math.abs(v)), tr=(l,v,c='')=>`<tr class="${c}"><td>${l}</td><td class="r">${v}</td></tr>`;
+  const P=D.P, pr=P?`<h2>Dollar card</h2><table>${tr('Opening balance','$'+P.open.usd.toFixed(2)+' · '+r(P.open.npr))}${tr('Add: Loads ('+P.load.n+')','+$'+P.load.usd.toFixed(2)+' · '+r(P.load.npr))}${tr('Less: Used in sales','−$'+(-P.sale.usd).toFixed(2)+' · '+r(-P.sale.npr))}${tr('Less: Expenses from card','−$'+(-P.charge.usd).toFixed(2))}${tr('Adjustments',(P.adjust.usd<0?'−':'+')+'$'+Math.abs(P.adjust.usd).toFixed(2))}${tr('Closing balance','$'+P.close.usd.toFixed(2)+' · '+r(P.close.npr),'tot')}</table>`:'';
+  w.document.write(`<!doctype html><html><head><meta charset="utf-8"><title>Statement ${D.file}</title><style>
+    body{font-family:-apple-system,Segoe UI,Roboto,sans-serif;color:#16222B;margin:28px;font-size:12px}h1{font-size:20px;margin:0}h2{font-size:14px;margin:22px 0 6px;border-bottom:2px solid #16222B;padding-bottom:4px}
+    .sub{color:#5C6B72;margin:2px 0 14px}table{width:100%;border-collapse:collapse}td,th{padding:5px 6px;border-bottom:1px solid #E1E6E7;text-align:left;vertical-align:top}th{font-size:10px;text-transform:uppercase;color:#5C6B72}
+    .r{text-align:right;white-space:nowrap}.tot td{font-weight:800;border-top:2px solid #16222B;border-bottom:3px double #16222B}.sb td{font-weight:700}.ind td:first-child{padding-left:18px}
+    .kp{display:flex;gap:10px;margin:10px 0}.kp div{flex:1;border:1px solid #E1E6E7;border-radius:8px;padding:8px}.kp span{display:block;color:#5C6B72;font-size:10px}.kp b{font-size:15px}
+    @media print{body{margin:12mm}h2{break-after:avoid}tr{break-inside:avoid}}</style></head><body>
+    <h1>${esc(sh.name||'Diamond Counter')}</h1><p class="sub">Monthly statement · ${esc(D.label)} · printed ${new Date().toLocaleString('en-GB')}</p>
+    <div class="kp"><div><span>Net revenue</span><b>${r(x.rev)}</b></div><div><span>Gross profit</span><b>${r(x.profit)}</b></div><div><span>Net profit</span><b>${r(x.net)}</b></div><div><span>Transactions</span><b>${x.n}</b></div></div>
+    <h2>Profit &amp; loss</h2><table>${tr('Gross sales (list price)',r(x.gross))}${tr('Less: Discounts','('+r(x.disc)+')','ind')}${tr('Net revenue',r(x.rev),'sb')}${tr('Less: Cost of goods sold','('+r(x.cost)+')','ind')}${tr('Gross profit',r(x.profit),'sb')}${tr('Less: Expenses','('+r(x.fees)+')','ind')}${tr('Net profit',r(x.net),'tot')}${tr('Cash received',r(x.recv))}${tr('Accounts receivable',r(Math.max(0,x.rev-x.recv)))}</table>
+    ${pr}
+    ${D.ex.length?`<h2>Expenses</h2><table><tr><th>Date</th><th>Type</th><th>Note</th><th class="r">Amount</th></tr>${D.ex.map(e=>`<tr><td>${fmtWhen(e.at)}</td><td>${esc(e.c.type==='adjust'?'Reconcile':(CATS[e.c.cat]||'Other').replace(/^\S+\s/,''))}</td><td>${esc(e.c.note||'')}</td><td class="r">${r(e.amt)}</td></tr>`).join('')}</table>`:''}
+    <h2>Customers</h2><table><tr><th>Customer</th><th class="r">Txn</th><th class="r">Revenue</th><th class="r">Profit</th><th class="r">Due</th></tr>${D.custs.map(c=>`<tr><td>${esc(c.name)}</td><td class="r">${c.n}</td><td class="r">${r(c.rev)}</td><td class="r">${r(c.gp)}</td><td class="r">${c.due?r(c.due):'–'}</td></tr>`).join('')}</table>
+    <h2>Sales (${D.sales.length})</h2><table><tr><th>Date</th><th>Customer</th><th>Package</th><th>Paid by</th><th class="r">Revenue</th><th class="r">Cost</th><th class="r">Profit</th></tr>${D.sales.map(s=>`<tr><td>${fmtWhen(s.at)}</td><td>${esc(s.customer||'Walk-in')}</td><td>${esc(s.pkgName)}${s.qty>1?' ×'+s.qty:''}</td><td>${esc(s.method)}</td><td class="r">${r(revenueOf(s))}</td><td class="r">${r(costOfSale(s))}</td><td class="r">${r(profitOf(s))}</td></tr>`).join('')}</table>
+    <script>setTimeout(function(){print()},300)<\/script></body></html>`);
+  w.document.close();
+});
+function loadXlsx(){ return window.XLSX ? Promise.resolve(window.XLSX) : new Promise((res,rej)=>{ const s=document.createElement('script'); s.src='https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js'; s.onload=()=>res(window.XLSX); s.onerror=()=>rej(new Error('Could not load Excel tool')); document.head.appendChild(s); }); }
+$('stXls').addEventListener('click', async ()=>{
+  const b=$('stXls'); btnLoad(b,true,'Excel');
+  try{
+    const X=await loadXlsx(), D=stmtData(), x=D.x, wb=X.utils.book_new(), n=v=>Math.round(v*100)/100;
+    const pl=[['Monthly statement',D.label],[],['Gross sales',n(x.gross)],['Less: Discounts',-n(x.disc)],['Net revenue',n(x.rev)],['Less: Cost of goods sold',-n(x.cost)],['Gross profit',n(x.profit)],['Less: Expenses',-n(x.fees)],['Net profit',n(x.net)],[],['Cash received',n(x.recv)],['Accounts receivable',n(Math.max(0,x.rev-x.recv))],['Transactions',x.n],['Diamonds sold',x.dia]];
+    if (D.P){ const P=D.P; pl.push([],['Dollar card','USD','NPR'],['Opening balance',n(P.open.usd),n(P.open.npr)],['Loads',n(P.load.usd),n(P.load.npr)],['Used in sales',n(P.sale.usd),n(P.sale.npr)],['Expenses from card',n(P.charge.usd),n(P.charge.npr)],['Adjustments',n(P.adjust.usd),n(P.adjust.npr)],['Closing balance',n(P.close.usd),n(P.close.npr)]); }
+    X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet(pl), 'P&L');
+    X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet([['Date','Customer','Phone','FF UID','Package','Qty','Diamonds','USD','List price','Discount','Net revenue','Received','Outstanding','Cost','Profit','Paid by','Delivered','Note'], ...D.sales.map(s=>[new Date(s.at).toLocaleString('en-GB'),s.customer||'',s.phone||'',s.uid||'',s.pkgName,s.qty||1,s.diamonds,n((+s.usd||0)*(s.qty||1)),n(grossOf(s)),n(discOf(s)),n(revenueOf(s)),n(+s.received||0),n(dueOf(s)),n(costOfSale(s)),n(profitOf(s)),s.method,s.status==='pending'?'No':'Yes',s.note||''])]), 'Sales');
+    X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet([['Customer','Transactions','Revenue','Profit','Outstanding'], ...D.custs.map(c=>[c.name,c.n,n(c.rev),n(c.gp),n(c.due)])]), 'Customers');
+    X.utils.book_append_sheet(wb, X.utils.aoa_to_sheet([['Date','Type','Note','Amount (Rs)'], ...D.ex.map(e=>[new Date(e.at).toLocaleString('en-GB'), e.c.type==='adjust'?'Reconcile':(CATS[e.c.cat]||'Other').replace(/^\S+\s/,''), e.c.note||'', n(e.amt)])]), 'Expenses');
+    X.writeFile(wb, 'diamond-statement-'+D.file+'.xlsx'); toast('Excel statement downloaded');
+  }catch(err){ toast(err.message||'Excel download failed',true); }
+  btnLoad(b,false,'Excel');
+});
+
+/* ---------- customer orders ---------- */
+function renderOrders(){
+  const w=$('ordWarn');
+  if (S.ordersOk===false){ w.hidden=false; w.innerHTML='<div><b>Orders can’t load yet.</b> Paste the new Firestore rules (Help → Orders) and publish them in the Firebase console.</div>'; } else w.hidden=true;
+  const cnt=k=>S.orders.filter(o=>o.status===k).length;
+  $('oFilters').innerHTML=[['new','New'],['done','Accepted'],['rejected','Rejected']].map(([k,l])=>`<button type="button" data-of="${k}" aria-pressed="${S.oFilter===k}">${l}<span class="c">${cnt(k)}</span></button>`).join('');
+  const list=S.orders.filter(o=>o.status===S.oFilter).sort((p,q)=>q.at-p.at);
+  $('oList').innerHTML = list.length ? list.map(o=>{ const items=(o.items||[]).map(i=>`${i.qty} × ${esc(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')}`).join(', ');
+    return `<div class="ord" data-oid="${esc(o.id)}"><div class="o-top"><b>${esc(o.name||'Customer')}</b><span>${esc(ago(o.at))}</span></div>
+      <div class="o-items">${items}</div>
+      <div class="o-meta"><span>Total <b>${rs(o.total||0)}</b></span>${o.uid?`<span>UID <b>${esc(o.uid)}</b></span>`:''}${o.phone?`<span>📞 ${esc(o.phone)}</span>`:''}<span>Pays by ${esc(o.method||'–')}</span></div>
+      ${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}
+      <div class="o-acts">${o.status==='new'?`<button class="btn accent" type="button" data-oa="accept">Accept &amp; record sale</button>${waNumber(o.phone)?'<button class="btn" type="button" data-oa="wa">WhatsApp</button>':''}<button class="btn" type="button" data-oa="reject">Reject</button>`:o.status==='done'?'<span class="o-ok">✓ Recorded as sale</span><button class="btn sm" type="button" data-oa="del">Remove</button>':'<button class="btn" type="button" data-oa="restore">Move back to new</button><button class="btn del-btn" type="button" data-oa="del">Delete</button>'}</div></div>`; }).join('')
+    : blank(S.oFilter==='new'?'No new orders':'Nothing here', S.oFilter==='new'?'Share your order page so customers can order themselves.':'');
+}
+$('oFilters').addEventListener('click', e=>{ const b=e.target.closest('[data-of]'); if(!b) return; S.oFilter=b.dataset.of; renderOrders(); });
+$('oList').addEventListener('click', async e=>{
+  const b=e.target.closest('[data-oa]'); if(!b) return; const o=S.orders.find(x=>x.id===b.closest('[data-oid]').dataset.oid); if(!o) return; const k=b.dataset.oa, ref=doc(db,'orders',o.id);
+  if (k==='accept'){ const lines=(o.items||[]).filter(i=>pkgById(i.pkId)).map(i=>({pkId:i.pkId, qty:i.qty}));
+    if (lines.length<(o.items||[]).length) toast('Some packages in this order are no longer in your list',true);
+    newSale({customer:o.name, phone:o.phone, uid:o.uid, lines, method:o.method==='Cash'||!o.method?'Cash':o.method, note:o.note||'', fromOrder:o.id}); }
+  else if (k==='wa'){ open('https://wa.me/'+waNumber(o.phone)+'?text='+encodeURIComponent('Namaste '+(o.name||'')+' ji 🙏 Tapai ko order paayo: '+(o.items||[]).map(i=>i.qty+' × '+(i.kind==='member'?i.name:i.diamonds+' 💎')).join(', ')+'. Total '+rs(o.total||0)+'.'+((S.settings.shop||{}).pay?' Payment: '+S.settings.shop.pay:'')),'_blank','noopener'); }
+  else if (k==='reject'){ setDoc(ref,{status:'rejected'},{merge:true}).catch(fail('Couldn\u2019t update the order.')); toast('Order rejected', false, {label:'Undo', fn:()=>setDoc(ref,{status:'new'},{merge:true})}); }
+  else if (k==='restore'){ setDoc(ref,{status:'new'},{merge:true}).catch(fail('Couldn\u2019t update the order.')); }
+  else if (k==='del'){ if (!await ask('Delete this order?','The order request is removed. Sales already recorded stay.','Delete')) return; deleteDoc(ref).catch(fail('Couldn\u2019t delete the order.')); }
+});
+$('olCopy').addEventListener('click', ()=>copy(orderUrl(),'Order link copied'));
+$('olShare').addEventListener('click', ()=>shareText('🛒 '+(((S.settings.shop||{}).name)||'Free Fire diamonds')+': order your diamonds here 👉 '+orderUrl()));
+
+/* publish prices for the public order page (only when they change) */
+let pubTimer=null, pubJSON=null;
+function publishPrices(){
+  if (!S.uid || !S.loaded) return;
+  const sh=S.settings.shop||{}, payload={shop:{name:sh.name||'',wa:sh.wa||'',pay:sh.pay||''}, packages:S.settings.packages.map(p=>({id:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind||'topup', price:sellOf(p)}))};
+  const j=JSON.stringify(payload); if (j===pubJSON) return;
+  clearTimeout(pubTimer); pubTimer=setTimeout(()=>{ setDoc(doc(db,'public','prices'), {...payload, updatedAt:Date.now()}).then(()=>{ pubJSON=j; }).catch(e=>console.warn('publish prices',e)); }, 1500);
+}
 
 /* ---------- help tabs ---------- */
 $('helpTabs').addEventListener('click', e => { const b=e.target.closest('[data-t]'); if(!b) return; showHelpTab(b.dataset.t); });
@@ -2884,7 +3226,7 @@ onAuthStateChanged(auth, async user => {
   if (user && !ADMINS.includes((user.email||'').toLowerCase())) { await signOut(auth); $('loginView').hidden=false; $('appView').hidden=true; $('lErr').textContent='This account doesn\u2019t have access to Diamond Counter.'; return; }
   $('loginView').hidden = !!user; $('appView').hidden = !user;
   if (!user) {
-    stopIdle(); S.uid=null; S.sales=[]; S.loaded=false; S.card=[]; S.cardLoaded=false; S.settings=clone(DEFAULT_SETTINGS); S.form=null; S.editId=null; S.rateDraft=null; dirty.clear(); closePk();
+    stopIdle(); S.uid=null; S.sales=[]; S.loaded=false; S.card=[]; S.cardLoaded=false; S.orders=[]; S.ordersOk=null; S.settings=clone(DEFAULT_SETTINGS); S.form=null; S.editId=null; S.rateDraft=null; dirty.clear(); closePk();
     if (signedOutMsg) { $('lOk').textContent=signedOutMsg; $('lOk').hidden=false; signedOutMsg=''; }
     $('forgotForm').hidden=true; $('loginForm').hidden=false;
     setTimeout(()=>$('lEmail').focus(), 50);
