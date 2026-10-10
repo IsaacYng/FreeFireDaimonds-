@@ -869,6 +869,30 @@ input[type=number]:focus,input[type=tel]:focus{outline:none;border-color:var(--i
 .unit input{-moz-appearance:textfield}
 .unit input::-webkit-inner-spin-button,.unit input::-webkit-outer-spin-button{-webkit-appearance:none;margin:0}
 @media(min-width:901px){.pk-sheet .grab{display:none}.pk-sheet{padding-top:16px}}
+
+/* ===== help v2 (bilingual) ===== */
+.help-link{display:inline-flex;align-items:center;gap:6px;margin-top:8px;padding:5px 11px 5px 9px;border-radius:999px;border:1px solid var(--line-2);background:#fff;color:var(--ink-2);font-weight:600;font-size:.8rem;cursor:pointer}
+.help-link:hover{border-color:var(--ink);color:var(--ink)}
+.help-link svg{color:var(--accent)}
+.ov-head .help-link{margin-top:0}
+.ne-t{font-family:var(--nep);font-weight:500;color:var(--muted);font-size:.8em;margin-left:6px}
+.help-tabs{display:flex;margin-bottom:14px;max-width:100%;overflow-x:auto}
+.help-tabs button{flex:1;white-space:nowrap}
+.qa.bi summary{font-family:var(--display)}
+.qa.bi summary>span{display:grid;gap:1px;min-width:0}
+.qa.bi summary b{font-family:var(--nep);font-weight:500;font-size:1rem}
+.qa.bi summary small{font-size:.84rem;color:var(--muted);font-weight:600}
+.qa.bi[open] summary small{color:var(--accent-2)}
+.bi-body{display:grid;gap:10px;padding:0 20px 18px}
+.bi-body p{padding:0 !important;margin:0}
+.bi-body p[lang=ne]{font-family:var(--nep);line-height:1.85;color:var(--ink-2)}
+.bi-body p.en{font-family:var(--display);line-height:1.6;color:var(--ink-2);padding:10px 12px !important;border-left:3px solid var(--line-2);background:#FAFBFB;border-radius:0 8px 8px 0}
+.qa.flash{background:var(--accent-soft);transition:background .6s}
+.gloss td{white-space:normal !important;vertical-align:top}
+.gloss .ne-c{font-family:var(--nep);white-space:nowrap !important}
+@media(max-width:900px){.bi-body{padding:0 16px 16px}}
+.q-row .sm{display:none}
+@media(max-width:600px){.q-row .lg{display:none}.q-row .sm{display:inline}.q-row .acts{gap:4px}.q-row .due{font-size:.88rem}}
 </style>
 </head>
 <body>
@@ -883,7 +907,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
   <aside class="login-art">
     <span class="blob b1"></span><span class="blob b2"></span>
     <div class="brand"><span class="mono gem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg></span>Diamond Counter</div>
-    <div class="lmid"><h2>Welcome back</h2><p>Sell Free Fire diamonds, keep every customer's record and see your profit at today's dollar rate.</p></div>
+    <div class="lmid"><h2>Welcome back</h2><p>Record Free Fire top-up sales, track receivables and see gross profit at today's exchange rate.</p></div>
     <p class="lnote"><i></i>Sales sync to Firebase</p>
     <svg class="r" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><path fill="rgba(255,255,255,.05)" d="M0 120 L120 70 L210 98 L330 40 L450 92 L560 60 L700 110 L820 52 L960 96 L1080 44 L1200 88 L1320 58 L1440 84 V220 H0Z"/><path fill="rgba(255,255,255,.07)" d="M0 160 L160 122 L300 150 L460 114 L600 146 L760 120 L900 152 L1040 126 L1200 156 L1340 130 L1440 146 V220 H0Z"/></svg>
   </aside>
@@ -920,23 +944,23 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
   <aside class="side" id="side">
     <div class="brand"><span class="mono gem"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg></span><div>Diamond Counter<small>Free Fire top-up sales</small></div></div>
     <nav class="nav" aria-label="Sections">
-      <a data-go="overview"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Home</a>
+      <a data-go="overview"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11 12 4l9 7"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>Dashboard</a>
       <div class="nav-label">SELL</div>
       <a data-go="sell"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M12 8v8M8 12h8"/></svg>New sale</a>
-      <a data-go="sales"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>Sales<span class="ct" id="ctS">–</span></a>
+      <a data-go="sales"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 4h16v16H4z"/><path d="M8 9h8M8 13h8M8 17h5"/></svg>Sales ledger<span class="ct" id="ctS">–</span></a>
       <a data-go="customers"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg>Customers<span class="ct" id="ctC">–</span></a>
       <div class="nav-label">PRICES</div>
       <a data-go="prices"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/></svg>Price list</a>
-      <a data-go="rate"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Rate &amp; margin</a>
+      <a data-go="rate"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>Pricing &amp; FX</a>
       <div class="nav-label">INSIGHTS</div>
       <a data-go="reports"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-6"/></svg>Reports</a>
       <div class="nav-label">SYSTEM</div>
       <a data-go="backup"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg>Backup &amp; restore</a>
       <a data-go="account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg>Account &amp; security</a>
-      <a data-go="help"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>मद्दत / Help</a>
+      <a data-go="help"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Help · मद्दत</a>
     </nav>
-    <div class="side-rate" data-go="rate" title="Dollar rate">
-      <div class="t"><span>1 US dollar</span><i id="sideDot"></i></div>
+    <div class="side-rate" data-go="rate" title="Exchange rate">
+      <div class="t"><span>USD → NPR</span><i id="sideDot"></i></div>
       <b id="sideRate">–</b>
       <small id="sideRateT">Loading…</small>
     </div>
@@ -973,13 +997,13 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <svg class="w-ridge" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><path fill="rgba(255,255,255,.05)" d="M0 120 L120 70 L210 98 L330 40 L450 92 L560 60 L700 110 L820 52 L960 96 L1080 44 L1200 88 L1320 58 L1440 84 V220 H0Z"/><path fill="rgba(255,255,255,.07)" d="M0 160 L160 122 L300 150 L460 114 L600 146 L760 120 L900 152 L1040 126 L1200 156 L1340 130 L1440 146 V220 H0Z"/></svg>
           <p class="w-date" id="wDate"></p>
           <h1 id="hello">Welcome back</h1>
-          <div class="w-rate"><b id="wRate">–</b><span>for 1 US dollar</span></div>
+          <div class="w-rate"><b id="wRate">–</b><span>per USD</span></div>
           <p class="w-live" id="wLive"><i class="load"></i><span>Getting today's rate…</span></p>
           <div class="w-today" id="wToday"></div>
           <div class="w-acts"><button class="btn accent" type="button" data-go="sell"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New sale</button><button class="btn ghost" type="button" data-go="prices"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/></svg>Price list</button></div>
         </div>
-        <p class="np-help" lang="ne" style="margin-bottom:18px">माथिबाट Today, 7 days वा This month छान्नुहोस्। “To send” मा पठाउन बाँकी डायमन्ड र “Udharo” मा उठाउन बाँकी पैसा देखिन्छ।</p>
-        <div class="ov-head"><h2>Overview</h2><span class="ov-cmp" id="ovCmp"></span><div class="pk-seg" id="ovPeriod" role="radiogroup" aria-label="Period"><button type="button" data-v="today">Today</button><button type="button" data-v="week">7 days</button><button type="button" data-v="month">This month</button></div></div>
+        
+        <div class="ov-head"><h2>Overview</h2><button type="button" class="help-link" data-help="overview"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Help</button><span class="ov-cmp" id="ovCmp"></span><div class="pk-seg" id="ovPeriod" role="radiogroup" aria-label="Period"><button type="button" data-v="today">Today</button><button type="button" data-v="week">7 days</button><button type="button" data-v="month">This month</button></div></div>
         <div class="stats kpis" id="kpis"></div>
         <div class="card" id="qsCard">
           <div class="card-h"><h2>Quick sell</h2><span class="meta">Your most sold packages, one tap to start</span></div>
@@ -987,39 +1011,39 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         </div>
         <div class="hero-o">
           <div class="card">
-            <div class="card-h"><h2>To send</h2><span class="pill" id="sendPill">0</span></div>
+            <div class="card-h"><h2>Pending delivery</h2><span class="pill" id="sendPill">0</span></div>
             <div class="tbl" id="toSend"></div>
           </div>
           <div class="card">
-            <div class="card-h"><h2>Udharo to collect</h2><span class="pill" id="duePill">Rs 0</span></div>
+            <div class="card-h"><h2>Accounts receivable</h2><span class="pill" id="duePill">Rs 0</span></div>
             <div class="tbl" id="dueList"></div>
           </div>
         </div>
         <div class="card">
-          <div class="card-h"><h2>Sales trend</h2><div class="pk-seg" id="chDays" role="radiogroup" aria-label="Chart range"><button type="button" data-v="7">7 days</button><button type="button" data-v="14">14 days</button><button type="button" data-v="30">30 days</button></div></div>
+          <div class="card-h"><h2>Revenue trend</h2><div class="pk-seg" id="chDays" role="radiogroup" aria-label="Chart range"><button type="button" data-v="7">7 days</button><button type="button" data-v="14">14 days</button><button type="button" data-v="30">30 days</button></div></div>
           <div class="ch-sum" id="chSum"></div>
           <div class="chart2-wrap"><div class="ch-y" id="chY"></div><div class="chart2" id="chart"></div></div>
-          <div class="chart-key"><span><i class="r"></i>Money received</span><span><i class="p"></i>Profit</span><span id="chBest" class="ch-best"></span></div>
+          <div class="chart-key"><span><i class="r"></i>Revenue</span><span><i class="p"></i>Gross profit</span><span id="chBest" class="ch-best"></span></div>
         </div>
         <div class="hero-o" style="margin-top:18px">
           <div class="card" id="goalCard">
-            <div class="card-h"><h2>Monthly profit goal</h2><a class="link" data-go="rate" data-focus="rGoal">Change</a></div>
+            <div class="card-h"><h2>Monthly profit target</h2><a class="link" data-go="rate" data-focus="rGoal">Change</a></div>
             <div class="card-b" id="goalBody"></div>
           </div>
           <div class="card">
-            <div class="card-h"><h2>Top customers</h2><span class="meta">This month</span></div>
+            <div class="card-h"><h2>Top customers by revenue</h2><span class="meta">This month</span></div>
             <div class="tbl" id="topCust"></div>
           </div>
         </div>
         <div class="card">
-          <div class="card-h"><h2>Recent sales</h2><a class="link" data-go="sales">See all</a></div>
+          <div class="card-h"><h2>Recent transactions</h2><a class="link" data-go="sales">See all</a></div>
           <div class="tbl" id="recent"><div class="skel"></div><div class="skel"></div></div>
         </div>
       </section>
 
       <!-- NEW SALE -->
       <section data-page="sell" hidden>
-        <div class="ph"><div><h1 id="sellTitle">New sale</h1><p>Pick a package, add the customer and save. Price and profit use today's dollar rate.</p><p class="np-help" lang="ne">प्याकेज छान्नुहोस्, ग्राहकको नाम, फोन र Free Fire UID लेख्नुहोस्, अनि रातो Save sale थिच्नुहोस्।</p></div><span class="pill" id="sellRatePill"></span></div>
+        <div class="ph"><div><h1 id="sellTitle">New sale</h1><p>Record a transaction. Selling price and COGS use today's exchange rate.</p><button type="button" class="help-link" data-help="sell"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div><span class="pill" id="sellRatePill"></span></div>
         <div class="card">
           <div class="card-h"><h2>Package</h2><a class="link" data-go="prices">Edit prices</a></div>
           <div class="card-b"><div class="pkgs" id="pkPick" role="radiogroup" aria-label="Package"></div></div>
@@ -1041,12 +1065,12 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <div class="card-b form">
             <div class="grid2">
               <div class="field"><span class="lab"><label for="fQty">Quantity</label></span><div class="qty"><button type="button" class="icon-btn" data-step="-1" aria-label="One less">−</button><input id="fQty" type="number" min="1" step="1" value="1" inputmode="numeric"/><button type="button" class="icon-btn" data-step="1" aria-label="One more">+</button></div></div>
-              <label class="field"><span class="lab">Money received (Rs) <em id="recvHint"></em></span><input id="fRecv" type="number" min="0" step="1" inputmode="decimal"/></label>
+              <label class="field"><span class="lab">Amount received (Rs) <em id="recvHint"></em></span><input id="fRecv" type="number" min="0" step="1" inputmode="decimal"/></label>
             </div>
-            <div class="calc" id="calc"><div><span>Diamonds</span><b id="cDia">0</b></div><div><span>Your cost</span><b id="cCost">Rs 0</b></div><div><span>Profit</span><b id="cProfit">Rs 0</b></div><div id="cDueBox" hidden><span>Still due</span><b id="cDue" class="warn">Rs 0</b></div></div>
-            <div class="field"><span class="lab">Paid by</span><div class="pk-seg" id="fMethod" role="radiogroup" aria-label="Paid by"><button type="button" data-v="Cash">Cash</button><button type="button" data-v="eSewa">eSewa</button><button type="button" data-v="Khalti">Khalti</button><button type="button" data-v="Bank">Bank</button><button type="button" data-v="Credit">Udharo</button></div></div>
-            <div class="field"><span class="lab">Diamonds sent?</span><div class="pk-seg" id="fStatus" role="radiogroup" aria-label="Diamonds sent"><button type="button" data-v="done">Yes, sent</button><button type="button" data-v="pending">Not yet</button></div></div>
-            <label class="field"><span class="lab">Note <em>optional</em></span><input id="fNote" autocomplete="off" maxlength="200" placeholder="e.g. pays tomorrow"/></label>
+            <div class="calc" id="calc"><div><span>Diamonds</span><b id="cDia">0</b></div><div><span>COGS</span><b id="cCost">Rs 0</b></div><div><span>Gross profit</span><b id="cProfit">Rs 0</b></div><div id="cDueBox" hidden><span>Outstanding</span><b id="cDue" class="warn">Rs 0</b></div></div>
+            <div class="field"><span class="lab">Payment method</span><div class="pk-seg" id="fMethod" role="radiogroup" aria-label="Payment method"><button type="button" data-v="Cash">Cash</button><button type="button" data-v="eSewa">eSewa</button><button type="button" data-v="Khalti">Khalti</button><button type="button" data-v="Bank">Bank</button><button type="button" data-v="Credit">Credit</button></div></div>
+            <div class="field"><span class="lab">Delivery status</span><div class="pk-seg" id="fStatus" role="radiogroup" aria-label="Delivery status"><button type="button" data-v="done">Delivered</button><button type="button" data-v="pending">Pending</button></div></div>
+            <label class="field"><span class="lab">Note <em>optional</em></span><input id="fNote" autocomplete="off" maxlength="200" placeholder="e.g. balance due Friday"/></label>
             <p class="err" id="fErr2" role="alert"></p>
           </div>
           <div class="card-f sticky"><span class="help" id="sellHelp"></span><button class="btn" id="sellCancel" type="button">Clear</button><button class="btn accent" id="sellSave" type="button"><span class="spin"></span><span class="bt">Save sale</span></button></div>
@@ -1055,9 +1079,9 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- SALES -->
       <section data-page="sales" hidden>
-        <div class="ph"><div><h1>Sales</h1><p>Every sale you recorded. Tap a sale to edit it, or use ⋮ to mark it sent or delete it.</p><p class="np-help" lang="ne">नाम, फोन वा UID ले खोज्नुहोस्। “Not sent” मा डायमन्ड पठाउन बाँकी बिक्री देखिन्छ।</p></div><button class="btn accent" type="button" data-go="sell"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New sale</button></div>
+        <div class="ph"><div><h1>Sales ledger</h1><p>All transactions by date with daily revenue and gross profit. Tap one to edit it.</p><button type="button" class="help-link" data-help="sales"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div><button class="btn accent" type="button" data-go="sell"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New sale</button></div>
         <div class="card">
-          <div class="toolbar"><input id="sSearch" type="search" placeholder="Search name, phone or UID" aria-label="Search sales"/><button class="btn" id="sCsv" type="button">Download CSV</button></div>
+          <div class="toolbar"><input id="sSearch" type="search" placeholder="Search name, phone or UID" aria-label="Search transactions"/><button class="btn" id="sCsv" type="button">Download CSV</button></div>
           <div class="fchips" id="sFilters"></div>
           <div class="sumbar" id="sSum"></div>
           <div class="tbl" id="sList"><div class="skel"></div><div class="skel"></div></div>
@@ -1066,7 +1090,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- CUSTOMERS -->
       <section data-page="customers" hidden>
-        <div class="ph"><div><h1>Customers</h1><p>Built from your sales, matched by phone, then UID, then name. Your best customers come first.</p><p class="np-help" lang="ne">ग्राहकले जम्मा कति पैसा तिरे र कति डायमन्ड लिए यहाँ देखिन्छ। ⋮ थिचेर फेरि बिक्री गर्न सकिन्छ।</p></div><span class="pill" id="cPill"></span></div>
+        <div class="ph"><div><h1>Customers</h1><p>Customer accounts built from your sales, ranked by lifetime revenue.</p><button type="button" class="help-link" data-help="customers"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div><span class="pill" id="cPill"></span></div>
         <div class="card">
           <div class="toolbar"><input id="cSearch" type="search" placeholder="Search customers" aria-label="Search customers"/></div>
           <div class="tbl" id="cList"></div>
@@ -1075,11 +1099,11 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- PRICES -->
       <section data-page="prices" hidden>
-        <div class="ph"><div><h1>Price list</h1><p>What each package costs you and what to charge, at today's rate. Tap a row to sell it.</p><p class="np-help" lang="ne">Garena ले मूल्य बदल्यो भने तलको “Packages” मा प्याकेज थिच्नुहोस्, डलर मूल्य बदल्नुहोस् र Save package थिच्नुहोस्।</p></div><span class="pill" id="pRatePill"></span></div>
+        <div class="ph"><div><h1>Price list</h1><p>Cost of goods, selling price and profit per unit at today's exchange rate. Tap a package to sell it.</p><button type="button" class="help-link" data-help="prices"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div><span class="pill" id="pRatePill"></span></div>
         <div class="card">
           <div class="card-h"><h2>Today's prices</h2><span class="meta" id="pMeta"></span></div>
           <div class="plist" id="pCards"></div>
-          <div class="tbl-wrap p-table" tabindex="0"><table class="limits"><thead><tr><th>PACKAGE</th><th class="r">GAME $</th><th class="r">YOUR COST</th><th class="r">SELL AT</th><th class="r">PROFIT</th></tr></thead><tbody id="pBoard"></tbody></table></div>
+          <div class="tbl-wrap p-table" tabindex="0"><table class="limits"><thead><tr><th>PACKAGE</th><th class="r">GAME $</th><th class="r">COGS</th><th class="r">SELLING PRICE</th><th class="r">PROFIT / UNIT</th></tr></thead><tbody id="pBoard"></tbody></table></div>
         </div>
         <div class="card">
           <div class="card-h"><h2>Packages</h2><button class="btn accent sm" type="button" id="peAdd"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>Add package</button></div>
@@ -1090,68 +1114,68 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- RATE -->
       <section data-page="rate" hidden>
-        <div class="ph"><div><h1>Rate &amp; margin</h1><p>How your selling price is worked out: dollar price × rate + card fee + your margin, rounded up.</p><p class="np-help" lang="ne">बैंक/कार्डले लिने वास्तविक रेट राख्न Manual छान्नुहोस्। Margin बढाए बिक्री मूल्य बढ्छ।</p></div></div>
+        <div class="ph"><div><h1>Pricing &amp; FX</h1><p>Selling price = game price (USD) × exchange rate + card/bank charges + markup, rounded up.</p><button type="button" class="help-link" data-help="rate"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div></div>
         <div class="card">
-          <div class="card-h"><h2>Dollar rate</h2><span class="meta" id="rLiveMeta"></span></div>
+          <div class="card-h"><h2>Exchange rate (USD → NPR)</h2><span class="meta" id="rLiveMeta"></span></div>
           <div class="card-b form">
-            <div class="field"><span class="lab">Use</span><div class="pk-seg" id="rMode" role="radiogroup" aria-label="Rate source"><button type="button" data-v="live">Live market rate</button><button type="button" data-v="manual">My own rate</button></div></div>
+            <div class="field"><span class="lab">Rate source</span><div class="pk-seg" id="rMode" role="radiogroup" aria-label="Rate source"><button type="button" data-v="live">Live market rate</button><button type="button" data-v="manual">Manual rate</button></div></div>
             <div class="grid2">
-              <label class="field"><span class="lab">My own rate (Rs per $1) <em>also the backup</em></span><input id="rManual" type="number" step="0.01" min="1" inputmode="decimal"/></label>
+              <label class="field"><span class="lab">Manual rate (Rs per USD) <em>also used as fallback</em></span><input id="rManual" type="number" step="0.01" min="1" inputmode="decimal"/></label>
               <div class="field"><span class="lab">Live market rate</span><div style="display:flex;gap:10px;align-items:center"><b id="rLive" class="num" style="font-size:1.35rem;font-weight:700">–</b><button class="btn" type="button" id="rRefresh" style="min-height:36px">Refresh</button></div></div>
             </div>
           </div>
         </div>
         <div class="card">
-          <div class="card-h"><h2>Your margin</h2></div>
+          <div class="card-h"><h2>Costing &amp; markup</h2></div>
           <div class="card-b form">
             <div class="grid2">
-              <label class="field"><span class="lab">Card / bank fee <em>%</em></span><input id="rFee" type="number" step="0.1" min="0" max="50" inputmode="decimal"/></label>
-              <label class="field"><span class="lab">Your margin <em>%</em></span><input id="rMargin" type="number" step="0.5" min="0" max="200" inputmode="decimal"/></label>
+              <label class="field"><span class="lab">Card / bank charges <em>% on cost</em></span><input id="rFee" type="number" step="0.1" min="0" max="50" inputmode="decimal"/></label>
+              <label class="field"><span class="lab">Markup <em>% on cost</em></span><input id="rMargin" type="number" step="0.5" min="0" max="200" inputmode="decimal"/></label>
             </div>
-            <div class="field"><span class="lab">Round selling price up to</span><div class="pk-seg" id="rRound" role="radiogroup" aria-label="Rounding"><button type="button" data-v="1">Rs 1</button><button type="button" data-v="5">Rs 5</button><button type="button" data-v="10">Rs 10</button><button type="button" data-v="50">Rs 50</button></div></div>
+            <div class="field"><span class="lab">Round selling price up to nearest</span><div class="pk-seg" id="rRound" role="radiogroup" aria-label="Rounding"><button type="button" data-v="1">Rs 1</button><button type="button" data-v="5">Rs 5</button><button type="button" data-v="10">Rs 10</button><button type="button" data-v="50">Rs 50</button></div></div>
             <div class="preview-line" id="rPreview"></div>
           </div>
           <div class="card-f sticky"><span class="help" id="rMsg"></span><button class="btn" type="button" id="rUndo">Undo changes</button><button class="btn accent" type="button" id="rSave"><span class="spin"></span><span class="bt">Save</span></button></div>
         </div>
         <div class="card">
-          <div class="card-h"><h2>Monthly profit goal</h2><span class="meta">Shown on Home</span></div>
+          <div class="card-h"><h2>Monthly profit target</h2><span class="meta">Shown on the dashboard</span></div>
           <div class="card-b form">
-            <label class="field"><span class="lab">Profit you want each month (Rs) <em>0 = no goal</em></span><input id="rGoal" type="number" step="500" min="0" inputmode="numeric"/></label>
-            <p class="help">Home shows how close you are and how much you need per day to reach it.</p>
+            <label class="field"><span class="lab">Gross profit target per month (Rs) <em>0 = none</em></span><input id="rGoal" type="number" step="500" min="0" inputmode="numeric"/></label>
+            <p class="help">The dashboard tracks progress against this target and the daily run-rate required.</p>
           </div>
-          <div class="card-f"><button class="btn accent" type="button" id="gSave"><span class="spin"></span><span class="bt">Save goal</span></button></div>
+          <div class="card-f"><button class="btn accent" type="button" id="gSave"><span class="spin"></span><span class="bt">Save target</span></button></div>
         </div>
       </section>
 
       <!-- REPORTS -->
       <section data-page="reports" hidden>
-        <div class="ph"><div><h1>Reports</h1><p>Your sales month by month, how customers pay and what sells most.</p><p class="np-help" lang="ne">महिनाअनुसार बिक्री, नाफा र कुन प्याकेज बढी बिक्यो यहाँ हेर्नुहोस्।</p></div></div>
+        <div class="ph"><div><h1>Reports</h1><p>Monthly profit &amp; loss, payment methods, best-selling packages and receivables.</p><button type="button" class="help-link" data-help="reports"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div></div>
         <div class="card">
-          <div class="card-h"><h2>By month</h2><span class="meta">Last 12 months</span></div>
-          <div class="tbl-wrap" tabindex="0"><table class="limits"><thead><tr><th>MONTH</th><th class="r">SALES</th><th class="r">DIAMONDS</th><th class="r">RECEIVED</th><th class="r">COST</th><th class="r">PROFIT</th></tr></thead><tbody id="rpMonths"></tbody></table></div>
+          <div class="card-h"><h2>Monthly P&amp;L</h2><span class="meta">Last 12 months</span></div>
+          <div class="tbl-wrap" tabindex="0"><table class="limits"><thead><tr><th>MONTH</th><th class="r">TXN</th><th class="r">DIAMONDS</th><th class="r">REVENUE</th><th class="r">COGS</th><th class="r">GROSS PROFIT</th><th class="r">MARGIN</th><th class="r">RECEIVABLE</th></tr></thead><tbody id="rpMonths"></tbody></table></div>
         </div>
         <div class="hero-o" style="margin-top:18px">
-          <div class="card"><div class="card-h"><h2>Paid by</h2><span class="meta">This month</span></div><div class="tbl" id="rpPay"></div></div>
-          <div class="card"><div class="card-h"><h2>Top packages</h2><span class="meta">This month</span></div><div class="tbl" id="rpPkg"></div></div>
+          <div class="card"><div class="card-h"><h2>Revenue by payment method</h2><span class="meta">This month</span></div><div class="tbl" id="rpPay"></div></div>
+          <div class="card"><div class="card-h"><h2>Revenue by package</h2><span class="meta">This month</span></div><div class="tbl" id="rpPkg"></div></div>
         </div>
         <div class="card">
-          <div class="card-h"><h2>Udharo still to collect</h2><span class="meta" id="rpCreditMeta"></span></div>
+          <div class="card-h"><h2>Receivables ledger</h2><span class="meta" id="rpCreditMeta"></span></div>
           <div class="tbl" id="rpCredit"></div>
         </div>
       </section>
 
       <!-- BACKUP -->
       <section data-page="backup" hidden>
-        <div class="ph"><div><h1>Backup &amp; restore</h1><p>Save a copy of every sale and your prices to your phone. If something is deleted by mistake, bring it back from that file.</p><p class="np-help" lang="ne">महिनामा एक पटक Download backup थिच्नुहोस्। केही मेटियो भने यही फाइलबाट Restore गर्न सकिन्छ।</p></div></div>
+        <div class="ph"><div><h1>Backup &amp; restore</h1><p>Export a full copy of your ledger and settings, or restore from an earlier export.</p><button type="button" class="help-link" data-help="backup"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div></div>
         <div class="card">
           <div class="card-h"><h2>Download a backup</h2><span class="meta" id="bkLast">Never backed up on this device</span></div>
-          <div class="card-b"><p>Includes all sales, customers' details, packages and your rate &amp; margin settings.</p></div>
-          <div class="card-f"><button class="btn" type="button" id="bkCsv">Download CSV (Excel)</button><button class="btn accent" type="button" id="bkBtn"><span class="spin"></span><span class="bt">Download backup</span></button></div>
+          <div class="card-b"><p>Includes all transactions, customer details, packages and pricing settings.</p></div>
+          <div class="card-f"><button class="btn" type="button" id="bkCsv">Export CSV (Excel)</button><button class="btn accent" type="button" id="bkBtn"><span class="spin"></span><span class="bt">Download backup</span></button></div>
         </div>
         <div class="card">
           <div class="card-h"><h2>Restore from a backup</h2></div>
           <div class="card-b form">
-            <div class="note warn"><div><b>Careful:</b> restoring replaces all your current sales and settings with what is in the backup file.</div></div>
+            <div class="note warn"><div><b>Careful:</b> restoring replaces all current transactions and settings with the contents of the backup file.</div></div>
             <div class="drop" style="border-style:solid"><div class="dt"><b id="rsName">Choose a backup file</b><span id="rsInfo">A .json file downloaded from this page</span></div><label class="btn file"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 16V4m0 0-4 4m4-4 4 4"/><path d="M4 16v3a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-3"/></svg>Choose<input type="file" id="rsFile" accept="application/json,.json"/></label></div>
           </div>
           <div class="card-f"><button class="btn danger" type="button" id="rsBtn" disabled><span class="spin"></span><span class="bt">Restore this backup</span></button></div>
@@ -1160,24 +1184,51 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 
       <!-- HELP -->
       <section data-page="help" hidden>
-        <div class="ph"><div><h1 lang="ne">मद्दत</h1><p>Short answers in Nepali for everything in this console.</p></div></div>
-        <div class="card faq" lang="ne">
-          <details class="qa"><summary>नयाँ बिक्री कसरी थप्ने?</summary><p>तलको रातो + थिच्नुहोस् → प्याकेज छान्नुहोस् → ग्राहकको नाम, फोन, UID लेख्नुहोस् → Save sale थिच्नुहोस्। पैसा र नाफा आफैं हिसाब हुन्छ।</p></details>
-          <details class="qa"><summary>पुरानो ग्राहकलाई छिटो बेच्ने?</summary><p>नाम लेख्दा पुराना ग्राहकको नाम देखिन्छ, छान्दा फोन र UID आफैं भरिन्छ। Customers मा ⋮ → Sell again थिचे पनि हुन्छ।</p></details>
-          <details class="qa"><summary>डायमन्ड पछि पठाउने भए?</summary><p>बिक्री गर्दा “Not yet” छान्नुहोस्। Home को “To send” मा देखिन्छ। पठाएपछि Sales मा ⋮ → Mark as sent थिच्नुहोस्।</p></details>
-          <details class="qa"><summary>उधारो कसरी राख्ने?</summary><p>Paid by मा “Udharo” छान्नुहोस् र Money received मा अहिले पाएको रकम मात्र लेख्नुहोस्। पछि पैसा आएपछि बिक्री खोलेर रकम र Paid by बदल्नुहोस्।</p></details>
-          <details class="qa"><summary>डलर रेट किन मिलेन?</summary><p>Live rate बजारको रेट हो। बैंक वा कार्डले लिने रेट फरक हुन्छ भने Rate &amp; margin मा “My own rate” छानेर आफ्नो रेट राख्नुहोस्।</p></details>
-          <details class="qa"><summary>Garena ले मूल्य बदल्यो भने?</summary><p>Price list → Packages मा प्याकेज थिच्नुहोस् → डलर मूल्य बदल्नुहोस् → Save package। पुराना बिक्रीको हिसाब बदलिँदैन।</p></details>
-          <details class="qa"><summary>इन्टरनेट नहुँदा के हुन्छ?</summary><p>बिक्री फोनमै सेभ हुन्छ र माथि “Waiting to sync” देखिन्छ। नेट आएपछि आफैं Firebase मा जान्छ। पेज बन्द नगर्नुहोस्।</p></details>
-          <details class="qa"><summary>गल्ती मेटियो भने?</summary><p>मेटाउनासाथ तल “Undo” आउँछ, थिच्नुहोस्। धेरै मेटियो भने Backup &amp; restore बाट फर्काउनुहोस्।</p></details>
-          <details class="qa"><summary>“Permission denied” आयो भने?</summary><p>Firebase को Firestore Rules ठीकसँग राखिएको छैन। Rules फेरि paste गरेर Publish गर्नुहोस्।</p></details>
-          <details class="qa"><summary>Excel मा हिसाब चाहियो?</summary><p>Sales मा Download CSV थिच्नुहोस्। फाइल Excel वा Google Sheets मा खुल्छ।</p></details>
+        <div class="ph"><div><h1>Help <span lang="ne" class="ne-t">मद्दत</span></h1><p>Every page explained in Nepali and English, plus common questions and accounting terms.</p></div></div>
+        <div class="pk-seg help-tabs" id="helpTabs" role="tablist"><button type="button" role="tab" data-t="guide" aria-checked="true">Page guide · पेज गाइड</button><button type="button" role="tab" data-t="faq" aria-checked="false">FAQ · प्रश्नहरू</button><button type="button" role="tab" data-t="gloss" aria-checked="false">Glossary · शब्दावली</button></div>
+        <div class="card faq" id="tab-guide">
+          <details class="qa bi" id="h-overview"><summary><span><b lang="ne">ड्यासबोर्ड</b><small>Dashboard</small></span></summary><div class="bi-body"><p lang="ne">माथि Today, 7 days वा This month छान्नुहोस्। कार्डहरूले त्यो अवधिको Revenue (आम्दानी), Gross profit (कुल नाफा), बिक्री भएका डायमन्ड र Transactions (कारोबार संख्या) देखाउँछन्, साथै अघिल्लो अवधिसँगको तुलना (↑/↓ %)। “Pending delivery” मा डायमन्ड पठाउन बाँकी अर्डर र “Accounts receivable” मा ग्राहकबाट उठाउन बाँकी रकम देखिन्छ। Quick sell थिचेर एकै पटकमा बिक्री सुरु गर्न सकिन्छ।</p><p class="en">Choose Today, 7 days or This month at the top. The cards show revenue, gross profit, diamonds sold and number of transactions for that period, compared with the previous period (↑/↓ %). “Pending delivery” lists orders not yet delivered and “Accounts receivable” lists amounts customers still owe. Use Quick sell to start a sale in one tap.</p></div></details>
+          <details class="qa bi" id="h-sell"><summary><span><b lang="ne">नयाँ बिक्री</b><small>New sale</small></span></summary><div class="bi-body"><p lang="ne">प्याकेज छान्नुहोस्, ग्राहकको नाम, फोन र Free Fire UID लेख्नुहोस्। Amount received मा अहिले हातमा आएको रकम लेख्नुहोस्। पूरा पैसा नआएको भए Payment method मा “Credit” (उधारो) छान्नुहोस्; बाँकी रकम Outstanding मा देखिन्छ। डायमन्ड पछि पठाउने भए Delivery status मा “Pending” छान्नुहोस्। अनि Save sale थिच्नुहोस्।</p><p class="en">Pick a package and enter the customer’s name, phone and Free Fire UID. Enter the amount actually received. If the customer has not paid in full, set the payment method to “Credit”; the balance shows as Outstanding. If you will deliver later, set Delivery status to “Pending”. Then tap Save sale.</p></div></details>
+          <details class="qa bi" id="h-sales"><summary><span><b lang="ne">बिक्री खाता</b><small>Sales ledger</small></span></summary><div class="bi-body"><p lang="ne">सबै कारोबार मितिअनुसार मिलाइएका छन् र हरेक दिनको Revenue र Gross profit (GP) देखिन्छ। नाम, फोन वा UID ले खोज्नुहोस्। “Undelivered” मा पठाउन बाँकी र “Credit” मा उधारो बिक्री छुट्टै हेर्न सकिन्छ। ⋮ थिचेर Edit, Mark as delivered, Record payment, Send receipt वा Delete गर्नुहोस्।</p><p class="en">Every transaction is grouped by date with daily revenue and gross profit (GP). Search by name, phone or UID. Use the “Undelivered” and “Credit” filters to see orders not yet sent and sales on credit. Tap ⋮ to edit, mark as delivered, record a payment, send a receipt or delete.</p></div></details>
+          <details class="qa bi" id="h-customers"><summary><span><b lang="ne">ग्राहक</b><small>Customers</small></span></summary><div class="bi-body"><p lang="ne">बिक्रीबाट आफैं बनेको ग्राहक खाता: पहिले फोन, त्यसपछि UID, त्यसपछि नामबाट मिलाइन्छ। हरेक ग्राहकको जम्मा Revenue, Gross profit र डायमन्ड देखिन्छ। ⋮ → Sell again थिच्दा उही ग्राहकको विवरण भरिएर नयाँ बिक्री खुल्छ।</p><p class="en">Customer accounts are built from your sales, matched by phone, then UID, then name. Each shows lifetime revenue, gross profit and diamonds. ⋮ → Sell again opens a new sale with their details filled in.</p></div></details>
+          <details class="qa bi" id="h-prices"><summary><span><b lang="ne">मूल्य सूची</b><small>Price list</small></span></summary><div class="bi-body"><p lang="ne">हरेक प्याकेजको COGS (लागत), Selling price (बिक्री मूल्य) र Profit per unit (प्रति एकाइ नाफा) आजको डलर रेटमा देखिन्छ। Garena ले मूल्य बदलेमा Packages मा प्याकेज थिच्नुहोस्, Game price ($) बदल्नुहोस् र Save package थिच्नुहोस्। पुराना कारोबारको हिसाब बदलिँदैन।</p><p class="en">Shows COGS, selling price and profit per unit for every package at today’s exchange rate. When Garena changes a price, tap the package under Packages, update the game price ($) and tap Save package. Past transactions keep their original figures.</p></div></details>
+          <details class="qa bi" id="h-rate"><summary><span><b lang="ne">मूल्य निर्धारण र विनिमय दर</b><small>Pricing & FX</small></span></summary><div class="bi-body"><p lang="ne">Selling price = Game price ($) × Exchange rate + Card/bank charges + Markup, माथि राउन्ड गरिएको। बैंक वा कार्डले लिने वास्तविक रेट फरक भए “Manual rate” छान्नुहोस्। Markup बढाए बिक्री मूल्य बढ्छ। Monthly profit target (मासिक नाफा लक्ष्य) पनि यहीँबाट राख्नुहोस्।</p><p class="en">Selling price = game price ($) × exchange rate + card/bank charges + markup, rounded up. If your bank or card uses a different rate, choose “Manual rate”. A higher markup raises the selling price. Set your monthly gross profit target here as well.</p></div></details>
+          <details class="qa bi" id="h-reports"><summary><span><b lang="ne">रिपोर्ट</b><small>Reports</small></span></summary><div class="bi-body"><p lang="ne">Monthly P&L मा हरेक महिनाको Revenue, COGS, Gross profit, Gross margin र Receivable देखिन्छ। Payment method र Package अनुसारको Revenue यो महिनाको हो। Receivables ledger मा सबै उधारो बिक्री र बाँकी रकम छ।</p><p class="en">The monthly P&L shows revenue, COGS, gross profit, gross margin and receivables for each month. Revenue by payment method and by package covers the current month. The receivables ledger lists every credit sale and its outstanding balance.</p></div></details>
+          <details class="qa bi" id="h-backup"><summary><span><b lang="ne">ब्याकअप र रिस्टोर</b><small>Backup & restore</small></span></summary><div class="bi-body"><p lang="ne">महिनामा एक पटक Download backup थिच्नुहोस् र फाइल सुरक्षित राख्नुहोस्। केही मेटियो भने Restore from a backup बाट फर्काउन सकिन्छ (अहिलेको डाटा फाइलकोले बदलिन्छ)। Excel मा हिसाब चाहिए Export CSV थिच्नुहोस्।</p><p class="en">Download a backup once a month and keep the file safe. If anything is deleted, restore it from that file (current data is replaced by the file). Use Export CSV for Excel or Google Sheets.</p></div></details>
+          <details class="qa bi" id="h-account"><summary><span><b lang="ne">खाता र सुरक्षा</b><small>Account & security</small></span></summary><div class="bi-body"><p lang="ne">पासवर्ड बदल्ने, reset link पठाउने र साइन आउट गर्ने ठाउँ। 👁 थिच्दा पासवर्ड देखिन्छ। ३० मिनेट केही नगरे सुरक्षाका लागि आफैं साइन आउट हुन्छ।</p><p class="en">Change your password, send a reset link or sign out. Tap 👁 to show the password. For security you are signed out after 30 minutes of inactivity.</p></div></details>
+        </div>
+        <div class="card faq" id="tab-faq" hidden>
+          <details class="qa bi"><summary><span><b lang="ne">पुरानो ग्राहकलाई छिटो कसरी बेच्ने?</b><small>How do I sell to a returning customer quickly?</small></span></summary><div class="bi-body"><p lang="ne">नाम लेख्दा पुराना ग्राहकको नाम देखिन्छ; छान्दा फोन र UID आफैं भरिन्छ। Customers मा ⋮ → Sell again थिचे पनि हुन्छ।</p><p class="en">Start typing the name and pick it from the suggestions; phone and UID fill in automatically. You can also use ⋮ → Sell again on the Customers page.</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">उधारो बिक्री कसरी राख्ने र पछि पैसा कसरी उठाउने?</b><small>How do I record a credit sale and collect later?</small></span></summary><div class="bi-body"><p lang="ne">Payment method मा “Credit” छान्नुहोस् र Amount received मा अहिले पाएको रकम (वा 0) लेख्नुहोस्। पैसा आएपछि Dashboard को Accounts receivable मा Record payment थिचेर भुक्तानी माध्यम (Cash, eSewa…) छान्नुहोस्।</p><p class="en">Set the payment method to “Credit” and enter what you received now (or 0). When the customer pays, tap Record payment under Accounts receivable on the dashboard and choose how they paid (Cash, eSewa…).</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">डायमन्ड पछि पठाउने भए?</b><small>What if I deliver the diamonds later?</small></span></summary><div class="bi-body"><p lang="ne">बिक्री गर्दा Delivery status मा “Pending” छान्नुहोस्। Dashboard को Pending delivery मा देखिन्छ। पठाएपछि Delivered थिच्नुहोस्।</p><p class="en">Set Delivery status to “Pending” when recording the sale. It appears under Pending delivery on the dashboard; tap Delivered once sent.</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">Gross profit कसरी हिसाब हुन्छ?</b><small>How is gross profit calculated?</small></span></summary><div class="bi-body"><p lang="ne">Gross profit = Revenue − COGS। COGS = Game price ($) × त्यस दिनको Exchange rate + Card/bank charges। Credit बिक्रीमा पूरा मूल्य Revenue मा गनिन्छ (accrual); नउठेको भाग Accounts receivable मा देखिन्छ।</p><p class="en">Gross profit = revenue − COGS, where COGS = game price ($) × that day’s exchange rate + card/bank charges. Credit sales count at full price (accrual basis); the unpaid part appears in accounts receivable.</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">डलर रेट बैंकसँग किन मिलेन?</b><small>Why doesn’t the exchange rate match my bank?</small></span></summary><div class="bi-body"><p lang="ne">Live rate बजारको मध्य रेट हो। बैंक वा कार्डले लिने रेट फरक हुन्छ भने Pricing & FX मा “Manual rate” छानेर आफ्नो रेट राख्नुहोस्, वा Card/bank charges % थप्नुहोस्।</p><p class="en">The live rate is the mid-market rate. If your bank or card charges more, choose “Manual rate” in Pricing & FX and enter your rate, or add a card/bank charges %.</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">Garena ले मूल्य बदल्यो भने?</b><small>What if Garena changes a price?</small></span></summary><div class="bi-body"><p lang="ne">Price list → Packages मा प्याकेज थिच्नुहोस् → Game price ($) बदल्नुहोस् → Save package। पुराना कारोबारको हिसाब बदलिँदैन।</p><p class="en">Price list → Packages → tap the package → update the game price ($) → Save package. Past transactions are not affected.</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">इन्टरनेट नहुँदा के हुन्छ?</b><small>What happens without internet?</small></span></summary><div class="bi-body"><p lang="ne">बिक्री फोनमै सेभ हुन्छ र माथि “Waiting to sync” देखिन्छ। नेट आएपछि आफैं Firebase मा जान्छ। पेज बन्द नगर्नुहोस्।</p><p class="en">Sales are saved on the device and the top bar shows “Waiting to sync”. They upload to Firebase automatically when you are back online. Keep the page open.</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">गल्तीले मेटियो भने?</b><small>I deleted something by mistake</small></span></summary><div class="bi-body"><p lang="ne">मेटाउनासाथ तल “Undo” आउँछ, थिच्नुहोस्। धेरै मेटियो भने Backup & restore बाट फर्काउनुहोस्।</p><p class="en">Tap “Undo” on the message that appears right after deleting. For larger losses, restore from Backup & restore.</p></div></details>
+          <details class="qa bi"><summary><span><b lang="ne">“Permission denied” आयो भने?</b><small>I see “Permission denied”</small></span></summary><div class="bi-body"><p lang="ne">Firebase को Firestore Rules ठीकसँग राखिएको छैन। Rules फेरि paste गरेर Publish गर्नुहोस्।</p><p class="en">Your Firestore rules are not set correctly. Paste the rules again in the Firebase console and publish.</p></div></details>
+        </div>
+        <div class="card" id="tab-gloss" hidden>
+          <div class="tbl-wrap" tabindex="0"><table class="limits gloss"><thead><tr><th>TERM</th><th>नेपाली</th><th>MEANING</th></tr></thead><tbody>
+            <tr><td><b>Revenue</b></td><td lang="ne" class="ne-c">आम्दानी</td><td>Total value of sales, including amounts on credit.</td></tr>
+            <tr><td><b>COGS (Cost of goods sold)</b></td><td lang="ne" class="ne-c">बेचेको सामानको लागत</td><td>What the diamonds cost you: game price × exchange rate + charges.</td></tr>
+            <tr><td><b>Gross profit (GP)</b></td><td lang="ne" class="ne-c">कुल नाफा</td><td>Revenue − COGS.</td></tr>
+            <tr><td><b>Gross margin</b></td><td lang="ne" class="ne-c">नाफा प्रतिशत</td><td>Gross profit as a % of revenue.</td></tr>
+            <tr><td><b>Markup</b></td><td lang="ne" class="ne-c">लागतमाथि थप</td><td>% added on top of cost to set the selling price.</td></tr>
+            <tr><td><b>Accounts receivable</b></td><td lang="ne" class="ne-c">उठाउन बाँकी रकम</td><td>Money customers owe you for credit sales.</td></tr>
+            <tr><td><b>Outstanding</b></td><td lang="ne" class="ne-c">बाँकी</td><td>Unpaid balance on one sale.</td></tr>
+            <tr><td><b>Credit sale</b></td><td lang="ne" class="ne-c">उधारो बिक्री</td><td>Sale where the customer pays later.</td></tr>
+            <tr><td><b>Pending delivery</b></td><td lang="ne" class="ne-c">पठाउन बाँकी</td><td>Paid or recorded, but diamonds not yet sent.</td></tr>
+            <tr><td><b>Exchange rate (FX)</b></td><td lang="ne" class="ne-c">विनिमय दर</td><td>Rupees per US dollar used for costing.</td></tr>
+            <tr><td><b>Transaction (txn)</b></td><td lang="ne" class="ne-c">कारोबार</td><td>One recorded sale.</td></tr>
+            <tr><td><b>Run-rate</b></td><td lang="ne" class="ne-c">दैनिक गति</td><td>Profit needed per day to hit the monthly target.</td></tr>
+          </tbody></table></div>
         </div>
       </section>
 
       <!-- ACCOUNT -->
       <section data-page="account" hidden>
-        <div class="ph"><div><h1>Account &amp; security</h1><p>Your sign-in details and password.</p><p class="np-help" lang="ne">पासवर्ड बदल्ने र साइन आउट गर्ने ठाउँ। 👁 थिच्दा पासवर्ड देखिन्छ।</p></div></div>
+        <div class="ph"><div><h1>Account &amp; security</h1><p>Sign-in details, password and session security.</p><button type="button" class="help-link" data-help="account"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div></div>
         <div class="card">
           <div class="card-h"><h2>Profile</h2></div>
           <div class="card-b">
@@ -1227,11 +1278,11 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
   <h3>All sections</h3>
   <div class="sheet-grid">
     <a data-go="customers"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8"/></svg><span>Customers</span></a>
-    <a data-go="rate"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Rate &amp; margin</span></a>
+    <a data-go="rate"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg><span>Pricing &amp; FX</span></a>
     <a data-go="reports"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3v18h18"/><path d="m7 15 4-4 3 3 6-6"/></svg><span>Reports</span></a>
     <a data-go="backup"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0-4-4m4 4 4-4"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2v-2"/></svg><span>Backup</span></a>
     <a data-go="account"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg><span>Account</span></a>
-    <a data-go="help"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg><span lang="ne">मद्दत</span></a>
+    <a data-go="help"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg><span>Help · मद्दत</span></a>
     <a data-logout role="button" tabindex="0" class="danger"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4M16 17l5-5-5-5M21 12H9"/></svg><span>Sign out</span></a>
   </div>
 </div>
@@ -1335,8 +1386,9 @@ const startOfMonth = (t=Date.now()) => { const d=new Date(t); d.setHours(0,0,0,0
 const startOfWeek = () => startOfDay() - 6*864e5;
 const monthKey = t => { const d=new Date(t); return d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0'); };
 const newId = () => 's' + Date.now().toString(36) + Math.random().toString(36).slice(2,7);
-// udharo counts as earned: profit uses the full price, the unpaid part shows under “Udharo to collect”
-const profitOf = s => Math.max(Number(s.received)||0, s.method==='Credit' ? Number(s.price ?? s.received)||0 : 0) - (Number(s.cost)||0);
+// accrual basis: a credit sale counts as revenue at full price; the unpaid part sits in accounts receivable
+const revenueOf = s => Math.max(Number(s.received)||0, s.method==='Credit' ? Number(s.price ?? s.received)||0 : 0);
+const profitOf = s => revenueOf(s) - (Number(s.cost)||0);
 const isMem = s => s.kind === 'member' || /membership/i.test(s.pkgName||'');
 const priceOf = s => Number(s.price ?? s.received) || 0;                 // what the customer should pay
 const dueOf = s => s.method==='Credit' ? Math.max(0, priceOf(s) - (Number(s.received)||0)) : 0;
@@ -1421,10 +1473,10 @@ async function fetchRate(){
 }
 function rateLine(){
   const st=S.settings;
-  if (st.rateMode==='manual') return ['warn','Your own rate'];
+  if (st.rateMode==='manual') return ['warn','Manual exchange rate'];
   if (S.live.status==='loading') return ['load','Getting today\u2019s rate…'];
-  if (S.live.status==='ok') return ['ok','Live rate, updated '+fmtTime(S.live.at)];
-  return ['warn', st.lastLiveRate ? 'Live rate didn\u2019t load, using the one from '+fmtWhen(st.lastLiveAt) : 'Live rate didn\u2019t load, using your own rate'];
+  if (S.live.status==='ok') return ['ok','Live FX rate, updated '+fmtTime(S.live.at)];
+  return ['warn', st.lastLiveRate ? 'Live rate unavailable, using last rate from '+fmtWhen(st.lastLiveAt) : 'Live rate unavailable, using manual rate'];
 }
 
 /* =========================================================
@@ -1464,13 +1516,13 @@ async function migrateLocal(){
   for (let i=0;i<list.length;i+=400){ const b=writeBatch(db); list.slice(i,i+400).forEach(r=>b.set(doc(salesCol(),r.id),r)); await b.commit(); }
   if (d.settings) await setDoc(settingsRef(), Object.assign(clone(DEFAULT_SETTINGS), d.settings), {merge:true});
   localStorage.removeItem(KEY);
-  if (list.length) toast(list.length+' older sales moved to the cloud');
+  if (list.length) toast(list.length+' older transactions moved to the cloud');
 }
 
 /* =========================================================
    NAVIGATION (same pattern as admin)
    ========================================================= */
-const titles = { overview:'Home', sell:'New sale', sales:'Sales', customers:'Customers', prices:'Price list', rate:'Rate & margin', reports:'Reports', backup:'Backup & restore', account:'Account & security', help:'Help' };
+const titles = { overview:'Dashboard', sell:'New sale', sales:'Sales ledger', customers:'Customers', prices:'Price list', rate:'Pricing & FX', reports:'Reports', backup:'Backup & restore', account:'Account & security', help:'Help · मद्दत' };
 let currentPage='overview';
 const dirty=new Set();
 async function go(p, opts={}){
@@ -1497,6 +1549,9 @@ function discard(pg){
 }
 addEventListener('beforeunload', e => { if (dirty.size){ e.preventDefault(); e.returnValue=''; } });
 document.addEventListener('click', e => { const a=e.target.closest('[data-go]'); if(a){ e.preventDefault(); go(a.dataset.go); } });
+document.addEventListener('click', async e => { const h=e.target.closest('[data-help]'); if(!h) return; e.preventDefault();
+  if (!await go('help')) return; showHelpTab('guide'); const el=$('h-'+h.dataset.help); if(!el) return;
+  document.querySelectorAll('#tab-guide details').forEach(x=>x.open=(x===el)); setTimeout(()=>{ el.scrollIntoView({behavior:'smooth',block:'start'}); el.classList.add('flash'); setTimeout(()=>el.classList.remove('flash'),1200); },60); });
 const side=$('side'), scrim=$('scrim');
 function openMenu(){ side.classList.add('open'); scrim.hidden=false; }
 function closeMenu(){ side.classList.remove('open'); scrim.hidden=true; }
@@ -1552,7 +1607,7 @@ function renderCounts(){
 }
 
 /* ---------- home ---------- */
-function stats(list){ return list.reduce((a,s)=>{ a.n++; a.dia+=Number(s.diamonds)||0; a.recv+=Number(s.received)||0; a.cost+=Number(s.cost)||0; a.profit+=profitOf(s); return a; }, {n:0,dia:0,recv:0,cost:0,profit:0}); }
+function stats(list){ return list.reduce((a,s)=>{ a.n++; a.dia+=Number(s.diamonds)||0; a.recv+=Number(s.received)||0; a.rev+=revenueOf(s); a.cost+=Number(s.cost)||0; a.profit+=profitOf(s); return a; }, {n:0,dia:0,recv:0,rev:0,cost:0,profit:0}); }
 function periodRange(p){
   const now=Date.now(), sd=startOfDay();
   if (p==='today') return {from:sd, to:now, pFrom:sd-864e5, pTo:sd, cmp:'vs yesterday'};
@@ -1576,40 +1631,40 @@ function topPackages(days=30){
 function renderHome(){
   const d=new Date(); $('wDate').textContent=d.toLocaleDateString('en-GB',{weekday:'long',day:'numeric',month:'long',year:'numeric'});
   const today=stats(inRange(startOfDay(), Infinity));
-  $('wToday').innerHTML = S.loaded ? `<span>Today <b>${rs(today.recv)}</b></span><span>${today.n} sale${today.n===1?'':'s'}</span><span class="${today.profit>0?'up':''}">Profit <b>${rsSigned(today.profit)}</b></span><span><b>${nf(today.dia)}</b> 💎</span>` : '';
+  $('wToday').innerHTML = S.loaded ? `<span>Today's revenue <b>${rs(today.rev)}</b></span><span>${today.n} transaction${today.n===1?'':'s'}</span><span class="${today.profit>0?'up':''}">Gross profit <b>${rsSigned(today.profit)}</b></span><span><b>${nf(today.dia)}</b> 💎</span>` : '';
   // period KPIs
   document.querySelectorAll('#ovPeriod button').forEach(b=>b.setAttribute('aria-checked',String(b.dataset.v===S.period)));
   const R=periodRange(S.period), cur=stats(inRange(R.from,Infinity)), prev=stats(inRange(R.pFrom,R.pTo));
   $('ovCmp').textContent = R.cmp;
-  const margin = cur.recv ? Math.round(cur.profit/cur.recv*100) : 0;
+  const margin = cur.rev ? Math.round(cur.profit/cur.rev*100) : 0;
   const k=[
-    ['money', IC.money, 'Money received', rs(cur.recv), delta(cur.recv,prev.recv), cur.n?'Avg '+rs(cur.recv/cur.n)+' per sale':''],
-    ['gain', IC.trend, 'Profit', rsSigned(cur.profit), delta(cur.profit,prev.profit), cur.recv?margin+'% of sales':''],
+    ['money', IC.money, 'Revenue', rs(cur.rev), delta(cur.rev,prev.rev), cur.rev!==cur.recv?'Cash in '+rs(cur.recv):cur.n?'Avg '+rs(cur.rev/cur.n)+' / sale':''],
+    ['gain', IC.trend, 'Gross profit', rsSigned(cur.profit), delta(cur.profit,prev.profit), cur.rev?margin+'% gross margin':''],
     ['gem', '<path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20"/>', 'Diamonds sold', nf(cur.dia), delta(cur.dia,prev.dia), ''],
-    ['', IC.list, 'Sales', String(cur.n), delta(cur.n,prev.n), new Set(inRange(R.from,Infinity).map(custKey).filter(x=>x!=='walkin')).size+' customers']
+    ['', IC.list, 'Transactions', String(cur.n), delta(cur.n,prev.n), new Set(inRange(R.from,Infinity).map(custKey).filter(x=>x!=='walkin')).size+' customers']
   ];
   $('kpis').innerHTML = k.map(([c,i,l,v,dl,sub])=>`<div class="stat ${c}"><span class="k-ic">${svgI(i)}</span><span>${l}</span><b>${S.loaded?v:'–'}</b><small>${S.loaded?dl:''}${sub?'<em style="font-style:normal">'+esc(sub)+'</em>':''}</small></div>`).join('');
   // quick sell
   const tp=topPackages();
   $('quick').innerHTML = tp.map(({p,n})=>`<button type="button" class="${p.kind==='member'?'mem':''}" data-quick="${esc(p.id)}"><b>${p.kind==='member'?STAR(16):GEM(16)}${esc(p.kind==='member'?p.name:nf(p.diamonds))}</b><span>${rs(sellOf(p))}</span><small>${n?n+' sold in 30 days':'Not sold yet'}</small></button>`).join('');
   $('qsCard').hidden = !tp.length;
-  // to send
+  // pending delivery
   const pend=S.sales.filter(s=>s.status==='pending').sort((a,b)=>a.at-b.at);
   $('sendPill').textContent=pend.length; $('sendPill').className='pill'+(pend.length?' warn':'');
-  $('toSend').innerHTML = !S.loaded ? '<div class="skel"></div>' : pend.length ? pend.slice(0,5).map(s=>`<div class="q-row"><div style="min-width:0"><div class="t">${esc(s.customer||'Walk-in')}</div><div class="s">${esc(s.pkgName)}${s.qty>1?' ×'+s.qty:''}${s.uid?' · UID <span class="uid">'+esc(s.uid)+'</span>':''} · ${esc(dayLabel(s.at))}</div></div><div class="acts">${s.uid?`<button class="btn" type="button" data-copy="${esc(s.uid)}">Copy UID</button>`:''}<button class="btn primary" type="button" data-sent="${esc(s.id)}">Sent</button></div></div>`).join('')+(pend.length>5?`<div class="q-more"><a class="link" data-go="sales" data-filter="pending">See all ${pend.length}</a></div>`:'')
-    : '<div class="q-empty"><i>✓</i>Every customer has their diamonds.</div>';
-  // udharo
+  $('toSend').innerHTML = !S.loaded ? '<div class="skel"></div>' : pend.length ? pend.slice(0,5).map(s=>`<div class="q-row"><div style="min-width:0"><div class="t">${esc(s.customer||'Walk-in')}</div><div class="s">${esc(s.pkgName)}${s.qty>1?' ×'+s.qty:''}${s.uid?' · UID <span class="uid">'+esc(s.uid)+'</span>':''} · ${esc(dayLabel(s.at))}</div></div><div class="acts">${s.uid?`<button class="btn" type="button" data-copy="${esc(s.uid)}"><span class="lg">Copy UID</span><span class="sm">UID</span></button>`:''}<button class="btn primary" type="button" data-sent="${esc(s.id)}">Delivered</button></div></div>`).join('')+(pend.length>5?`<div class="q-more"><a class="link" data-go="sales" data-filter="pending">See all ${pend.length}</a></div>`:'')
+    : '<div class="q-empty"><i>✓</i>No pending deliveries.</div>';
+  // accounts receivable
   const dues=S.sales.filter(s=>dueOf(s)>0).sort((a,b)=>a.at-b.at), dueTot=dues.reduce((t,s)=>t+dueOf(s),0);
   $('duePill').textContent=rs(dueTot); $('duePill').className='pill'+(dueTot?' warn':'');
-  $('dueList').innerHTML = !S.loaded ? '<div class="skel"></div>' : dues.length ? dues.slice(0,5).map(s=>`<div class="q-row"><div style="min-width:0"><div class="t">${esc(s.customer||'Walk-in')}</div><div class="s">${esc(s.pkgName)} · ${esc(dayLabel(s.at))}${s.phone?' · '+esc(s.phone):''}</div></div><div class="acts"><span class="due" style="align-self:center">${rs(dueOf(s))}</span><button class="btn primary" type="button" data-collect="${esc(s.id)}">Collected</button></div></div>`).join('')+(dues.length>5?`<div class="q-more"><a class="link" data-go="sales" data-filter="credit">See all ${dues.length}</a></div>`:'')
-    : '<div class="q-empty"><i>✓</i>No money waiting to be collected.</div>';
+  $('dueList').innerHTML = !S.loaded ? '<div class="skel"></div>' : dues.length ? dues.slice(0,5).map(s=>`<div class="q-row"><div style="min-width:0"><div class="t">${esc(s.customer||'Walk-in')}</div><div class="s">${esc(s.pkgName)} · ${esc(dayLabel(s.at))}${s.phone?' · '+esc(s.phone):''}</div></div><div class="acts"><span class="due" style="align-self:center">${rs(dueOf(s))}</span><button class="btn primary" type="button" data-collect="${esc(s.id)}"><span class="lg">Record payment</span><span class="sm">Receive</span></button></div></div>`).join('')+(dues.length>5?`<div class="q-more"><a class="link" data-go="sales" data-filter="credit">See all ${dues.length}</a></div>`:'')
+    : '<div class="q-empty"><i>✓</i>No outstanding receivables.</div>';
   renderChart();
   renderGoal();
   // top customers this month
-  const cm=new Map(); inRange(startOfMonth(),Infinity).forEach(s=>{ const k=custKey(s); if(k==='walkin') return; const o=cm.get(k)||{name:'',n:0,recv:0,profit:0,key:k}; o.name=s.customer||s.phone||s.uid||o.name; o.n++; o.recv+=Number(s.received)||0; o.profit+=profitOf(s); cm.set(k,o); });
-  const tc=[...cm.values()].sort((a,b)=>b.recv-a.recv).slice(0,5);
-  $('topCust').innerHTML = tc.length ? tc.map((c,i)=>`<div class="rank" data-custgo="${esc(c.key)}"><span class="no">${i+1}</span><div style="min-width:0"><div class="t">${esc(c.name)}</div><div class="s">${c.n} sale${c.n===1?'':'s'}</div></div><div class="v"><b>${rs(c.recv)}</b><small>${rsSigned(c.profit)}</small></div></div>`).join('')
-    : blank('No customers this month','Sales with a name, phone or UID show here.');
+  const cm=new Map(); inRange(startOfMonth(),Infinity).forEach(s=>{ const k=custKey(s); if(k==='walkin') return; const o=cm.get(k)||{name:'',n:0,rev:0,profit:0,key:k}; o.name=s.customer||s.phone||s.uid||o.name; o.n++; o.rev+=revenueOf(s); o.profit+=profitOf(s); cm.set(k,o); });
+  const tc=[...cm.values()].sort((a,b)=>b.rev-a.rev).slice(0,5);
+  $('topCust').innerHTML = tc.length ? tc.map((c,i)=>`<div class="rank" data-custgo="${esc(c.key)}"><span class="no">${i+1}</span><div style="min-width:0"><div class="t">${esc(c.name)}</div><div class="s">${c.n} sale${c.n===1?'':'s'}</div></div><div class="v"><b>${rs(c.rev)}</b><small>${rsSigned(c.profit)}</small></div></div>`).join('')
+    : blank('No customer activity this month','Sales with a name, phone or UID appear here.');
   // recent
   const rec=S.sales.slice(0,5);
   $('recent').innerHTML = !S.loaded ? '<div class="skel"></div><div class="skel"></div>' : rec.length ? rec.map(s=>saleRow(s,false)).join('')
@@ -1620,22 +1675,22 @@ function renderChart(){
   const n=S.chDays, days=[];
   for(let i=n-1;i>=0;i--){ const st=startOfDay()-i*864e5; days.push({st,...stats(inRange(st,st+864e5))}); }
   const tot=stats(inRange(startOfDay()-(n-1)*864e5, Infinity));
-  $('chSum').innerHTML=`<div><span>Received</span><b>${rs(tot.recv)}</b></div><div><span>Profit</span><b class="g">${rsSigned(tot.profit)}</b></div><div><span>Sales</span><b>${tot.n}</b></div><div><span>Daily average</span><b>${rs(tot.recv/n)}</b></div>`;
-  const rawMax=Math.max(1,...days.map(x=>x.recv)), step=Math.pow(10,Math.floor(Math.log10(rawMax))), max=Math.ceil(rawMax/step)*step;
+  $('chSum').innerHTML=`<div><span>Revenue</span><b>${rs(tot.rev)}</b></div><div><span>Gross profit</span><b class="g">${rsSigned(tot.profit)}</b></div><div><span>Gross margin</span><b>${tot.rev?Math.round(tot.profit/tot.rev*100):0}%</b></div><div><span>Avg daily revenue</span><b>${rs(tot.rev/n)}</b></div>`;
+  const rawMax=Math.max(1,...days.map(x=>x.rev)), step=Math.pow(10,Math.floor(Math.log10(rawMax))), max=Math.ceil(rawMax/step)*step;
   $('chY').innerHTML=[1,.75,.5,.25,0].map(f=>`<span>${f?nf(max*f):'0'}</span>`).join('');
   const every = n>14 ? 5 : n>7 ? 2 : 1;
   $('chart').innerHTML=days.map((x,i)=>{ const lab=i===n-1?'Today':(n-1-i)%every===0?(n>7?new Date(x.st).getDate():new Date(x.st).toLocaleDateString('en-US',{weekday:'short'})):'';
-    return `<div class="d${i===n-1?' today':''}${x.n?'':' zero'}" data-i="${i}"><div class="bars"><i class="r" style="height:${x.recv/max*100}%"></i><i class="p${x.profit<0?' neg':''}" style="height:${Math.abs(x.profit)/max*100}%"></i></div><small>${lab}</small></div>`; }).join('');
-  $('chart').dataset.days=JSON.stringify(days.map(x=>[x.st,x.recv,x.profit,x.n]));
-  const best=days.reduce((a,b)=>b.recv>a.recv?b:a, days[0]);
-  $('chBest').textContent = best && best.recv ? 'Best day: '+new Date(best.st).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+', '+rs(best.recv) : '';
+    return `<div class="d${i===n-1?' today':''}${x.n?'':' zero'}" data-i="${i}"><div class="bars"><i class="r" style="height:${x.rev/max*100}%"></i><i class="p${x.profit<0?' neg':''}" style="height:${Math.abs(x.profit)/max*100}%"></i></div><small>${lab}</small></div>`; }).join('');
+  $('chart').dataset.days=JSON.stringify(days.map(x=>[x.st,x.rev,x.profit,x.n]));
+  const best=days.reduce((a,b)=>b.rev>a.rev?b:a, days[0]);
+  $('chBest').textContent = best && best.rev ? 'Highest revenue: '+new Date(best.st).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})+', '+rs(best.rev) : '';
 }
 function chartTip(e){
   const c=$('chart'), d=e.target.closest('.d'); let tip=c.querySelector('.ch-tip');
   if (!d){ tip&&tip.remove(); return; }
   const [st,recv,profit,n]=JSON.parse(c.dataset.days)[+d.dataset.i];
   if (!tip){ tip=document.createElement('div'); tip.className='ch-tip'; c.appendChild(tip); }
-  tip.innerHTML=`<b>${new Date(st).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</b>${rs(recv)} received · ${rsSigned(profit)} · ${n} sale${n===1?'':'s'}`;
+  tip.innerHTML=`<b>${new Date(st).toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'})}</b>Revenue ${rs(recv)} · GP ${rsSigned(profit)} · ${n} txn`;
   const r=d.getBoundingClientRect(), cr=c.getBoundingClientRect();
   tip.style.left=Math.min(cr.width-70, Math.max(70, r.left-cr.left+r.width/2))+'px'; tip.style.top='0px';
 }
@@ -1645,13 +1700,13 @@ $('chDays').addEventListener('click', e=>{ const b=e.target.closest('button'); i
 $('ovPeriod').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; S.period=b.dataset.v; renderHome(); });
 function renderGoal(){
   const goal=Number(S.settings.goal)||0, m=stats(inRange(startOfMonth(),Infinity));
-  if (!goal){ $('goalBody').innerHTML=`<p class="help" style="margin-bottom:12px">Set how much profit you want each month. You'll see your progress here and how much you need per day.</p><button class="btn" type="button" data-go="rate" data-focus="rGoal">Set a goal</button>`; return; }
+  if (!goal){ $('goalBody').innerHTML=`<p class="help" style="margin-bottom:12px">Set a monthly gross profit target to track progress and the daily run-rate needed to reach it.</p><button class="btn" type="button" data-go="rate" data-focus="rGoal">Set a target</button>`; return; }
   const d=new Date(), dim=new Date(d.getFullYear(), d.getMonth()+1, 0).getDate(), day=d.getDate(), left=dim-day+1;
   const p=pct(m.profit,goal), pace=day/dim*100, need=Math.max(0,goal-m.profit), perDay=need/left;
   const onTrack = m.profit >= goal*day/dim;
   $('goalBody').innerHTML=`<div class="goal-top"><b>${rs(m.profit)}</b><span>of ${rs(goal)} · ${Math.round(p)}%</span></div>
-    <div class="bar lg goal-bar"><i class="${p>=100?'fill-ok':onTrack?'fill-ok':'fill-warn'}" style="width:${p}%"></i><span class="mark" style="left:${pace}%" title="Where you should be today"></span></div>
-    <div class="goal-facts"><div><span>Days left</span><b>${left}</b></div><div><span>Need per day</span><b>${need?rs(perDay):'Done 🎉'}</b></div><div><span>Status</span><b style="color:${p>=100||onTrack?'var(--ok)':'var(--warn)'}">${p>=100?'Reached':onTrack?'On track':'Behind'}</b></div></div>`;
+    <div class="bar lg goal-bar"><i class="${p>=100?'fill-ok':onTrack?'fill-ok':'fill-warn'}" style="width:${p}%"></i><span class="mark" style="left:${pace}%" title="Expected progress by today"></span></div>
+    <div class="goal-facts"><div><span>Days left</span><b>${left}</b></div><div><span>Required / day</span><b>${need?rs(perDay):'Done 🎉'}</b></div><div><span>Status</span><b style="color:${p>=100||onTrack?'var(--ok)':'var(--warn)'}">${p>=100?'Achieved':onTrack?'On track':'Behind target'}</b></div></div>`;
 }
 document.addEventListener('click', e => {
   const q=e.target.closest('[data-quick]'); if(q){ newSale({pkId:q.dataset.quick}); return; }
@@ -1666,7 +1721,7 @@ document.addEventListener('click', e => { const f=e.target.closest('[data-filter
 /* ---------- sale rows ---------- */
 function saleRow(s, withMenu=true){
   const p=profitOf(s), name=s.customer||'Walk-in';
-  const due=dueOf(s), badges=(s.status==='pending'?'<span class="badge wait">Not sent</span>':'')+(s.method==='Credit'?(due?`<span class="badge due">Due ${rs(due)}</span>`:'<span class="badge draft">Udharo</span>'):'');
+  const due=dueOf(s), badges=(s.status==='pending'?'<span class="badge wait">Undelivered</span>':'')+(s.method==='Credit'?(due?`<span class="badge due">Outstanding ${rs(due)}</span>`:'<span class="badge draft">Credit</span>'):'');
   const sub=[esc(s.pkgName)+(s.qty>1?' ×'+s.qty:''), (s.qty>1||isMem(s))?nf(s.diamonds)+' diamonds':null, fmtWhen(s.at), s.method!=='Credit'?esc(s.method):null].filter(Boolean).join(' · ');
   return `<div class="sale${isMem(s)?' mem':''}${withMenu?'':' nomenu'}" data-sale="${esc(s.id)}" role="button" tabindex="0">
     <span class="gi">${isMem(s)?STAR(18):GEM(18)}</span>
@@ -1683,8 +1738,8 @@ document.addEventListener('keydown', e => { if((e.key==='Enter'||e.key===' ') &&
 function saleMenu(btn, s){
   openRowMenu(btn, (s.customer||'Walk-in')+', '+s.pkgName, [
     {icon:'edit', label:'Edit sale', fn:()=>editSale(s)},
-    s.status==='pending' ? {icon:'sent', label:'Mark as sent', fn:()=>setSent(s,true)} : {icon:'unsent', label:'Mark as not sent', fn:()=>setSent(s,false)},
-    ...(s.method==='Credit'?[{icon:'money', label:'Udharo collected', fn:()=>collectMenu(btn,s)}]:[]),
+    s.status==='pending' ? {icon:'sent', label:'Mark as delivered', fn:()=>setSent(s,true)} : {icon:'unsent', label:'Mark as undelivered', fn:()=>setSent(s,false)},
+    ...(s.method==='Credit'?[{icon:'money', label:'Record payment', fn:()=>collectMenu(btn,s)}]:[]),
     {icon:'share', label: waNumber(s.phone)?'Send receipt on WhatsApp':'Share receipt', fn:()=>sendReceipt(s)},
     {icon:'again', label:'Sell again to this customer', fn:()=>newSale({customer:s.customer, phone:s.phone, uid:s.uid, pkgId:s.pkgId})},
     ...(s.uid?[{icon:'copy', label:'Copy Free Fire UID', fn:()=>copy(s.uid)}]:[]),
@@ -1692,13 +1747,13 @@ function saleMenu(btn, s){
   ]);
 }
 function collectMenu(btn, s){
-  setTimeout(()=>openRowMenu(btn, 'Collected '+rs(dueOf(s)||priceOf(s))+' from '+(s.customer||'customer')+' by', ['Cash','eSewa','Khalti','Bank'].map(m=>({icon:'money', label:m, fn:()=>{
-    const r={...s, method:m, received:Math.max(Number(s.received)||0, priceOf(s)), paidAt:Date.now(), updatedAt:Date.now()}; saveSale(r); toast('Udharo collected: '+rs(r.received-(Number(s.received)||0))+' by '+m, false, {label:'Undo', fn:()=>saveSale(s)}); }}))), 0);
+  setTimeout(()=>openRowMenu(btn, 'Record '+rs(dueOf(s)||priceOf(s))+' from '+(s.customer||'customer')+' via', ['Cash','eSewa','Khalti','Bank'].map(m=>({icon:'money', label:m, fn:()=>{
+    const r={...s, method:m, received:Math.max(Number(s.received)||0, priceOf(s)), paidAt:Date.now(), updatedAt:Date.now()}; saveSale(r); toast('Payment recorded: '+rs(r.received-(Number(s.received)||0))+' via '+m, false, {label:'Undo', fn:()=>saveSale(s)}); }}))), 0);
 }
 const waNumber = p => { let d=digits(p); if (d.length===13 && d.startsWith('977')) d=d.slice(3); return /^9[78]\d{8}$/.test(d) ? '977'+d : ''; };
 function receiptText(s){
   return ['Diamond Counter receipt', '', (s.customer?'Customer: '+s.customer:null), (s.uid?'Free Fire UID: '+s.uid:null), 'Package: '+s.pkgName+(s.qty>1?' ×'+s.qty:''), 'Diamonds: '+nf(s.diamonds),
-    'Paid: '+rs(s.received)+(s.method==='Credit'?' (udharo'+(dueOf(s)?', '+rs(dueOf(s))+' due':'')+')':' by '+s.method), 'Status: '+(s.status==='pending'?'Diamonds coming soon':'Diamonds sent ✅'), 'Date: '+fmtWhen(s.at), '', 'Thank you! 💎'].filter(x=>x!==null).join('\n');
+    'Amount paid: '+rs(s.received)+(s.method==='Credit'?' (on credit'+(dueOf(s)?', '+rs(dueOf(s))+' outstanding':'')+')':' via '+s.method), 'Delivery: '+(s.status==='pending'?'Pending, coming soon':'Delivered ✅'), 'Date: '+fmtWhen(s.at), '', 'Thank you! 💎'].filter(x=>x!==null).join('\n');
 }
 function sendReceipt(s){
   const t=receiptText(s), w=waNumber(s.phone);
@@ -1707,11 +1762,11 @@ function sendReceipt(s){
   copy(t, 'Receipt copied');
 }
 function copy(t, msg){ (navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>toast(msg||'UID copied')).catch(()=>toast('Couldn\u2019t copy. UID: '+t,true)); }
-function setSent(s, sent){ const r={...s, status:sent?'done':'pending', updatedAt:Date.now()}; saveSale(r); toast(sent?'Marked as sent':'Marked as not sent'); }
+function setSent(s, sent){ const r={...s, status:sent?'done':'pending', updatedAt:Date.now()}; saveSale(r); toast(sent?'Marked as delivered':'Marked as undelivered'); }
 function delSale(s){ removeSale(s.id); toast('Sale deleted', false, {label:'Undo', fn:()=>{ saveSale(s); toast('Sale restored'); }}); }
 
 /* ---------- sales page ---------- */
-const FILTERS=[['all','All'],['today','Today'],['week','7 days'],['month','This month'],['pending','Not sent'],['credit','Udharo']];
+const FILTERS=[['all','All'],['today','Today'],['week','7 days'],['month','This month'],['pending','Undelivered'],['credit','Credit']];
 function filtered(){
   const q=S.search.trim().toLowerCase(), sd=startOfDay(), sw=startOfWeek(), sm=startOfMonth();
   return S.sales.filter(s=>{
@@ -1732,12 +1787,12 @@ function renderSales(){
   if (document.activeElement!==$('sSearch')) $('sSearch').value=S.search;
   if (!S.loaded){ $('sList').innerHTML='<div class="skel"></div><div class="skel"></div>'; $('sSum').innerHTML=''; return; }
   const list=filtered(), x=stats(list);
-  $('sSum').innerHTML=`<span class="pill">${x.n} sale${x.n===1?'':'s'}</span><span class="pill">${nf(x.dia)} diamonds</span><span class="pill">${rs(x.recv)} received</span><span class="pill ${x.profit<0?'full':''}" style="${x.profit>=0?'background:var(--ok-soft);color:var(--ok)':''}">${rsSigned(x.profit)} profit</span>`;
-  const byDay=new Map(); list.forEach(s=>{ const k=startOfDay(s.at); const o=byDay.get(k)||{n:0,recv:0,profit:0}; o.n++; o.recv+=Number(s.received)||0; o.profit+=profitOf(s); byDay.set(k,o); });
+  $('sSum').innerHTML=`<span class="pill">${x.n} transaction${x.n===1?'':'s'}</span><span class="pill">${nf(x.dia)} diamonds</span><span class="pill">Revenue ${rs(x.rev)}</span>${x.rev!==x.recv?`<span class="pill warn">Receivable ${rs(x.rev-x.recv)}</span>`:''}<span class="pill ${x.profit<0?'full':''}" style="${x.profit>=0?'background:var(--ok-soft);color:var(--ok)':''}">GP ${rsSigned(x.profit)}</span>`;
+  const byDay=new Map(); list.forEach(s=>{ const k=startOfDay(s.at); const o=byDay.get(k)||{n:0,rev:0,profit:0}; o.n++; o.rev+=revenueOf(s); o.profit+=profitOf(s); byDay.set(k,o); });
   let lastDay=null;
-  const rowsHtml=list.slice(0,S.shown).map(s=>{ const k=startOfDay(s.at); let h=''; if(k!==lastDay){ lastDay=k; const o=byDay.get(k); h=`<div class="day-h"><b>${esc(dayLabel(s.at))}</b><span>${o.n} sale${o.n===1?'':'s'} · ${rs(o.recv)} · ${rsSigned(o.profit)}</span></div>`; } return h+saleRow(s); }).join('');
+  const rowsHtml=list.slice(0,S.shown).map(s=>{ const k=startOfDay(s.at); let h=''; if(k!==lastDay){ lastDay=k; const o=byDay.get(k); h=`<div class="day-h"><b>${esc(dayLabel(s.at))}</b><span>${o.n} txn · Revenue ${rs(o.rev)} · GP ${rsSigned(o.profit)}</span></div>`; } return h+saleRow(s); }).join('');
   $('sList').innerHTML = list.length ? rowsHtml + (list.length>S.shown?`<div class="more-row"><button class="btn" type="button" id="sMore">Show ${Math.min(60,list.length-S.shown)} more</button></div>`:'')
-    : S.sales.length ? blank('No sales match','Try another filter or search.') : blank('No sales yet','Tap New sale to record your first one.');
+    : S.sales.length ? blank('No matching transactions','Try another filter or search.') : blank('No transactions yet','Tap New sale to record your first one.');
   const m=$('sMore'); if(m) m.onclick=()=>{ S.shown+=60; renderSales(); };
 }
 $('sFilters').addEventListener('click', e => { const b=e.target.closest('[data-f]'); if(!b) return; if(b.dataset.f==='__clearcust') S.custFilter=null; else S.filter=b.dataset.f; S.shown=60; renderSales(); });
@@ -1750,10 +1805,10 @@ const custKey = s => digits(s.phone) ? 'p:'+digits(s.phone).slice(-10) : (s.uid|
 function customers(){
   const m=new Map();
   S.sales.forEach(s=>{ const k=custKey(s); if(k==='walkin') return; let c=m.get(k);
-    if(!c){ c={key:k, name:s.customer||'', phone:s.phone||'', uid:s.uid||'', n:0, recv:0, dia:0, profit:0, last:0, lastPkg:'', pend:0}; m.set(k,c); }
-    c.n++; c.recv+=Number(s.received)||0; c.dia+=Number(s.diamonds)||0; c.profit+=profitOf(s); if(s.status==='pending') c.pend++;
+    if(!c){ c={key:k, name:s.customer||'', phone:s.phone||'', uid:s.uid||'', n:0, recv:0, rev:0, dia:0, profit:0, last:0, lastPkg:'', pend:0}; m.set(k,c); }
+    c.n++; c.recv+=Number(s.received)||0; c.rev+=revenueOf(s); c.dia+=Number(s.diamonds)||0; c.profit+=profitOf(s); if(s.status==='pending') c.pend++;
     if(s.at>c.last){ c.last=s.at; c.lastPkg=s.pkgName; c.name=s.customer||c.name; c.phone=s.phone||c.phone; c.uid=s.uid||c.uid; c.pkgId=s.pkgId; } });
-  return [...m.values()].sort((a,b)=>b.recv-a.recv);
+  return [...m.values()].sort((a,b)=>b.rev-a.rev);
 }
 const custName = k => { const c=customers().find(x=>x.key===k); return c ? (c.name||c.phone||c.uid) : 'Customer'; };
 function renderCustomers(){
@@ -1763,9 +1818,9 @@ function renderCustomers(){
   if (!S.loaded){ $('cList').innerHTML='<div class="skel"></div><div class="skel"></div>'; return; }
   $('cList').innerHTML = list.length ? list.map(c=>{ const ini=(c.name||c.phone||'?').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
     return `<div class="person" data-cust="${esc(c.key)}"><span class="pav"><span class="ph">${esc(ini)}</span></span>
-      <div class="pn"><b>${esc(c.name||'No name')}${c.pend?'<span class="badge wait">'+c.pend+' not sent</span>':''}</b><small>Last bought ${esc(c.lastPkg)}, ${fmtWhen(c.last)}</small>
-      <div class="chips">${c.phone?`<a href="tel:${esc(digits(c.phone))}">${esc(c.phone)}</a>`:''}${c.uid?`<i class="c-l">UID ${esc(c.uid)}</i>`:''}<i>${c.n} sale${c.n===1?'':'s'}</i><i>${nf(c.dia)} 💎</i></div></div>
-      <div class="pa"><span class="pc" style="text-align:right"><b style="display:block;color:var(--ink);font-size:.95rem">${rs(c.recv)}</b><small>${rsSigned(c.profit)}</small></span>${KEBAB}</div></div>`; }).join('')
+      <div class="pn"><b>${esc(c.name||'No name')}${c.pend?'<span class="badge wait">'+c.pend+' undelivered</span>':''}</b><small>Last bought ${esc(c.lastPkg)}, ${fmtWhen(c.last)}</small>
+      <div class="chips">${c.phone?`<a href="tel:${esc(digits(c.phone))}">${esc(c.phone)}</a>`:''}${c.uid?`<i class="c-l">UID ${esc(c.uid)}</i>`:''}<i>${c.n} txn</i><i>${nf(c.dia)} 💎</i></div></div>
+      <div class="pa"><span class="pc" style="text-align:right"><b style="display:block;color:var(--ink);font-size:.95rem">${rs(c.rev)}</b><small>${rsSigned(c.profit)}</small></span>${KEBAB}</div></div>`; }).join('')
     : all.length ? blank('No customers match','Try a different name, phone or UID.') : blank('No customers yet','Customers appear here after you record sales with their name, phone or UID.');
 }
 $('cSearch').addEventListener('input', () => { S.custQ=$('cSearch').value; renderCustomers(); });
@@ -1831,14 +1886,14 @@ function updateCalc(){
   if (!p){ ['cDia','cCost','cProfit'].forEach(i=>$(i).textContent='–'); return; }
   const cost=formCost(p,q), suggested=(S.form.orig&&S.form.orig.pkgId===p.id)?priceOf(S.form.orig)/(S.form.orig.qty||1)*q:(pkgById(p.id)?sellOf(p)*q:0);
   if (!S.form.recvTouched) $('fRecv').value=Math.round(suggested);
-  $('recvHint').textContent = 'price '+rs(suggested);
+  $('recvHint').textContent = 'selling price '+rs(suggested);
   const recv=Number($('fRecv').value)||0, pr=(S.form.method==='Credit'?Math.max(recv,Math.round(suggested)):recv)-cost;
   $('cDia').textContent=nf(p.diamonds*q); $('cCost').textContent=rs(cost);
   $('cProfit').textContent=rsSigned(pr); $('cProfit').className=pr<0?'bad':'good';
   const credit=S.form.method==='Credit', due=Math.max(0,Math.round(suggested)-recv);
   $('cDueBox').hidden=!credit; $('calc').classList.toggle('four',credit); $('cDue').textContent=rs(due);
   S.form.price=Math.round(suggested);
-  $('sellHelp').textContent = S.editId ? 'Editing keeps the dollar rate from the day of sale' : 'At Rs '+rs2(rateNow())+' per dollar';
+  $('sellHelp').textContent = S.editId ? 'Cost stays at the exchange rate on the sale date' : 'Cost at Rs '+rs2(rateNow())+' / USD';
 }
 $('pkPick').addEventListener('click', e => { const b=e.target.closest('[data-pk]'); if(!b) return; S.form.pkId=b.dataset.pk; if(!S.editId||!S.form.orig||S.form.orig.pkgId!==b.dataset.pk) S.form.recvTouched=false; dirty.add('sell'); renderSell(); });
 $('fMethod').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; const was=S.form.method; S.form.method=b.dataset.v;
@@ -1858,7 +1913,7 @@ function matchCustomer(){
   if (!c || S.editId){ hit.hidden=true; return; }
   const fill=(id,v)=>{ const el=$(id); if (v && !el.value.trim() && document.activeElement!==el) el.value=v; };
   fill('fName',c.name); fill('fPhone',c.phone); fill('fUid',c.uid);
-  hit.innerHTML=`${svgI(IC.sent)}<span><b>Returning customer.</b> ${c.n} earlier sale${c.n===1?'':'s'}, ${rs(c.recv)} in total.</span>`; hit.hidden=false;
+  hit.innerHTML=`${svgI(IC.sent)}<span><b>Returning customer.</b> ${c.n} previous transaction${c.n===1?'':'s'}, lifetime revenue ${rs(c.rev)}.</span>`; hit.hidden=false;
 }
 ['fName','fPhone','fUid'].forEach(i=>$(i).addEventListener('change', matchCustomer));
 $('sellCancel').addEventListener('click', async () => {
@@ -1871,7 +1926,7 @@ $('sellSave').addEventListener('click', () => {
   const p=formPkg(); if(!p){ $('fErr2').textContent='Pick a package first.'; return; }
   const q=parseInt($('fQty').value,10); if(!(q>=1)){ $('fErr2').textContent='Quantity must be 1 or more.'; $('fQty').focus(); return; }
   const raw=$('fRecv').value.trim(), recv=Number(raw);
-  if (raw==='' || !(recv>=0)){ $('fErr2').textContent='Enter how much money you received (0 for full udharo).'; $('fRecv').focus(); return; }
+  if (raw==='' || !(recv>=0)){ $('fErr2').textContent='Enter the amount received (0 if the full amount is on credit).'; $('fRecv').focus(); return; }
   const o=S.form.orig, cost=Math.round(formCost(p,q)*100)/100;
   const r={
     id: S.editId || newId(), at: o ? o.at : Date.now(),
@@ -1885,28 +1940,28 @@ $('sellSave').addEventListener('click', () => {
   if (o) r.updatedAt=Date.now();
   saveSale(r);
   dirty.delete('sell'); const wasEdit=!!S.editId; S.editId=null; S.form=null; $('custHit').hidden=true;
-  toast(wasEdit?'Sale updated':'Sale saved: '+rs(recv)+', '+rsSigned(profitOf(r))+' profit', false, (!wasEdit && (r.phone||navigator.share)) ? {label:'Send receipt', fn:()=>sendReceipt(r)} : null);
+  toast(wasEdit?'Sale updated':'Sale recorded: revenue '+rs(revenueOf(r))+', GP '+rsSigned(profitOf(r)), false, (!wasEdit && (r.phone||navigator.share)) ? {label:'Send receipt', fn:()=>sendReceipt(r)} : null);
   if (wasEdit) go('sales'); else { resetForm(); renderSell(); scrollTo({top:0,behavior:'smooth'}); }
 });
 
 /* ---------- price list ---------- */
 function renderPrices(){
   const st=S.settings, pk=st.packages;
-  $('pMeta').textContent=`${Number(st.feePct)||0}% fee, ${Number(st.marginPct)||0}% margin, rounded to Rs ${st.roundTo}`;
+  $('pMeta').textContent=`${Number(st.feePct)||0}% charges, ${Number(st.marginPct)||0}% markup, rounded up to Rs ${st.roundTo}`;
   $('pBoard').innerHTML=pk.map(p=>{ const c=costOf(p), s=sellOf(p);
     return `<tr class="click ${p.kind==='member'?'mem':''}" data-sellpk="${esc(p.id)}"><td><span class="pn">${p.kind==='member'?STAR(16):GEM(16)}${esc(p.kind==='member'?p.name+' ('+nf(p.diamonds)+')':nf(p.diamonds)+' diamonds')}</span></td><td class="r">$${p.usd.toFixed(2)}</td><td class="r">${rs(c)}</td><td class="r sell">${rs(s)}</td><td class="r gain">${rsSigned(s-c)}</td></tr>`; }).join('')
     || `<tr><td colspan="5">${blank('No packages','Add one below.')}</td></tr>`;
   const card=p=>{ const c=costOf(p), s=sellOf(p), m=p.kind==='member';
     return `<div class="pl${m?' mem':''}" data-sellpk="${esc(p.id)}" role="button" tabindex="0"><span class="gi">${m?STAR(20):GEM(20)}</span>
       <div style="min-width:0"><div class="t">${esc(m?p.name:nf(p.diamonds)+' diamonds')}${m?`<small>${nf(p.diamonds)} 💎</small>`:''}</div>
-      <div class="s"><span>$${p.usd.toFixed(2)}</span><span>Cost <b>${rs(c)}</b></span></div></div>
+      <div class="s"><span>$${p.usd.toFixed(2)}</span><span>COGS <b>${rs(c)}</b></span></div></div>
       <div class="v"><b>${rs(s)}</b><small>${rsSigned(s-c)}</small></div></div>`; };
   const top=pk.filter(p=>p.kind!=='member'), mem=pk.filter(p=>p.kind==='member');
   $('pCards').innerHTML=(top.length?'<div class="pl-group">TOP-UP</div>'+top.map(card).join(''):'')+(mem.length?'<div class="pl-group">MEMBERSHIP</div>'+mem.map(card).join(''):'') || blank('No packages','Add one below.');
   $('peMeta').textContent=pk.length+' package'+(pk.length===1?'':'s')+' · tap one to edit';
   $('peList').innerHTML=pk.map((p,i)=>{ const m=p.kind==='member';
     return `<div class="pkr${m?' mem':''}" data-pid="${esc(p.id)}" role="button" tabindex="0"><span class="gi">${m?STAR(20):GEM(20)}</span>
-      <div style="min-width:0"><div class="t">${esc(p.name)}</div><div class="s">${nf(p.diamonds)} 💎 · $${p.usd.toFixed(2)} · sells at ${rs(sellOf(p))}</div></div>
+      <div style="min-width:0"><div class="t">${esc(p.name)}</div><div class="s">${nf(p.diamonds)} 💎 · $${p.usd.toFixed(2)} · selling price ${rs(sellOf(p))}</div></div>
       <span class="tag">${m?'Membership':'Top-up'}</span><div class="ops">${KEBAB}</div></div>`; }).join('') || blank('No packages','Tap Add package to create one.');
 }
 document.addEventListener('click', e => { if (e.target.closest('#pBoard [data-sellpk], #pCards [data-sellpk]')) newSale({pkId:e.target.closest('[data-sellpk]').dataset.sellpk}); });
@@ -1949,8 +2004,8 @@ function pkRender(){
   $('pkName').placeholder = pkEdit.kind==='member' ? 'Weekly' : ((Number($('pkDia').value)||520)+' diamonds');
   const usd=Number($('pkUsd').value), dia=Number($('pkDia').value);
   if (usd>0){ const t={usd, diamonds:dia||0, kind:pkEdit.kind}, c=costOf(t), s=sellOf(t);
-    $('pkPrev').innerHTML=`<div><span>Your cost</span><b>${rs(c)}</b></div><div><span>Sell at</span><b>${rs(s)}</b></div><div><span>Profit each</span><b class="g">${rsSigned(s-c)}</b></div><p>At Rs ${rs2(rateNow())} per dollar, ${Number(S.settings.feePct)||0}% fee, ${Number(S.settings.marginPct)||0}% margin</p>`; }
-  else $('pkPrev').innerHTML='<div style="grid-column:1/-1"><span>Enter the game price in dollars to see your cost and selling price.</span></div>';
+    $('pkPrev').innerHTML=`<div><span>Cost (COGS)</span><b>${rs(c)}</b></div><div><span>Selling price</span><b>${rs(s)}</b></div><div><span>Profit / unit</span><b class="g">${rsSigned(s-c)}</b></div><p>At Rs ${rs2(rateNow())} / USD, ${Number(S.settings.feePct)||0}% charges, ${Number(S.settings.marginPct)||0}% markup</p>`; }
+  else $('pkPrev').innerHTML='<div style="grid-column:1/-1"><span>Enter the game price in USD to see cost and selling price.</span></div>';
 }
 $('pkKind').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; pkEdit.kind=b.dataset.v; pkRender(); });
 $('pkDia').addEventListener('input', () => { if (pkEdit.autoName && pkEdit.kind!=='member') $('pkName').value = $('pkDia').value ? Number($('pkDia').value)+' diamonds' : ''; pkRender(); });
@@ -1983,7 +2038,7 @@ function renderRatePage(){
   $('rLive').textContent = S.live.status==='ok' ? 'Rs '+rs2(S.live.rate) : S.settings.lastLiveRate ? 'Rs '+rs2(S.settings.lastLiveRate) : '–';
   $('rLiveMeta').textContent = rateLine()[1];
   const st={...S.settings, ...d}, p=S.settings.packages.find(x=>x.id==='d100')||S.settings.packages[0];
-  $('rPreview').innerHTML = p ? `<span>${esc(p.kind==='member'?p.name:nf(p.diamonds)+' diamonds')} would sell at</span><b>${rs(sellOf(p,st))} <span class="help" style="font-weight:500">(cost ${rs(costOf(p,st))})</span></b>` : '';
+  $('rPreview').innerHTML = p ? `<span>${esc(p.kind==='member'?p.name:nf(p.diamonds)+' diamonds')} selling price</span><b>${rs(sellOf(p,st))} <span class="help" style="font-weight:500">(COGS ${rs(costOf(p,st))})</span></b>` : '';
   $('rMsg').textContent = dirty.has('rate') ? 'Unsaved changes' : 'Saved';
   if (document.activeElement!==$('rGoal')) $('rGoal').value = Number(S.settings.goal)||0;
 }
@@ -1991,13 +2046,13 @@ $('rMode').addEventListener('click', e => { const b=e.target.closest('button'); 
 $('rRound').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; S.rateDraft.roundTo=Number(b.dataset.v); dirty.add('rate'); renderRatePage(); });
 [['rManual','manualRate'],['rFee','feePct'],['rMargin','marginPct']].forEach(([id,k])=>$(id).addEventListener('input',()=>{ const v=parseFloat($(id).value); if(isNaN(v)||v<0) return; S.rateDraft[k]=v; dirty.add('rate'); renderRatePage(); }));
 $('rRefresh').addEventListener('click', fetchRate);
-$('gSave').addEventListener('click', () => { const v=Math.round(Number($('rGoal').value)); if(!(v>=0)){ toast('Enter a goal of 0 or more.',true); return; } const st={...S.settings, goal:v}; S.settings=st; saveSettings(st); renderAll(); toast(v?'Goal saved: '+rs(v)+' profit a month':'Goal removed'); });
+$('gSave').addEventListener('click', () => { const v=Math.round(Number($('rGoal').value)); if(!(v>=0)){ toast('Enter a target of 0 or more.',true); return; } const st={...S.settings, goal:v}; S.settings=st; saveSettings(st); renderAll(); toast(v?'Target saved: '+rs(v)+' gross profit / month':'Target removed'); });
 $('rUndo').addEventListener('click', () => { S.rateDraft=null; dirty.delete('rate'); renderRatePage(); });
 $('rSave').addEventListener('click', () => {
   const d=S.rateDraft;
-  if (!(d.manualRate>=1)) { toast('Enter your own rate (Rs per dollar).',true); $('rManual').focus(); return; }
-  if (d.feePct>50) { toast('Card fee looks too high. Use a value under 50%.',true); return; }
-  const st={...S.settings, ...d}; S.settings=st; S.rateDraft=null; dirty.delete('rate'); saveSettings(st); renderAll(); toast('Rate & margin saved');
+  if (!(d.manualRate>=1)) { toast('Enter a manual exchange rate (Rs per USD).',true); $('rManual').focus(); return; }
+  if (d.feePct>50) { toast('Card/bank charges look too high. Use a value under 50%.',true); return; }
+  const st={...S.settings, ...d}; S.settings=st; S.rateDraft=null; dirty.delete('rate'); saveSettings(st); renderAll(); toast('Pricing settings saved');
   if (st.rateMode==='live' && S.live.status!=='ok') fetchRate();
 });
 
@@ -2005,19 +2060,23 @@ $('rSave').addEventListener('click', () => {
 function renderReports(){
   const rows=[]; const now=new Date();
   for(let i=0;i<12;i++){ const d=new Date(now.getFullYear(), now.getMonth()-i, 1); const k=monthKey(d); const x=stats(S.sales.filter(s=>monthKey(s.at)===k)); if(i>0 && !x.n) continue; rows.push([d,x,i===0]); }
-  $('rpMonths').innerHTML=rows.map(([d,x,cur])=>`<tr class="${cur?'cur':''}"><td>${d.toLocaleDateString('en-US',{month:'long',year:'numeric'})}</td><td class="r">${x.n}</td><td class="r">${nf(x.dia)}</td><td class="r">${rs(x.recv)}</td><td class="r">${rs(x.cost)}</td><td class="r ${x.profit<0?'neg':'gain'}">${rsSigned(x.profit)}</td></tr>`).join('');
+  $('rpMonths').innerHTML=rows.map(([d,x,cur])=>`<tr class="${cur?'cur':''}"><td>${d.toLocaleDateString('en-US',{month:'long',year:'numeric'})}</td><td class="r">${x.n}</td><td class="r">${nf(x.dia)}</td><td class="r">${rs(x.rev)}</td><td class="r">${rs(x.cost)}</td><td class="r ${x.profit<0?'neg':'gain'}">${rsSigned(x.profit)}</td><td class="r">${x.rev?Math.round(x.profit/x.rev*100)+'%':'–'}</td><td class="r">${x.rev-x.recv>0?rs(x.rev-x.recv):'–'}</td></tr>`).join('');
   const month=S.sales.filter(s=>s.at>=startOfMonth());
   const bars=(map,cls,fmt)=>{ const arr=[...map.entries()].sort((a,b)=>b[1].v-a[1].v); const max=Math.max(1,...arr.map(a=>a[1].v));
-    return arr.length ? arr.map(([k,o])=>`<div class="like-row"><span class="lt">${esc(k)}<small>${fmt(o)}</small></span><span class="lb"><i class="${cls}" style="width:${o.v/max*100}%"></i></span><span class="ln">${rs(o.v)}</span></div>`).join('') : blank('Nothing this month yet','Sales you record this month show here.'); };
-  const pay=new Map(); month.forEach(s=>{ const k=s.method==='Credit'?'Udharo':s.method; const o=pay.get(k)||{v:0,n:0}; o.v+=Number(s.received)||0; o.n++; pay.set(k,o); });
-  $('rpPay').innerHTML=bars(pay,'b',o=>o.n+' sale'+(o.n===1?'':'s'));
-  const pk=new Map(); month.forEach(s=>{ const o=pk.get(s.pkgName)||{v:0,n:0,p:0}; o.v+=Number(s.received)||0; o.n+=s.qty||1; o.p+=profitOf(s); pk.set(s.pkgName,o); });
-  $('rpPkg').innerHTML=bars(pk,'p',o=>o.n+' sold, '+rsSigned(o.p)+' profit');
+    return arr.length ? arr.map(([k,o])=>`<div class="like-row"><span class="lt">${esc(k)}<small>${fmt(o)}</small></span><span class="lb"><i class="${cls}" style="width:${o.v/max*100}%"></i></span><span class="ln">${rs(o.v)}</span></div>`).join('') : blank('No activity this month','Transactions recorded this month appear here.'); };
+  const pay=new Map(); month.forEach(s=>{ const k=s.method==='Credit'?'Credit (receivable)':s.method; const o=pay.get(k)||{v:0,n:0}; o.v+=revenueOf(s); o.n++; pay.set(k,o); });
+  $('rpPay').innerHTML=bars(pay,'b',o=>o.n+' transaction'+(o.n===1?'':'s'));
+  const pk=new Map(); month.forEach(s=>{ const o=pk.get(s.pkgName)||{v:0,n:0,p:0}; o.v+=revenueOf(s); o.n+=s.qty||1; o.p+=profitOf(s); pk.set(s.pkgName,o); });
+  $('rpPkg').innerHTML=bars(pk,'p',o=>o.n+' units, GP '+rsSigned(o.p));
   const cr=S.sales.filter(s=>s.method==='Credit');
   const dueT=cr.reduce((t,s)=>t+dueOf(s),0);
-  $('rpCreditMeta').textContent=cr.length?cr.length+' sale'+(cr.length===1?'':'s')+(dueT?', '+rs(dueT)+' due':''):'';
-  $('rpCredit').innerHTML=cr.length?cr.map(s=>saleRow(s)).join(''):blank('No udharo','Sales marked “Udharo” show here until you change how they were paid.');
+  $('rpCreditMeta').textContent=cr.length?cr.length+' credit sale'+(cr.length===1?'':'s')+(dueT?', '+rs(dueT)+' outstanding':''):'';
+  $('rpCredit').innerHTML=cr.length?cr.map(s=>saleRow(s)).join(''):blank('No receivables','Credit sales appear here until payment is recorded.');
 }
+
+/* ---------- help tabs ---------- */
+$('helpTabs').addEventListener('click', e => { const b=e.target.closest('[data-t]'); if(!b) return; showHelpTab(b.dataset.t); });
+function showHelpTab(t){ document.querySelectorAll('#helpTabs button').forEach(x=>x.setAttribute('aria-checked',String(x.dataset.t===t))); ['guide','faq','gloss'].forEach(k=>$('tab-'+k).hidden=(k!==t)); }
 
 /* ---------- backup ---------- */
 function renderBackup(){ let t=null; try{ t=Number(localStorage.getItem('dc-backup'))||null; }catch(_){} $('bkLast').textContent = t ? 'Last backup: '+fmtT(t) : 'Never backed up on this device'; }
@@ -2027,12 +2086,12 @@ $('bkBtn').addEventListener('click', () => {
   try{ localStorage.setItem('dc-backup', String(Date.now())); }catch(_){} renderBackup(); toast('Backup downloaded');
 });
 function exportCsv(list){
-  if (!list.length){ toast('No sales to download',true); return; }
-  const head=['Date','Customer','Phone','FF UID','Package','Qty','Diamonds','Dollar price','Rate','Cost (Rs)','Price (Rs)','Received (Rs)','Due (Rs)','Profit (Rs)','Paid by','Sent','Note'];
+  if (!list.length){ toast('No transactions to export',true); return; }
+  const head=['Date','Customer','Phone','FF UID','Package','Qty','Diamonds','Dollar price','Rate','COGS (Rs)','Selling price (Rs)','Amount received (Rs)','Outstanding (Rs)','Gross profit (Rs)','Payment method','Delivered','Note'];
   const q=v=>'"'+String(v??'').replace(/"/g,'""')+'"';
-  const lines=list.map(s=>[new Date(s.at).toLocaleString('en-GB'),s.customer,s.phone,s.uid,s.pkgName,s.qty,s.diamonds,(s.usd*(s.qty||1)).toFixed(2),s.rate,Number(s.cost).toFixed(2),priceOf(s),s.received,dueOf(s),profitOf(s).toFixed(2),s.method==='Credit'?'Udharo':s.method,s.status==='pending'?'No':'Yes',s.note].map(q).join(','));
+  const lines=list.map(s=>[new Date(s.at).toLocaleString('en-GB'),s.customer,s.phone,s.uid,s.pkgName,s.qty,s.diamonds,(s.usd*(s.qty||1)).toFixed(2),s.rate,Number(s.cost).toFixed(2),priceOf(s),s.received,dueOf(s),profitOf(s).toFixed(2),s.method,s.status==='pending'?'No':'Yes',s.note].map(q).join(','));
   download('diamond-sales-'+new Date().toISOString().slice(0,10)+'.csv', '\uFEFF'+[head.map(q).join(',')].concat(lines).join('\n'), 'text/csv');
-  toast(list.length+' sales downloaded');
+  toast(list.length+' transactions exported');
 }
 $('bkCsv').addEventListener('click', () => exportCsv(S.sales));
 let restoreData=null;
