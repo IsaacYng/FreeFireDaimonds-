@@ -435,11 +435,12 @@ async function viewTrack(id){
 }
 
 /* ---------- customer account ---------- */
-let CU=null, CP=null, MY=[], myLoaded=false;   // auth user, customer profile, my orders
+let CU=null, CP=null, MY=[], myLoaded=false, AUTH_ERR=null, authTimer=null, PROFILE_ERR=null;   // auth user, customer profile, my orders
 const mkCode = () => { const A='ABCDEFGHJKMNPQRSTUVWXYZ23456789'; let s='C-'; for(let i=0;i<5;i++) s+=A[Math.floor(Math.random()*A.length)]; return s; };
 async function loadProfile(){
-  const ref=doc(db,'customers',CU.uid); let s=null; try{ s=await getDoc(ref); }catch(e){ console.warn(e); }
+  const ref=doc(db,'customers',CU.uid); let s=null; PROFILE_ERR=null; try{ s=await getDoc(ref); }catch(e){ console.warn(e); PROFILE_ERR=e.code||'error'; }
   if (s && s.exists()) CP=s.data();
+  else if (s===null && !CP) { CP={code:'—', name:me.name||'', phone:me.phone||'', ffUids:me.uid?[me.uid]:[], createdAt:Date.now()}; AUTH_ERR=null; }
   else { CP={code:mkCode(), name:me.name||'', phone:me.phone||'', ffUids:me.uid?[me.uid]:[], createdAt:Date.now(), updatedAt:Date.now(), email:CU.email||''}; try{ await setDoc(ref, CP); }catch(e){ console.warn(e); } }
   if (!me.name && CP.name) me.name=CP.name; if (!me.phone && CP.phone) me.phone=CP.phone; if (!me.uid && (CP.ffUids||[])[0]) me.uid=CP.ffUids[0];
 }
@@ -465,11 +466,16 @@ async function googleSave(){
 }
 function viewAccount(){
   $('bar').hidden=true;
+  if (AUTH_ERR){
+    const off=/operation-not-allowed|admin-restricted/.test(AUTH_ERR), net=/network/.test(AUTH_ERR), dom=/unauthorized-domain|requests-from-referer/.test(AUTH_ERR);
+    $('app').innerHTML=`<div class="card"><div class="state"><div style="font-size:2rem">⚠️</div><b>${off?t('authOff'):t('authFail')}</b><p class="hint">${esc(off?'Firebase: Authentication → Sign-in method → enable Anonymous':dom?'Firebase: Authentication → Settings → Authorized domains → add '+location.hostname:net?'No internet connection':'')}</p><p class="hint" style="font-size:.74rem">${esc(AUTH_ERR)}</p><p><button class="btn ink" type="button" id="retryAuth">${L==='ne'?'फेरि प्रयास':'Try again'}</button></p></div></div>`;
+    $('retryAuth').onclick=startAuth; return; }
   if (!CU || !CP){ $('app').innerHTML='<div class="card"><div class="state"><span class="spin"></span></div></div>'; return; }
   const acc=MY.filter(o=>o.status==='done'), spent=acc.reduce((s,o)=>s+(o.total||0),0), dia=acc.reduce((s,o)=>s+(o.items||[]).reduce((x,i)=>x+i.diamonds*i.qty,0),0), wait=MY.filter(o=>o.status==='new').length;
   const badge=o=>{ const k=stOf(o); return `<span class="sb ${k}">${t('st_'+k)}</span>`; };
   $('app').innerHTML=`<div class="card"><div class="card-b acct">
       <div class="idcard"><div><span>${t('youId')}</span><b>${esc(CP.code)}</b><small>${CU.isAnonymous?t('guest'):esc(t('googleAcc',CU.email||''))}</small></div><button class="btn sm" type="button" data-copy="${esc(CP.code)}">${t('copy')}</button></div>
+      ${PROFILE_ERR?`<div class="notice closed" style="margin:0"><span>⚠️</span><div><b>${L==='ne'?'खाता सेभ हुन सकेन':'Account can’t be saved yet'}</b><small>${esc(/permission/.test(PROFILE_ERR)?'Firestore rules: publish the new rules with /customers':PROFILE_ERR)}</small></div></div>`:''}
       <p class="hint">${t('idHint')}</p>
       ${CU.isAnonymous?`<div class="gbox"><div><b>${t('saveG')}</b><small>${t('saveGP')}</small></div><button class="btn ink" type="button" id="gSave"><span class="g">G</span>Google</button></div>`:`<button class="btn sm" type="button" id="outBtn">${t('signOut')}</button>`}
       <div class="stats"><div><span>${t('statOrders')}</span><b>${MY.length}</b></div><div><span>${t('statSpent')}</span><b>${rs(spent)}</b></div><div><span>${t('statDia')}</span><b>${nf(dia)}</b></div><div><span>${t('statWait')}</span><b>${wait}</b></div></div>
@@ -545,9 +551,16 @@ function route(){
 addEventListener('hashchange', ()=>{ if (new URLSearchParams(location.search).get('o') && location.hash!=='#account'){ return; } if (new URLSearchParams(location.search).get('o')){ history.replaceState(null,'',location.pathname+location.hash); } route(); scrollTo({top:0}); });
 document.querySelectorAll('[data-tab]').forEach(a=>a.addEventListener('click', e=>{ e.preventDefault(); const acct=a.dataset.tab==='account'; history.pushState(null,'',location.pathname+(acct?'#account':'')); route(); scrollTo({top:0}); }));
 addEventListener('popstate', route);
+async function startAuth(){
+  AUTH_ERR=null; if (location.hash==='#account') viewAccount();
+  clearTimeout(authTimer); authTimer=setTimeout(()=>{ if(!CU){ AUTH_ERR='timeout: sign-in did not respond'; if(location.hash==='#account') viewAccount(); } }, 12000);
+  if (auth.currentUser){ CU=auth.currentUser; return; }
+  try{ await signInAnonymously(auth); }catch(e){ console.warn(e); CU=null; AUTH_ERR=(e.code||'')+' '+(e.message||''); clearTimeout(authTimer); if (location.hash==='#account') viewAccount(); }
+}
 onAuthStateChanged(auth, async u=>{
-  if (!u){ try{ await signInAnonymously(auth); }catch(e){ console.warn(e); CU=null; if ((e.code||'').includes('operation-not-allowed')||(e.code||'').includes('admin-restricted')) toast(t('authOff')); } return; }
-  CU=u; await loadProfile(); await loadMine(); route();
+  if (!u){ startAuth(); return; }
+  clearTimeout(authTimer); AUTH_ERR=null; CU=u;
+  await loadProfile(); await loadMine(); route();
 });
 getRedirectResult(auth).catch(()=>{});
 (async()=>{
