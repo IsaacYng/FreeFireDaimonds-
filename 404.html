@@ -7,10 +7,10 @@
 <meta name="theme-color" content="#16222B"/>
 <title>Taking you to the shop…</title>
 <script>
-  // Any wrong link lands here: send it to the order page, keeping ?o=… (order tracking) and #orders / #account
-  location.replace('/order.html' + location.search + location.hash);
+  // Any wrong link lands here: send it to the order page (site root), keeping ?o=… (order tracking) and #orders / #account
+  location.replace('/' + location.search + location.hash);
 </script>
-<meta http-equiv="refresh" content="2;url=/order.html"/>
+<meta http-equiv="refresh" content="2;url=/"/>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8E%3C/text%3E%3C/svg%3E"/>
 <link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
 <style>
@@ -38,7 +38,7 @@ a:focus-visible{outline:2px solid #fff;outline-offset:2px}
   <div class="mono"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg></div>
   <h1>This page doesn’t exist</h1>
   <p><i class="spin" aria-hidden="true"></i>Taking you to the diamond shop…<span lang="ne">डायमन्ड पसलमा लैजाँदैछ…</span></p>
-  <a href="/order.html">Go to the shop</a>
+  <a href="/">Go to the shop</a>
 </main>
 </body>
 </html>

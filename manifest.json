@@ -2,9 +2,9 @@
   "name": "Free Fire Diamonds · Order online",
   "short_name": "FF Diamonds",
   "description": "Order Free Fire diamonds by UID. Pay with eSewa, Khalti or bank and track your order live.",
-  "id": "/order.html",
-  "start_url": "/order.html",
-  "scope": "/order.html",
+  "id": "/",
+  "start_url": "/",
+  "scope": "/",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#F3F5F5",
@@ -16,6 +16,6 @@
     { "src": "/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
   ],
   "shortcuts": [
-    { "name": "My orders", "url": "/order.html#orders", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
+    { "name": "My orders", "url": "/#orders", "icons": [{ "src": "/icon-192.png", "sizes": "192x192" }] }
   ]
 }

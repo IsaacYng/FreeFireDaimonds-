@@ -1,8 +1,6 @@
-# Only the customer order page should appear in search.
-# The admin console (/ and /index.html) stays hidden.
+# Customer order page (/) is public. The admin console stays out of search.
 User-agent: *
-Allow: /order.html
-Allow: /og-image.png
-Disallow: /
+Disallow: /admin.html
+Disallow: /admin
 
 Sitemap: https://id.yonghangishak.com.np/sitemap.xml
