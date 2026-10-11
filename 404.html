@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="robots" content="noindex"/>
+<meta name="theme-color" content="#16222B"/>
+<title>Taking you to the shop…</title>
+<script>
+  // Any wrong link lands here: send it to the order page, keeping ?o=… (order tracking) and #orders / #account
+  location.replace('/order.html' + location.search + location.hash);
+</script>
+<meta http-equiv="refresh" content="2;url=/order.html"/>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8E%3C/text%3E%3C/svg%3E"/>
+<link rel="apple-touch-icon" href="/apple-touch-icon.png"/>
+<style>
+:root{--bg:#F3F5F5;--ink:#16222B;--muted:#56656D;--line:#E1E6E7;--accent:#B8233A;box-sizing:border-box}
+*,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
+html,body{height:100%}
+body{display:flex;align-items:center;justify-content:center;padding:24px;padding-top:calc(24px + env(safe-area-inset-top,0px));padding-bottom:calc(24px + env(safe-area-inset-bottom,0px));background:var(--bg);color:var(--ink);font-family:'Bricolage Grotesque',system-ui,-apple-system,'Segoe UI',Roboto,sans-serif;-webkit-font-smoothing:antialiased}
+.card{position:relative;overflow:hidden;isolation:isolate;width:100%;max-width:380px;border-radius:18px;padding:30px 24px 34px;background:linear-gradient(150deg,#16222B,#22333E);color:#fff;text-align:center;box-shadow:0 24px 50px -30px rgba(22,34,43,.7)}
+.ridge{position:absolute;left:0;right:0;bottom:0;width:100%;height:80px;z-index:-1}
+.mono{width:52px;height:52px;margin:0 auto 16px;border-radius:14px;background:var(--accent);display:flex;align-items:center;justify-content:center;box-shadow:0 12px 26px -12px rgba(184,35,58,.9)}
+h1{font-size:1.35rem;font-weight:700;letter-spacing:-.02em}
+p{color:#C9D3D6;font-size:.92rem;margin:6px 0 20px;line-height:1.5}
+p span{display:block;font-size:.86rem;color:#9FB0B7}
+.spin{display:inline-block;width:14px;height:14px;margin-right:8px;vertical-align:-2px;border-radius:50%;border:2px solid rgba(255,255,255,.3);border-top-color:#fff;animation:r .7s linear infinite}
+@keyframes r{to{transform:rotate(360deg)}}
+a{display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:0 22px;border-radius:10px;background:var(--accent);color:#fff;font-weight:600;text-decoration:none}
+a:hover{background:#9A1D31}
+a:focus-visible{outline:2px solid #fff;outline-offset:2px}
+@media(prefers-reduced-motion:reduce){.spin{animation:none}}
+</style>
+</head>
+<body>
+<main class="card">
+  <svg class="ridge" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><path fill="rgba(255,255,255,.05)" d="M0 120 L120 70 L210 98 L330 40 L450 92 L560 60 L700 110 L820 52 L960 96 L1080 44 L1200 88 L1320 58 L1440 84 V220 H0Z"/><path fill="rgba(255,255,255,.07)" d="M0 160 L160 122 L300 150 L460 114 L600 146 L760 120 L900 152 L1040 126 L1200 156 L1340 130 L1440 146 V220 H0Z"/></svg>
+  <div class="mono"><svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg></div>
+  <h1>This page doesn’t exist</h1>
+  <p><i class="spin" aria-hidden="true"></i>Taking you to the diamond shop…<span lang="ne">डायमन्ड पसलमा लैजाँदैछ…</span></p>
+  <a href="/order.html">Go to the shop</a>
+</main>
+</body>
+</html>
