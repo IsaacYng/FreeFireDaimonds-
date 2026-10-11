@@ -1166,6 +1166,7 @@ input[type=datetime-local]{width:100%;padding:10px 12px;border:1px solid var(--l
 .switch[aria-checked="true"] i::after{left:19px}
 .o-code{font-size:.74rem;color:var(--muted);font-weight:600;margin-left:4px}
 .o-cid{color:var(--ink-2);font-weight:700}
+.o-paid{margin:0;padding:8px 10px;border-radius:8px;background:var(--ok-soft);color:var(--ok);font-size:.86rem;font-weight:600}
 </style>
 </head>
 <body>
@@ -1587,7 +1588,14 @@ service cloud.firestore {
         &amp;&amp; request.resource.data.items is list &amp;&amp; request.resource.data.items.size() &gt; 0 &amp;&amp; request.resource.data.items.size() &lt;= 12;
       allow get: if true;
       allow list: if isAdmin() || (request.auth != null &amp;&amp; resource.data.cid == request.auth.uid);
-      allow update, delete: if isAdmin();
+      allow update: if isAdmin()
+        || (request.auth != null &amp;&amp; resource.data.cid == request.auth.uid &amp;&amp; resource.data.status == 'new'
+            &amp;&amp; request.resource.data.diff(resource.data).affectedKeys().hasOnly(['paidAt','paidRef'])
+            &amp;&amp; request.resource.data.paidRef is string &amp;&amp; request.resource.data.paidRef.size() &lt;= 40)
+        || (request.auth != null &amp;&amp; resource.data.cid == request.auth.uid &amp;&amp; resource.data.status == 'new'
+            &amp;&amp; request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','cancelledAt'])
+            &amp;&amp; request.resource.data.status == 'cancelled');
+      allow delete: if isAdmin();
     }
   }
 }</pre></div></details>
@@ -3071,18 +3079,25 @@ $('stXls').addEventListener('click', async ()=>{
 });
 
 /* ---------- customer orders ---------- */
+const REJECT_REASONS=[['nopay','Payment not received'],['wronguid','Wrong or invalid UID'],['amount','Paid amount doesn’t match'],['duplicate','Duplicate order'],['unavailable','Can’t deliver right now'],['other','Other reason']];
+function rejectOrder(o, key){
+  const ref=doc(db,'orders',o.id), label=(REJECT_REASONS.find(r=>r[0]===key)||[])[1]||'Other';
+  setDoc(ref,{status:'rejected', reason:key, rejectedAt:Date.now()},{merge:true}).catch(fail('Couldn\u2019t update the order.'));
+  const w=waNumber(o.phone);
+  toast('Order rejected: '+label, false, w ? {label:'Tell customer', fn:()=>open('https://wa.me/'+w+'?text='+encodeURIComponent('Namaste '+(o.name||'')+' ji 🙏 Tapai ko order #'+o.id.slice(0,6).toUpperCase()+' accept garna sakiyena: '+label+'.'+(key==='nopay'||key==='amount'?' Payment garisaknu bhayo bhane screenshot pathaunu hola.':'')+' Dhanyabad!'),'_blank','noopener')} : {label:'Undo', fn:()=>setDoc(ref,{status:'new',reason:null},{merge:true})});
+}
 function renderOrders(){
   const w=$('ordWarn');
   if (S.ordersOk===false){ w.hidden=false; w.innerHTML='<div><b>Orders can’t load yet.</b> Paste the new Firestore rules (Help → Orders) and publish them in the Firebase console.</div>'; } else w.hidden=true;
   const cnt=k=>S.orders.filter(o=>o.status===k).length;
-  $('oFilters').innerHTML=[['new','New'],['done','Accepted'],['rejected','Rejected']].map(([k,l])=>`<button type="button" data-of="${k}" aria-pressed="${S.oFilter===k}">${l}<span class="c">${cnt(k)}</span></button>`).join('');
+  $('oFilters').innerHTML=[['new','New'],['done','Accepted'],['rejected','Rejected'],['cancelled','Cancelled']].map(([k,l])=>`<button type="button" data-of="${k}" aria-pressed="${S.oFilter===k}">${l}<span class="c">${cnt(k)}</span></button>`).join('');
   const list=S.orders.filter(o=>o.status===S.oFilter).sort((p,q)=>q.at-p.at);
   $('oList').innerHTML = list.length ? list.map(o=>{ const items=(o.items||[]).map(i=>`${i.qty} × ${esc(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')}`).join(', ');
     return `<div class="ord" data-oid="${esc(o.id)}"><div class="o-top"><b>${esc(o.name||'Customer')} <small class="o-code">#${esc(o.id.slice(0,6).toUpperCase())}</small></b><span>${esc(ago(o.at))}</span></div>
       <div class="o-items">${items}</div>
       <div class="o-meta">${o.ccode?`<span class="o-cid">🪪 ${esc(o.ccode)} · ${S.orders.filter(x=>x.cid&&x.cid===o.cid).length} order${S.orders.filter(x=>x.cid&&x.cid===o.cid).length===1?'':'s'}</span>`:''}<span>Total <b>${rs(o.total||0)}</b></span>${o.uid?`<span>UID <b>${esc(o.uid)}</b></span>`:''}${o.phone?`<span>📞 ${esc(o.phone)}</span>`:''}<span>Pays by ${esc(o.method||'–')}</span></div>
-      ${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}
-      <div class="o-acts">${o.status==='new'?`<button class="btn accent" type="button" data-oa="accept">Accept &amp; record sale</button>${waNumber(o.phone)?'<button class="btn" type="button" data-oa="wa">WhatsApp</button>':''}<button class="btn" type="button" data-oa="reject">Reject</button>`:o.status==='done'?(o.delivered?'<span class="o-ok">✓ Delivered</span>':'<span class="o-ok wtx">✓ Recorded · not delivered yet</span>')+'<button class="btn sm" type="button" data-oa="del">Remove</button>':'<button class="btn" type="button" data-oa="restore">Move back to new</button><button class="btn del-btn" type="button" data-oa="del">Delete</button>'}</div></div>`; }).join('')
+      ${o.paidAt?`<p class="o-paid">💳 Customer says paid ${esc(ago(o.paidAt))}${o.paidRef?' · ref <b>'+esc(o.paidRef)+'</b>':''}</p>`:''}${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}${o.status==='rejected'&&o.reason?`<p class="o-note">✕ ${esc((REJECT_REASONS.find(r=>r[0]===o.reason)||[])[1]||o.reason)}</p>`:''}${o.status==='cancelled'?'<p class="o-note">Customer cancelled this order</p>':''}
+      <div class="o-acts">${o.status==='new'?`<button class="btn accent" type="button" data-oa="accept">Accept &amp; record sale</button>${waNumber(o.phone)?'<button class="btn" type="button" data-oa="wa">WhatsApp</button>':''}<button class="btn" type="button" data-oa="reject">Reject</button>`:o.status==='done'?(o.delivered?'<span class="o-ok">✓ Delivered</span>':'<span class="o-ok wtx">✓ Recorded · not delivered yet</span>')+'<button class="btn sm" type="button" data-oa="del">Remove</button>':(o.status==='cancelled'?'':'<button class="btn" type="button" data-oa="restore">Move back to new</button>')+'<button class="btn del-btn" type="button" data-oa="del">Delete</button>'}</div></div>`; }).join('')
     : blank(S.oFilter==='new'?'No new orders':'Nothing here', S.oFilter==='new'?'Share your order page so customers can order themselves.':'');
 }
 $('oFilters').addEventListener('click', e=>{ const b=e.target.closest('[data-of]'); if(!b) return; S.oFilter=b.dataset.of; renderOrders(); });
@@ -3092,8 +3107,8 @@ $('oList').addEventListener('click', async e=>{
     if (lines.length<(o.items||[]).length) toast('Some packages in this order are no longer in your list',true);
     newSale({customer:o.name, phone:o.phone, uid:o.uid, lines, method:o.method==='Cash'||!o.method?'Cash':o.method, note:o.note||'', fromOrder:o.id, ccode:o.ccode||'', cid:o.cid||''}); }
   else if (k==='wa'){ open('https://wa.me/'+waNumber(o.phone)+'?text='+encodeURIComponent('Namaste '+(o.name||'')+' ji 🙏 Tapai ko order paayo: '+(o.items||[]).map(i=>i.qty+' × '+(i.kind==='member'?i.name:i.diamonds+' 💎')).join(', ')+'. Total '+rs(o.total||0)+'.'+((S.settings.shop||{}).pay?' Payment: '+S.settings.shop.pay:'')),'_blank','noopener'); }
-  else if (k==='reject'){ setDoc(ref,{status:'rejected'},{merge:true}).catch(fail('Couldn\u2019t update the order.')); toast('Order rejected', false, {label:'Undo', fn:()=>setDoc(ref,{status:'new'},{merge:true})}); }
-  else if (k==='restore'){ setDoc(ref,{status:'new'},{merge:true}).catch(fail('Couldn\u2019t update the order.')); }
+  else if (k==='reject'){ openRowMenu(b, 'Why reject this order?', REJECT_REASONS.map(([key,label])=>({icon:'del', label, fn:()=>rejectOrder(o,key)}))); }
+  else if (k==='restore'){ setDoc(ref,{status:'new', reason:null},{merge:true}).catch(fail('Couldn\u2019t update the order.')); }
   else if (k==='del'){ if (!await ask('Delete this order?','The order request is removed. Sales already recorded stay.','Delete')) return; deleteDoc(ref).catch(fail('Couldn\u2019t delete the order.')); }
 });
 $('olCopy').addEventListener('click', ()=>copy(orderUrl(),'Order link copied'));
@@ -3101,9 +3116,22 @@ $('olShare').addEventListener('click', ()=>shareText('🛒 '+(((S.settings.shop|
 
 /* publish prices for the public order page (only when they change) */
 let pubTimer=null, pubJSON=null;
+function publicStats(){
+  const ords=new Set(S.sales.filter(s=>s.status!=='pending').map(s=>s.orderId||s.id)).size;
+  const times=S.orders.filter(o=>o.deliveredAt&&o.at&&o.deliveredAt>o.at).map(o=>(o.deliveredAt-o.at)/60000).sort((x,y)=>x-y);
+  const med=times.length>=3 ? Math.max(1,Math.round(times[Math.floor(times.length/2)])) : null;
+  return {delivered:ords, customers:customers().length, avgMins:med};
+}
+function publicRecent(){   // first letter only, for social proof without exposing customers
+  const seen=new Set(), out=[];
+  for (const s of S.sales){ if (s.status==='pending') continue; const k=s.orderId||s.id; if (seen.has(k)) continue; seen.add(k);
+    const nm=(s.customer||'').trim(); out.push({n:nm?nm[0].toUpperCase()+'***':'A customer', p:s.kind==='member'||/membership/i.test(s.pkgName||'')?String(s.pkgName).replace(/ membership$/i,''):nf(s.diamonds)+' 💎', at:Math.round(s.at/60000)*60000});
+    if (out.length>=6) break; }
+  return out;
+}
 function publishPrices(){
   if (!S.uid || !S.loaded) return;
-  const sh=S.settings.shop||{}, tp=topPackages()[0], payload={shop:{name:sh.name||'',wa:sh.wa||'',pay:sh.pay||'',open:sh.open!==false,notice:sh.notice||''}, popular:tp&&tp.n?tp.p.id:null, packages:S.settings.packages.map(p=>({id:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind||'topup', price:sellOf(p)}))};
+  const sh=S.settings.shop||{}, tp=topPackages()[0], payload={shop:{name:sh.name||'',wa:sh.wa||'',pay:sh.pay||'',open:sh.open!==false,notice:sh.notice||''}, popular:tp&&tp.n?tp.p.id:null, loyalty:{every:+(S.settings.loyalty||{}).every||0, pct:+(S.settings.loyalty||{}).pct||0}, stats:publicStats(), recent:publicRecent(), packages:S.settings.packages.map(p=>({id:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind||'topup', price:sellOf(p)}))};
   const j=JSON.stringify(payload); if (j===pubJSON) return;
   clearTimeout(pubTimer); pubTimer=setTimeout(()=>{ setDoc(doc(db,'public','prices'), {...payload, updatedAt:Date.now()}).then(()=>{ pubJSON=j; }).catch(e=>console.warn('publish prices',e)); }, 1500);
 }
