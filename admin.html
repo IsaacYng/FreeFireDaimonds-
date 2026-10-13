@@ -1349,6 +1349,26 @@ body{font-size:15px;text-rendering:optimizeLegibility}
 .alert .al-acts{display:flex;gap:6px}
 @media(max-width:600px){.desk-row,.desk-f{padding-left:16px;padding-right:16px}}
 
+/* ---------- payment QR codes ---------- */
+.qr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-bottom:6px}
+.qr-slot{display:grid;gap:6px;align-content:start;padding:12px;border:1px solid var(--line);border-radius:12px;background:#FAFBFB}
+.qr-slot b{font-size:.9rem}
+.qr-slot small{font-size:.74rem;color:var(--muted);line-height:1.35}
+.qr-prev{display:block;width:100%;aspect-ratio:1;border:1px solid var(--line);border-radius:10px;background:#fff;padding:6px;cursor:zoom-in}
+.qr-prev img{width:100%;height:100%;object-fit:contain;display:block}
+.qr-acts{display:flex;gap:6px;flex-wrap:wrap}
+.qr-acts .btn{flex:1}
+.qr-rm{color:var(--accent) !important}
+.qr-add{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;aspect-ratio:1;border:1.5px dashed var(--line-2);border-radius:10px;background:#fff;color:var(--muted);font-weight:600;font-size:.86rem;cursor:pointer}
+.qr-add span{font-size:1.6rem;line-height:1;color:var(--accent)}
+.qr-add:hover{border-color:var(--ink);color:var(--ink)}
+.o-paid .btn{margin-left:8px;vertical-align:middle}
+.imgv{position:fixed;inset:0;z-index:80;background:rgba(10,16,20,.86);display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;padding:calc(16px + env(safe-area-inset-top,0px)) 16px calc(16px + env(safe-area-inset-bottom,0px));animation:fadein .15s}
+.imgv img{max-width:min(92vw,560px);max-height:72vh;border-radius:12px;background:#fff;object-fit:contain}
+.imgv .iv-h{display:flex;align-items:center;gap:10px;width:min(92vw,560px);color:#fff}
+.imgv .iv-h b{flex:1}
+.imgv .iv-h .btn{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.25);color:#fff}
+
 </style>
 </head>
 <body>
@@ -1667,11 +1687,25 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
               <label class="field"><span class="lab">eSewa ID <em>leave empty to hide</em></span><input id="shEsewa" maxlength="40" inputmode="tel" placeholder="98XXXXXXXX (Your name)"/></label>
               <label class="field"><span class="lab">Khalti ID <em>leave empty to hide</em></span><input id="shKhalti" maxlength="40" inputmode="tel" placeholder="98XXXXXXXX (Your name)"/></label>
             </div>
-            <label class="field"><span class="lab">Bank details <em>leave empty to hide</em></span><input id="shBank" maxlength="120" placeholder="Bank name · Account no. · Account name"/></label>
+            <input id="shBank" type="hidden"/>
             <label class="field"><span class="lab">Accept cash? <em>for customers who meet you</em></span><button type="button" class="switch" id="shCash" role="switch" aria-checked="true"><i></i><span>Show Cash option</span></button></label>
             <label class="field"><span class="lab">Other payment note <em>optional, used in price list &amp; reminders</em></span><input id="shPay" maxlength="120" placeholder="e.g. Send screenshot after paying"/></label>
           </div>
           <div class="card-f"><button class="btn accent" type="button" id="shSave"><span class="spin"></span><span class="bt">Save shop details</span></button></div>
+        </div>
+        <div class="card" id="qrCard">
+          <div class="card-h"><h2>Payment QR &amp; bank account</h2><span class="meta">Shown to customers when they pay</span></div>
+          <div class="card-b form">
+            <div class="qr-grid" id="qrGrid"></div>
+            <p class="help">Tap “Add QR” and pick a screenshot of your QR. One Fonepay / NepalPay QR works with every bank and wallet app: add it as <b>All apps QR</b> and customers see it whichever method they choose.</p>
+            <div class="grid2">
+              <label class="field"><span class="lab">Bank name</span><input id="bkName" maxlength="60" placeholder="e.g. Nabil Bank"/></label>
+              <label class="field"><span class="lab">Account holder</span><input id="bkHolder" maxlength="60" placeholder="Name on the account"/></label>
+              <label class="field"><span class="lab">Account number</span><input id="bkNo" maxlength="40" inputmode="numeric" placeholder="Account number"/></label>
+              <label class="field"><span class="lab">Branch <em>optional</em></span><input id="bkBranch" maxlength="60" placeholder="e.g. Phidim"/></label>
+            </div>
+          </div>
+          <div class="card-f"><span class="help" id="qrMsg"></span><button class="btn accent" type="button" id="qrSave">Save bank account</button></div>
         </div>
         <div class="card">
           <div class="card-h"><h2>Loyalty rewards</h2><span class="meta">Keeps customers coming back</span></div>
@@ -1748,7 +1782,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         <div class="pk-seg help-tabs" id="helpTabs" role="tablist"><button type="button" role="tab" data-t="guide" aria-checked="true">Page guide · पेज गाइड</button><button type="button" role="tab" data-t="faq" aria-checked="false">FAQ · प्रश्नहरू</button><button type="button" role="tab" data-t="gloss" aria-checked="false">Glossary · शब्दावली</button></div>
         <div class="card faq" id="tab-guide">
           <details class="qa bi" id="h-overview"><summary><span><b lang="ne">ड्यासबोर्ड</b><small>Dashboard</small></span></summary><div class="bi-body"><p lang="ne">माथि Today, 7 days वा This month छान्नुहोस्। कार्डहरूले त्यो अवधिको Revenue (आम्दानी), Gross profit (कुल नाफा), बिक्री भएका डायमन्ड र Transactions (कारोबार संख्या) देखाउँछन्, साथै अघिल्लो अवधिसँगको तुलना (↑/↓ %)। “Pending delivery” मा डायमन्ड पठाउन बाँकी अर्डर र “Accounts receivable” मा ग्राहकबाट उठाउन बाँकी रकम देखिन्छ। Quick sell थिचेर एकै पटकमा बिक्री सुरु गर्न सकिन्छ। दिनको अन्त्यमा “Share day report” थिचेर आजको हिसाब WhatsApp मा पठाउन सकिन्छ।</p><p class="en">Choose Today, 7 days or This month at the top. The cards show revenue, gross profit, diamonds sold and number of transactions for that period, compared with the previous period (↑/↓ %). “Pending delivery” lists orders not yet delivered and “Accounts receivable” lists amounts customers still owe. Use Quick sell to start a sale in one tap, and “Share day report” at the end of the day to send today’s summary on WhatsApp.</p></div></details>
-          <details class="qa bi" id="h-orders"><summary><span><b lang="ne">ग्राहक अर्डर</b><small>Orders</small></span></summary><div class="bi-body"><p lang="ne">Share order page थिचेर लिंक ग्राहकलाई पठाउनुहोस्। ग्राहकले प्याकेज, UID र नाम हालेर अर्डर पठाउँछन्; यहाँ “New” मा आउँछ र Dashboard मा सूचना देखिन्छ। Accept &amp; record sale थिच्दा सबै विवरण भरिएर बिक्री खुल्छ, Save गरेपछि अर्डर “Accepted” मा जान्छ। पहिलो पटक: Firebase → Authentication → Sign-in method मा Anonymous र Google दुवै Enable गर्नुहोस्, तलको Firestore Rules paste गरेर Publish गर्नुहोस्, अनि ग्राहकको अर्डर पेज (index.html) र यो admin.html दुवै GitHub repo मा राख्नुहोस्। ग्राहकले आफ्नो Customer ID, अर्डर इतिहास र स्थिति “My account” मा हेर्न सक्छन्। नयाँ अर्डर आउँदा घण्टी बज्छ (Alert settings बाट बन्द/खोल्न मिल्छ)। “Taking orders” स्विचले अर्डर पेज तुरुन्त बन्द वा खोल्छ। १५ मिनेटभन्दा बढी पर्खिरहेका अर्डर रातो देखिन्छन्, र “paid” भनेका अर्डर सबैभन्दा माथि आउँछन्।</p><p class="en">Tap Share order page and send the link to customers. They choose packages, enter their UID and name, and the order arrives here under “New” with an alert on the dashboard. Accept &amp; record sale opens a filled-in sale; after saving, the order moves to “Accepted”. First time only: in Firebase → Authentication → Sign-in method enable both Anonymous and Google, paste these Firestore rules and publish, and keep index.html (the customer order page) next to admin.html in your GitHub repo. Customers see their Customer ID, order history and status under “My account”. A chime plays when a new order arrives (turn it off under Alert settings). The “Taking orders” switch pauses or reopens your order page at once. Orders waiting more than 15 minutes turn red, and orders the customer marked as paid come first.</p><pre class="rules">rules_version = '2';
+          <details class="qa bi" id="h-orders"><summary><span><b lang="ne">ग्राहक अर्डर</b><small>Orders</small></span></summary><div class="bi-body"><p lang="ne">Share order page थिचेर लिंक ग्राहकलाई पठाउनुहोस्। ग्राहकले प्याकेज, UID र नाम हालेर अर्डर पठाउँछन्; यहाँ “New” मा आउँछ र Dashboard मा सूचना देखिन्छ। Accept &amp; record sale थिच्दा सबै विवरण भरिएर बिक्री खुल्छ, Save गरेपछि अर्डर “Accepted” मा जान्छ। पहिलो पटक: Firebase → Authentication → Sign-in method मा Anonymous र Google दुवै Enable गर्नुहोस्, तलको Firestore Rules paste गरेर Publish गर्नुहोस्, अनि ग्राहकको अर्डर पेज (index.html) र यो admin.html दुवै GitHub repo मा राख्नुहोस्। ग्राहकले आफ्नो Customer ID, अर्डर इतिहास र स्थिति “My account” मा हेर्न सक्छन्। नयाँ अर्डर आउँदा घण्टी बज्छ (Alert settings बाट बन्द/खोल्न मिल्छ)। “Taking orders” स्विचले अर्डर पेज तुरुन्त बन्द वा खोल्छ। १५ मिनेटभन्दा बढी पर्खिरहेका अर्डर रातो देखिन्छन्, र “paid” भनेका अर्डर सबैभन्दा माथि आउँछन्। ग्राहकले “I’ve paid” थिच्दा पेमेन्टको स्क्रिनसट पनि पठाउन सक्छन्, 🖼 Screenshot थिचेर हेर्नुहोस्। यसका लागि तलका rules फेरि कपी गरेर Firebase → Firestore → Rules मा Publish गर्नुहोस्।</p><p class="en">Tap Share order page and send the link to customers. They choose packages, enter their UID and name, and the order arrives here under “New” with an alert on the dashboard. Accept &amp; record sale opens a filled-in sale; after saving, the order moves to “Accepted”. First time only: in Firebase → Authentication → Sign-in method enable both Anonymous and Google, paste these Firestore rules and publish, and keep index.html (the customer order page) next to admin.html in your GitHub repo. Customers see their Customer ID, order history and status under “My account”. A chime plays when a new order arrives (turn it off under Alert settings). The “Taking orders” switch pauses or reopens your order page at once. Orders waiting more than 15 minutes turn red, and orders the customer marked as paid come first. Customers can attach a payment screenshot when they tap “I’ve paid”; open it with the 🖼 Screenshot button. For screenshots to work, copy the rules below again and publish them in Firebase → Firestore → Rules.</p><pre class="rules">rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function isAdmin() {
@@ -1785,15 +1819,24 @@ service cloud.firestore {
       allow list: if isAdmin() || (request.auth != null &amp;&amp; resource.data.cid == request.auth.uid);
       allow update: if isAdmin()
         || (request.auth != null &amp;&amp; resource.data.cid == request.auth.uid &amp;&amp; resource.data.status == 'new'
-            &amp;&amp; request.resource.data.diff(resource.data).affectedKeys().hasOnly(['paidAt','paidRef'])
+            &amp;&amp; request.resource.data.diff(resource.data).affectedKeys().hasOnly(['paidAt','paidRef','paidShot'])
             &amp;&amp; request.resource.data.paidRef is string &amp;&amp; request.resource.data.paidRef.size() &lt;= 40)
         || (request.auth != null &amp;&amp; resource.data.cid == request.auth.uid &amp;&amp; resource.data.status == 'new'
             &amp;&amp; request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','cancelledAt'])
             &amp;&amp; request.resource.data.status == 'cancelled');
       allow delete: if isAdmin();
     }
+    match /payshots/{id} {
+      allow read, delete: if isAdmin();
+      allow create, update: if request.auth != null
+        &amp;&amp; get(/databases/$(database)/documents/orders/$(id)).data.cid == request.auth.uid
+        &amp;&amp; get(/databases/$(database)/documents/orders/$(id)).data.status == 'new'
+        &amp;&amp; request.resource.data.keys().hasOnly(['img','at'])
+        &amp;&amp; request.resource.data.img is string &amp;&amp; request.resource.data.img.size() &lt; 700000;
+    }
   }
-}</pre></div></details>
+}
+</pre></div></details>
           <details class="qa bi" id="h-sell"><summary><span><b lang="ne">नयाँ बिक्री</b><small>New sale</small></span></summary><div class="bi-body"><p lang="ne">प्याकेज छान्नुहोस्, ग्राहकको नाम, फोन र Free Fire UID लेख्नुहोस्। छुट दिनुभयो भने Discount (Rs) मा लेख्नुहोस्; Net price आफैं घट्छ। Amount received मा अहिले हातमा आएको रकम लेख्नुहोस्। USD from card ले यो बिक्रीमा कार्डबाट कति डलर जान्छ र बाँकी कति रहन्छ देखाउँछ। पूरा पैसा नआएको भए Payment method मा “Credit” (उधारो) छान्नुहोस्; बाँकी रकम Outstanding मा देखिन्छ। डायमन्ड पछि पठाउने भए Delivery status मा “Pending” छान्नुहोस्। अनि Save sale थिच्नुहोस्। डलर कार्डमा पुग्ने डलर छैन भने बिक्री सेभ हुँदैन, पहिले Load card गर्नुहोस्।</p><p class="en">Pick a package and enter the customer’s name, phone and Free Fire UID. If you give a discount, enter it in Discount (Rs); the net price updates. Enter the amount actually received. USD from card shows how many dollars this sale uses and the balance left. If the customer has not paid in full, set the payment method to “Credit”; the balance shows as Outstanding. If you will deliver later, set Delivery status to “Pending”. Then tap Save sale. If the dollar card doesn’t have enough dollars, the sale won’t save: load the card first.</p></div></details>
           <details class="qa bi" id="h-sales"><summary><span><b lang="ne">बिक्री खाता</b><small>Sales ledger</small></span></summary><div class="bi-body"><p lang="ne">सबै कारोबार मितिअनुसार मिलाइएका छन् र हरेक दिनको Revenue र Gross profit (GP) देखिन्छ। नाम, फोन वा UID ले खोज्नुहोस्। “Undelivered” मा पठाउन बाँकी र “Credit” मा उधारो बिक्री छुट्टै हेर्न सकिन्छ। ⋮ थिचेर Edit, Mark as delivered, Record payment, Send receipt वा Delete गर्नुहोस्।</p><p class="en">Every transaction is grouped by date with daily revenue and gross profit (GP). Search by name, phone or UID. Use the “Undelivered” and “Credit” filters to see orders not yet sent and sales on credit. Tap ⋮ to edit, mark as delivered, record a payment, send a receipt or delete. Deleting a sale that came from an online order also removes that order from the customer’s “My orders”.</p></div></details>
           <details class="qa bi" id="h-card"><summary><span><b lang="ne">डलर कार्ड</b><small>Dollar card</small></span></summary><div class="bi-body"><p lang="ne">सुरुमा Set opening balance थिचेर अहिले कार्डमा कति डलर छ र ती डलरको जम्मा रुपैयाँ मूल्य कति हो लेख्नुहोस्; त्योभन्दा अघिको हिसाब गनिँदैन। त्यसपछि हरेक पटक कार्ड लोड गर्दा Load card थिच्नुहोस्: कति USD आयो, कति NPR तिर्नुभयो र बैंक/सेवा शुल्क कति लाग्यो लेख्नुहोस्। एप्लिकेसनले Weighted average cost (WAC) अर्थात् प्रति डलर औसत लागत निकाल्छ। हरेक बिक्रीमा कार्डबाट USD घट्छ र त्यही औसत लागत COGS बन्छ, त्यसैले नाफा वास्तविक (actual) हुन्छ। कार्ड शुल्क, इन्टरनेट, यातायात जस्ता खर्च Add expense मा राख्नुहोस्; यी Reports मा Net profit बाट घट्छन्। महिनामा एक पटक कार्ड एपको बाँकी ब्यालेन्स Reconcile मा हालेर Book balance मिलाउनुहोस्। Card account summary मा महिनाअनुसार Opening balance + Loads − Used in sales − Fees = Closing balance (USD र NPR दुवैमा) देखिन्छ।</p><p class="en">First tap Set opening balance and enter the dollars on your card right now and their total value in rupees; nothing before that date is counted. Then tap Load card every time you top up your dollar card: enter USD received, NPR paid and any bank/service charges. The app keeps a weighted average cost (WAC) per dollar. Each sale draws USD from the card at that average, which becomes COGS, so profit is actual rather than estimated. Record card fees, internet, transport and other costs with Add expense; they are taken off net profit in Reports. Once a month, enter the real balance from your card app in Reconcile to keep the book balance correct. The card account summary shows, for each month, opening balance + loads − used in sales − fees = closing balance, in both USD and NPR.</p></div></details>
@@ -1895,6 +1938,7 @@ service cloud.firestore {
 
 <!-- bottom sheet: all sections -->
 <div class="sheet-bg" id="sheetBg" hidden></div>
+<div class="imgv" id="imgv" role="dialog" aria-modal="true" hidden><div class="iv-h"><b id="imgvT">Image</b><a class="btn sm" id="imgvD" download>Save</a><button class="btn sm" type="button" id="imgvX">Close</button></div><img id="imgvI" alt=""/></div>
 <div class="gs-bg" id="gsBg" hidden></div>
 <div class="gs" id="gs" role="dialog" aria-modal="true" aria-label="Search" hidden><div class="gs-h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="gsIn" type="search" placeholder="Name, phone, UID, C-code or order #" autocomplete="off" enterkeyhint="search"/><kbd>Esc</kbd></div><div class="gs-res" id="gsRes"></div></div>
 <div class="sheet" id="sheetMore" role="dialog" aria-modal="true" aria-label="All sections" hidden>
@@ -2022,7 +2066,7 @@ service cloud.firestore {
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
 import { getAnalytics, isSupported } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-analytics.js";
 import { getAuth, signInWithEmailAndPassword, onAuthStateChanged, signOut, setPersistence, browserLocalPersistence, browserSessionPersistence, sendPasswordResetEmail, reauthenticateWithCredential, EmailAuthProvider, updatePassword } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
-import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, collection, setDoc, deleteDoc, onSnapshot, query, orderBy, writeBatch, getDocs } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+import { initializeFirestore, persistentLocalCache, persistentMultipleTabManager, doc, collection, setDoc, deleteDoc, onSnapshot, query, orderBy, writeBatch, getDocs, getDoc } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 
 const app = initializeApp({
   apiKey: "AIzaSyCLSEXvViC9U_pOemMfNUkivNQSO2ayggA",
@@ -2240,6 +2284,7 @@ function saveSettings(st, quiet){ return setDoc(settingsRef(), clone(st)).catch(
 
 let unsubs=[];
 function startSync(){
+  unsubs.push(onSnapshot(doc(db,'public','pay'), snap => { S.pay=snap.exists()?snap.data():{}; renderPayCard(); }, e => console.warn('pay',e)));
   unsubs.push(onSnapshot(settingsRef(), {includeMetadataChanges:false}, snap => {
     S.settings = Object.assign(clone(DEFAULT_SETTINGS), snap.exists() ? snap.data() : {});
     if (!Array.isArray(S.settings.packages) || !S.settings.packages.length) S.settings.packages = clone(DEFAULT_PACKAGES);
@@ -2342,7 +2387,7 @@ addEventListener('resize', closeRowMenu);
 /* =========================================================
    RENDER
    ========================================================= */
-function renderAll(){ computeBook(); if (!$('sheetSale').hidden){ const s=S.sales.find(x=>x.id===$('sheetSale').dataset.id); if (s) openSaleView(s); else closeSaleView(); } renderRateBits(); renderCounts(); renderPage(currentPage); publishPrices(); try{ renderDesk(); renderCollect(); renderTrash(); }catch(e){ console.warn(e); } }
+function renderAll(){ computeBook(); if (!$('sheetSale').hidden){ const s=S.sales.find(x=>x.id===$('sheetSale').dataset.id); if (s) openSaleView(s); else closeSaleView(); } renderRateBits(); renderCounts(); renderPage(currentPage); publishPrices(); try{ renderDesk(); renderCollect(); renderTrash(); renderPayCard(); }catch(e){ console.warn(e); } }
 function renderPage(p){
   ({overview:renderHome, orders:renderOrders, card:renderCardPage, sell:renderSell, sales:renderSales, customers:renderCustomers, prices:renderPrices, rate:renderRatePage, reports:renderReports, backup:renderBackup})[p]?.();
 }
@@ -2588,7 +2633,7 @@ function delSale(s){
   // Waits until the Undo button is gone, because only the customer can create an order again.
   const ref=s.orderRef, last=ref && !S.sales.some(x=>x.orderRef===ref && x.id!==s.id);
   let timer=null;
-  if (last) timer=setTimeout(()=>deleteDoc(doc(db,'orders',ref)).catch(e=>console.warn('delete order',e)), 7200);
+  if (last) timer=setTimeout(()=>{ deleteDoc(doc(db,'orders',ref)).catch(e=>console.warn('delete order',e)); dropShot(ref); }, 7200);
   toast(last?'Sale deleted. The customer’s order #'+ref.slice(0,6).toUpperCase()+' is removed too.':'Sale deleted', false, {label:'Undo', fn:()=>{ clearTimeout(timer); saveSale(s); toast('Sale restored'); }});
 }
 
@@ -3313,7 +3358,7 @@ function renderOrders(){
     return `<div class="ord${o.status==='new'&&Date.now()-o.at>15*60000?' late':''}" data-oid="${esc(o.id)}"><div class="o-top"><b>${esc(o.name||'Customer')} <small class="o-code">#${esc(o.id.slice(0,6).toUpperCase())}</small></b><span>${o.status==='new'&&Date.now()-o.at>15*60000?'⚠ waiting '+esc(ago(o.at).replace(' ago','')):esc(ago(o.at))}</span></div>
       <div class="o-items">${items}</div>
       <div class="o-meta">${o.ccode?`<span class="o-cid">🪪 ${esc(o.ccode)} · ${S.orders.filter(x=>x.cid&&x.cid===o.cid).length} order${S.orders.filter(x=>x.cid&&x.cid===o.cid).length===1?'':'s'}</span>`:''}<span>Total <b>${rs(o.total||0)}</b></span>${o.uid?`<span>UID <b>${esc(o.uid)}</b></span>`:''}${o.phone?`<span>📞 ${esc(o.phone)}</span>`:''}<span>Pays by ${esc(o.method||'–')}</span></div>
-      ${o.paidAt?`<p class="o-paid">💳 Customer says paid ${esc(ago(o.paidAt))}${o.paidRef?' · ref <b>'+esc(o.paidRef)+'</b>':''}</p>`:''}${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}${o.status==='rejected'&&o.reason?`<p class="o-note">✕ ${esc((REJECT_REASONS.find(r=>r[0]===o.reason)||[])[1]||o.reason)}</p>`:''}${o.status==='cancelled'?'<p class="o-note">Customer cancelled this order</p>':''}
+      ${o.paidAt?`<p class="o-paid">💳 Customer says paid ${esc(ago(o.paidAt))}${o.paidRef?' · ref <b>'+esc(o.paidRef)+'</b>':''}${o.paidShot?`<button class="btn sm" type="button" data-shot="${esc(o.id)}">🖼 Screenshot</button>`:''}</p>`:''}${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}${o.status==='rejected'&&o.reason?`<p class="o-note">✕ ${esc((REJECT_REASONS.find(r=>r[0]===o.reason)||[])[1]||o.reason)}</p>`:''}${o.status==='cancelled'?'<p class="o-note">Customer cancelled this order</p>':''}
       <div class="o-acts">${o.status==='new'?`<button class="btn accent" type="button" data-oa="accept">Accept &amp; record sale</button>${waNumber(o.phone)?'<button class="btn" type="button" data-oa="wa">WhatsApp</button>':''}<button class="btn" type="button" data-oa="reject">Reject</button>`:o.status==='done'?(o.delivered?'<span class="o-ok">✓ Delivered</span>':'<span class="o-ok wtx">✓ Recorded · not delivered yet</span>')+'<button class="btn sm" type="button" data-oa="del">Remove</button>':(o.status==='cancelled'?'':'<button class="btn" type="button" data-oa="restore">Move back to new</button>')+'<button class="btn del-btn" type="button" data-oa="del">Delete</button>'}</div></div>`; }).join('')
     : blank(S.oFilter==='new'?'No new orders':'Nothing here', S.oFilter==='new'?'Share your order page so customers can order themselves.':'');
 }
@@ -3326,7 +3371,7 @@ $('oList').addEventListener('click', async e=>{
   else if (k==='wa'){ open('https://wa.me/'+waNumber(o.phone)+'?text='+encodeURIComponent('Namaste '+(o.name||'')+' ji 🙏 Tapai ko order paayo: '+(o.items||[]).map(i=>i.qty+' × '+(i.kind==='member'?i.name:i.diamonds+' 💎')).join(', ')+'. Total '+rs(o.total||0)+'.'+((S.settings.shop||{}).pay?' Payment: '+S.settings.shop.pay:'')),'_blank','noopener'); }
   else if (k==='reject'){ openRowMenu(b, 'Why reject this order?', REJECT_REASONS.map(([key,label])=>({icon:'del', label, fn:()=>rejectOrder(o,key)}))); }
   else if (k==='restore'){ setDoc(ref,{status:'new', reason:null},{merge:true}).catch(fail('Couldn\u2019t update the order.')); }
-  else if (k==='del'){ if (!await ask('Delete this order?','The order request is removed. Sales already recorded stay.','Delete')) return; deleteDoc(ref).catch(fail('Couldn\u2019t delete the order.')); }
+  else if (k==='del'){ if (!await ask('Delete this order?','The order request is removed. Sales already recorded stay.','Delete')) return; deleteDoc(ref).catch(fail('Couldn\u2019t delete the order.')); dropShot(o.id); }
 });
 $('olCopy').addEventListener('click', ()=>copy(orderUrl(),'Order link copied'));
 $('olShare').addEventListener('click', ()=>shareText('🛒 '+(((S.settings.shop||{}).name)||'Free Fire diamonds')+': order your diamonds here 👉 '+orderUrl()));
@@ -3518,6 +3563,61 @@ onAuthStateChanged(auth, async user => {
 });
 
 /* =========================================================
+   PAYMENT QR CODES + BANK ACCOUNT (public/pay) and
+   customer payment screenshots (payshots/{orderId})
+   ========================================================= */
+S.pay = {};
+const QR_SLOTS=[['all','All apps QR','Fonepay / NepalPay QR that any bank or wallet can scan'],['esewa','eSewa QR',''],['khalti','Khalti QR',''],['bank','Bank QR','QR from your bank app']];
+function shrinkImg(file, max, q){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onerror=rej; r.onload=()=>{ const im=new Image(); im.onerror=()=>rej(new Error('Not an image')); im.onload=()=>{
+  const k=Math.min(1, max/Math.max(im.width,im.height)), c=document.createElement('canvas'); c.width=Math.round(im.width*k); c.height=Math.round(im.height*k);
+  const x=c.getContext('2d'); x.fillStyle='#fff'; x.fillRect(0,0,c.width,c.height); x.imageSmoothingQuality='high'; x.drawImage(im,0,0,c.width,c.height);
+  const png=c.toDataURL('image/png'), jpg=c.toDataURL('image/jpeg',q); res(png.length<jpg.length*1.3?png:jpg); }; im.src=r.result; }; r.readAsDataURL(file); }); }
+function payDocSize(p){ return JSON.stringify(p||{}).length; }
+function renderPayCard(){
+  const g=$('qrGrid'); if (!g) return; const qr=(S.pay&&S.pay.qr)||{}, bk=(S.pay&&S.pay.bank)||{};
+  g.innerHTML=QR_SLOTS.map(([k,l,sub])=>`<div class="qr-slot${qr[k]?' has':''}"><b>${l}</b>${sub?`<small>${sub}</small>`:''}
+    ${qr[k]?`<button type="button" class="qr-prev" data-qrview="${k}" aria-label="View ${l}"><img src="${qr[k]}" alt="${l}"/></button><div class="qr-acts"><label class="btn sm">Change<input type="file" accept="image/*" data-qrup="${k}" hidden/></label><button class="btn sm qr-rm" type="button" data-qrdel="${k}">Remove</button></div>`
+      :`<label class="qr-add"><input type="file" accept="image/*" data-qrup="${k}" hidden/><span>＋</span>Add QR</label>`}</div>`).join('');
+  [['bkName',bk.name],['bkHolder',bk.holder],['bkNo',bk.no],['bkBranch',bk.branch]].forEach(([id,v])=>{ const el=$(id); if (el && document.activeElement!==el) el.value=v||''; });
+  $('qrMsg').textContent = Object.keys(qr).filter(k=>qr[k]).length ? 'Customers see these QR codes when they pay.' : 'No QR codes yet. Customers only see your IDs.';
+}
+async function savePay(next, msg){
+  if (payDocSize(next)>900000){ toast('QR images are too big together. Use smaller pictures.',true); return false; }
+  try{ await setDoc(doc(db,'public','pay'), {...next, updatedAt:Date.now()}); S.pay=next; renderPayCard(); if (msg) toast(msg); return true; }
+  catch(e){ console.warn(e); toast('Couldn’t save: '+explain(e),true); return false; }
+}
+document.addEventListener('change', async e=>{
+  const inp=e.target.closest('[data-qrup]'); if (!inp||!inp.files||!inp.files[0]) return;
+  const k=inp.dataset.qrup, f=inp.files[0]; inp.value='';
+  try{ toast('Uploading QR…'); const img=await shrinkImg(f, 640, .9);
+    if (img.length>260000){ toast('That picture is too big. Crop it to just the QR and try again.',true); return; }
+    await savePay({...S.pay, qr:{...((S.pay&&S.pay.qr)||{}), [k]:img}}, 'QR saved. Customers see it now.');
+  }catch(err){ console.warn(err); toast('Couldn’t read that image',true); }
+});
+document.addEventListener('click', async e=>{
+  const d=e.target.closest('[data-qrdel]'); if (d){ if (!await ask('Remove this QR?','Customers won’t see it any more.','Remove')) return; const qr={...((S.pay&&S.pay.qr)||{})}; delete qr[d.dataset.qrdel]; savePay({...S.pay, qr}, 'QR removed'); return; }
+  const v=e.target.closest('[data-qrview]'); if (v){ const src=((S.pay&&S.pay.qr)||{})[v.dataset.qrview]; if (src) showImg(src,'QR code','qr-'+v.dataset.qrview+'.png'); return; }
+  const s=e.target.closest('[data-shot]'); if (s){ e.stopPropagation(); s.disabled=true;
+    try{ const snap=await getDoc(doc(db,'payshots',s.dataset.shot)); if (snap.exists()&&snap.data().img) showImg(snap.data().img,'Payment screenshot','payment-'+s.dataset.shot.slice(0,6)+'.jpg'); else toast('Screenshot not found',true); }
+    catch(err){ console.warn(err); toast('Couldn’t open the screenshot. Update the Firestore rules (Help → Orders).',true); }
+    s.disabled=false; }
+});
+$('qrSave') && $('qrSave').addEventListener('click', async ()=>{
+  const bank={name:$('bkName').value.trim().slice(0,60), holder:$('bkHolder').value.trim().slice(0,60), no:$('bkNo').value.trim().slice(0,40), branch:$('bkBranch').value.trim().slice(0,60)};
+  const ok=await savePay({...S.pay, bank}, bank.no?'Bank account saved':'Bank account removed'); if (!ok) return;
+  // keep the one-line version in shop settings too (price list, reminders and the Bank option use it)
+  const line=bank.no?[bank.name, 'A/C '+bank.no, bank.holder, bank.branch].filter(Boolean).join(' · '):'';
+  $('shBank').value=line; const st={...S.settings, shop:{...(S.settings.shop||{}), bank:line}}; S.settings=st; saveSettings(st); renderAll();
+});
+function showImg(src, title, file){
+  $('imgvT').textContent=title; $('imgvI').src=src; $('imgvD').href=src; $('imgvD').download=file; $('imgv').hidden=false;
+}
+$('imgvX') && $('imgvX').addEventListener('click', ()=>{ $('imgv').hidden=true; $('imgvI').src=''; });
+$('imgv') && $('imgv').addEventListener('click', e=>{ if (e.target.id==='imgv'){ $('imgv').hidden=true; $('imgvI').src=''; } });
+addEventListener('keydown', e=>{ if (e.key==='Escape' && $('imgv') && !$('imgv').hidden){ $('imgv').hidden=true; } });
+const dropShot = id => deleteDoc(doc(db,'payshots',id)).catch(()=>{});
+
+/* =========================================================
    v11 ADD-ONS: order alerts, order desk, global search,
    today's collection, recently deleted, credit check
    ========================================================= */
@@ -3552,7 +3652,7 @@ function orderWatch(){
       const msg=fresh.length===1?`New order from ${o.name||'a customer'}: ${items} · ${rs(o.total||0)}`:`${fresh.length} new orders`;
       xChime('new'); try{ navigator.vibrate&&navigator.vibrate([60,60,60]); }catch(_){}
       toast('📥 '+msg, false, currentPage==='orders'?null:{label:'Open', fn:()=>{ S.oFilter='new'; go('orders'); }}); xPush('📥 New order', msg, 'ord-'+o.id); }
-    else if (paid.length){ const o=paid[0], msg=`${o.name||'Customer'} says they paid #${o.id.slice(0,6).toUpperCase()}${o.paidRef?' · ref '+o.paidRef:''}`;
+    else if (paid.length){ const o=paid[0], msg=`${o.name||'Customer'} says they paid #${o.id.slice(0,6).toUpperCase()}${o.paidRef?' · ref '+o.paidRef:''}${o.paidShot?' · screenshot attached':''}`;
       xChime('paid'); toast('💳 '+msg, false, currentPage==='orders'?null:{label:'Open', fn:()=>{ S.oFilter='new'; go('orders'); }}); xPush('💳 Payment noted', msg, 'paid-'+o.id); }
   }
   xSeen=now; xTitle();
