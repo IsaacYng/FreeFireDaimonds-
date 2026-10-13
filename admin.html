@@ -1298,6 +1298,57 @@ body{font-size:15px;text-rendering:optimizeLegibility}
   #payCard .pk-seg button{flex:1 1 auto;padding:7px 10px}
 }
 
+/* ---------- v11 add-ons ---------- */
+.desk-row{display:flex;justify-content:space-between;align-items:center;gap:14px;padding:12px 20px;border-top:1px solid var(--line)}
+.desk-row:first-child{border-top:none}
+.desk-row b{display:block;font-size:.95rem}
+.desk-row small{display:block;color:var(--muted);font-size:.8rem}
+.desk-row .switch{flex-shrink:0}
+.desk-more>summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:10px;padding:11px 20px;border-top:1px solid var(--line);font-size:.84rem;color:var(--muted)}
+.desk-more>summary::-webkit-details-marker{display:none}
+.desk-more>summary .link{font-weight:600;color:var(--accent);white-space:nowrap}
+.desk-more[open]>summary .link::after{content:" ▴"}
+.desk-more:not([open])>summary .link::after{content:" ▾"}
+@media(max-width:600px){.desk-more>summary{padding-left:16px;padding-right:16px}}
+.desk-f{display:flex;align-items:center;gap:12px;flex-wrap:wrap;padding:12px 20px;border-top:1px solid var(--line);background:#F8FAFA;border-radius:0 0 var(--r) var(--r)}
+.desk-f .meta{font-size:.8rem;color:var(--muted)}
+.ord.late{box-shadow:inset 3px 0 0 var(--accent)}
+.ord.late .o-top>span{color:var(--accent);font-weight:700}
+.ord.flash,.sale.flash{animation:xflash 1.4s}
+@keyframes xflash{0%,60%{background:#FFF4E0}}
+.tc-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px}
+.tc-grid div{background:var(--bg);border-radius:12px;padding:12px;display:grid;gap:2px;min-width:0}
+.tc-grid div.z{opacity:.55}
+.tc-grid div.w{background:var(--warn-soft)}
+.tc-grid span{font-size:.78rem;color:var(--muted);font-weight:600}
+.tc-grid b{font-size:1.2rem;font-weight:800;letter-spacing:-.02em;font-variant-numeric:tabular-nums;white-space:nowrap}
+.tc-grid small{font-size:.74rem;color:var(--muted)}
+.tc-sum{margin-top:12px;font-size:.88rem;color:var(--muted)}
+.tc-sum b{color:var(--ink)}
+.tr-acts{display:flex;align-items:center;gap:10px;flex-shrink:0}
+.gs-btn{flex-shrink:0}
+.gs-bg{position:fixed;inset:0;background:rgba(10,16,20,.45);z-index:60;animation:fadein .15s}
+.gs{position:fixed;z-index:61;left:50%;top:calc(10px + env(safe-area-inset-top,0px));transform:translateX(-50%);width:min(620px,calc(100vw - 20px));max-height:min(80vh,640px);display:flex;flex-direction:column;background:#fff;border-radius:16px;box-shadow:0 30px 70px -20px rgba(22,34,43,.6);overflow:hidden}
+@media(min-width:901px){.gs{top:12vh}}
+.gs-h{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line);color:var(--muted)}
+.gs-h input{flex:1;border:none !important;box-shadow:none !important;outline:none;font-size:16px;padding:6px 0;background:none;min-width:0;color:var(--ink)}
+.gs-h kbd{font:600 .7rem/1 inherit;padding:4px 6px;border:1px solid var(--line-2);border-radius:5px;color:var(--muted)}
+.gs-res{overflow:auto;padding:4px 8px 10px}
+.gs-res h4{font-size:.74rem;color:var(--muted);font-weight:700;padding:10px 10px 4px}
+.gs-r{display:flex;align-items:center;gap:12px;width:100%;text-align:left;padding:10px;border-radius:10px;background:none;border:none;cursor:pointer;color:var(--ink);font:inherit}
+.gs-r:hover,.gs-r:focus-visible{background:var(--bg)}
+.gs-ic{width:34px;height:34px;border-radius:9px;background:var(--bg);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gs-m{flex:1;min-width:0}
+.gs-m b{display:block;font-size:.92rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gs-m small{display:block;font-size:.78rem;color:var(--muted);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.gs-v{font-weight:700;font-size:.86rem;white-space:nowrap}
+.gs-v i{font-style:normal;font-size:.72rem;padding:2px 8px;border-radius:999px;background:var(--bg);color:var(--muted);font-weight:600}
+.gs-v i.w{background:var(--warn-soft);color:var(--warn)}
+.gs-tip{padding:18px 12px;color:var(--muted);font-size:.9rem}
+@media(max-width:900px){.gs-h kbd{display:none}}
+.alert .al-acts{display:flex;gap:6px}
+@media(max-width:600px){.desk-row,.desk-f{padding-left:16px;padding-right:16px}}
+
 </style>
 </head>
 <body>
@@ -1385,6 +1436,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <button class="icon-btn menu-btn" id="menuBtn" aria-label="Open menu"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></button>
       <div class="crumb"><span class="hide-sm">Console / </span><b id="crumb">Home</b></div>
       <div class="sp"></div>
+      <button type="button" class="icon-btn gs-btn" id="gsBtn" aria-label="Search" title="Search (Ctrl+K)"><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg></button>
       <button type="button" class="top-more" id="topMore" aria-haspopup="dialog"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><span>More</span></button>
       <span class="status" id="status" title="Connecting"><i></i><span class="hide-sm">Connecting…</span></span>
       <div class="user-menu">
@@ -1422,6 +1474,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <div class="cm-facts" id="cmFacts"></div>
           <div class="cm-acts"><button class="btn primary sm" type="button" id="cmAct" data-cardact="load">+ Load card</button></div>
         </div>
+        <div class="card" id="todayCash" hidden><div class="card-h"><h2>Today’s collection</h2><button class="btn sm" type="button" id="tcShare">Share closing</button></div><div class="card-b" id="tcBody"></div></div>
         <div class="card" id="qsCard">
           <div class="card-h"><h2>Quick sell</h2><span class="meta">Your most sold packages, one tap to start</span></div>
           <div class="card-b"><div class="pkgs qs" id="quick"></div></div>
@@ -1462,6 +1515,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <section data-page="orders" hidden>
         <div class="ph"><div><h1>Orders</h1><p>Orders customers send from your order page. Accept one to turn it into a sale.</p><button type="button" class="help-link" data-help="orders"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div><div class="ph-acts"><button class="btn" type="button" id="olCopy">Copy order link</button><button class="btn accent" type="button" id="olShare"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>Share order page</button></div></div>
         <div class="note warn" id="ordWarn" hidden></div>
+        <div class="card desk" id="oDesk"></div>
         <div class="card">
           <div class="fchips" id="oFilters"></div>
           <div class="tbl" id="oList"></div>
@@ -1675,6 +1729,10 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <div class="card-f"><button class="btn" type="button" id="bkCsv">Export CSV (Excel)</button><button class="btn accent" type="button" id="bkBtn"><span class="spin"></span><span class="bt">Download backup</span></button></div>
         </div>
         <div class="card">
+          <div class="card-h"><h2>Recently deleted</h2><span class="pill" id="trashPill">0</span></div>
+          <div class="tbl" id="trashList"></div>
+        </div>
+        <div class="card">
           <div class="card-h"><h2>Restore from a backup</h2></div>
           <div class="card-b form">
             <div class="note warn"><div><b>Careful:</b> restoring replaces all current transactions and settings with the contents of the backup file.</div></div>
@@ -1690,7 +1748,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         <div class="pk-seg help-tabs" id="helpTabs" role="tablist"><button type="button" role="tab" data-t="guide" aria-checked="true">Page guide · पेज गाइड</button><button type="button" role="tab" data-t="faq" aria-checked="false">FAQ · प्रश्नहरू</button><button type="button" role="tab" data-t="gloss" aria-checked="false">Glossary · शब्दावली</button></div>
         <div class="card faq" id="tab-guide">
           <details class="qa bi" id="h-overview"><summary><span><b lang="ne">ड्यासबोर्ड</b><small>Dashboard</small></span></summary><div class="bi-body"><p lang="ne">माथि Today, 7 days वा This month छान्नुहोस्। कार्डहरूले त्यो अवधिको Revenue (आम्दानी), Gross profit (कुल नाफा), बिक्री भएका डायमन्ड र Transactions (कारोबार संख्या) देखाउँछन्, साथै अघिल्लो अवधिसँगको तुलना (↑/↓ %)। “Pending delivery” मा डायमन्ड पठाउन बाँकी अर्डर र “Accounts receivable” मा ग्राहकबाट उठाउन बाँकी रकम देखिन्छ। Quick sell थिचेर एकै पटकमा बिक्री सुरु गर्न सकिन्छ। दिनको अन्त्यमा “Share day report” थिचेर आजको हिसाब WhatsApp मा पठाउन सकिन्छ।</p><p class="en">Choose Today, 7 days or This month at the top. The cards show revenue, gross profit, diamonds sold and number of transactions for that period, compared with the previous period (↑/↓ %). “Pending delivery” lists orders not yet delivered and “Accounts receivable” lists amounts customers still owe. Use Quick sell to start a sale in one tap, and “Share day report” at the end of the day to send today’s summary on WhatsApp.</p></div></details>
-          <details class="qa bi" id="h-orders"><summary><span><b lang="ne">ग्राहक अर्डर</b><small>Orders</small></span></summary><div class="bi-body"><p lang="ne">Share order page थिचेर लिंक ग्राहकलाई पठाउनुहोस्। ग्राहकले प्याकेज, UID र नाम हालेर अर्डर पठाउँछन्; यहाँ “New” मा आउँछ र Dashboard मा सूचना देखिन्छ। Accept &amp; record sale थिच्दा सबै विवरण भरिएर बिक्री खुल्छ, Save गरेपछि अर्डर “Accepted” मा जान्छ। पहिलो पटक: Firebase → Authentication → Sign-in method मा Anonymous र Google दुवै Enable गर्नुहोस्, तलको Firestore Rules paste गरेर Publish गर्नुहोस्, अनि ग्राहकको अर्डर पेज (index.html) र यो admin.html दुवै GitHub repo मा राख्नुहोस्। ग्राहकले आफ्नो Customer ID, अर्डर इतिहास र स्थिति “My account” मा हेर्न सक्छन्।</p><p class="en">Tap Share order page and send the link to customers. They choose packages, enter their UID and name, and the order arrives here under “New” with an alert on the dashboard. Accept &amp; record sale opens a filled-in sale; after saving, the order moves to “Accepted”. First time only: in Firebase → Authentication → Sign-in method enable both Anonymous and Google, paste these Firestore rules and publish, and keep index.html (the customer order page) next to admin.html in your GitHub repo. Customers see their Customer ID, order history and status under “My account”.</p><pre class="rules">rules_version = '2';
+          <details class="qa bi" id="h-orders"><summary><span><b lang="ne">ग्राहक अर्डर</b><small>Orders</small></span></summary><div class="bi-body"><p lang="ne">Share order page थिचेर लिंक ग्राहकलाई पठाउनुहोस्। ग्राहकले प्याकेज, UID र नाम हालेर अर्डर पठाउँछन्; यहाँ “New” मा आउँछ र Dashboard मा सूचना देखिन्छ। Accept &amp; record sale थिच्दा सबै विवरण भरिएर बिक्री खुल्छ, Save गरेपछि अर्डर “Accepted” मा जान्छ। पहिलो पटक: Firebase → Authentication → Sign-in method मा Anonymous र Google दुवै Enable गर्नुहोस्, तलको Firestore Rules paste गरेर Publish गर्नुहोस्, अनि ग्राहकको अर्डर पेज (index.html) र यो admin.html दुवै GitHub repo मा राख्नुहोस्। ग्राहकले आफ्नो Customer ID, अर्डर इतिहास र स्थिति “My account” मा हेर्न सक्छन्। नयाँ अर्डर आउँदा घण्टी बज्छ (Alert settings बाट बन्द/खोल्न मिल्छ)। “Taking orders” स्विचले अर्डर पेज तुरुन्त बन्द वा खोल्छ। १५ मिनेटभन्दा बढी पर्खिरहेका अर्डर रातो देखिन्छन्, र “paid” भनेका अर्डर सबैभन्दा माथि आउँछन्।</p><p class="en">Tap Share order page and send the link to customers. They choose packages, enter their UID and name, and the order arrives here under “New” with an alert on the dashboard. Accept &amp; record sale opens a filled-in sale; after saving, the order moves to “Accepted”. First time only: in Firebase → Authentication → Sign-in method enable both Anonymous and Google, paste these Firestore rules and publish, and keep index.html (the customer order page) next to admin.html in your GitHub repo. Customers see their Customer ID, order history and status under “My account”. A chime plays when a new order arrives (turn it off under Alert settings). The “Taking orders” switch pauses or reopens your order page at once. Orders waiting more than 15 minutes turn red, and orders the customer marked as paid come first.</p><pre class="rules">rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
     function isAdmin() {
@@ -1837,6 +1895,8 @@ service cloud.firestore {
 
 <!-- bottom sheet: all sections -->
 <div class="sheet-bg" id="sheetBg" hidden></div>
+<div class="gs-bg" id="gsBg" hidden></div>
+<div class="gs" id="gs" role="dialog" aria-modal="true" aria-label="Search" hidden><div class="gs-h"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg><input id="gsIn" type="search" placeholder="Name, phone, UID, C-code or order #" autocomplete="off" enterkeyhint="search"/><kbd>Esc</kbd></div><div class="gs-res" id="gsRes"></div></div>
 <div class="sheet" id="sheetMore" role="dialog" aria-modal="true" aria-label="All sections" hidden>
   <div class="grab"></div>
   <h3>All sections</h3>
@@ -2185,7 +2245,7 @@ function startSync(){
     if (!Array.isArray(S.settings.packages) || !S.settings.packages.length) S.settings.packages = clone(DEFAULT_PACKAGES);
     renderAll();
   }, fail('Couldn\u2019t load settings.')));
-  unsubs.push(onSnapshot(collection(db,'orders'), snap => { S.orders=snap.docs.map(d=>({id:d.id, ...d.data()})); S.ordersOk=true; renderAll(); }, e => { console.warn('orders',e); S.ordersOk=false; renderAll(); }));
+  unsubs.push(onSnapshot(collection(db,'orders'), snap => { S.orders=snap.docs.map(d=>({id:d.id, ...d.data()})); S.ordersOk=true; orderWatch(); renderAll(); }, e => { console.warn('orders',e); S.ordersOk=false; renderAll(); }));
   unsubs.push(onSnapshot(cardCol(), snap => { S.card=snap.docs.map(d=>d.data()); S.cardLoaded=true; renderAll(); }, fail('Couldn\u2019t load the dollar card.')));
   unsubs.push(onSnapshot(query(salesCol(), orderBy('at','desc')), {includeMetadataChanges:true}, snap => {
     S.sales = snap.docs.map(d => d.data()); S.loaded = true;
@@ -2282,7 +2342,7 @@ addEventListener('resize', closeRowMenu);
 /* =========================================================
    RENDER
    ========================================================= */
-function renderAll(){ computeBook(); if (!$('sheetSale').hidden){ const s=S.sales.find(x=>x.id===$('sheetSale').dataset.id); if (s) openSaleView(s); else closeSaleView(); } renderRateBits(); renderCounts(); renderPage(currentPage); publishPrices(); }
+function renderAll(){ computeBook(); if (!$('sheetSale').hidden){ const s=S.sales.find(x=>x.id===$('sheetSale').dataset.id); if (s) openSaleView(s); else closeSaleView(); } renderRateBits(); renderCounts(); renderPage(currentPage); publishPrices(); try{ renderDesk(); renderCollect(); renderTrash(); }catch(e){ console.warn(e); } }
 function renderPage(p){
   ({overview:renderHome, orders:renderOrders, card:renderCardPage, sell:renderSell, sales:renderSales, customers:renderCustomers, prices:renderPrices, rate:renderRatePage, reports:renderReports, backup:renderBackup})[p]?.();
 }
@@ -2523,7 +2583,7 @@ function copy(t, msg){ (navigator.clipboard?navigator.clipboard.writeText(t):Pro
 function setSent(s, sent){ const r={...s, status:sent?'done':'pending', updatedAt:Date.now()}; saveSale(r);
   if (s.orderRef) setDoc(doc(db,'orders',s.orderRef), {delivered:sent, deliveredAt:sent?Date.now():null}, {merge:true}).catch(e=>console.warn(e)); toast(sent?'Marked as delivered':'Marked as undelivered'); }
 function delSale(s){
-  removeSale(s.id);
+  xTrashPut(s); removeSale(s.id);
   // a sale made from an online order: remove that order too, so it disappears from the customer's "My orders".
   // Waits until the Undo button is gone, because only the customer can create an order again.
   const ref=s.orderRef, last=ref && !S.sales.some(x=>x.orderRef===ref && x.id!==s.id);
@@ -2758,7 +2818,7 @@ $('sellCancel').addEventListener('click', async () => {
   if (dirty.has('sell') && !await ask('Clear this sale?','Everything you typed will be removed.','Clear')) return;
   dirty.delete('sell'); resetForm(); hitCust=null; renderSell();
 });
-$('sellSave').addEventListener('click', () => {
+$('sellSave').addEventListener('click', async () => {
   $('fErr2').textContent='';
   const T=formTotals(); if(!T.ls.length){ $('fErr2').textContent='Pick a package first.'; $('pkPick').scrollIntoView({block:'center'}); return; }
   const raw=$('fRecv').value.trim(), recv=Number(raw);
@@ -2768,6 +2828,8 @@ $('sellSave').addEventListener('click', () => {
     if (BOOK.active && have-T.usd < -0.005 && T.usd > origUse+0.005){
       $('fErr2').innerHTML=`Not enough dollars on the card. This sale needs <b>$${T.usd.toFixed(2)}</b> but the card has <b>$${Math.max(0,have).toFixed(2)}</b>. <a class="link" data-cardact="load">Load the card</a> first, or <a class="link" data-cardact="adjust">reconcile</a> if the balance is wrong.`;
       $('cardUse').scrollIntoView({block:'center',behavior:'smooth'}); toast('Card balance is too low for this sale', true, {label:'Load card', fn:()=>openCard('load',null)}); return; } }
+  if (S.form.method==='Credit' && !S.editId && hitCust && hitCust.due>0){ const add=Math.max(0,(S.form.price||0)-recv);
+    if (add>0 && !await ask('Give more credit?', `${hitCust.name||'This customer'} already owes ${rs(hitCust.due)}. This sale adds ${rs(add)} on credit, so they will owe ${rs(hitCust.due+add)}.`, 'Yes, give credit')) return; }
   const o=S.form.orig, f=S.form, disc=f.discount||0, base={ customer:$('fName').value.trim(), phone:$('fPhone').value.trim(), uid:$('fUid').value.trim(), method:f.method, status:f.status, note:$('fNote').value.trim() };
   const rateNowR=Math.round(rateNow()*100)/100, at=o?o.at:Date.now(), orderId=(!o && T.ls.length>1) ? 'o'+Date.now().toString(36) : (o&&o.orderId)||null;
   const recs=[]; let dLeft=disc, rLeft=recv;
@@ -3182,6 +3244,9 @@ function renderAlerts(){
   if (BOOK.active && (BOOK.usd<0.01 || (U&&U.left<2) || (tp0&&BOOK.usd<tp0.p.usd))) out.push(`<div class="alert bad"><span class="ai">💳</span><div><b>Dollar card is low: $${Math.max(0,BOOK.usd).toFixed(2)} left</b><small>${U&&U.perDay>0?'You use about $'+U.perDay.toFixed(2)+' a day. Load about $'+U.suggest+' for a week.':'Load your card before the next sale.'}</small></div><button class="btn primary sm" type="button" data-cardact="load">Load</button></div>`);
   const old=S.sales.filter(s=>dueOf(s)>0 && Date.now()-s.at>7*864e5 && !(s.remindedAt && Date.now()-s.remindedAt<3*864e5));
   if (old.length){ const t=old.reduce((x,s)=>x+dueOf(s),0); out.push(`<div class="alert warn" data-go="reports"><span class="ai">⏰</span><div><b>${rs(t)} unpaid for over a week</b><small>${old.length} credit sale${old.length===1?'':'s'}. Send reminders from Accounts receivable.</small></div></div>`); }
+  if ((S.settings.shop||{}).open===false) out.unshift(`<div class="alert warn"><span class="ai">⏸️</span><div><b>Your order page is paused</b><small>Customers can’t place orders right now.</small></div><button class="btn primary sm" type="button" data-x="resume">Reopen</button></div>`);
+  { let bk=0, sn=0; try{ bk=Number(localStorage.getItem('dc-backup'))||0; sn=Number(localStorage.getItem('dc-bk-snooze'))||0; }catch(_){}
+    if (S.loaded && S.sales.length>=10 && Date.now()-bk>7*864e5 && Date.now()-sn>3*864e5) out.push(`<div class="alert info"><span class="ai">💾</span><div><b>${bk?'Last backup was '+Math.floor((Date.now()-bk)/864e5)+' days ago':'You haven’t backed up yet'}</b><small>Download a copy of your ledger. It takes a second.</small></div><div class="al-acts"><button class="btn sm" type="button" data-x="bkSnooze">Later</button><button class="btn primary sm" type="button" data-go="backup">Back up</button></div></div>`); }
   $('alerts').innerHTML=out.join('');
 }
 
@@ -3243,9 +3308,9 @@ function renderOrders(){
   if (S.ordersOk===false){ w.hidden=false; w.innerHTML='<div><b>Orders can’t load yet.</b> Paste the new Firestore rules (Help → Orders) and publish them in the Firebase console.</div>'; } else w.hidden=true;
   const cnt=k=>S.orders.filter(o=>o.status===k).length;
   $('oFilters').innerHTML=[['new','New'],['done','Accepted'],['rejected','Rejected'],['cancelled','Cancelled']].map(([k,l])=>`<button type="button" data-of="${k}" aria-pressed="${S.oFilter===k}">${l}<span class="c">${cnt(k)}</span></button>`).join('');
-  const list=S.orders.filter(o=>o.status===S.oFilter).sort((p,q)=>q.at-p.at);
+  const list=S.orders.filter(o=>o.status===S.oFilter).sort((p,q)=>(S.oFilter==='new'?((q.paidAt?1:0)-(p.paidAt?1:0)):0)||q.at-p.at);   // customers who say they paid come first
   $('oList').innerHTML = list.length ? list.map(o=>{ const items=(o.items||[]).map(i=>`${i.qty} × ${esc(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')}`).join(', ');
-    return `<div class="ord" data-oid="${esc(o.id)}"><div class="o-top"><b>${esc(o.name||'Customer')} <small class="o-code">#${esc(o.id.slice(0,6).toUpperCase())}</small></b><span>${esc(ago(o.at))}</span></div>
+    return `<div class="ord${o.status==='new'&&Date.now()-o.at>15*60000?' late':''}" data-oid="${esc(o.id)}"><div class="o-top"><b>${esc(o.name||'Customer')} <small class="o-code">#${esc(o.id.slice(0,6).toUpperCase())}</small></b><span>${o.status==='new'&&Date.now()-o.at>15*60000?'⚠ waiting '+esc(ago(o.at).replace(' ago','')):esc(ago(o.at))}</span></div>
       <div class="o-items">${items}</div>
       <div class="o-meta">${o.ccode?`<span class="o-cid">🪪 ${esc(o.ccode)} · ${S.orders.filter(x=>x.cid&&x.cid===o.cid).length} order${S.orders.filter(x=>x.cid&&x.cid===o.cid).length===1?'':'s'}</span>`:''}<span>Total <b>${rs(o.total||0)}</b></span>${o.uid?`<span>UID <b>${esc(o.uid)}</b></span>`:''}${o.phone?`<span>📞 ${esc(o.phone)}</span>`:''}<span>Pays by ${esc(o.method||'–')}</span></div>
       ${o.paidAt?`<p class="o-paid">💳 Customer says paid ${esc(ago(o.paidAt))}${o.paidRef?' · ref <b>'+esc(o.paidRef)+'</b>':''}</p>`:''}${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}${o.status==='rejected'&&o.reason?`<p class="o-note">✕ ${esc((REJECT_REASONS.find(r=>r[0]===o.reason)||[])[1]||o.reason)}</p>`:''}${o.status==='cancelled'?'<p class="o-note">Customer cancelled this order</p>':''}
@@ -3452,13 +3517,150 @@ onAuthStateChanged(auth, async user => {
   startSync();
 });
 
+/* =========================================================
+   v11 ADD-ONS: order alerts, order desk, global search,
+   today's collection, recently deleted, credit check
+   ========================================================= */
+const XA = (()=>{ try{ return JSON.parse(localStorage.getItem('dc-admin-alerts'))||{sound:true,push:false}; }catch(_){ return {sound:true,push:false}; } })();
+const xSaveA = () => { try{ localStorage.setItem('dc-admin-alerts', JSON.stringify(XA)); }catch(_){} };
+const xBaseTitle = document.title;
+let xAudio=null, xSeen=null, xDeskOpen=false;
+// phones only allow sound after the first tap on the page, so unlock it then
+addEventListener('pointerdown', () => { try{ if (!xAudio) xAudio=new (window.AudioContext||window.webkitAudioContext)(); if (xAudio.state==='suspended') xAudio.resume(); }catch(_){} }, {passive:true});
+function xChime(kind='new'){
+  if (!XA.sound || !xAudio) return;
+  try{ const t0=xAudio.currentTime, notes=kind==='paid'?[784,1047]:[659,880,1175];
+    notes.forEach((f,i)=>{ const o=xAudio.createOscillator(), g=xAudio.createGain(); o.type='sine'; o.frequency.value=f;
+      g.gain.setValueAtTime(0.0001,t0+i*.14); g.gain.exponentialRampToValueAtTime(0.25,t0+i*.14+.02); g.gain.exponentialRampToValueAtTime(0.0001,t0+i*.14+.32);
+      o.connect(g).connect(xAudio.destination); o.start(t0+i*.14); o.stop(t0+i*.14+.35); });
+  }catch(_){}
+}
+if ('serviceWorker' in navigator && location.protocol==='https:') navigator.serviceWorker.register('/sw.js').catch(()=>{});
+function xPush(title, body, tag){
+  if (!XA.push || !('Notification' in window) || Notification.permission!=='granted' || !document.hidden) return;
+  const opts={body, tag, icon:'/icon-192.png', badge:'/icon-192.png', data:{url:location.pathname+'#orders'}};
+  if (navigator.serviceWorker && navigator.serviceWorker.controller) navigator.serviceWorker.ready.then(r=>r.showNotification(title,opts)).catch(()=>{});
+  else { try{ const n=new Notification(title,opts); n.onclick=()=>{ focus(); go('orders'); }; }catch(_){} }
+}
+// called on every orders snapshot: chime + toast + phone alert for new orders and "I've paid" notes
+function orderWatch(){
+  const now=new Map(S.orders.map(o=>[o.id, {st:o.status, paid:o.paidAt||0}]));
+  if (xSeen){
+    const fresh=S.orders.filter(o=>!xSeen.has(o.id) && o.status==='new');
+    const paid=S.orders.filter(o=>xSeen.has(o.id) && o.status==='new' && o.paidAt && !xSeen.get(o.id).paid);
+    if (fresh.length){ const o=fresh[0], items=(o.items||[]).map(i=>i.qty+' × '+(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')).join(', ');
+      const msg=fresh.length===1?`New order from ${o.name||'a customer'}: ${items} · ${rs(o.total||0)}`:`${fresh.length} new orders`;
+      xChime('new'); try{ navigator.vibrate&&navigator.vibrate([60,60,60]); }catch(_){}
+      toast('📥 '+msg, false, currentPage==='orders'?null:{label:'Open', fn:()=>{ S.oFilter='new'; go('orders'); }}); xPush('📥 New order', msg, 'ord-'+o.id); }
+    else if (paid.length){ const o=paid[0], msg=`${o.name||'Customer'} says they paid #${o.id.slice(0,6).toUpperCase()}${o.paidRef?' · ref '+o.paidRef:''}`;
+      xChime('paid'); toast('💳 '+msg, false, currentPage==='orders'?null:{label:'Open', fn:()=>{ S.oFilter='new'; go('orders'); }}); xPush('💳 Payment noted', msg, 'paid-'+o.id); }
+  }
+  xSeen=now; xTitle();
+}
+function xTitle(){ const n=S.orders.filter(o=>o.status==='new').length; document.title=(n?`(${n}) `:'')+xBaseTitle; }
+
+/* ---------- order desk (orders page): shop open/pause + alert settings ---------- */
+function xShopOpen(){ return (S.settings.shop||{}).open!==false; }
+function xSetShopOpen(on){ const st={...S.settings, shop:{...(S.settings.shop||{}), open:on}}; S.settings=st; saveSettings(st); renderAll(); toast(on?'Order page is open again':'Order page paused. Customers can’t order until you reopen.'); }
+function renderDesk(){
+  const el=$('oDesk'); if (!el) return; const open=xShopOpen(), canN='Notification' in window, perm=canN?Notification.permission:'denied';
+  el.innerHTML=`<div class="desk-row"><div><b>${open?'🟢 Taking orders':'⏸️ Orders paused'}</b><small>${open?'Customers can order from your page right now.':'Customers see “Orders paused” on your page.'}</small></div><button type="button" class="switch" role="switch" data-x="shop" aria-checked="${open}"><i></i><span>${open?'Open':'Paused'}</span></button></div>
+    <details class="desk-more" ${xDeskOpen?'open':''}><summary><span>🔔 Sound ${XA.sound?'on':'off'} · 📲 Phone alerts ${XA.push&&perm==='granted'?'on':'off'}</span><span class="link">Alert settings</span></summary>
+    <div class="desk-row"><div><b>🔔 Order sound</b><small>A chime when an order or a payment note comes in</small></div><button type="button" class="switch" role="switch" data-x="sound" aria-checked="${!!XA.sound}"><i></i><span>${XA.sound?'On':'Off'}</span></button></div>
+    ${canN?`<div class="desk-row"><div><b>📲 Phone alerts</b><small>${perm==='denied'?'Blocked in your browser settings':'Notify me even when this tab is in the background'}</small></div><button type="button" class="switch" role="switch" data-x="push" aria-checked="${XA.push&&perm==='granted'}" ${perm==='denied'?'disabled':''}><i></i><span>${XA.push&&perm==='granted'?'On':'Off'}</span></button></div>`:''}
+    <div class="desk-f"><button type="button" class="btn sm" data-x="test">Test the alert</button><span class="meta">Keep this page open on your phone to hear new orders.</span></div></details>`;
+  el.querySelector('details').addEventListener('toggle', e=>{ xDeskOpen=e.target.open; });
+}
+document.addEventListener('click', async e=>{
+  const b=e.target.closest('[data-x]'); if (!b) return; const k=b.dataset.x;
+  if (k==='shop'){ const on=!xShopOpen(); if (!on && !await ask('Pause the order page?','Customers will see “Orders paused” and can’t place new orders until you reopen it.','Pause orders')) return; xSetShopOpen(on); }
+  else if (k==='sound'){ XA.sound=!XA.sound; xSaveA(); renderDesk(); if (XA.sound) xChime('new'); }
+  else if (k==='push'){ if (XA.push){ XA.push=false; xSaveA(); renderDesk(); return; }
+    let p=Notification.permission; if (p==='default') p=await Notification.requestPermission();
+    XA.push=p==='granted'; xSaveA(); renderDesk(); toast(XA.push?'Phone alerts on':'Notifications are blocked in your browser settings', !XA.push); }
+  else if (k==='test'){ xChime('new'); try{ navigator.vibrate&&navigator.vibrate([60,60,60]); }catch(_){} toast('📥 This is how a new order sounds'+(XA.sound?'':' (sound is off)')); }
+  else if (k==='resume'){ e.stopPropagation(); xSetShopOpen(true); }
+  else if (k==='bkSnooze'){ e.stopPropagation(); try{ localStorage.setItem('dc-bk-snooze', String(Date.now())); }catch(_){} renderAll(); }
+});
+
+/* ---------- today's collection: what should be in each wallet ---------- */
+function renderCollect(){
+  const el=$('todayCash'); if (!el) return;
+  if (!S.loaded){ el.hidden=true; return; }
+  const list=inRange(startOfDay(), Infinity); el.hidden=false;
+  const by={}; METHODS.forEach(m=>by[m]={recv:0,n:0});
+  let credit=0; list.forEach(s=>{ const m=by[s.method]?s.method:'Cash'; by[m].recv+=Number(s.received)||0; by[m].n++; credit+=dueOf(s); });
+  const totalIn=list.reduce((t,s)=>t+(Number(s.received)||0),0);
+  const cells=['Cash','eSewa','Khalti','Bank'].filter(m=>by[m].n||m==='Cash'||m==='eSewa'||m==='Khalti');
+  $('tcBody').innerHTML = list.length ? `<div class="tc-grid">${cells.map(m=>`<div class="${by[m].n?'':'z'}"><span>${m}</span><b>${rs(by[m].recv)}</b><small>${by[m].n} sale${by[m].n===1?'':'s'}</small></div>`).join('')}${by.Credit.n||credit?`<div class="w"><span>On credit</span><b>${rs(credit)}</b><small>to collect later</small></div>`:''}</div>
+      <p class="tc-sum">Money in today <b>${rs(totalIn)}</b>. Match these with your cash box and wallet apps before closing.</p>`
+    : `<p class="tc-sum">No sales yet today. Money you receive shows here by wallet.</p>`;
+  $('tcShare').hidden=!list.length;
+}
+$('tcShare') && $('tcShare').addEventListener('click', ()=>{
+  const list=inRange(startOfDay(), Infinity), by={}; list.forEach(s=>{ by[s.method]=(by[s.method]||0)+(Number(s.received)||0); });
+  const d=new Date().toLocaleDateString('en-GB',{weekday:'short',day:'numeric',month:'short'});
+  const t=['💰 Closing · '+d, ...Object.entries(by).filter(([m])=>m!=='Credit').map(([m,v])=>m+': '+rs(v)), ...(list.some(s=>dueOf(s)>0)?['On credit: '+rs(list.reduce((x,s)=>x+dueOf(s),0))]:[]), 'Total in: '+rs(list.reduce((x,s)=>x+(Number(s.received)||0),0)), list.length+' sale'+(list.length===1?'':'s')].join('\n');
+  shareText(t);
+});
+
+/* ---------- recently deleted (kept 30 days on this device) ---------- */
+const xTrash = { get(){ try{ return (JSON.parse(localStorage.getItem('dc-trash'))||[]).filter(x=>Date.now()-x.at<30*864e5); }catch(_){ return []; } },
+  set(v){ try{ localStorage.setItem('dc-trash', JSON.stringify(v.slice(0,80))); }catch(_){} } };
+function xTrashPut(s){ xTrash.set([{s, at:Date.now()}, ...xTrash.get().filter(x=>x.s.id!==s.id)]); }
+function renderTrash(){
+  const el=$('trashList'); if (!el) return;
+  const live=new Set(S.sales.map(s=>s.id)), list=xTrash.get().filter(x=>!live.has(x.s.id));
+  $('trashPill').textContent=list.length;
+  el.innerHTML = list.length ? list.map(x=>{ const s=x.s; return `<div class="sale" data-tr="${esc(s.id)}"><span class="sic${isMem(s)?' mem':''}">${isMem(s)?STAR(18):GEM(18)}</span><div class="main"><b>${esc(s.customer||'Walk-in')}</b><small>${esc(s.pkgName)}${s.qty>1?' × '+s.qty:''} · sold ${esc(fmtWhen(s.at))} · deleted ${esc(ago(x.at))}</small></div><div class="tr-acts"><b>${rs(s.received||0)}</b><button class="btn sm" type="button" data-trr="${esc(s.id)}">Restore</button></div></div>`; }).join('')
+    : blank('Nothing deleted','Sales you delete stay here for 30 days on this device, so you can bring them back.');
+}
+document.addEventListener('click', e=>{
+  const b=e.target.closest('[data-trr]'); if (!b) return; const x=xTrash.get().find(y=>y.s.id===b.dataset.trr); if (!x) return;
+  saveSale(x.s); xTrash.set(xTrash.get().filter(y=>y.s.id!==x.s.id)); toast('Sale restored: '+(x.s.customer||'Walk-in')+', '+x.s.pkgName);
+});
+
+/* ---------- global search (Ctrl+K, / or the search button) ---------- */
+function xOpenSearch(){ $('gsBg').hidden=false; $('gs').hidden=false; $('gsIn').value=''; xSearch(); setTimeout(()=>$('gsIn').focus(),30); }
+function xCloseSearch(){ $('gsBg').hidden=true; $('gs').hidden=true; }
+let xHits=[];
+function xSearch(){
+  const q=$('gsIn').value.trim().toLowerCase(), qd=q.replace(/[^0-9a-z]/g,'');
+  xHits=[];
+  if (!q){ $('gsRes').innerHTML='<p class="gs-tip">Search a name, phone, Free Fire UID, customer ID (C-…) or order number.</p>'; return; }
+  const has=(...v)=>v.some(x=>String(x||'').toLowerCase().includes(q) || (qd.length>=3&&String(x||'').toLowerCase().replace(/[^0-9a-z]/g,'').includes(qd)));
+  const cs=customers().filter(c=>has(c.name,c.phone,c.uid,c.ccode)).slice(0,5);
+  const os=S.orders.filter(o=>has(o.id.slice(0,6),o.name,o.phone,o.uid,o.ccode)).sort((a,b)=>b.at-a.at).slice(0,5);
+  const ss=S.sales.filter(s=>has(s.customer,s.phone,s.uid,s.pkgName,s.note,s.ccode)).slice(0,8);
+  const grp=(t,arr)=>arr.length?`<h4>${t}</h4>`+arr.join(''):'';
+  const row=(i,ic,title,sub,right)=>`<button type="button" class="gs-r" data-gs="${i}"><span class="gs-ic">${ic}</span><span class="gs-m"><b>${title}</b><small>${sub}</small></span><span class="gs-v">${right}</span></button>`;
+  let i=0; const H=[];
+  const cRows=cs.map(c=>{ xHits.push(()=>openCust(c.key)); return row(i++,'👤',esc(c.name||c.phone||'Customer'),esc([c.phone,c.uid&&'UID '+c.uid,c.ccode].filter(Boolean).join(' · ')),c.due?`<i class="w">owes ${rs(c.due)}</i>`:rs(c.rev)); });
+  const oRows=os.map(o=>{ xHits.push(()=>{ S.oFilter=o.status; go('orders').then(()=>setTimeout(()=>{ const r=document.querySelector(`.ord[data-oid="${CSS.escape(o.id)}"]`); if(r){ r.scrollIntoView({block:'center',behavior:'smooth'}); r.classList.add('flash'); setTimeout(()=>r.classList.remove('flash'),1400); } },80)); });
+    return row(i++,'📥','#'+esc(o.id.slice(0,6).toUpperCase())+' · '+esc(o.name||'Customer'),esc((o.items||[]).map(x=>x.qty+' × '+(x.kind==='member'?x.name:nf(x.diamonds)+' 💎')).join(', '))+' · '+esc(ago(o.at)),`<i>${esc(o.status==='done'?'accepted':o.status)}</i>`); });
+  const sRows=ss.map(s=>{ xHits.push(()=>openSaleView(s)); return row(i++,isMem(s)?'⭐':'💎',esc(s.customer||'Walk-in')+' · '+esc(s.pkgName),esc(fmtWhen(s.at))+(s.uid?' · UID '+esc(s.uid):''),rs(s.received||0)); });
+  $('gsRes').innerHTML = (cRows.length||oRows.length||sRows.length) ? grp('Customers',cRows)+grp('Orders',oRows)+grp('Sales',sRows) : '<p class="gs-tip">Nothing found.</p>';
+}
+$('gsIn').addEventListener('input', xSearch);
+$('gsIn').addEventListener('keydown', e=>{ if (e.key==='Enter' && xHits[0]){ e.preventDefault(); const f=xHits[0]; xCloseSearch(); f(); } });
+$('gsRes').addEventListener('click', e=>{ const b=e.target.closest('[data-gs]'); if (!b) return; const f=xHits[+b.dataset.gs]; xCloseSearch(); f&&f(); });
+$('gsBg').addEventListener('click', xCloseSearch);
+$('gsBtn').addEventListener('click', xOpenSearch);
+addEventListener('keydown', e=>{
+  if (!$('gs').hidden && e.key==='Escape'){ xCloseSearch(); return; }
+  if ((e.ctrlKey||e.metaKey) && (e.key==='k'||e.key==='K') && !$('appView').hidden){ e.preventDefault(); $('gs').hidden?xOpenSearch():xCloseSearch(); }
+});
+
+/* refresh "waiting 20 min" labels and today's numbers once a minute */
+setInterval(()=>{ if (document.hidden||$('appView').hidden) return; if (currentPage==='orders') renderOrders(); if (currentPage==='overview') renderCollect(); }, 60000);
+
 /* keyboard shortcuts (desktop): N = new sale, / = search sales */
 addEventListener('keydown', e => {
   if (e.metaKey||e.ctrlKey||e.altKey||e.repeat||$('appView').hidden) return;
   const t=e.target; if (t && t.closest && t.closest('input,textarea,select,[contenteditable="true"]')) return;
   if ([...document.querySelectorAll('.sheet,.dlg,.rowmenu')].some(x=>!x.hidden)) return;
   if (e.key==='n'||e.key==='N'){ e.preventDefault(); newSale(); }
-  else if (e.key==='/'){ e.preventDefault(); go('sales').then(ok=>{ if(ok) setTimeout(()=>$('sSearch').focus(),60); }); }
+  else if (e.key==='/'){ e.preventDefault(); xOpenSearch(); }
 });
 fetchRate();
 setInterval(fetchRate, 30*60*1000);
