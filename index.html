@@ -130,6 +130,7 @@ main{padding-top:16px}
 .dots i{flex:1;height:6px;border-radius:99px;background:currentColor;opacity:.18}
 .dots i.on{opacity:1;background:var(--warn-bar)}
 .dots i.gift{opacity:.5;outline:1px dashed currentColor;outline-offset:1px;background:transparent}
+.lyc{display:block;font-size:.76rem;font-weight:600;opacity:.75;margin-top:2px}
 .pbar{height:6px;border-radius:99px;background:rgba(154,98,18,.18);margin-top:8px;overflow:hidden}
 .pbar i{display:block;height:100%;background:var(--warn-bar);border-radius:99px}
 @keyframes rise{from{opacity:0;transform:translateY(6px)}}
@@ -815,7 +816,8 @@ function loyalty(){
   const ly=(P&&P.loyalty)||{}; if (!(ly.every>0&&ly.pct>0)||!myLoaded||!CU) return '';
   const n=MY.filter(o=>o.status==='done').length, k=n%ly.every, left=ly.every-k;
   const vis=ly.every<=12?`<div class="dots">${Array.from({length:ly.every},(_,i)=>`<i class="${i<k?'on':''}${i===ly.every-1?' gift':''}"></i>`).join('')}</div>`:`<div class="pbar"><i style="width:${k/ly.every*100}%"></i></div>`;
-  return `<div class="loyal">🎁 ${left===1?`Your next order gets ${ly.pct}% off! The shop applies it when confirming.`:`${left-1} more order${left-1===1?'':'s'} and the one after gets ${ly.pct}% off`}${vis}</div>`;
+  const ord=n=>n+(n%100>=11&&n%100<=13?'th':['th','st','nd','rd'][n%10]||'th');
+  return `<div class="loyal">🎁 ${left===1?`Your next order gets ${ly.pct}% off! The shop applies it when confirming.`:`Every ${ord(ly.every)} order gets ${ly.pct}% off. Your ${ord(left)} order from now gets it.`}<small class="lyc">${k} of ${ly.every} done</small>${vis}</div>`;
 }
 function savedUids(){ return [...new Set([...((CP&&CP.ffUids)||[]), ...store.get('dc-uids',[])].filter(uidValid))].slice(0,5); }
 function uidHint(u){ if(!u) return ['','6–14 digits from your Free Fire profile']; if(!uidValid(u)) return ['warn',u.length<6?`${u.length} digit${u.length===1?'':'s'} so far. UIDs are 6–14 digits.`:'That’s too long. UIDs are 6–14 digits.']; return ['ok','Looks good. Diamonds go to this UID.']; }
@@ -1163,9 +1165,10 @@ function renderOrders(){
   const g={all:MY, active:MY.filter(o=>['new','done'].includes(stOf(o))), dlv:MY.filter(o=>stOf(o)==='dlv'), closed:MY.filter(o=>['rej','can'].includes(stOf(o)))};
   const list=g[oFilter]||MY;
   $('app').innerHTML=`<section class="card"><div class="card-h"><h2>My orders</h2>${MY.length?`<span class="hint">Updates live</span>`:''}</div>
+    ${MY.length&&!signedIn()?`<div class="note bad" style="margin:12px 16px 0"><span>⚠️</span><div><b>These orders are only on this phone</b>Sign in with Google in Account to keep them if you change phone.</div></div>`:''}
     ${MY.length?`<div class="fchips">${[['all','All'],['active','Active'],['dlv','Delivered'],['closed','Closed']].map(([k,l])=>`<button type="button" data-of="${k}" aria-pressed="${oFilter===k}">${l}<span>${g[k].length}</span></button>`).join('')}</div>`:''}
     ${!myLoaded&&!AUTH_ERR?'<div class="card-b"><div class="skel" style="height:70px;margin:0"></div></div>'
-      :!MY.length?`<div class="state"><div class="emo">🛒</div><b>No orders yet</b>Your orders and their live status will show here.<p><a class="btn accent" href="./" data-nav="shop">Start shopping</a></p></div>`
+      :!MY.length?`<div class="state"><div class="emo">🛒</div><b>No orders yet</b>Your orders and their live status will show here.<p><a class="btn accent" href="./" data-nav="shop">Start shopping</a></p></div>${!signedIn()?`<div class="card-b" style="border-top:1px solid var(--line)">${signInBox('Ordered on another phone?','Sign in with the Google account you used, and all your orders show up here.')}</div>`:''}`
       :!list.length?`<div class="state"><b>Nothing here</b>No ${oFilter==='dlv'?'delivered':oFilter} orders yet.</div>`
       :list.map(ocHTML).join('')}</section>`;
 }
