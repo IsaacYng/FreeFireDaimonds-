@@ -484,6 +484,10 @@ textarea{min-height:64px;resize:vertical}
 .seg button{min-width:0}
 #method button{padding:6px 4px;gap:5px;font-size:.84rem}
 #method .pm{width:18px;height:18px}
+.payinfo .qrbig p b,.payinfo .qfill b{display:inline;font-size:inherit;font-weight:800}
+.payinfo .qrbig p b{color:var(--ink)}
+.qfill{margin-top:8px;font-size:.8rem;color:var(--ok);font-weight:600}
+.qfill b{color:var(--ok)}
 .shotpick{grid-column:1/-1;display:flex;align-items:center;gap:12px;padding:10px 12px;border:1.5px dashed var(--line-2);border-radius:10px;background:var(--surface-2);cursor:pointer;font-weight:400}
 .shotpick:hover{border-color:var(--ink-2)}
 .shotpick i{font-style:normal;font-size:1.3rem}
@@ -781,25 +785,79 @@ function calcPanel(){
 const PAYC={eSewa:['#60BB46','e'],Khalti:['#5C2D91','K'],Bank:['#2F5B94','🏦'],Cash:['#3A4852','Rs']};
 function payMethods(){ const s=P.shop, q=PAY.qr||{}, b=PAY.bank||{}, e=s.esewa||q.esewa, k=s.khalti||q.khalti, bk=s.bank||b.no||q.bank, set=e||k||bk||q.all; if(!set) return ['eSewa','Khalti','Bank','Cash'];
   return [(e||q.all)&&'eSewa', (k||q.all)&&'Khalti', (bk||q.all)&&'Bank', s.cash!==false&&'Cash'].filter(Boolean); }
+/* ---------- QR helpers: read Nepal QR (EMVCo / Fonepay / NepalPay) and add an amount ---------- */
+const QRLIB={gen:'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js', read:'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js'};
+const libP={};
+function loadLib(url, global){ if (window[global]) return Promise.resolve(window[global]);
+  return libP[url] || (libP[url]=new Promise((res,rej)=>{ const sc=document.createElement('script'); sc.src=url; sc.async=true; sc.crossOrigin='anonymous';
+    sc.onload=()=>{ if (global==='qrcode'&&window.qrcode&&window.qrcode.stringToBytesFuncs) window.qrcode.stringToBytes=window.qrcode.stringToBytesFuncs['UTF-8']; window[global]?res(window[global]):rej(new Error('lib')); };
+    sc.onerror=()=>{ delete libP[url]; rej(new Error('Could not load '+url)); }; document.head.appendChild(sc); })); }
+const EMV={
+  parse(s){ const out=[]; let i=0; s=String(s||'');
+    while(i<s.length){ const id=s.substr(i,2), n=parseInt(s.substr(i+2,2),10); if(!/^\d\d$/.test(id)||!/^\d\d$/.test(s.substr(i+2,2))) return null; const v=s.substr(i+4,n); if(v.length!==n) return null; out.push([id,v]); i+=4+n; }
+    return out.length?out:null; },
+  crc(str){ let c=0xFFFF; for(let i=0;i<str.length;i++){ c^=(str.charCodeAt(i)&0xFF)<<8; for(let j=0;j<8;j++) c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF; } return c.toString(16).toUpperCase().padStart(4,'0'); },
+  ok(s){ s=String(s||''); if(!/^000201/.test(s)||!/6304[0-9A-Fa-f]{4}$/.test(s)) return false; const t=EMV.parse(s); return !!t && EMV.crc(s.slice(0,-4))===s.slice(-4).toUpperCase(); },
+  info(s){ const t=EMV.parse(s)||[], g=id=>(t.find(x=>x[0]===id)||[])[1]||'', low=String(s).toLowerCase();
+    return {name:g('59'), city:g('60'), amount:g('54'), net: low.includes('fonepay')?'Fonepay':(low.includes('nepalpay')||low.includes('nchl'))?'NepalPay':low.includes('esewa')?'eSewa':low.includes('khalti')?'Khalti':'Bank QR'}; },
+  withAmount(s, amt){
+    const t=(EMV.parse(s)||[]).filter(x=>x[0]!=='63'&&x[0]!=='54');
+    const set=(id,v)=>{ const i=t.findIndex(x=>x[0]===id); if(i>=0) t[i]=[id,v]; else { let k=t.findIndex(x=>x[0]>id); if(k<0) k=t.length; t.splice(k,0,[id,v]); } };
+    set('01','12'); if (!t.some(x=>x[0]==='53')) set('53','524'); set('54', String(Math.round(amt)));
+    const body=t.map(([id,v])=>id+String(v.length).padStart(2,'0')+v).join('')+'6304'; return body+EMV.crc(body); }
+};
+// what kind of QR is this, and can we put an amount in it?
+function qrKind(text){
+  if (!text) return {label:'Picture only', canAmt:false};
+  if (EMV.ok(text)){ const i=EMV.info(text); return {label:i.net+(i.name?' · '+i.name:'')+(i.city?' · '+i.city:''), canAmt:!i.amount, fixed:i.amount, net:i.net}; }
+  const low=text.toLowerCase();
+  if (low.includes('esewa')) return {label:'eSewa personal QR', canAmt:false, net:'eSewa'};
+  if (low.includes('khalti')) return {label:'Khalti personal QR', canAmt:false, net:'Khalti'};
+  return {label:'QR code', canAmt:false};
+}
+const qrCache=new Map();
+function qrPng(text, px=560){
+  const key=px+'|'+text; if (qrCache.has(key)) return qrCache.get(key);
+  const q=window.qrcode(0,'M'); q.addData(text); q.make();
+  const n=q.getModuleCount(), m=3, cell=Math.max(2,Math.floor(px/(n+m*2))), size=cell*(n+m*2), c=document.createElement('canvas'); c.width=c.height=size;
+  const x=c.getContext('2d'); x.fillStyle='#fff'; x.fillRect(0,0,size,size); x.fillStyle='#000';
+  for(let r=0;r<n;r++) for(let k=0;k<n;k++) if(q.isDark(r,k)) x.fillRect((k+m)*cell,(r+m)*cell,cell,cell);
+  const url=c.toDataURL('image/png'); if (qrCache.size>40) qrCache.clear(); qrCache.set(key,url); return url;
+}
+
 const qrKey=m=>m==='eSewa'?'esewa':m==='Khalti'?'khalti':m==='Bank'?'bank':'';
-function qrFor(m){ const q=PAY.qr||{}; if (m==='Cash') return null; return q[qrKey(m)]?{src:q[qrKey(m)],any:false}:q.all?{src:q.all,any:true}:null; }
+// the QR to show for a payment method; with a Fonepay/NepalPay QR and "fill in amount" on, the amount goes inside the QR
+function qrFor(m, amt){
+  const q=PAY.qr||{}, d=PAY.qrData||{}; if (m==='Cash') return null;
+  const k=q[qrKey(m)]?qrKey(m):q.all?'all':null; if (!k) return null;
+  let src=q[k], filled=false; const raw=d[k];
+  if (raw && window.qrcode){ try{ let text=raw; if (PAY.dyn && amt>0 && qrKind(raw).canAmt){ text=EMV.withAmount(raw,amt); filled=true; } src=qrPng(text); }catch(e){ console.warn(e); filled=false; } }
+  return {src, any:k==='all', filled};
+}
+function refreshPay(){
+  if (!P) return;
+  if (view==='shop'&&step!==4){ const pb=$('payBox'); if (pb) pb.innerHTML=payBox(method,'payinfo',total()); }
+  else if (view==='shop'&&step===4){ if (!shotFile) renderShop(); }
+  else if (view==='track'&&lastTrack){ const keep=$('paidRef')?$('paidRef').value:''; $('app').innerHTML=trackHTML(lastTrack); if (keep&&$('paidRef')) $('paidRef').value=keep; }
+}
 function payDetail(m){ const s=P.shop, b=PAY.bank||{};
   if (m==='Bank'&&b.no) return {text:[b.name, 'A/C '+b.no, b.holder, b.branch].filter(Boolean).join(' · '), copy:b.no};
   const v= m==='eSewa'?s.esewa : m==='Khalti'?s.khalti : m==='Bank'?s.bank : '';
   if (m==='Cash') return {text:'Pay when you meet the shop.', copy:''};
   if (!v) return s.pay?{text:s.pay, copy:((s.pay.match(/9[78]\d{8}/)||[])[0]||'')}:null;
   const num=(v.match(/9[78]\d{8}/)||v.match(/\d{8,20}/)||[])[0]||''; return {text:v, copy:num}; }
-function payBox(m, cls, amt){ if(!P||!P.shop) return ''; const d=payDetail(m), q=qrFor(m); if(!d&&!q) return '';
+function payBox(m, cls, amt){ if(!P||!P.shop) return ''; const d=payDetail(m), q=qrFor(m, amt); if(!d&&!q) return '';
   const big=/\bbig\b/.test(cls);
   const head=`<div><b>${m==='Cash'?'Pay in cash':'Pay to '+esc(m)}</b>${d?`<span>${esc(d.text)}</span>`:''}${P.shop.pay&&m!=='Cash'&&(!d||d.text!==P.shop.pay)?`<small>${esc(P.shop.pay)}</small>`:''}</div>`;
+  const fillNote=q&&q.filled&&!big?`<small class="qfill">✓ ${rs(amt)} is filled in when they scan</small>`:'';
   const acts=`<div class="pacts">${q&&!big?`<button class="qrthumb" type="button" data-qr="${esc(m)}" aria-label="Show QR code"><img src="${q.src}" alt=""/><span>QR</span></button>`:''}${d&&d.copy?`<button class="btn sm" type="button" data-copy="${esc(d.copy)}">${IC.copy}Copy</button>`:''}</div>`;
-  const qrb=q&&big?`<div class="qrbig"><button type="button" class="qrimg" data-qr="${esc(m)}" aria-label="Open QR code"><img src="${q.src}" alt="${esc(m)} QR code"/></button><p>Scan with ${q.any?'any bank or wallet app':esc(m)}${amt?` and pay <b>${rs(amt)}</b>`:''}</p><a class="link" href="${q.src}" download="pay-${qrKey(m)||'qr'}.png">⬇ Save QR to gallery</a></div>`:'';
-  return `<div class="${cls}"><div class="prow">${head}${acts}</div>${qrb}</div>`; }
+  const qrb=q&&big?`<div class="qrbig"><button type="button" class="qrimg" data-qr="${esc(m)}" aria-label="Open QR code"><img src="${q.src}" alt="${esc(m)} QR code"/></button><p>${q.filled?`<b>${rs(amt)}</b> is already filled in. Scan with ${q.any?'any bank or wallet app':esc(m)} and confirm.`:`Scan with ${q.any?'any bank or wallet app':esc(m)}${amt?` and pay <b>${rs(amt)}</b>`:''}`}</p><a class="link" href="${q.src}" download="pay-${qrKey(m)||'qr'}.png">⬇ Save QR to gallery</a></div>`:'';
+  return `<div class="${cls}"><div class="prow">${head}${acts}</div>${fillNote?`<p class="qfill">✓ Scan the QR and <b>${rs(amt)}</b> is already filled in.</p>`:''}${qrb}</div>`; }
 function openQr(m){
-  const q=qrFor(m); if (!q) return; const amt=step===4&&last?last.total:(view==='track'&&lastTrack?lastTrack.total:total());
+  const amt=step===4&&last?last.total:(view==='track'&&lastTrack?lastTrack.total:total()), q=qrFor(m, amt); if (!q) return;
   openSheet(`<div class="grab"></div><h3>${q.any?'Scan to pay':'Pay with '+esc(m)}</h3>
     <div class="qrsheet"><img src="${q.src}" alt="QR code"/></div>
-    <p class="q" style="text-align:center;margin:12px 0 4px">${amt?`Pay <b style="color:var(--ink)">${rs(amt)}</b> · `:''}${q.any?'Works with eSewa, Khalti and every bank app':'Open '+esc(m)+' → Scan'}</p>
+    <p class="q" style="text-align:center;margin:12px 0 4px">${q.filled?`<b style="color:var(--ink)">${rs(amt)}</b> is already filled in · `:amt?`Pay <b style="color:var(--ink)">${rs(amt)}</b> · `:''}${q.any?'Works with eSewa, Khalti and every bank app':'Open '+esc(m)+' → Scan'}</p>
     <p class="hint" style="text-align:center;margin-bottom:14px">On this same phone? Save the QR, then in the app choose Scan → upload from gallery.</p>
     <div class="btns"><a class="btn solid block" href="${q.src}" download="pay-${qrKey(m)||'qr'}.png">⬇ Save QR to gallery</a><button class="btn ghost block" type="button" id="qrClose">Close</button></div>`);
   $('qrClose').onclick=closeSheet;
@@ -808,7 +866,7 @@ function step3(){
   const pm=payMethods(); if (!pm.includes(method)) method=pm[0]; const ready=progress();
   return `<section class="card" id="c3"><div class="card-h"><h2><span class="sn${ready[0]&&ready[1]?' ok':''}" id="n3">${ready[0]&&ready[1]?IC.check:'3'}</span>Payment</h2></div><div class="card-b">
     <div class="seg" id="method">${pm.map(m=>`<button type="button" data-m="${m}" aria-pressed="${m===method}"><i class="pm" style="background:${PAYC[m][0]}">${PAYC[m][1]}</i>${m}</button>`).join('')}</div>
-    <div id="payBox">${payBox(method,'payinfo')}</div>
+    <div id="payBox">${payBox(method,'payinfo',total())}</div>
     <details class="addnote" ${me.note?'open':''}><summary class="link">+ Add a note</summary><textarea id="note" maxlength="200" placeholder="Anything we should know">${esc(me.note||'')}</textarea></details></div></section>`;
 }
 const FAQ=[
@@ -851,6 +909,7 @@ function refreshProgress(){
   if (view!=='shop'||step===4||!P) return;
   const pr=progress(); setSn('n1',pr[0],'1'); setSn('n2',pr[1],'2'); setSn('n3',pr[0]&&pr[1],'3');
   const os=$('osum'); if (os) os.innerHTML=sumHTML();
+  if (PAY.dyn){ const pb=$('payBox'); if (pb) pb.innerHTML=payBox(method,'payinfo',total()); }
   const pe=$('perso'); if (pe){ const h=persoHTML(); if (pe.dataset.h!==h){ pe.innerHTML=h; pe.dataset.h=h; } }
   paintCbar(); badges();
 }
@@ -975,7 +1034,7 @@ document.addEventListener('click', async e=>{
   if ((x=c('[data-q]'))){ const i=+x.closest('[data-i]').dataset.i, ls=lines(); const l=ls[i]; if(!l) return; l.qty+=+x.dataset.q; if (l.qty<1) cart=cart.filter(y=>y!==l); buzz(); refreshCart(); return; }
   if ((x=c('[data-tab]'))){ pkTab=x.dataset.tab; refreshCart(); return; }
   if ((x=c('[data-cm]'))){ calcMode=x.dataset.cm; calcRes=null; calcErr=''; calcIn=''; refreshCart(); setTimeout(()=>$('need')&&$('need').focus(),30); return; }
-  if ((x=c('[data-m]'))){ method=x.dataset.m; store.set('dc-method',method); document.querySelectorAll('#method button').forEach(b=>b.setAttribute('aria-pressed',String(b===x))); const pb=$('payBox'); if (pb) pb.innerHTML=payBox(method,'payinfo'); buzz(); refreshProgress(); return; }
+  if ((x=c('[data-m]'))){ method=x.dataset.m; store.set('dc-method',method); document.querySelectorAll('#method button').forEach(b=>b.setAttribute('aria-pressed',String(b===x))); const pb=$('payBox'); if (pb) pb.innerHTML=payBox(method,'payinfo',total()); buzz(); refreshProgress(); return; }
   if ((x=c('[data-useuid]'))){ const u=$('uid'); if (u){ u.value=x.dataset.useuid; onUid(); } return; }
   if ((x=c('[data-copy]'))){ copy(x.dataset.copy); return; }
   if ((x=c('[data-again]'))){ e.preventDefault(); e.stopPropagation(); buyAgain(x.dataset.again); return; }
@@ -1223,8 +1282,8 @@ function priceFail(){
   $('app').innerHTML=`<section class="card"><div class="state"><div class="emo">🛠️</div><b>Ordering isn’t open right now.</b>Please message the shop directly.<p><button class="btn solid" type="button" onclick="location.reload()">Try again</button></p></div></section>`;
 }
 paintShell();
-onSnapshot(doc(db,'public','pay'), s=>{ PAY=s.exists()?s.data():{}; if (!P) return;
-  if (view==='shop'&&step!==4){ const pb=$('payBox'); if (pb) pb.innerHTML=payBox(method,'payinfo'); } else if (view==='shop'&&step===4&&!shotFile) renderShop(); }, e=>console.warn('pay',e));
+onSnapshot(doc(db,'public','pay'), s=>{ PAY=s.exists()?s.data():{}; refreshPay();
+  if (Object.keys(PAY.qrData||{}).length) loadLib(QRLIB.gen,'qrcode').then(refreshPay).catch(e=>console.warn('qr lib',e)); }, e=>console.warn('pay',e));
 onSnapshot(doc(db,'public','prices'), s=>{
   if (!s.exists()||!(s.data().packages||[]).length){ priceFail(); return; }
   const first=!P; P=s.data(); P.shop=P.shop||{}; P.stats=P.stats||{};
