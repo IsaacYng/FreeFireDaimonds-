@@ -495,6 +495,79 @@ textarea{min-height:64px;resize:vertical}
 .shotpick b{display:block;font-size:.88rem}
 .shotpick small{display:block;font-size:.76rem;color:var(--muted)}
 
+/* ---------- checkout page ---------- */
+.back{display:inline-flex;align-items:center;gap:4px;font-weight:600;font-size:.9rem;color:var(--muted);text-decoration:none;margin:0 0 12px}
+.back:hover{color:var(--ink)}
+.co{overflow:hidden;border-radius:16px}
+.co-sec{padding:20px 18px}
+.co-sec+.co-sec{border-top:1px solid var(--line)}
+.co-t{display:flex;align-items:center;gap:10px;font-size:1.15rem;font-weight:800;letter-spacing:-.01em;margin-bottom:14px}
+.co-t .i{font-size:1.1rem}
+.co-edit{margin-left:auto;font-size:.84rem}
+.co-rows{display:grid;grid-template-columns:auto 1fr;gap:10px 14px;font-size:.95rem}
+.co-rows dt{color:var(--muted)}
+.co-rows dd{text-align:right;font-weight:700}
+.co-price{margin-top:16px;padding:14px 16px;border-radius:12px;background:var(--sunken)}
+.co-price .tot{display:flex;justify-content:space-between;align-items:center;gap:10px}
+.co-price .tot span{font-weight:700}
+.co-price .tot b{font-size:1.9rem;font-weight:800;color:var(--accent);letter-spacing:-.02em}
+.co-det{display:grid;grid-template-columns:1fr 1fr;gap:12px 16px;padding:14px 16px;border-radius:12px;background:var(--sunken)}
+.co-det .full{grid-column:1/-1}
+.co-det span{display:block;font-size:.74rem;color:var(--muted)}
+.co-det b{font-weight:600;overflow-wrap:anywhere}
+.co-det small{display:block;font-size:.76rem;color:var(--warn);margin-top:2px}
+.co-uid{font-size:1.5rem !important;font-weight:800 !important;letter-spacing:.06em}
+.co-chips{display:flex;flex-wrap:wrap;gap:8px}
+.co-chips button{display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 10px;border-radius:12px;border:1.5px solid var(--line-2);background:var(--surface);font-weight:700;font-size:.9rem;color:var(--ink-2);transition:border-color .15s,background .15s}
+.co-chips button[aria-checked=true]{border-color:var(--accent);background:var(--accent-soft);color:var(--ink);box-shadow:0 0 0 1px var(--accent)}
+.co-chips .pm{width:22px;height:22px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:800;color:#fff;font-style:normal}
+.pc{margin-top:14px;padding:20px 18px;border:1.5px solid #F4D7A6;border-radius:16px;background:var(--surface);text-align:center}
+.pc-k{font-size:.92rem;font-weight:600}
+.brand{display:inline-block;margin:6px 0 4px;padding:3px 12px;border-radius:7px;font-weight:900;font-size:1.1rem;color:#fff;letter-spacing:-.01em}
+.brand.fonepay{background:#E31B23}.brand.nepalpay{background:#1F4E9C}.brand.esewa{background:#60BB46}.brand.khalti{background:#5C2D91}.brand.bank{background:#2F5B94}
+.pc-sub{font-size:.84rem;color:var(--muted)}
+.pc-qr{display:block;width:min(260px,72vw);aspect-ratio:1;margin:16px auto 14px;padding:12px;border:2px dashed #F2B66B;border-radius:14px;background:#fff;cursor:zoom-in}
+.pc-qr img{width:100%;height:100%;object-fit:contain;display:block}
+.pc h3{font-size:1.4rem;font-weight:800;letter-spacing:-.02em}
+.pc-amt{margin-top:4px;color:var(--ink-2)}
+.pc-amt b{color:var(--accent)}
+.pc-note{margin:10px 0 6px;font-size:.84rem;color:var(--muted)}
+.pc-note i{color:#F05A28;font-style:normal;font-weight:800;margin-right:2px}
+.pc-d{text-align:left}
+.pc-d h3{display:flex;align-items:center;gap:10px;font-size:1.2rem;margin-bottom:12px}
+.pc-d dl{display:grid;grid-template-columns:auto 1fr;gap:7px 12px;font-size:.95rem}
+.pc-d dt{font-weight:700}
+.pc-d dd{overflow-wrap:anywhere}
+.co-shot{margin-top:18px}
+.co-shot .lab{justify-content:flex-start;gap:4px}
+.kvl{display:grid;gap:8px;font-size:.98rem}
+.kvl p{overflow-wrap:anywhere}
+.kvl .btn.sm{min-height:30px;padding:0 10px;margin-left:4px;vertical-align:middle}
+.req{color:var(--accent);font-style:normal;font-weight:800}
+.drop{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:4px;min-height:140px;padding:16px;border:2px dashed var(--line-2);border-radius:14px;background:var(--surface-2);color:var(--muted);cursor:pointer;text-align:center;font-weight:400;transition:border-color .15s,background .15s}
+.drop:hover{border-color:var(--ink-2)}
+.drop .up{color:var(--ink-2)}
+.drop b{color:var(--ink);font-size:.95rem}
+.drop small{font-size:.78rem}
+.drop.has{flex-direction:row;justify-content:flex-start;gap:14px;min-height:0;text-align:left;border-style:solid;border-color:var(--ok-bar);background:var(--ok-soft)}
+.drop.has img{width:64px;height:64px;object-fit:cover;border-radius:10px;border:1px solid var(--line)}
+.drop.has b{display:block}
+.drop.bad{border-color:var(--accent);background:var(--accent-soft);animation:shake .3s}
+.agree{display:flex;align-items:center;gap:10px;margin:18px 0 6px;font-size:.92rem;cursor:pointer}
+.agree input{width:20px;height:20px;accent-color:var(--accent);flex-shrink:0}
+.agree .link{font-size:.92rem}
+.btn.xl{min-height:58px;font-size:1.1rem;border-radius:12px;margin-top:10px}
+.co-trust{text-align:center;color:var(--muted);font-size:.84rem;margin-top:14px}
+.co-foot{text-align:center;color:var(--muted);font-size:.74rem;margin-top:6px;opacity:.85;line-height:1.5}
+.terms{list-style:none;counter-reset:t;display:grid;gap:12px}
+.terms li{counter-increment:t;display:grid;grid-template-columns:28px 1fr;gap:2px 10px}
+.terms li::before{content:counter(t);grid-row:span 2;width:26px;height:26px;border-radius:50%;background:var(--sunken);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem}
+.terms b{font-size:.94rem}
+.terms span{font-size:.86rem;color:var(--ink-2)}
+:root[data-theme=dark] .pc{border-color:var(--line)}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]) .pc{border-color:var(--line)}}
+@media(min-width:900px){body.v-checkout main.wrap{max-width:680px}.co-sec{padding:24px 26px}}
+
 </style>
 </head>
 <body class="v-shop">
@@ -514,7 +587,7 @@ textarea{min-height:64px;resize:vertical}
 <div class="sheet-bg" id="sheetBg" hidden></div>
 <div class="sheet" id="sheet" role="dialog" aria-modal="true" hidden></div>
 
-<div class="cbar" id="cbar" hidden><div class="prog" id="cbProg"></div><div class="in"><div class="tot"><small id="cbItems"></small><b id="cbTotal" class="num"></b></div><button class="btn accent" type="button" id="cbBtn" data-checkout>Buy now</button></div></div>
+<div class="cbar" id="cbar" hidden><div class="prog" id="cbProg"></div><div class="in"><div class="tot"><small id="cbItems"></small><b id="cbTotal" class="num"></b></div><button class="btn accent" type="button" id="cbBtn" data-checkout>Checkout →</button></div></div>
 
 <nav class="bnav" aria-label="Main">
   <div class="sb-brand"><span class="mono"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg></span><div><b id="sbName">Free Fire Diamonds</b><small>Diamond top-up</small></div></div>
@@ -837,6 +910,7 @@ function qrFor(m, amt){
 function refreshPay(){
   if (!P) return;
   if (view==='shop'&&step!==4){ const pb=$('payBox'); if (pb) pb.innerHTML=payBox(method,'payinfo',total()); }
+  else if (view==='checkout') coRefresh();
   else if (view==='shop'&&step===4){ if (!shotFile) renderShop(); }
   else if (view==='track'&&lastTrack){ const keep=$('paidRef')?$('paidRef').value:''; $('app').innerHTML=trackHTML(lastTrack); if (keep&&$('paidRef')) $('paidRef').value=keep; }
 }
@@ -854,20 +928,13 @@ function payBox(m, cls, amt){ if(!P||!P.shop) return ''; const d=payDetail(m), q
   const qrb=q&&big?`<div class="qrbig"><button type="button" class="qrimg" data-qr="${esc(m)}" aria-label="Open QR code"><img src="${q.src}" alt="${esc(m)} QR code"/></button><p>${q.filled?`<b>${rs(amt)}</b> is already filled in. Scan with ${q.any?'any bank or wallet app':esc(m)} and confirm.`:`Scan with ${q.any?'any bank or wallet app':esc(m)}${amt?` and pay <b>${rs(amt)}</b>`:''}`}</p><a class="link" href="${q.src}" download="pay-${qrKey(m)||'qr'}.png">⬇ Save QR to gallery</a></div>`:'';
   return `<div class="${cls}"><div class="prow">${head}${acts}</div>${fillNote?`<p class="qfill">✓ Scan the QR and <b>${rs(amt)}</b> is already filled in.</p>`:''}${qrb}</div>`; }
 function openQr(m){
-  const amt=step===4&&last?last.total:(view==='track'&&lastTrack?lastTrack.total:total()), q=qrFor(m, amt); if (!q) return;
+  const amt=step===4&&last?last.total:(view==='track'&&lastTrack?lastTrack.total:total()), q=view==='checkout'?coQr(m):qrFor(m, amt); if (!q) return;
   openSheet(`<div class="grab"></div><h3>${q.any?'Scan to pay':'Pay with '+esc(m)}</h3>
     <div class="qrsheet"><img src="${q.src}" alt="QR code"/></div>
     <p class="q" style="text-align:center;margin:12px 0 4px">${q.filled?`<b style="color:var(--ink)">${rs(amt)}</b> is already filled in · `:amt?`Pay <b style="color:var(--ink)">${rs(amt)}</b> · `:''}${q.any?'Works with eSewa, Khalti and every bank app':'Open '+esc(m)+' → Scan'}</p>
     <p class="hint" style="text-align:center;margin-bottom:14px">On this same phone? Save the QR, then in the app choose Scan → upload from gallery.</p>
     <div class="btns"><a class="btn solid block" href="${q.src}" download="pay-${qrKey(m)||'qr'}.png">⬇ Save QR to gallery</a><button class="btn ghost block" type="button" id="qrClose">Close</button></div>`);
   $('qrClose').onclick=closeSheet;
-}
-function step3(){
-  const pm=payMethods(); if (!pm.includes(method)) method=pm[0]; const ready=progress();
-  return `<section class="card" id="c3"><div class="card-h"><h2><span class="sn${ready[0]&&ready[1]?' ok':''}" id="n3">${ready[0]&&ready[1]?IC.check:'3'}</span>Payment</h2></div><div class="card-b">
-    <div class="seg" id="method">${pm.map(m=>`<button type="button" data-m="${m}" aria-pressed="${m===method}"><i class="pm" style="background:${PAYC[m][0]}">${PAYC[m][1]}</i>${m}</button>`).join('')}</div>
-    <div id="payBox">${payBox(method,'payinfo',total())}</div>
-    <details class="addnote" ${me.note?'open':''}><summary class="link">+ Add a note</summary><textarea id="note" maxlength="200" placeholder="Anything we should know">${esc(me.note||'')}</textarea></details></div></section>`;
 }
 const FAQ=[
   ['How fast will I get my diamonds?','Usually within minutes after your payment is confirmed. You can watch every step live in My orders.'],
@@ -883,18 +950,18 @@ function extras(){
     <section class="card faq"><div class="card-h"><h2>Questions</h2></div>${FAQ.map(([a,b])=>`<details><summary>${esc(a)}</summary><p>${esc(b)}</p></details>`).join('')}</section>
     <div class="btns links">${w?`<a class="btn ghost block" href="https://wa.me/${w}" target="_blank" rel="noopener">${IC.chat}Chat on WhatsApp</a>`:''}<button class="btn ghost block" type="button" id="shareBtn">${IC.share}Share with friends</button></div>`;
 }
-function progress(){ return [uidValid(me.uid)&&!!(me.name||'').trim(), lines().length>0, !!method]; }
+function progress(){ return [uidValid(me.uid)&&!!(me.name||'').trim(), lines().length>0]; }
 function sumHTML(){
   const pr=progress(), ready=pr[0]&&pr[1], ls=lines();
   return `<section class="card"><div class="card-h"><h2>Your order</h2>${ls.length?`<span class="hint">${count()} item${count()===1?'':'s'}</span>`:''}</div><div class="card-b">
     ${ls.length?`<div class="sum">${ls.map(l=>{ const p=pk(l.id); return `<div><span>${l.qty} × ${esc(label(p))}</span><b class="num">${rs(p.price*l.qty)}</b></div>`; }).join('')}<div><span>Diamonds</span><b class="num">${nf(cartDia())}</b></div><div class="t"><b>Total</b><b class="num">${rs(total())}</b></div></div>`
       :`<p class="sempty"><span style="color:var(--blue)">${GEM(22)}</span>Pick a package to start your order.</p>`}
-    <ul class="chk">${['Player UID','Package','Payment'].map((x,i)=>`<li class="${pr[i]?'ok':''}"><i>${pr[i]?IC.check:i+1}</i>${x}${i===2&&pr[i]?' · '+esc(method):''}</li>`).join('')}</ul>
-    <button class="btn ${ready?'accent':'solid'} block" type="button" data-checkout ${isOpen()?'':'disabled'}>${ready?'Buy now · '+rs(total()):'Buy now'}</button></div></section>`;
+    <ul class="chk">${['Player UID','Package','Payment on the next step'].map((x,i)=>`<li class="${pr[i]?'ok':''}"><i>${pr[i]?IC.check:i+1}</i>${x}</li>`).join('')}</ul>
+    <button class="btn ${ready?'accent':'solid'} block" type="button" data-checkout ${isOpen()?'':'disabled'}>${ready?'Checkout · '+rs(total()):'Checkout'}</button></div></section>`;
 }
 function persoHTML(){ return againCard()+loyalty(); }
 function viewShop(){
-  return hero()+notices()+`<div id="perso">${persoHTML()}</div><div class="shop-grid"><div>${step1()}${step2()}${step3()}${extras()}</div><aside class="osum" id="osum">${sumHTML()}</aside></div>`;
+  return hero()+notices()+`<div id="perso">${persoHTML()}</div><div class="shop-grid"><div>${step1()}${step2()}${extras()}</div><aside class="osum" id="osum">${sumHTML()}</aside></div>`;
 }
 function readForm(){ const u=$('uid'); if(!u) return; me.uid=u.value.replace(/\D/g,''); me.name=$('name').value.trim(); me.phone=$('phone').value.trim(); const n=$('note'); me.note=n?n.value.trim():me.note; me.remember=$('remember').checked; }
 function saveMe(){ store.set('dc-me', me.remember?{name:me.name,phone:me.phone,uid:me.uid,remember:true}:{remember:false}); }
@@ -907,7 +974,7 @@ function renderShop(skipRead){
 function setSn(id,ok,n){ const el=$(id); if(!el) return; el.classList.toggle('ok',!!ok); el.innerHTML=ok?IC.check:n; }
 function refreshProgress(){
   if (view!=='shop'||step===4||!P) return;
-  const pr=progress(); setSn('n1',pr[0],'1'); setSn('n2',pr[1],'2'); setSn('n3',pr[0]&&pr[1],'3');
+  const pr=progress(); setSn('n1',pr[0],'1'); setSn('n2',pr[1],'2');
   const os=$('osum'); if (os) os.innerHTML=sumHTML();
   if (PAY.dyn){ const pb=$('payBox'); if (pb) pb.innerHTML=payBox(method,'payinfo',total()); }
   const pe=$('perso'); if (pe){ const h=persoHTML(); if (pe.dataset.h!==h){ pe.innerHTML=h; pe.dataset.h=h; } }
@@ -917,11 +984,11 @@ function refreshCart(){ if (view!=='shop'||step===4) return; const s2=$('s2'); i
 function paintCbar(){
   const show=view==='shop'&&step!==4&&!!P&&isOpen(); $('cbar').hidden=!show; if (!show) return;
   const pr=progress(), ready=pr[0]&&pr[1], n=count();
-  $('cbProg').innerHTML=[pr[0],pr[1],ready].map(x=>`<i class="${x?'on':''}"></i>`).join('');
+  $('cbProg').innerHTML=[pr[0],pr[1],false].map(x=>`<i class="${x?'on':''}"></i>`).join('');
   $('cbar').classList.toggle('empty',!n);
   if (n){ $('cbItems').textContent=n+' item'+(n===1?'':'s')+' · '+nf(cartDia())+' 💎'; animTo($('cbTotal'),total()); }
   else { const lo=P.packages.length?Math.min(...P.packages.map(p=>p.price)):0; $('cbItems').textContent=lo?'From '+rs(lo):''; $('cbTotal').textContent='Select a package'; $('cbTotal').dataset.v=''; }
-  $('cbBtn').className='btn '+(ready?'accent':'solid'); $('cbBtn').textContent='Buy now';
+  $('cbBtn').className='btn '+(ready?'accent':'solid'); $('cbBtn').textContent='Checkout →';
 }
 
 /* live field feedback (no full re-render while typing) */
@@ -947,7 +1014,7 @@ function checkout(){
   if (!me.name) return bad('name','Enter your name.');
   if (me.phone&&me.phone.replace(/\D/g,'').length<7) return bad('phone','Check your WhatsApp number.');
   if (!lines().length){ toast('Pick a package first'); $('c2').scrollIntoView({block:'center',behavior:smooth()}); return; }
-  $('err1').textContent=''; saveMe(); openConfirm();
+  $('err1').textContent=''; saveMe(); nav('checkout');
 }
 function bad(id,msg){
   let el=$(id); if (!el) return;
@@ -964,34 +1031,7 @@ addEventListener('keydown', e=>{ if(e.key==='Escape'&&!$('sheet').hidden) closeS
 function ask(title,text,yes,danger=true){ return new Promise(res=>{
   openSheet(`<div class="grab"></div><h3>${esc(title)}</h3><p class="q">${esc(text)}</p><div class="btns"><button class="btn ${danger?'accent':'solid'} block" type="button" id="askYes">${esc(yes)}</button><button class="btn ghost block" type="button" id="askNo">Keep it</button></div>`);
   $('askYes').onclick=()=>{ closeSheet(); res(true); }; $('askNo').onclick=()=>{ closeSheet(); res(false); }; }); }
-function openConfirm(){
-  const ls=lines();
-  openSheet(`<div class="grab"></div><h3>Confirm your order</h3>
-    <div class="uidbox"><span>Diamonds go to this UID</span><b>${esc(me.uid)}</b><small>Double-check it. A top-up can’t be moved to another account.</small></div>
-    <div class="sum">${ls.map(l=>{ const p=pk(l.id); return `<div><span>${l.qty} × ${esc(label(p))}</span><b class="num">${rs(p.price*l.qty)}</b></div>`; }).join('')}<div class="t"><b>Total</b><b class="num">${rs(total())}</b></div></div>
-    <dl class="kv"><dt>Name</dt><dd>${esc(me.name)}</dd>${me.phone?`<dt>WhatsApp</dt><dd>${esc(me.phone)}</dd>`:''}<dt>Pay with</dt><dd>${esc(method)}</dd>${me.note?`<dt>Note</dt><dd>${esc(me.note)}</dd>`:''}</dl>
-    ${payBox(method,'payinfo')}
-    <p class="err" id="err" role="alert"></p>
-    <div class="btns" style="margin-top:14px"><button class="btn accent block" type="button" id="placeBtn">Place order · ${rs(total())}</button><button class="btn ghost block" type="button" id="editOrder">Edit order</button></div>`);
-  $('placeBtn').onclick=placeOrder; $('editOrder').onclick=closeSheet;
-}
 function rememberUid(u){ store.set('dc-uids',[u,...store.get('dc-uids',[]).filter(x=>x!==u)].slice(0,5)); }
-async function placeOrder(){
-  const err=x=>{ $('err').textContent=x; buzz(30); };
-  if (!navigator.onLine) return err('You’re offline. Connect to the internet and try again.');
-  if (Date.now()-(+store.get('dc-last-order',0))<60000) return err('You just placed an order. Please wait a minute.');
-  if (!CU) return err('Couldn’t start your account. '+(AUTH_ERR||'Reload the page and try again.'));
-  const items=lines().map(l=>{ const p=pk(l.id); return {pkId:p.id,name:p.name,diamonds:p.diamonds,kind:p.kind,qty:l.qty,price:p.price}; });
-  const b=$('placeBtn'); b.disabled=true; b.innerHTML='<span class="spin"></span>Placing order…';
-  try{
-    const data={name:me.name, phone:me.phone, uid:me.uid, items, method, note:me.note||'', at:Date.now(), status:'new', total:total(), cid:CU.uid, ccode:CP?CP.code:''};
-    const ref=await addDoc(collection(db,'orders'), data);
-    store.set('dc-last-order', Date.now()); rememberUid(me.uid);
-    last={id:ref.id, ...data}; if (!MY.some(o=>o.id===ref.id)) MY.unshift(last); prevSt.set(ref.id,'new');
-    me.note=''; cart=[]; calcRes=null; calcOpen=false; closeSheet(); step=4; buzz(25); renderShop(); scrollTo({top:0,behavior:smooth()});
-    if (CP) saveProfile({name:me.name, phone:me.phone, ffUids:[me.uid, ...(CP.ffUids||[]).filter(u=>u!==me.uid)].slice(0,5)});
-  }catch(e){ console.error(e); err('Couldn’t send the order. Check your internet and try again.'); b.disabled=false; b.textContent='Place order · '+rs(total()); }
-}
 function paidForm(o){
   if (o.paidAt) return `<div class="paidok">✓ Payment noted${o.paidRef?' · ref '+esc(o.paidRef):''}${o.paidShot?' · screenshot sent':''}. The shop will confirm it soon.</div>`;
   if (!CU||o.cid!==CU.uid||o.status!=='new') return '';
@@ -1004,10 +1044,10 @@ function viewDone(){
   const o=MY.find(x=>x.id===last.id)||last, w=waNum(P.shop.wa), txt=o.items.map(i=>'• '+i.qty+' × '+itemLabel(i)).join('\n');
   const msg=`Namaste! I placed order #${code(o.id)} 🙏\n${txt}\nTotal: ${rs(o.total)}\nUID: ${o.uid}\nName: ${o.name}`;
   return `<section class="card"><div class="card-b done">
-    <div class="okc">${IC.bigCheck}</div><h2>Order placed!</h2><p>Thanks ${esc(o.name)}! Pay now and we’ll top up as soon as it’s confirmed.</p>
+    <div class="okc">${IC.bigCheck}</div><h2>Order placed!</h2><p>${o.paidAt?`Thanks ${esc(o.name)}! We’ve got your payment${o.paidShot?' screenshot':''} and are checking it now. Diamonds usually arrive in ${(P.stats||{}).avgMins?'about '+P.stats.avgMins+' min':'a few minutes'}.`:o.method==='Cash'?`Thanks ${esc(o.name)}! Pay in cash when you meet the shop and we’ll top up right after.`:`Thanks ${esc(o.name)}! Pay now and we’ll top up as soon as it’s confirmed.`}</p>
     <button class="code" type="button" data-copy="${code(o.id)}">Order #${esc(code(o.id))} ${IC.copy}</button>
     <div class="sum" style="text-align:left">${o.items.map(i=>`<div><span>${i.qty} × ${esc(itemLabel(i))}</span><b class="num">${rs(i.price*i.qty)}</b></div>`).join('')}<div class="t"><b>Total</b><b class="num">${rs(o.total)}</b></div></div>
-    ${payBox(o.method,'payinfo big',o.total)}
+    ${o.paidAt?'':payBox(o.method,'payinfo big',o.total)}
     ${paidForm(o)}
     <div class="btns">
       ${w?`<a class="btn wa block" href="https://wa.me/${w}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">${IC.chat}${o.paidShot?'Message the shop on WhatsApp':'Send payment screenshot on WhatsApp'}</a>`:''}
@@ -1067,11 +1107,13 @@ function shrinkImg(file, max, q){ return new Promise((res,rej)=>{ const r=new Fi
   const k=Math.min(1, max/Math.max(im.width,im.height)), cv=document.createElement('canvas'); cv.width=Math.round(im.width*k); cv.height=Math.round(im.height*k);
   const x=cv.getContext('2d'); x.fillStyle='#fff'; x.fillRect(0,0,cv.width,cv.height); x.drawImage(im,0,0,cv.width,cv.height); res(cv.toDataURL('image/jpeg',q)); }; im.src=r.result; }; r.readAsDataURL(file); }); }
 document.addEventListener('change', async e=>{
-  if (e.target.id!=='paidShot'||!e.target.files||!e.target.files[0]) return;
+  if ((e.target.id!=='paidShot'&&e.target.id!=='coShot')||!e.target.files||!e.target.files[0]) return;
+  const onCo=e.target.id==='coShot';
   const f=e.target.files[0];
   try{ let img=await shrinkImg(f,1100,.7); if (img.length>650000) img=await shrinkImg(f,800,.55);
     if (img.length>650000){ toast('That picture is too big. Try a smaller screenshot.','bad'); return; }
-    shotFile=img; const keep=$('paidRef')?$('paidRef').value:''; const pk=$('shotPick');
+    shotFile=img; if (onCo){ const sb=$('coShotBox'); if (sb) sb.innerHTML=coShotHTML(); $('coErr')&&($('coErr').textContent=''); toast('Screenshot added ✓'); return; }
+    const keep=$('paidRef')?$('paidRef').value:''; const pk=$('shotPick');
     if (pk) pk.innerHTML=`<input type="file" accept="image/*" id="paidShot" hidden/><img src="${img}" alt=""/><span><b>Screenshot added</b><small>Tap to change</small></span>`;
     if ($('paidRef')) $('paidRef').value=keep; toast('Screenshot added. Now tap “I’ve paid”.');
   }catch(err){ console.warn(err); toast('Couldn’t read that image','bad'); }
@@ -1236,21 +1278,157 @@ document.addEventListener('click', async e=>{
 /* =========================================================
    ROUTING
    ========================================================= */
-const crumbs={shop:'Shop',orders:'My orders',account:'Account',track:'Order status'};
+/* =========================================================
+   CHECKOUT PAGE (#checkout): summary, how to pay, upload receipt
+   ========================================================= */
+const co={method:null, ref:''};
+const TERMS=[
+  ['Check your UID','Diamonds go to the UID you entered. Top-ups sent to a wrong UID can’t be moved or refunded.'],
+  ['Payment first','We top up after your payment is verified. This usually takes a few minutes during shop hours.'],
+  ['Real screenshots only','Edited or fake payment screenshots get the order cancelled.'],
+  ['Refunds','If we can’t deliver your order, you get a full refund. Delivered diamonds can’t be refunded.'],
+  ['Prices','Prices follow the dollar rate and can change. You pay the price shown at checkout.']
+];
+const coMethods=()=>{ const s=P.shop, q=PAY.qr||{}, b=PAY.bank||{}, out=[];
+  if (s.esewa||q.esewa) out.push('eSewa'); if (s.khalti||q.khalti) out.push('Khalti'); if (s.bank||b.no||q.bank||q.all) out.push('Bank');
+  if (!out.length) out.push('eSewa','Khalti','Bank'); if (s.cash!==false) out.push('Cash'); return out; };
+const coLabel=m=>m==='Bank'?((PAY.qr||{}).all?'QR / Bank':'Bank'):m;
+function coQr(m){   // the QR that belongs to this method (Bank uses the all-apps QR too)
+  const q=PAY.qr||{}; if (m==='Cash') return null;
+  if (m==='Bank'){ if (q.bank) return qrFor('Bank', total()); if (q.all) return qrFor('Bank', total()); return null; }
+  return q[qrKey(m)] ? qrFor(m, total()) : null;
+}
+function brandOf(m){
+  if (m==='eSewa') return ['eSewa','esewa']; if (m==='Khalti') return ['Khalti','khalti'];
+  const raw=(PAY.qrData||{}).all||(PAY.qrData||{}).bank; const net=raw?qrKind(raw).net:'';
+  return net==='Fonepay'?['fonepay','fonepay']:net==='NepalPay'?['NepalPay','nepalpay']:['Bank QR','bank'];
+}
+function coPayHTML(){
+  const m=co.method; if (!m) return '';
+  if (m==='Cash') return `<div class="pc pc-d"><h3>💵 Pay in cash</h3><p class="pc-sub" style="text-align:left">Place your order now and pay when you meet the shop. We top up after the shop gets the cash.</p></div>`;
+  const q=coQr(m), [bn,bc]=brandOf(m), s=P.shop, b=PAY.bank||{}, amt=total();
+  const qr=q?`<div class="pc"><p class="pc-k">We accept</p><span class="brand ${bc}">${esc(bn)}</span>
+      <p class="pc-sub">${q.any?'Scan with eSewa, Khalti or any bank app':'Open '+esc(m)+' and tap Scan'}</p>
+      <button type="button" class="pc-qr" data-qr="${esc(m)}" aria-label="Open QR code"><img src="${q.src}" alt="QR code"/></button>
+      <h3>Scan to pay</h3>
+      <p class="pc-amt">${q.filled?`<b>${rs(amt)}</b> is already filled in`:`Pay exactly <b>${rs(amt)}</b>`}</p>
+      <p class="pc-note"><i>*</i> Please take a screenshot after the payment.</p>
+      <a class="link" href="${q.src}" download="pay-qr.png">⬇ Save QR to gallery</a></div>`:'';
+  let det='';
+  if (m==='Bank'&&(b.no||s.bank)){
+    det=`<div class="pc pc-d"><h3>🏛 Bank transfer</h3>${b.no?`<div class="kvl">${b.name?`<p><b>Bank:</b> ${esc(b.name)}</p>`:''}${b.holder?`<p><b>Account name:</b> ${esc(b.holder)}</p>`:''}<p><b>A/C no:</b> <span class="num">${esc(b.no)}</span> <button class="btn sm" type="button" data-copy="${esc(b.no)}">${IC.copy}Copy</button></p>${b.branch?`<p><b>Branch:</b> ${esc(b.branch)}</p>`:''}</div>`:`<p>${esc(s.bank)}</p>`}
+      <p class="pc-note"><i>*</i> Please take a screenshot after the payment.</p></div>`;
+  } else if (m==='eSewa'||m==='Khalti'){
+    const v=m==='eSewa'?s.esewa:s.khalti, num=(String(v||'').match(/9[78]\d{8}/)||[])[0];
+    if (v) det=`<div class="pc pc-d"><h3>📱 ${esc(m)} ID</h3><div class="kvl"><p><b>${esc(m)} ID:</b> ${esc(v)} ${num?`<button class="btn sm" type="button" data-copy="${num}">${IC.copy}Copy</button>`:''}</p><p><b>Amount:</b> ${rs(amt)}</p></div><p class="pc-note"><i>*</i> Please take a screenshot after the payment.</p></div>`;
+  }
+  return qr+det || `<div class="pc pc-d"><p>${esc(s.pay||'Ask the shop for payment details on WhatsApp.')}</p></div>`;
+}
+function coShotHTML(){
+  if (co.method==='Cash') return '';
+  return `<label class="lab" for="coShot">Upload payment screenshot <em class="req">*</em></label>
+    <label class="drop${shotFile?' has':''}" id="coDrop"><input type="file" accept="image/*" id="coShot" hidden/>
+      ${shotFile?`<img src="${shotFile}" alt=""/><span><b>Screenshot added</b><small>Tap to change</small></span>`
+        :`<span class="up">${sv('<path d="M12 16V4M7 9l5-5 5 5"/><path d="M20 16.5A4.5 4.5 0 0 0 17.5 8h-.3A7 7 0 1 0 4 15"/>',30,1.8)}</span><b>Tap to upload your screenshot</b><small>PNG or JPG from your gallery</small>`}</label>
+    <input type="text" id="coRef" maxlength="40" placeholder="Transaction ID (optional)" value="${esc(co.ref)}" autocomplete="off" style="margin-top:10px"/>`;
+}
+function coBtnText(){ return co.method==='Cash'?`Place order · ${rs(total())}`:`Confirm payment & order`; }
+function viewCheckout(){
+  const ls=lines(), s=P.stats||{}, pm=coMethods(), saved=store.get('dc-method',null);
+  if (!pm.includes(co.method)) co.method=pm.includes(saved)?saved:((PAY.qr||{}).all&&pm.includes('Bank')?'Bank':pm[0]);   // QR first: it works with every app
+  return `<a class="back" href="./" data-nav="shop">${sv('<path d="m15 18-6-6 6-6"/>',16)}Edit order</a>
+  <section class="card co">
+    <div class="co-sec">
+      <h2 class="co-t"><span class="i">🛒</span>Checkout summary</h2>
+      <dl class="co-rows">${ls.map(l=>{ const p=pk(l.id); return `<dt>${l.qty} × ${esc(label(p))}</dt><dd class="num">${rs(p.price*l.qty)}</dd>`; }).join('')}
+        <dt>Diamonds</dt><dd class="num">${nf(cartDia())}</dd>
+        <dt>Delivery</dt><dd>${s.avgMins?'Usually ~'+s.avgMins+' min after payment':'Soon after payment'}</dd></dl>
+      <div class="co-price"><div class="tot"><span>Total payable</span><b class="num">${rs(total())}</b></div></div>
+    </div>
+    <div class="co-sec">
+      <h2 class="co-t"><span class="i">🎮</span>Player details<a class="link co-edit" href="./" data-nav="shop">Change</a></h2>
+      <div class="co-det"><div class="full"><span>Free Fire UID</span><b class="num co-uid">${esc(me.uid)}</b><small>Diamonds go to this UID. Please double-check it.</small></div><div><span>Name</span><b>${esc(me.name)}</b></div><div><span>WhatsApp</span><b>${esc(me.phone||'–')}</b></div></div>
+    </div>
+    <div class="co-sec">
+      <h2 class="co-t"><span class="i">💳</span>How do you want to pay?</h2>
+      <div class="co-chips" role="radiogroup">${pm.map(m=>`<button type="button" role="radio" data-com="${m}" aria-checked="${m===co.method}"><i class="pm" style="background:${PAYC[m][0]}">${PAYC[m][1]}</i>${esc(coLabel(m))}</button>`).join('')}</div>
+      <div id="coPay">${coPayHTML()}</div>
+      <div id="coShotBox" class="co-shot">${coShotHTML()}</div>
+      <details class="addnote" ${me.note?'open':''}><summary class="link">+ Add a note for the shop</summary><textarea id="coNote" maxlength="200" placeholder="Anything we should know">${esc(me.note||'')}</textarea></details>
+      <label class="agree"><input type="checkbox" id="coAgree"/><span>I agree to the <button type="button" class="link" id="termsBtn">Terms and Conditions</button></span></label>
+      <p class="err" id="coErr" role="alert"></p>
+      <button class="btn accent block xl" type="button" id="coPlace">${coBtnText()}</button>
+      <p class="co-trust">🔒 Secure payment · ⚡ Fast verification · 📍 Live tracking</p>
+      <p class="co-foot">By placing this order you agree to our terms. We check your payment and top up your UID, and you can follow every step in My orders.</p>
+    </div>
+  </section>`;
+}
+function renderCheckout(){
+  if (!P) return; if (!lines().length||!uidValid(me.uid)||!me.name){ history.replaceState(null,'',location.pathname); route(); return; }
+  const agreed=$('coAgree')&&$('coAgree').checked; $('app').innerHTML=viewCheckout(); if (agreed) $('coAgree').checked=true; paintCbar(); badges();
+}
+function coRefresh(){ const p=$('coPay'); if (p) p.innerHTML=coPayHTML(); const s=$('coShotBox'); if (s) s.innerHTML=coShotHTML(); const b=$('coPlace'); if (b&&!b.disabled) b.textContent=coBtnText(); }
+function openTerms(){
+  openSheet(`<div class="grab"></div><h3>Terms and Conditions</h3><ol class="terms">${TERMS.map(([a,b])=>`<li><b>${esc(a)}</b><span>${esc(b)}</span></li>`).join('')}</ol>
+    <div class="btns" style="margin-top:14px"><button class="btn accent block" type="button" id="termsOk">I agree</button></div>`);
+  $('termsOk').onclick=()=>{ closeSheet(); const a=$('coAgree'); if (a) a.checked=true; };
+}
+async function placeCheckout(){
+  const errEl=$('coErr'), err=x=>{ errEl.textContent=x; buzz(30); errEl.scrollIntoView({block:'center',behavior:smooth()}); };
+  errEl.textContent='';
+  if (!isOpen()) return err('Orders are paused right now. Please try again later.');
+  if (!lines().length||!uidValid(me.uid)||!me.name){ nav('shop'); return; }
+  const cash=co.method==='Cash';
+  if (!co.method) return err('Choose how you want to pay.');
+  if (!cash&&!shotFile){ err('Upload your payment screenshot first.'); const d=$('coDrop'); if (d){ d.classList.remove('bad'); void d.offsetWidth; d.classList.add('bad'); } return; }
+  if (!$('coAgree').checked) return err('Please agree to the Terms and Conditions.');
+  if (!navigator.onLine) return err('You’re offline. Connect to the internet and try again.');
+  if (Date.now()-(+store.get('dc-last-order',0))<60000) return err('You just placed an order. Please wait a minute.');
+  if (!CU) return err('Couldn’t start your account. '+(AUTH_ERR||'Reload the page and try again.'));
+  const items=lines().map(l=>{ const p=pk(l.id); return {pkId:p.id,name:p.name,diamonds:p.diamonds,kind:p.kind,qty:l.qty,price:p.price}; });
+  const b=$('coPlace'); b.disabled=true; b.innerHTML='<span class="spin"></span>Sending your order…';
+  method=co.method; store.set('dc-method',method);
+  let ref;
+  const data={name:me.name, phone:me.phone, uid:me.uid, items, method:co.method, note:me.note||'', at:Date.now(), status:'new', total:total(), cid:CU.uid, ccode:CP?CP.code:''};
+  try{ ref=await addDoc(collection(db,'orders'), data); }
+  catch(e){ console.error(e); b.disabled=false; b.textContent=coBtnText(); return err('Couldn’t send the order. Check your internet and try again.'); }
+  let shot=false;
+  if (!cash){
+    try{ await setDoc(doc(db,'payshots',ref.id),{img:shotFile, at:Date.now()}); shot=true; }catch(e){ console.warn('screenshot',e); }
+    const pd={paidAt:Date.now(), paidRef:(co.ref||'').slice(0,40)}; if (shot) pd.paidShot=true;
+    try{ await setDoc(doc(db,'orders',ref.id),pd,{merge:true}); }catch(e){ if (shot){ delete pd.paidShot; try{ await setDoc(doc(db,'orders',ref.id),pd,{merge:true}); }catch(_){} } }
+    Object.assign(data,pd);
+  }
+  store.set('dc-last-order', Date.now()); rememberUid(me.uid);
+  last={id:ref.id, ...data}; if (!MY.some(o=>o.id===ref.id)) MY.unshift(last); prevSt.set(ref.id,'new');
+  if (!cash&&!shot) toast('Order placed, but the screenshot didn’t upload. Please send it on WhatsApp.','bad');
+  me.note=''; cart=[]; calcRes=null; calcOpen=false; shotFile=null; co.ref=''; step=4; buzz(25);
+  history.replaceState(null,'',location.pathname); route(); scrollTo({top:0,behavior:smooth()});
+  if (CP) saveProfile({name:me.name, phone:me.phone, ffUids:[me.uid, ...(CP.ffUids||[]).filter(u=>u!==me.uid)].slice(0,5)});
+}
+document.addEventListener('click', e=>{
+  const ch=e.target.closest('[data-com]'); if (ch){ co.method=ch.dataset.com; document.querySelectorAll('[data-com]').forEach(x=>x.setAttribute('aria-checked',String(x===ch))); coRefresh(); buzz(); return; }
+  if (e.target.closest('#termsBtn')){ e.preventDefault(); openTerms(); return; }
+  if (e.target.closest('#coPlace')){ placeCheckout(); return; }
+});
+document.addEventListener('change', e=>{ if (e.target.id==='coAgree'&&e.target.checked&&$('coErr')) $('coErr').textContent=''; });
+document.addEventListener('input', e=>{ if (e.target.id==='coRef') co.ref=e.target.value.trim(); else if (e.target.id==='coNote') me.note=e.target.value.trim(); });
+
+const crumbs={shop:'Shop',orders:'My orders',account:'Account',track:'Order status',checkout:'Checkout'};
 function swapView(fn){ if (routed&&document.startViewTransition&&!reduced.matches){ try{ document.startViewTransition(fn); }catch(_){ fn(); } } else fn(); routed=true; }
 function route(){
   const id=new URLSearchParams(location.search).get('o'), h=location.hash;
-  const nv = id?'track': h==='#orders'?'orders': h==='#account'?'account':'shop';
+  const nv = id?'track': h==='#orders'?'orders': h==='#account'?'account': h==='#checkout'?'checkout':'shop';
   if (nv!=='track'&&unTrack){ unTrack(); unTrack=null; }
-  view=nv; ['shop','orders','account','track'].forEach(v=>document.body.classList.toggle('v-'+v, v===view));
-  document.querySelectorAll('.bnav [data-nav]').forEach(a=>a.classList.toggle('on', a.dataset.nav===(view==='track'?'orders':view)));
+  view=nv; ['shop','orders','account','track','checkout'].forEach(v=>document.body.classList.toggle('v-'+v, v===view));
+  document.querySelectorAll('.bnav [data-nav]').forEach(a=>a.classList.toggle('on', a.dataset.nav===(view==='track'?'orders':view==='checkout'?'shop':view)));
   $('crumb').textContent=crumbs[view];
   if (view!=='track') document.title=(P&&P.shop.name?P.shop.name+' · ':'')+'Free Fire Diamonds';
   if (!P&&view!=='track') return;
-  swapView(()=>{ if (view==='track') viewTrack(id); else if (view==='orders') renderOrders(); else if (view==='account') viewAccount(); else renderShop(); });
+  swapView(()=>{ if (view==='track') viewTrack(id); else if (view==='orders') renderOrders(); else if (view==='account') viewAccount(); else if (view==='checkout') renderCheckout(); else renderShop(); });
   paintCbar();
 }
-function nav(v){ if (view==='shop'&&step!==4) readForm(); history.pushState(null,'',location.pathname+(v==='orders'?'#orders':v==='account'?'#account':'')); route(); scrollTo({top:0}); }
+function nav(v){ if (view==='shop'&&step!==4) readForm(); history.pushState(null,'',location.pathname+(v==='orders'?'#orders':v==='account'?'#account':v==='checkout'?'#checkout':'')); route(); scrollTo({top:0}); }
 function navTrack(id){ if (view==='shop'&&step!==4) readForm(); history.pushState(null,'',location.pathname+'?o='+encodeURIComponent(id)); route(); scrollTo({top:0}); }
 document.addEventListener('click', e=>{ const a=e.target.closest('[data-nav]'); if (!a||e.metaKey||e.ctrlKey) return; e.preventDefault(); if (a.dataset.nav==='shop'&&view==='shop'&&step===4){ step=1; last=null; } nav(a.dataset.nav); });
 addEventListener('popstate', route);
@@ -1290,6 +1468,7 @@ onSnapshot(doc(db,'public','prices'), s=>{
   cart=cart.filter(l=>pk(l.id)); paintShell(); startTicker();
   if (first) route();
   else if (view==='shop'&&step!==4){ const f=document.activeElement; if (f&&f.closest&&f.closest('#app input,#app textarea')) refreshCart(); else renderShop(); }
+  else if (view==='checkout') renderCheckout();
 }, e=>{ console.error(e); priceFail(); });
 </script>
 </body>
