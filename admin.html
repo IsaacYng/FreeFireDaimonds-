@@ -1387,6 +1387,19 @@ body{font-size:15px;text-rendering:optimizeLegibility}
 .dyn-f span{flex:1;min-width:200px}
 .dyn-none{margin:0;padding:12px 14px;border-radius:12px;background:var(--bg);font-size:.86rem;color:var(--ink-2)}
 
+/* proof on order cards + reject message */
+.o-shot{display:flex;align-items:center;gap:12px;width:100%;max-width:360px;padding:8px;border:1px solid var(--line);border-radius:12px;background:#fff;cursor:zoom-in;text-align:left;font:inherit;color:var(--ink)}
+.o-shot img{width:64px;height:64px;border-radius:8px;object-fit:cover;background:var(--bg);flex-shrink:0}
+.o-shot img:not([src]){animation:shotpulse 1.2s infinite}
+@keyframes shotpulse{50%{opacity:.4}}
+.o-shot b{display:block;font-size:.88rem}
+.o-shot small{display:block;font-size:.76rem;color:var(--muted)}
+.o-shot.miss small::after{content:" · couldn’t load (check Firestore rules)"}
+.o-cp{background:none;border:none;padding:0;font:inherit;color:inherit;cursor:pointer}
+.o-cp:hover b{text-decoration:underline}
+.dlg-ta{width:100%;margin-top:12px;padding:10px 12px;border:1px solid var(--line-2);border-radius:10px;font:inherit;font-size:16px;resize:vertical}
+.sv-proof-h{grid-column:1/-1;margin-top:8px;padding-top:10px;border-top:1px dashed var(--line);font-weight:700;color:var(--ink) !important}
+
 </style>
 </head>
 <body>
@@ -2079,6 +2092,10 @@ service cloud.firestore {
   <div class="dlg-b"><div class="in"><h3 id="dlgT">Delete item?</h3><p id="dlgP">This can't be undone.</p></div>
   <div class="card-f"><button class="btn" id="dlgNo" type="button">Cancel</button><button class="btn danger" id="dlgYes" type="button">Delete</button></div></div>
 </div>
+<div class="dlg" id="dlgR" hidden role="dialog" aria-modal="true" aria-labelledby="dlgRT">
+  <div class="dlg-b"><div class="in"><h3 id="dlgRT">Reject order?</h3><p id="dlgRP"></p><textarea id="dlgRIn" class="dlg-ta" maxlength="200" rows="3" placeholder="e.g. Please send the full Rs 880. Only Rs 800 came."></textarea></div>
+  <div class="card-f"><button class="btn" id="dlgRNo" type="button">Cancel</button><button class="btn danger" id="dlgRYes" type="button">Reject order</button></div></div>
+</div>
 <div class="toast" id="toast" role="status" aria-live="polite"><i></i><span id="toastT"></span></div>
 
 <script type="module">
@@ -2582,6 +2599,8 @@ function openSaleView(s){
   $('svCust').innerHTML=row('Name', esc(s.customer||'Walk-in'))+row('Phone', s.phone?`<a class="link" href="tel:${esc(digits(s.phone))}">${esc(s.phone)}</a>`:'–')+(s.ccode?row('Online customer ID', '🪪 '+esc(s.ccode)):'')+row('Free Fire UID', s.uid?`<span class="num">${esc(s.uid)}</span> <button type="button" class="mini" data-sv="uid">Copy</button>`:'–')+(c?row('', '<button type="button" class="mini" data-sv="cust">Open customer profile</button>'):'');
   $('svPay').innerHTML=row('List price', rs(gross))+(disc?row('Discount', '− '+rs(disc)):'')+row('Net price', '<b>'+rs(rev)+'</b>')+row('Amount received', rs(s.received))+(s.method==='Credit'?row('Outstanding', due?`<b class="wtx">${rs(due)}</b>`:'Paid'):'')+row('Payment method', esc(s.method==='Credit'?'Credit (pay later)':s.method))+(s.paidAt?row('Paid on', fmtWhen(s.paidAt)):'');
   $('svCost').innerHTML=row('Dollars used', '$'+usd.toFixed(2)+' ('+nf(s.diamonds)+' 💎)')+row('Cost per dollar', usd?'Rs '+rs2(cost/usd)+(BOOK.saleCost.has(s.id)?' · from card':' · estimate'):'–')+row('Cost', rs(cost))+row('Profit', `<b class="${p<0?'rtx':'gtx'}">${rsSigned(p)}</b>`+(rev?` <span class="help">(${Math.round(p/rev*100)}% margin)</span>`:''));
+  if (s.orderRef){ const od=S.orders.find(x=>x.id===s.orderRef)||{}, code=s.orderCode||s.orderRef.slice(0,6).toUpperCase(), pAt=s.paidAt||od.paidAt, pRef=s.paidRef||od.paidRef, shot=s.paidShot||od.paidShot;
+    $('svPay').innerHTML+=`<dt class="sv-proof-h">Online order #${esc(code)}${s.paidVia||od.method?' · paid by '+esc(s.paidVia||od.method):''}</dt>`+row('Customer paid at', pAt?esc(fmtT(pAt)):'Not noted')+(pRef?row('Transaction ID', `<span class="num">${esc(pRef)}</span>`):'')+row('Payment proof', shot?`<button class="btn sm" type="button" data-shot="${esc(s.orderRef)}">🖼 View screenshot</button>`:'No screenshot')+((s.custNote||od.note)?row('Customer note', esc(s.custNote||od.note)):''); }
   $('svNote').hidden=!s.note; $('svNote').textContent=s.note?'📝 '+s.note:'';
   const w=waNumber(s.phone);
   $('svMain').innerHTML=`<button class="btn" type="button" data-sv="edit">${svgI(IC.edit)}Edit</button>`+
@@ -2652,7 +2671,7 @@ function delSale(s){
   // Waits until the Undo button is gone, because only the customer can create an order again.
   const ref=s.orderRef, last=ref && !S.sales.some(x=>x.orderRef===ref && x.id!==s.id);
   let timer=null;
-  if (last) timer=setTimeout(()=>{ deleteDoc(doc(db,'orders',ref)).catch(e=>console.warn('delete order',e)); dropShot(ref); }, 7200);
+  if (last) timer=setTimeout(()=>{ deleteDoc(doc(db,'orders',ref)).catch(e=>console.warn('delete order',e)); }, 7200);   // the payment screenshot is kept as proof
   toast(last?'Sale deleted. The customer’s order #'+ref.slice(0,6).toUpperCase()+' is removed too.':'Sale deleted', false, {label:'Undo', fn:()=>{ clearTimeout(timer); saveSale(s); toast('Sale restored'); }});
 }
 
@@ -2902,7 +2921,9 @@ $('sellSave').addEventListener('click', async () => {
     const r={ ...base, id: o ? o.id : newId()+i, at, pkgId:x.p.id, pkgName:x.p.kind==='member'?x.p.name+' membership':nf(x.p.diamonds)+' diamonds', kind:x.p.kind||'topup',
       diamonds:x.p.diamonds*x.q, qty:x.q, usd:x.p.usd, rate:o?(o.rate||rateNowR):rateNowR, feePct:o?(o.feePct??0):0,
       cost:Math.round(x.cost*100)/100, listPrice:x.list, discount:ld, price:x.list-ld, received:lr };
-    if (orderId) r.orderId=orderId; if (f.ccode) { r.ccode=f.ccode; r.cid=f.cid; } else if (o&&o.ccode){ r.ccode=o.ccode; r.cid=o.cid; } if (f.fromOrder) r.orderRef=f.fromOrder; else if (o&&o.orderRef) r.orderRef=o.orderRef; if (o) r.updatedAt=Date.now(); if (o&&o.remindedAt) r.remindedAt=o.remindedAt; if (o&&o.paidAt) r.paidAt=o.paidAt;
+    if (orderId) r.orderId=orderId; if (f.ccode) { r.ccode=f.ccode; r.cid=f.cid; } else if (o&&o.ccode){ r.ccode=o.ccode; r.cid=o.cid; } if (f.fromOrder) r.orderRef=f.fromOrder; else if (o&&o.orderRef) r.orderRef=o.orderRef;
+    if (f.fromOrder){ const od=S.orders.find(x=>x.id===f.fromOrder); if (od){ r.orderCode=od.id.slice(0,6).toUpperCase(); if (od.paidAt) r.paidAt=od.paidAt; if (od.paidRef) r.paidRef=od.paidRef; if (od.paidShot) r.paidShot=true; if (od.note) r.custNote=od.note; if (od.method) r.paidVia=od.method; } }
+    else if (o) ['orderCode','paidAt','paidRef','paidShot','custNote','paidVia'].forEach(k=>{ if (o[k]!=null) r[k]=o[k]; }); if (o) r.updatedAt=Date.now(); if (o&&o.remindedAt) r.remindedAt=o.remindedAt; if (o&&o.paidAt) r.paidAt=o.paidAt;
     recs.push(r); });
   recs.forEach(saveSale);
   if (f.fromOrder) setDoc(doc(db,'orders',f.fromOrder), {status:'done', doneAt:Date.now(), saleIds:recs.map(r=>r.id), delivered:f.status==='done'}, {merge:true}).catch(e=>console.warn(e));
@@ -3361,11 +3382,18 @@ $('stXls').addEventListener('click', async ()=>{
 
 /* ---------- customer orders ---------- */
 const REJECT_REASONS=[['nopay','Payment not received'],['wronguid','Wrong or invalid UID'],['amount','Paid amount doesn’t match'],['duplicate','Duplicate order'],['unavailable','Can’t deliver right now'],['other','Other reason']];
-function rejectOrder(o, key){
+function askRemark(title, sub){ return new Promise(res=>{
+  $('dlgRT').textContent=title; $('dlgRP').textContent=sub; $('dlgRIn').value=''; $('dlgR').hidden=false; setTimeout(()=>$('dlgRIn').focus(),40);
+  const done=v=>{ $('dlgR').hidden=true; $('dlgRYes').onclick=$('dlgRNo').onclick=null; res(v); };
+  $('dlgRYes').onclick=()=>done($('dlgRIn').value.trim().slice(0,200)); $('dlgRNo').onclick=()=>done(null);
+  $('dlgR').onclick=e=>{ if (e.target.id==='dlgR') done(null); }; }); }
+async function rejectOrder(o, key){
   const ref=doc(db,'orders',o.id), label=(REJECT_REASONS.find(r=>r[0]===key)||[])[1]||'Other';
-  setDoc(ref,{status:'rejected', reason:key, rejectedAt:Date.now()},{merge:true}).catch(fail('Couldn\u2019t update the order.'));
+  const remark=await askRemark('Reject order #'+o.id.slice(0,6).toUpperCase()+'?', 'Reason: '+label+'. Add a short message for the customer (optional). They see it on their order page.');
+  if (remark===null) return;
+  setDoc(ref,{status:'rejected', reason:key, remark:remark||null, rejectedAt:Date.now()},{merge:true}).catch(fail('Couldn\u2019t update the order.'));
   const w=waNumber(o.phone);
-  toast('Order rejected: '+label, false, w ? {label:'Tell customer', fn:()=>open('https://wa.me/'+w+'?text='+encodeURIComponent('Namaste '+(o.name||'')+' ji 🙏 Tapai ko order #'+o.id.slice(0,6).toUpperCase()+' accept garna sakiyena: '+label+'.'+(key==='nopay'||key==='amount'?' Payment garisaknu bhayo bhane screenshot pathaunu hola.':'')+' Dhanyabad!'),'_blank','noopener')} : {label:'Undo', fn:()=>setDoc(ref,{status:'new',reason:null},{merge:true})});
+  toast('Order rejected: '+label, false, w ? {label:'Tell customer', fn:()=>open('https://wa.me/'+w+'?text='+encodeURIComponent('Namaste '+(o.name||'')+' ji 🙏 Tapai ko order #'+o.id.slice(0,6).toUpperCase()+' accept garna sakiyena: '+label+'.'+(remark?' '+remark+'.':'')+(key==='nopay'||key==='amount'?' Payment garisaknu bhayo bhane screenshot pathaunu hola.':'')+' Dhanyabad!'),'_blank','noopener')} : {label:'Undo', fn:()=>setDoc(ref,{status:'new',reason:null},{merge:true})});
 }
 function renderOrders(){
   const w=$('ordWarn');
@@ -3376,21 +3404,23 @@ function renderOrders(){
   $('oList').innerHTML = list.length ? list.map(o=>{ const items=(o.items||[]).map(i=>`${i.qty} × ${esc(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')}`).join(', ');
     return `<div class="ord${o.status==='new'&&Date.now()-o.at>15*60000?' late':''}" data-oid="${esc(o.id)}"><div class="o-top"><b>${esc(o.name||'Customer')} <small class="o-code">#${esc(o.id.slice(0,6).toUpperCase())}</small></b><span>${o.status==='new'&&Date.now()-o.at>15*60000?'⚠ waiting '+esc(ago(o.at).replace(' ago','')):esc(ago(o.at))}</span></div>
       <div class="o-items">${items}</div>
-      <div class="o-meta">${o.ccode?`<span class="o-cid">🪪 ${esc(o.ccode)} · ${S.orders.filter(x=>x.cid&&x.cid===o.cid).length} order${S.orders.filter(x=>x.cid&&x.cid===o.cid).length===1?'':'s'}</span>`:''}<span>Total <b>${rs(o.total||0)}</b></span>${o.uid?`<span>UID <b>${esc(o.uid)}</b></span>`:''}${o.phone?`<span>📞 ${esc(o.phone)}</span>`:''}<span>Pays by ${esc(o.method||'–')}</span></div>
-      ${o.paidAt?`<p class="o-paid">💳 Customer says paid ${esc(ago(o.paidAt))}${o.paidRef?' · ref <b>'+esc(o.paidRef)+'</b>':''}${o.paidShot?`<button class="btn sm" type="button" data-shot="${esc(o.id)}">🖼 Screenshot</button>`:''}</p>`:''}${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}${o.status==='rejected'&&o.reason?`<p class="o-note">✕ ${esc((REJECT_REASONS.find(r=>r[0]===o.reason)||[])[1]||o.reason)}</p>`:''}${o.status==='cancelled'?'<p class="o-note">Customer cancelled this order</p>':''}
+      <div class="o-meta">${o.ccode?`<span class="o-cid">🪪 ${esc(o.ccode)} · ${S.orders.filter(x=>x.cid&&x.cid===o.cid).length} order${S.orders.filter(x=>x.cid&&x.cid===o.cid).length===1?'':'s'}</span>`:''}<span>Total <b>${rs(o.total||0)}</b></span>${o.uid?`<span>UID <button type="button" class="o-cp" data-cp="${esc(o.uid)}" title="Copy UID"><b>${esc(o.uid)}</b> ⧉</button></span>`:''}${o.phone?`<span>📞 ${esc(o.phone)}</span>`:''}<span>Pays by ${esc(o.method||'–')}</span></div>
+      ${o.paidAt?`<p class="o-paid">💳 Customer says paid ${esc(ago(o.paidAt))}${o.paidRef?' · ref <b>'+esc(o.paidRef)+'</b>':''}</p>${o.paidShot?`<button class="o-shot" type="button" data-shot="${esc(o.id)}" aria-label="Open payment screenshot"><img data-shotimg="${esc(o.id)}" alt=""/><span><b>Payment screenshot</b><small>Tap to open full size</small></span></button>`:''}`:''}${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}${o.status==='rejected'&&o.reason?`<p class="o-note">✕ ${esc((REJECT_REASONS.find(r=>r[0]===o.reason)||[])[1]||o.reason)}${o.remark?` · “${esc(o.remark)}”`:''}</p>`:''}${o.status==='cancelled'?'<p class="o-note">Customer cancelled this order</p>':''}
       <div class="o-acts">${o.status==='new'?`<button class="btn accent" type="button" data-oa="accept">Accept &amp; record sale</button>${waNumber(o.phone)?'<button class="btn" type="button" data-oa="wa">WhatsApp</button>':''}<button class="btn" type="button" data-oa="reject">Reject</button>`:o.status==='done'?(o.delivered?'<span class="o-ok">✓ Delivered</span>':'<span class="o-ok wtx">✓ Recorded · not delivered yet</span>')+'<button class="btn sm" type="button" data-oa="del">Remove</button>':(o.status==='cancelled'?'':'<button class="btn" type="button" data-oa="restore">Move back to new</button>')+'<button class="btn del-btn" type="button" data-oa="del">Delete</button>'}</div></div>`; }).join('')
     : blank(S.oFilter==='new'?'No new orders':'Nothing here', S.oFilter==='new'?'Share your order page so customers can order themselves.':'');
+  loadShotThumbs();
 }
 $('oFilters').addEventListener('click', e=>{ const b=e.target.closest('[data-of]'); if(!b) return; S.oFilter=b.dataset.of; renderOrders(); });
 $('oList').addEventListener('click', async e=>{
   const b=e.target.closest('[data-oa]'); if(!b) return; const o=S.orders.find(x=>x.id===b.closest('[data-oid]').dataset.oid); if(!o) return; const k=b.dataset.oa, ref=doc(db,'orders',o.id);
-  if (k==='accept'){ const lines=(o.items||[]).filter(i=>pkgById(i.pkId)).map(i=>({pkId:i.pkId, qty:i.qty}));
+  if (k==='accept'){ if (!o.paidAt && !await ask('No payment proof yet','This customer hasn’t sent a payment screenshot or transaction ID. Accept the order anyway?','Accept anyway')) return;
+    const lines=(o.items||[]).filter(i=>pkgById(i.pkId)).map(i=>({pkId:i.pkId, qty:i.qty}));
     if (lines.length<(o.items||[]).length) toast('Some packages in this order are no longer in your list',true);
     newSale({customer:o.name, phone:o.phone, uid:o.uid, lines, method:o.method==='Cash'||!o.method?'Cash':o.method, note:o.note||'', fromOrder:o.id, ccode:o.ccode||'', cid:o.cid||''}); }
   else if (k==='wa'){ open('https://wa.me/'+waNumber(o.phone)+'?text='+encodeURIComponent('Namaste '+(o.name||'')+' ji 🙏 Tapai ko order paayo: '+(o.items||[]).map(i=>i.qty+' × '+(i.kind==='member'?i.name:i.diamonds+' 💎')).join(', ')+'. Total '+rs(o.total||0)+'.'+((S.settings.shop||{}).pay?' Payment: '+S.settings.shop.pay:'')),'_blank','noopener'); }
   else if (k==='reject'){ openRowMenu(b, 'Why reject this order?', REJECT_REASONS.map(([key,label])=>({icon:'del', label, fn:()=>rejectOrder(o,key)}))); }
-  else if (k==='restore'){ setDoc(ref,{status:'new', reason:null},{merge:true}).catch(fail('Couldn\u2019t update the order.')); }
-  else if (k==='del'){ if (!await ask('Delete this order?','The order request is removed. Sales already recorded stay.','Delete')) return; deleteDoc(ref).catch(fail('Couldn\u2019t delete the order.')); dropShot(o.id); }
+  else if (k==='restore'){ setDoc(ref,{status:'new', reason:null, remark:null},{merge:true}).catch(fail('Couldn\u2019t update the order.')); }
+  else if (k==='del'){ const keep=o.status==='done'; if (!await ask('Delete this order?', keep?'The order request is removed. The sale and its payment screenshot stay as proof.':'The order request and its payment screenshot are removed.','Delete')) return; deleteDoc(ref).catch(fail('Couldn\u2019t delete the order.')); if (!keep) dropShot(o.id); }
 });
 $('olCopy').addEventListener('click', ()=>copy(orderUrl(),'Order link copied'));
 $('olShare').addEventListener('click', ()=>shareText('🛒 '+(((S.settings.shop||{}).name)||'Free Fire diamonds')+': order your diamonds here 👉 '+orderUrl()));
@@ -3699,7 +3729,7 @@ document.addEventListener('click', async e=>{
   const t=e.target.closest('#qrTest'); if (t){ const raw=((S.pay&&S.pay.qrData)||{})[t.dataset.slot]; if (!raw) return;
     try{ await loadLib(QRLIB.gen,'qrcode'); showImg(qrPng(EMV.withAmount(raw,10),560),'Test QR · Rs 10 (don’t pay)','test-qr.png'); }catch(err){ toast('Couldn’t make the test QR. Check your internet.',true); } return; }
   const s=e.target.closest('[data-shot]'); if (s){ e.stopPropagation(); s.disabled=true;
-    try{ const snap=await getDoc(doc(db,'payshots',s.dataset.shot)); if (snap.exists()&&snap.data().img) showImg(snap.data().img,'Payment screenshot','payment-'+s.dataset.shot.slice(0,6)+'.jpg'); else toast('Screenshot not found',true); }
+    try{ const img=await getShot(s.dataset.shot); if (img) showImg(img,'Payment screenshot · #'+s.dataset.shot.slice(0,6).toUpperCase(),'payment-'+s.dataset.shot.slice(0,6)+'.jpg'); else toast('Screenshot not found',true); }
     catch(err){ console.warn(err); toast('Couldn’t open the screenshot. Update the Firestore rules (Help → Orders).',true); }
     s.disabled=false; }
 });
@@ -3717,6 +3747,10 @@ $('imgvX') && $('imgvX').addEventListener('click', ()=>{ $('imgv').hidden=true; 
 $('imgv') && $('imgv').addEventListener('click', e=>{ if (e.target.id==='imgv'){ $('imgv').hidden=true; $('imgvI').src=''; } });
 addEventListener('keydown', e=>{ if (e.key==='Escape' && $('imgv') && !$('imgv').hidden){ $('imgv').hidden=true; } });
 const dropShot = id => deleteDoc(doc(db,'payshots',id)).catch(()=>{});
+const shotCache=new Map();
+async function getShot(id){ if (shotCache.has(id)) return shotCache.get(id); const p=getDoc(doc(db,'payshots',id)).then(sn=>sn.exists()?sn.data().img:null).catch(e=>{ console.warn(e); shotCache.delete(id); return null; }); shotCache.set(id,p); return p; }
+function loadShotThumbs(){ document.querySelectorAll('img[data-shotimg]:not([src])').forEach(async im=>{ const src=await getShot(im.dataset.shotimg); if (src) im.src=src; else { im.closest('.o-shot')&&im.closest('.o-shot').classList.add('miss'); } }); }
+document.addEventListener('click', e=>{ const c=e.target.closest('[data-cp]'); if (c){ e.stopPropagation(); copy(c.dataset.cp,'UID copied'); } });
 
 /* =========================================================
    v11 ADD-ONS: order alerts, order desk, global search,

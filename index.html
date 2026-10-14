@@ -568,6 +568,9 @@ textarea{min-height:64px;resize:vertical}
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]) .pc{border-color:var(--line)}}
 @media(min-width:900px){body.v-checkout main.wrap{max-width:680px}.co-sec{padding:24px 26px}}
 
+.reason .rmk{margin:8px 0;padding:8px 10px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:.9rem}
+.reason .rmk span{display:block;font-size:.72rem;font-weight:700;color:var(--muted)}
+
 </style>
 </head>
 <body class="v-shop">
@@ -748,7 +751,7 @@ function pushNote(title,body,id){
 }
 function notifyChanges(list){
   for (const o of list){ const k=stOf(o), p=prevSt.get(o.id); prevSt.set(o.id,k); if(!p||p===k) continue;
-    const c='#'+code(o.id), msg = k==='done'?`Payment confirmed for ${c}. Diamonds are on the way.` : k==='dlv'?`💎 ${c} delivered! Check your Free Fire account.` : k==='rej'?`${c} wasn’t accepted. Open it to see why.` : null;
+    const c='#'+code(o.id), msg = k==='done'?`Payment confirmed for ${c}. Diamonds are on the way.` : k==='dlv'?`💎 ${c} delivered! Check your Free Fire account.` : k==='rej'?`${c} wasn’t accepted${o.remark?': '+o.remark:''}. Open it to fix and order again.` : null;
     if (!msg) continue; toast(msg, k==='rej'?'bad':'ok'); buzz([30,40,30]); pushNote((P&&P.shop.name)||'Free Fire Diamonds', msg, o.id); }
 }
 function celebrate(){
@@ -1056,13 +1059,17 @@ function viewDone(){
       <button class="btn block" type="button" id="doneAgain">Shop again</button>
     </div></div></section>`;
 }
-function buyAgain(id){
+function buyAgain(id, fix=false){
   const o=MY.find(x=>x.id===id)||(lastTrack&&lastTrack.id===id?lastTrack:null); if (!o||!P) return;
   const ls=(o.items||[]).filter(i=>pk(i.pkId)).map(i=>({id:i.pkId,qty:i.qty})); if (!ls.length){ toast('Those packages aren’t sold any more','bad'); return; }
   if (view==='shop'&&step!==4) readForm();
-  cart=ls; if (uidValid(o.uid)) me.uid=o.uid; if (!me.name&&o.name) me.name=o.name; step=1; editUid=false; calcRes=null;
+  const badUid=fix&&o.reason==='wronguid';
+  cart=ls; if (badUid) me.uid=''; else if (uidValid(o.uid)) me.uid=o.uid; if (!me.name&&o.name) me.name=o.name; step=1; editUid=badUid; calcRes=null;
+  if (fix) me.note=('Re-order of #'+code(o.id)+(o.reason?' (was: '+o.reason+')':'')).slice(0,200);
   if (view!=='shop') nav('shop'); else { renderShop(true); scrollTo({top:0,behavior:smooth()}); }
-  buzz(); toast('Added to your order ✓');
+  buzz();
+  if (badUid){ toast('Enter your correct UID, then check out'); setTimeout(()=>{ const u=$('uid'); if (u){ u.scrollIntoView({block:'center',behavior:smooth()}); u.focus({preventScroll:true}); } },150); }
+  else toast(fix?'Order copied. Check it, then go to checkout ✓':'Added to your order ✓');
 }
 
 /* shop + global clicks */
@@ -1078,6 +1085,7 @@ document.addEventListener('click', async e=>{
   if ((x=c('[data-useuid]'))){ const u=$('uid'); if (u){ u.value=x.dataset.useuid; onUid(); } return; }
   if ((x=c('[data-copy]'))){ copy(x.dataset.copy); return; }
   if ((x=c('[data-again]'))){ e.preventDefault(); e.stopPropagation(); buyAgain(x.dataset.again); return; }
+  if ((x=c('[data-fix]'))){ e.preventDefault(); e.stopPropagation(); buyAgain(x.dataset.fix, true); return; }
   if ((x=c('[data-track]'))){ if (e.metaKey||e.ctrlKey) return; e.preventDefault(); navTrack(x.dataset.track); return; }
   if ((x=c('[data-notify]'))){ await enableNotify(); if (view==='shop'&&step===4) renderShop(); else if (view==='track'&&lastTrack) $('app').innerHTML=trackHTML(lastTrack); return; }
   if ((x=c('[data-install]'))){ doInstall(); return; }
@@ -1138,7 +1146,7 @@ function ocHTML(o){
   return `<div class="oc" data-track="${esc(o.id)}" role="link" tabindex="0"><div class="top"><b>#${esc(code(o.id))}<span class="sb ${k}">${ST[k]}</span></b><span class="hint">${esc(ago(o.at))}</span></div>
     <div class="it">${esc((o.items||[]).map(i=>i.qty+' × '+itemLabel(i)).join(', '))}</div>
     ${closed?'':`<div class="mini">${[1,2,3].map(i=>`<i class="${i<=n?'on':''}"></i>`).join('')}</div>`}
-    <div class="bot"><span>UID ${esc(o.uid)} · ${esc(o.method||'')}</span>${canAgain?`<button class="btn sm" type="button" data-again="${esc(o.id)}">${IC.again}Buy again</button>`:`<b class="num">${rs(o.total||0)}</b>`}</div></div>`;
+    <div class="bot"><span>UID ${esc(o.uid)} · ${esc(o.method||'')}</span>${canAgain?`<button class="btn sm" type="button" ${k==='rej'?'data-fix':'data-again'}="${esc(o.id)}">${IC.again}${k==='rej'?'Fix &amp; reorder':'Buy again'}</button>`:`<b class="num">${rs(o.total||0)}</b>`}</div></div>`;
 }
 function renderOrders(){
   $('cbar').hidden=true;
@@ -1154,7 +1162,7 @@ function renderOrders(){
 function trackHTML(o){
   const k=stOf(o), w=P&&waNum(P.shop.wa), mine=CU&&o.cid===CU.uid, s=(P&&P.stats)||{};
   const li=(cls,icon,title,sub)=>`<li class="${cls}"><span class="d">${icon}</span><div><b>${title}</b><small>${sub}</small></div></li>`;
-  const R={nopay:['We didn’t receive your payment','If you paid, send the screenshot on WhatsApp and we’ll fix it right away.'],wronguid:['The UID looks wrong','Check the UID in your Free Fire profile and order again.'],amount:['Paid amount didn’t match','Message us with your screenshot so we can sort out the difference.'],duplicate:['Duplicate order','You placed the same order twice, so one was closed. Your other order is still active.'],unavailable:['We can’t deliver right now','Please try again a little later. Sorry for the wait!'],other:['Not accepted by the shop','Message us on WhatsApp if you have questions.']};
+  const R={nopay:['We didn’t receive your payment','Pay the full amount, then tap “Fix & order again” and upload the new screenshot.'],wronguid:['The UID looks wrong','Tap “Fix & order again”, enter your correct UID and upload your payment screenshot again. No need to pay twice: the shop can see this order too.'],amount:['Paid amount didn’t match','Pay the difference, then tap “Fix & order again” and upload the latest screenshot.'],duplicate:['Duplicate order','You placed the same order twice, so one was closed. Your other order is still active.'],unavailable:['We can’t deliver right now','Please order again a little later. If you already paid, the shop will deliver or refund you.'],other:['Not accepted by the shop','Read the shop’s message, fix it and order again, or message us on WhatsApp.']};
   const rsn=R[o.reason]||R.other;
   const steps= k==='rej' ? li('ok','✓','Order placed',esc(when(o.at)))+li('bad','✕','Order not accepted',esc(rsn[0]))
     : k==='can' ? li('ok','✓','Order placed',esc(when(o.at)))+li('bad','✕','You cancelled this order',o.cancelledAt?esc(when(o.cancelledAt)):'')
@@ -1168,13 +1176,13 @@ function trackHTML(o){
   return `<section class="card"><div class="card-h"><h2>Order status</h2><button class="code" type="button" style="margin:0" data-copy="${code(o.id)}">#${esc(code(o.id))} ${IC.copy}</button></div><div class="card-b">
     ${['new','done'].includes(k)?`<p class="hint" style="display:flex;align-items:center;gap:8px;margin:-2px 0 12px"><i class="dot"></i>Live. This page updates by itself.</p>`:''}
     ${eta}<ol class="tl">${steps}</ol>
-    ${k==='rej'?`<div class="reason"><b>${esc(rsn[0])}</b><small>${esc(rsn[1])}</small></div>`:''}
+    ${k==='rej'?`<div class="reason"><b>${esc(rsn[0])}</b>${o.remark?`<p class="rmk"><span>Message from the shop</span>${esc(o.remark)}</p>`:''}<small>${esc(rsn[1])}</small></div>`:''}
     ${mine&&k==='new'?paidForm(o):''}
     ${mine&&k==='new'&&o.method&&!o.paidAt?payBox(o.method,'payinfo big',o.total):''}
     <div class="sum">${(o.items||[]).map(x=>`<div><span>${x.qty} × ${esc(itemLabel(x))}</span><b class="num">${rs(x.price*x.qty)}</b></div>`).join('')}<div class="t"><b>Total</b><b class="num">${rs(o.total||0)}</b></div></div>
     <dl class="kv"><dt>UID</dt><dd><button class="copyv num" type="button" data-copy="${esc(o.uid)}">${esc(o.uid)} ${IC.copy}</button></dd><dt>Name</dt><dd>${esc(o.name)}</dd><dt>Pay with</dt><dd>${esc(o.method||'')}</dd></dl>
     <div class="btns">
-      ${canAgain&&['dlv','rej','can'].includes(k)?`<button class="btn accent block" type="button" data-again="${esc(o.id)}">${IC.again}Buy this again</button>`:''}
+      ${canAgain&&k==='rej'?`<button class="btn accent block" type="button" data-fix="${esc(o.id)}">${IC.again}Fix &amp; order again</button>`:canAgain&&['dlv','can'].includes(k)?`<button class="btn accent block" type="button" data-again="${esc(o.id)}">${IC.again}Buy this again</button>`:''}
       ${['new','done'].includes(k)&&mine?notifyBtn():''}
       ${w?`<a class="btn wa block" href="https://wa.me/${w}?text=${encodeURIComponent('Order #'+code(o.id)+' ')}" target="_blank" rel="noopener">${IC.chat}Message the shop</a>`:''}
       <button class="btn block" type="button" data-copy="${esc(location.origin+location.pathname+'?o='+o.id)}">${IC.link}Copy tracking link</button>
