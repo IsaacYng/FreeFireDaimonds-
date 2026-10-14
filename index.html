@@ -775,8 +775,8 @@ function celebrate(){
 function paintShell(){
   const open=isOpen(), s=(P&&P.stats)||{}, w=P&&waNum(P.shop.wa), name=(P&&P.shop.name)||'Free Fire Diamonds';
   $('shopName').textContent=name; $('sbName').textContent=name; $('crShop').textContent=name;
-  $('liveDot').className='dot'+(open?'':' off'); $('liveTxt').textContent=!P?'Loading…':(open?'Open now':'Orders paused')+(s.delivered?' · '+nf(s.delivered)+'+ delivered':'');
-  $('sbDot').className=open?'':'off'; $('sbLiveT').textContent=open?'Open now':'Orders paused'; $('sbStat').textContent=s.delivered?nf(s.delivered)+'+':'–';
+  $('liveDot').className='dot'+(open?'':' off'); $('liveTxt').textContent=!P?'Loading…':(open?'Open now':'Orders paused')+(s.delivered>=10?' · '+nf(s.delivered)+'+ delivered':'');
+  $('sbDot').className=open?'':'off'; $('sbLiveT').textContent=open?'Open now':'Orders paused'; $('sbStat').textContent=s.delivered>=10?nf(s.delivered)+'+':'New shop';
   $('sbWa').hidden=!w; if (w) $('sbWa').href='https://wa.me/'+w;
   $('foot').textContent=P&&P.shop.name?'© '+new Date().getFullYear()+' '+P.shop.name:'';
   if (view!=='track') document.title=(P&&P.shop.name?P.shop.name+' · ':'')+'Free Fire Diamonds';
@@ -794,7 +794,7 @@ function startTicker(){
    ========================================================= */
 function hero(){
   const s=P.stats||{}, open=isOpen(), rec=P.recent||[];
-  const tiles=[s.delivered&&['Orders delivered',nf(s.delivered)+'+'], s.customers&&['Happy players',nf(s.customers)+'+'], s.avgMins&&['Often loaded in','~'+s.avgMins+' min']].filter(Boolean);
+  const tiles=[s.delivered>=10&&['Orders delivered',nf(s.delivered)+'+'], s.customers>=10&&['Happy players',nf(s.customers)+'+'], s.avgMins&&['Often loaded in','~'+s.avgMins+' min']].filter(Boolean);
   return `<section class="hero">${RIDGE}<p class="live"><i class="${open?'':'off'}"></i>${open?'Taking orders now':'Orders paused'}</p>
     <h1>Free Fire diamonds</h1><p class="sub">Top up straight to your UID. Pay with eSewa, Khalti or bank, then watch your order go through live.</p>
     ${tiles.length?`<div class="hstats" style="grid-template-columns:repeat(${tiles.length},minmax(0,1fr))">${tiles.map(([a,b])=>`<div><span>${a}</span><b>${b}</b></div>`).join('')}</div>`:''}
@@ -951,8 +951,8 @@ const FAQ=[
   ['How fast will I get my diamonds?','We verify your payment, then load the diamonds to your UID within 24 hours. You can watch every step live in My orders.'],
   ['Is it safe?','We only need your UID, never your password. Diamonds go straight to your account.'],
   ['Can I buy for a friend?','Yes. Enter your friend’s UID instead of yours. UIDs you have used appear as chips so you can switch quickly.'],
-  ['I entered the wrong UID','Cancel the order while it is still waiting, or message the shop on WhatsApp with your order number right away.'],
-  ['Do I need an account?','No. This phone remembers your orders. Save with Google in Account to keep them if you change phone.'],
+  ['I entered the wrong UID','Cancel the order while it is still waiting, or message the shop on WhatsApp with your order number right away. If the shop rejects it, tap “Fix & order again” and enter the right UID.'],
+  ['Do I need an account?','Yes, but it takes one tap: you sign in with Google at checkout. Your orders are saved to your account, so you can see them on any phone. We only use your name and email.'],
   ['Can I cancel?','Yes, while the order is still waiting. Open it in My orders and tap Cancel order.']
 ];
 function extras(){
