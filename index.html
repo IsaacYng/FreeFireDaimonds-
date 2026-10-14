@@ -783,7 +783,7 @@ function startTicker(){
    ========================================================= */
 function hero(){
   const s=P.stats||{}, open=isOpen(), rec=P.recent||[];
-  const tiles=[s.delivered&&['Orders delivered',nf(s.delivered)+'+'], s.customers&&['Happy players',nf(s.customers)+'+'], s.avgMins&&['Usual delivery','~'+s.avgMins+' min']].filter(Boolean);
+  const tiles=[s.delivered&&['Orders delivered',nf(s.delivered)+'+'], s.customers&&['Happy players',nf(s.customers)+'+'], s.avgMins&&['Often loaded in','~'+s.avgMins+' min']].filter(Boolean);
   return `<section class="hero">${RIDGE}<p class="live"><i class="${open?'':'off'}"></i>${open?'Taking orders now':'Orders paused'}</p>
     <h1>Free Fire diamonds</h1><p class="sub">Top up straight to your UID. Pay with eSewa, Khalti or bank, then watch your order go through live.</p>
     ${tiles.length?`<div class="hstats" style="grid-template-columns:repeat(${tiles.length},minmax(0,1fr))">${tiles.map(([a,b])=>`<div><span>${a}</span><b>${b}</b></div>`).join('')}</div>`:''}
@@ -856,8 +856,8 @@ function calcPanel(){
     <div class="row2"><input type="number" id="need" min="1" inputmode="numeric" placeholder="${ex?'e.g. 1000 diamonds':'e.g. Rs 2000'}" value="${esc(calcIn)}" aria-label="${ex?'Diamonds needed':'Budget in rupees'}"/><button class="btn solid" type="button" id="needGo">Find</button></div>${res}</div>`;
 }
 const PAYC={eSewa:['#60BB46','e'],Khalti:['#5C2D91','K'],Bank:['#2F5B94','🏦'],Cash:['#3A4852','Rs']};
-function payMethods(){ const s=P.shop, q=PAY.qr||{}, b=PAY.bank||{}, e=s.esewa||q.esewa, k=s.khalti||q.khalti, bk=s.bank||b.no||q.bank, set=e||k||bk||q.all; if(!set) return ['eSewa','Khalti','Bank','Cash'];
-  return [(e||q.all)&&'eSewa', (k||q.all)&&'Khalti', (bk||q.all)&&'Bank', s.cash!==false&&'Cash'].filter(Boolean); }
+function payMethods(){ const s=P.shop, q=PAY.qr||{}, b=PAY.bank||{}, e=s.esewa||q.esewa, k=s.khalti||q.khalti, bk=s.bank||b.no||q.bank, set=e||k||bk||q.all; if(!set) return ['eSewa','Khalti','Bank'];
+  return [(e||q.all)&&'eSewa', (k||q.all)&&'Khalti', (bk||q.all)&&'Bank'].filter(Boolean); }
 /* ---------- QR helpers: read Nepal QR (EMVCo / Fonepay / NepalPay) and add an amount ---------- */
 const QRLIB={gen:'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js', read:'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js'};
 const libP={};
@@ -937,7 +937,7 @@ function openQr(m){
   $('qrClose').onclick=closeSheet;
 }
 const FAQ=[
-  ['How fast will I get my diamonds?','Usually within minutes after your payment is confirmed. You can watch every step live in My orders.'],
+  ['How fast will I get my diamonds?','We verify your payment, then load the diamonds to your UID within 24 hours. You can watch every step live in My orders.'],
   ['Is it safe?','We only need your UID, never your password. Diamonds go straight to your account.'],
   ['Can I buy for a friend?','Yes. Enter your friend’s UID instead of yours. UIDs you have used appear as chips so you can switch quickly.'],
   ['I entered the wrong UID','Cancel the order while it is still waiting, or message the shop on WhatsApp with your order number right away.'],
@@ -1044,7 +1044,7 @@ function viewDone(){
   const o=MY.find(x=>x.id===last.id)||last, w=waNum(P.shop.wa), txt=o.items.map(i=>'• '+i.qty+' × '+itemLabel(i)).join('\n');
   const msg=`Namaste! I placed order #${code(o.id)} 🙏\n${txt}\nTotal: ${rs(o.total)}\nUID: ${o.uid}\nName: ${o.name}`;
   return `<section class="card"><div class="card-b done">
-    <div class="okc">${IC.bigCheck}</div><h2>Order placed!</h2><p>${o.paidAt?`Thanks ${esc(o.name)}! We’ve got your payment${o.paidShot?' screenshot':''} and are checking it now. Diamonds usually arrive in ${(P.stats||{}).avgMins?'about '+P.stats.avgMins+' min':'a few minutes'}.`:o.method==='Cash'?`Thanks ${esc(o.name)}! Pay in cash when you meet the shop and we’ll top up right after.`:`Thanks ${esc(o.name)}! Pay now and we’ll top up as soon as it’s confirmed.`}</p>
+    <div class="okc">${IC.bigCheck}</div><h2>Order placed!</h2><p>${o.paidAt?`Thanks ${esc(o.name)}! We’ve got your payment${o.paidShot?' screenshot':''}. After we verify it, your diamonds will be loaded to UID ${esc(o.uid)} within 24 hours.`:o.method==='Cash'?`Thanks ${esc(o.name)}! Pay in cash when you meet the shop and we’ll top up right after.`:`Thanks ${esc(o.name)}! Pay now and we’ll top up as soon as it’s confirmed.`}</p>
     <button class="code" type="button" data-copy="${code(o.id)}">Order #${esc(code(o.id))} ${IC.copy}</button>
     <div class="sum" style="text-align:left">${o.items.map(i=>`<div><span>${i.qty} × ${esc(itemLabel(i))}</span><b class="num">${rs(i.price*i.qty)}</b></div>`).join('')}<div class="t"><b>Total</b><b class="num">${rs(o.total)}</b></div></div>
     ${o.paidAt?'':payBox(o.method,'payinfo big',o.total)}
@@ -1161,7 +1161,7 @@ function trackHTML(o){
     : li('ok','✓','Order placed',esc(when(o.at)))
       +li(k==='new'?'now':'ok',k==='new'?'2':'✓','Payment confirmed',k==='new'?(o.paidAt?'Payment noted. The shop is checking it.':'Waiting for your payment'):(o.doneAt?esc(when(o.doneAt)):''))
       +li(k==='dlv'?'ok':k==='done'?'now':'',k==='dlv'?'✓':'3','Diamonds delivered',k==='dlv'?(o.deliveredAt?esc(when(o.deliveredAt)):'Done'):'Comes right after payment is confirmed');
-  const eta= k==='new'?`<div class="eta">${IC.clock}<div><b>${s.avgMins?'Usually delivered ~'+s.avgMins+' min after payment':'Delivered soon after payment'}</b><small>${o.paidAt?'We’ve got your payment note. Hang tight.':'Pay now and add the transaction ID to speed it up.'}</small></div></div>`
+  const eta= k==='new'?`<div class="eta">${IC.clock}<div><b>Diamonds load within 24 hours after verification</b><small>${o.paidAt?'We’ve got your payment note. Hang tight.':'Pay now and add the transaction ID to speed it up.'}</small></div></div>`
     : k==='done'?`<div class="eta">${IC.truck}<div><b>Payment confirmed. Diamonds are on the way.</b><small>This page updates by itself.</small></div></div>`
     : k==='dlv'?`<div class="eta ok">${IC.party}<div><b>Delivered! Enjoy your diamonds.</b><small>They’re in your Free Fire account now.</small></div></div>`:'';
   const canAgain=P&&P.packages.length&&(o.items||[]).some(x=>P.packages.some(p=>p.id===x.pkId));
@@ -1284,14 +1284,14 @@ document.addEventListener('click', async e=>{
 const co={method:null, ref:''};
 const TERMS=[
   ['Check your UID','Diamonds go to the UID you entered. Top-ups sent to a wrong UID can’t be moved or refunded.'],
-  ['Payment first','We top up after your payment is verified. This usually takes a few minutes during shop hours.'],
+  ['Payment first','We verify every payment first. Diamonds are loaded to your UID within 24 hours after verification.'],
   ['Real screenshots only','Edited or fake payment screenshots get the order cancelled.'],
   ['Refunds','If we can’t deliver your order, you get a full refund. Delivered diamonds can’t be refunded.'],
   ['Prices','Prices follow the dollar rate and can change. You pay the price shown at checkout.']
 ];
 const coMethods=()=>{ const s=P.shop, q=PAY.qr||{}, b=PAY.bank||{}, out=[];
   if (s.esewa||q.esewa) out.push('eSewa'); if (s.khalti||q.khalti) out.push('Khalti'); if (s.bank||b.no||q.bank||q.all) out.push('Bank');
-  if (!out.length) out.push('eSewa','Khalti','Bank'); if (s.cash!==false) out.push('Cash'); return out; };
+  if (!out.length) out.push('eSewa','Khalti','Bank'); return out; };   // online payment only (no cash)
 const coLabel=m=>m==='Bank'?((PAY.qr||{}).all?'QR / Bank':'Bank'):m;
 function coQr(m){   // the QR that belongs to this method (Bank uses the all-apps QR too)
   const q=PAY.qr||{}; if (m==='Cash') return null;
@@ -1342,7 +1342,7 @@ function viewCheckout(){
       <h2 class="co-t"><span class="i">🛒</span>Checkout summary</h2>
       <dl class="co-rows">${ls.map(l=>{ const p=pk(l.id); return `<dt>${l.qty} × ${esc(label(p))}</dt><dd class="num">${rs(p.price*l.qty)}</dd>`; }).join('')}
         <dt>Diamonds</dt><dd class="num">${nf(cartDia())}</dd>
-        <dt>Delivery</dt><dd>${s.avgMins?'Usually ~'+s.avgMins+' min after payment':'Soon after payment'}</dd></dl>
+        <dt>Delivery</dt><dd>Within 24 hours after verification</dd></dl>
       <div class="co-price"><div class="tot"><span>Total payable</span><b class="num">${rs(total())}</b></div></div>
     </div>
     <div class="co-sec">
@@ -1358,8 +1358,8 @@ function viewCheckout(){
       <label class="agree"><input type="checkbox" id="coAgree"/><span>I agree to the <button type="button" class="link" id="termsBtn">Terms and Conditions</button></span></label>
       <p class="err" id="coErr" role="alert"></p>
       <button class="btn accent block xl" type="button" id="coPlace">${coBtnText()}</button>
-      <p class="co-trust">🔒 Secure payment · ⚡ Fast verification · 📍 Live tracking</p>
-      <p class="co-foot">By placing this order you agree to our terms. We check your payment and top up your UID, and you can follow every step in My orders.</p>
+      <p class="co-trust">🔒 Secure payment · ✅ Verified within 24 hours · 📍 Live tracking</p>
+      <p class="co-foot">By placing this order you agree to our terms. Verification may take up to 24 hours. Diamonds are loaded to your UID after verification, and you can follow every step in My orders.</p>
     </div>
   </section>`;
 }
