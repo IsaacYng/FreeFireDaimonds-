@@ -1043,8 +1043,8 @@ function openSheet(html){ $('sheet').innerHTML=html; $('sheetBg').hidden=false; 
 function closeSheet(){ $('sheetBg').hidden=true; $('sheet').hidden=true; document.body.classList.remove('lock'); }
 $('sheetBg').addEventListener('click', closeSheet);
 addEventListener('keydown', e=>{ if(e.key==='Escape'&&!$('sheet').hidden) closeSheet(); });
-function ask(title,text,yes,danger=true){ return new Promise(res=>{
-  openSheet(`<div class="grab"></div><h3>${esc(title)}</h3><p class="q">${esc(text)}</p><div class="btns"><button class="btn ${danger?'accent':'solid'} block" type="button" id="askYes">${esc(yes)}</button><button class="btn ghost block" type="button" id="askNo">Keep it</button></div>`);
+function ask(title,text,yes,danger=true,no='Keep it'){ return new Promise(res=>{
+  openSheet(`<div class="grab"></div><h3>${esc(title)}</h3><p class="q">${esc(text)}</p><div class="btns"><button class="btn ${danger?'accent':'solid'} block" type="button" id="askYes">${esc(yes)}</button><button class="btn ghost block" type="button" id="askNo">${esc(no)}</button></div>`);
   $('askYes').onclick=()=>{ closeSheet(); res(true); }; $('askNo').onclick=()=>{ closeSheet(); res(false); }; }); }
 function rememberUid(u){ store.set('dc-uids',[u,...store.get('dc-uids',[]).filter(x=>x!==u)].slice(0,5)); }
 function paidForm(o){
@@ -1272,6 +1272,13 @@ function signInBox(title, why){
 document.addEventListener('click', async e=>{ const b=e.target.closest('[data-gsign]'); if (!b) return; b.disabled=true;
   const ok=await googleSignIn(); b.disabled=false;
   if (ok){ toast('Signed in ✓ Your orders are saved to your account','ok'); saveMe(); if (view==='checkout') renderCheckout(); else route(); } });
+// wipe personal details from this phone (used on sign-out, so the next person doesn't see them)
+function forgetPhone(){
+  ['dc-me','dc-uids','dc-cart','dc-last-order','dc-method'].forEach(k=>{ try{ localStorage.removeItem(k); }catch(_){} });
+  me.name=''; me.phone=''; me.uid=''; me.note=''; me.remember=true;
+  cart=[]; MY=[]; myLoaded=false; CP=null; shotFile=null; last=null; step=1; editUid=false; prevSt.clear(); co.ref='';
+  if (unMine){ unMine(); unMine=null; }
+}
 async function googleSave(){ if (await googleSignIn()){ toast('Saved ✓ Your orders are now in your account','ok'); viewAccount(); } }
 function viewAccount(){
   $('cbar').hidden=true;
@@ -1303,7 +1310,9 @@ function viewAccount(){
       <div class="setrow"><div><b>Home screen app</b><small>Open the shop in one tap, like an app</small></div>${inst}</div>
     </div></section>`;
   const g=$('gSave'); if (g) g.onclick=googleSave;
-  const out=$('outBtn'); if (out) out.onclick=async()=>{ await signOut(auth); toast('Signed out'); };
+  const out=$('outBtn'); if (out) out.onclick=async()=>{
+    if (!await ask('Sign out?','Your name, WhatsApp number and saved UIDs are removed from this phone. Your orders stay safe in your Google account.','Sign out',false,'Cancel')) return;
+    forgetPhone(); await signOut(auth); toast('Signed out. Your details were removed from this phone.'); };
   $('pSave').onclick=async()=>{ const ok=await saveProfile({name:$('pName').value.trim().slice(0,60), phone:$('pPhone').value.trim().slice(0,15)}); me.name=CP.name; me.phone=CP.phone; saveMe(); toast(ok?'Saved ✓':'Couldn’t save. Check your internet.',ok?'ok':'bad'); };
   const ns=$('notifySw'); if (ns) ns.onclick=async()=>{ if (notifyReady()){ notifyOn=false; store.set('dc-notify',false); toast('Order alerts off'); } else await enableNotify(); viewAccount(); };
 }
