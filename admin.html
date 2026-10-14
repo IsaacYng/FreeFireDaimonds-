@@ -1407,6 +1407,10 @@ body{font-size:15px;text-rendering:optimizeLegibility}
 .sw-acts{display:flex;flex-wrap:wrap;gap:8px}
 .o-noshot{margin:6px 0 0;font-size:.82rem;color:var(--warn);font-weight:600}
 
+.o-warn{margin:6px 0 0;padding:8px 10px;border-radius:8px;background:#FBEDEF;color:#9A1D31;font-size:.82rem;font-weight:600}
+.o-trail{margin:8px 0 0;font-size:.76rem;color:var(--muted);line-height:1.6}
+.o-trail b{color:var(--ink-2);font-weight:600}
+
 </style>
 </head>
 <body>
@@ -1854,13 +1858,16 @@ service cloud.firestore {
         &amp;&amp; request.resource.data.uid is string &amp;&amp; request.resource.data.uid.size() &lt;= 14
         &amp;&amp; request.resource.data.phone is string &amp;&amp; request.resource.data.phone.size() &lt;= 15
         &amp;&amp; request.resource.data.note is string &amp;&amp; request.resource.data.note.size() &lt;= 200
-        &amp;&amp; request.resource.data.items is list &amp;&amp; request.resource.data.items.size() &gt; 0 &amp;&amp; request.resource.data.items.size() &lt;= 12;
-      allow get: if true;
+        &amp;&amp; request.resource.data.items is list &amp;&amp; request.resource.data.items.size() &gt; 0 &amp;&amp; request.resource.data.items.size() &lt;= 12
+        &amp;&amp; request.resource.data.total is number &amp;&amp; request.resource.data.total &gt;= 0
+        &amp;&amp; request.resource.data.at is number;
+      allow get: if isAdmin() || (request.auth != null &amp;&amp; resource.data.cid == request.auth.uid);
       allow list: if isAdmin() || (request.auth != null &amp;&amp; resource.data.cid == request.auth.uid);
       allow update: if isAdmin()
         || (request.auth != null &amp;&amp; resource.data.cid == request.auth.uid &amp;&amp; resource.data.status == 'new'
             &amp;&amp; request.resource.data.diff(resource.data).affectedKeys().hasOnly(['paidAt','paidRef','paidShot'])
-            &amp;&amp; request.resource.data.paidRef is string &amp;&amp; request.resource.data.paidRef.size() &lt;= 40)
+            &amp;&amp; request.resource.data.paidRef is string &amp;&amp; request.resource.data.paidRef.size() &lt;= 40
+            &amp;&amp; (!('paidShot' in request.resource.data) || request.resource.data.paidShot is bool))
         || (request.auth != null &amp;&amp; resource.data.cid == request.auth.uid &amp;&amp; resource.data.status == 'new'
             &amp;&amp; request.resource.data.diff(resource.data).affectedKeys().hasOnly(['status','cancelledAt'])
             &amp;&amp; request.resource.data.status == 'cancelled');
@@ -1872,7 +1879,8 @@ service cloud.firestore {
         &amp;&amp; get(/databases/$(database)/documents/orders/$(id)).data.cid == request.auth.uid
         &amp;&amp; get(/databases/$(database)/documents/orders/$(id)).data.status == 'new'
         &amp;&amp; request.resource.data.keys().hasOnly(['img','at'])
-        &amp;&amp; request.resource.data.img is string &amp;&amp; request.resource.data.img.size() &lt; 700000;
+        &amp;&amp; request.resource.data.img is string &amp;&amp; request.resource.data.img.size() &lt; 700000
+        &amp;&amp; request.resource.data.img.matches('data:image/(png|jpeg|webp);base64,.*');
     }
   }
 }
@@ -3413,9 +3421,9 @@ function renderOrders(){
   const list=S.orders.filter(o=>o.status===S.oFilter).sort((p,q)=>(S.oFilter==='new'?((q.paidAt?1:0)-(p.paidAt?1:0)):0)||q.at-p.at);   // customers who say they paid come first
   $('oList').innerHTML = list.length ? list.map(o=>{ const items=(o.items||[]).map(i=>`${i.qty} × ${esc(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')}`).join(', ');
     return `<div class="ord${o.status==='new'&&Date.now()-o.at>15*60000?' late':''}" data-oid="${esc(o.id)}"><div class="o-top"><b>${esc(o.name||'Customer')} <small class="o-code">#${esc(o.id.slice(0,6).toUpperCase())}</small></b><span>${o.status==='new'&&Date.now()-o.at>15*60000?'⚠ waiting '+esc(ago(o.at).replace(' ago','')):esc(ago(o.at))}</span></div>
-      <div class="o-items">${items}</div>
+      <div class="o-items">${items}</div>${orderPriceWarn(o)}
       <div class="o-meta">${o.ccode?`<span class="o-cid">🪪 ${esc(o.ccode)} · ${S.orders.filter(x=>x.cid&&x.cid===o.cid).length} order${S.orders.filter(x=>x.cid&&x.cid===o.cid).length===1?'':'s'}</span>`:''}<span>Total <b>${rs(o.total||0)}</b></span>${o.uid?`<span>UID <button type="button" class="o-cp" data-cp="${esc(o.uid)}" title="Copy UID"><b>${esc(o.uid)}</b> ⧉</button></span>`:''}${o.phone?`<span>📞 ${esc(o.phone)}</span>`:''}<span>Pays by ${esc(o.method||'–')}</span></div>
-      ${o.paidAt?`<p class="o-paid">💳 Customer says paid ${esc(ago(o.paidAt))}${o.paidRef?' · ref <b>'+esc(o.paidRef)+'</b>':''}</p>${o.paidAt&&!o.paidShot?`<p class="o-noshot">⚠ No screenshot attached${S.shotRulesOk===false?' (blocked by old Firestore rules)':''}</p>`:''}${o.paidShot?`<button class="o-shot" type="button" data-shot="${esc(o.id)}" aria-label="Open payment screenshot"><img data-shotimg="${esc(o.id)}" alt=""/><span><b>Payment screenshot</b><small>Tap to open full size</small></span></button>`:''}`:''}${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}${o.status==='rejected'&&o.reason?`<p class="o-note">✕ ${esc((REJECT_REASONS.find(r=>r[0]===o.reason)||[])[1]||o.reason)}${o.remark?` · “${esc(o.remark)}”`:''}</p>`:''}${o.status==='cancelled'?'<p class="o-note">Customer cancelled this order</p>':''}
+      ${o.paidAt?`<p class="o-paid">💳 Customer says paid ${esc(ago(o.paidAt))}${o.paidRef?' · ref <b>'+esc(o.paidRef)+'</b>':''}</p>${o.paidAt&&!o.paidShot?`<p class="o-noshot">⚠ No screenshot attached${S.shotRulesOk===false?' (blocked by old Firestore rules)':''}</p>`:''}${o.paidShot?`<button class="o-shot" type="button" data-shot="${esc(o.id)}" aria-label="Open payment screenshot"><img data-shotimg="${esc(o.id)}" alt=""/><span><b>Payment screenshot</b><small>Tap to open full size</small></span></button>`:''}`:''}${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}${o.status==='rejected'&&o.reason?`<p class="o-note">✕ ${esc((REJECT_REASONS.find(r=>r[0]===o.reason)||[])[1]||o.reason)}${o.remark?` · “${esc(o.remark)}”`:''}</p>`:''}${o.status==='cancelled'?'<p class="o-note">Customer cancelled this order</p>':''}${orderTrail(o)}
       <div class="o-acts">${o.status==='new'?`<button class="btn accent" type="button" data-oa="accept">Accept &amp; record sale</button>${waNumber(o.phone)?'<button class="btn" type="button" data-oa="wa">WhatsApp</button>':''}<button class="btn" type="button" data-oa="reject">Reject</button>`:o.status==='done'?(o.delivered?'<span class="o-ok">✓ Delivered</span>':'<span class="o-ok wtx">✓ Recorded · not delivered yet</span>')+'<button class="btn sm" type="button" data-oa="del">Remove</button>':(o.status==='cancelled'?'':'<button class="btn" type="button" data-oa="restore">Move back to new</button>')+'<button class="btn del-btn" type="button" data-oa="del">Delete</button>'}</div></div>`; }).join('')
     : blank(S.oFilter==='new'?'No new orders':'Nothing here', S.oFilter==='new'?'Share your order page so customers can order themselves.':'');
   loadShotThumbs();
@@ -3751,11 +3759,29 @@ $('qrSave') && $('qrSave').addEventListener('click', async ()=>{
   $('shBank').value=line; const st={...S.settings, shop:{...(S.settings.shop||{}), bank:line}}; S.settings=st; saveSettings(st); renderAll();
 });
 function showImg(src, title, file){
+  if (!/^data:image\//.test(String(src||''))) { toast('That file isn’t a picture',true); return; }
   $('imgvT').textContent=title; $('imgvI').src=src; $('imgvD').href=src; $('imgvD').download=file; $('imgv').hidden=false;
 }
 $('imgvX') && $('imgvX').addEventListener('click', ()=>{ $('imgv').hidden=true; $('imgvI').src=''; });
 $('imgv') && $('imgv').addEventListener('click', e=>{ if (e.target.id==='imgv'){ $('imgv').hidden=true; $('imgvI').src=''; } });
 addEventListener('keydown', e=>{ if (e.key==='Escape' && $('imgv') && !$('imgv').hidden){ $('imgv').hidden=true; } });
+
+
+/* ---------- order checks: price tampering + who-did-what timeline ---------- */
+function orderPriceWarn(o){
+  const items=o.items||[]; if (!items.length) return '';
+  const sumItems=items.reduce((t,i)=>t+(Number(i.price)||0)*(Number(i.qty)||0),0);
+  let expected=0, known=true; items.forEach(i=>{ const p=pkgById(i.pkId); if (!p) known=false; else expected+=sellOf(p)*(Number(i.qty)||0); });
+  const tot=Number(o.total)||0, msgs=[];
+  if (Math.abs(sumItems-tot)>1) msgs.push(`Items add up to ${rs(sumItems)}, but the order says ${rs(tot)}`);
+  if (known && tot < expected*0.97) msgs.push(`Your price list today is ${rs(expected)}. This order shows ${rs(tot)}`);
+  return msgs.length&&o.status==='new' ? `<p class="o-warn">⚠ ${msgs.map(esc).join('. ')}. Check the payment carefully.</p>` : '';
+}
+function orderTrail(o){
+  const t=[['Placed',o.at],['Paid',o.paidAt],['Accepted',o.doneAt],['Delivered',o.deliveredAt],['Rejected',o.rejectedAt],['Cancelled',o.cancelledAt]].filter(x=>x[1]).sort((a,b)=>a[1]-b[1]);
+  const f=v=>{ const d=new Date(v), td=new Date().toDateString()===d.toDateString(); return d.toLocaleString('en-GB',td?{hour:'numeric',minute:'2-digit',hour12:true}:{day:'numeric',month:'short',hour:'numeric',minute:'2-digit',hour12:true}); };
+  return t.length>1 ? `<p class="o-trail">🕒 ${t.map(([k,v])=>`${k} <b>${esc(f(v))}</b>`).join(' → ')}</p>` : '';
+}
 
 /* ---------- are the payment-screenshot rules published? ---------- */
 S.shotRulesOk=null;
@@ -3775,7 +3801,7 @@ function renderShotWarn(){
 }
 const dropShot = id => deleteDoc(doc(db,'payshots',id)).catch(()=>{});
 const shotCache=new Map();
-async function getShot(id){ if (shotCache.has(id)) return shotCache.get(id); const p=getDoc(doc(db,'payshots',id)).then(sn=>sn.exists()?sn.data().img:null).catch(e=>{ console.warn(e); shotCache.delete(id); return null; }); shotCache.set(id,p); return p; }
+async function getShot(id){ if (shotCache.has(id)) return shotCache.get(id); const p=getDoc(doc(db,'payshots',id)).then(sn=>{ const v=sn.exists()?String(sn.data().img||''):''; return /^data:image\/(png|jpe?g|webp|gif);base64,[A-Za-z0-9+/=]+$/.test(v)?v:null; }).catch(e=>{ console.warn(e); shotCache.delete(id); return null; }); shotCache.set(id,p); return p; }
 function loadShotThumbs(){ document.querySelectorAll('img[data-shotimg]:not([src])').forEach(async im=>{ const src=await getShot(im.dataset.shotimg); if (src) im.src=src; else { im.closest('.o-shot')&&im.closest('.o-shot').classList.add('miss'); } }); }
 document.addEventListener('click', e=>{ const c=e.target.closest('[data-cp]'); if (c){ e.stopPropagation(); copy(c.dataset.cp,'UID copied'); } });
 

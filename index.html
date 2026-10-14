@@ -571,6 +571,14 @@ textarea{min-height:64px;resize:vertical}
 .reason .rmk{margin:8px 0;padding:8px 10px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:.9rem}
 .reason .rmk span{display:block;font-size:.72rem;font-weight:700;color:var(--muted)}
 
+.signin .co-p{color:var(--ink-2);font-size:.92rem;margin:-6px 0 14px}
+.signin .note{margin-bottom:14px}
+.gbtn{background:#fff;color:#1F1F1F;border:1.5px solid var(--line-2);gap:12px}
+.gbtn .g{width:24px;height:24px;border-radius:50%;background:conic-gradient(#EA4335 0 25%,#FBBC05 0 50%,#34A853 0 75%,#4285F4 0);color:#fff;font-weight:900;font-size:.8rem;display:inline-flex;align-items:center;justify-content:center}
+:root[data-theme=dark] .gbtn{background:#fff;color:#1F1F1F}
+.co-acct{font-size:.82rem;color:var(--ok);font-weight:600;margin:-4px 0 14px}
+.co-acct b{color:var(--ok)}
+
 </style>
 </head>
 <body class="v-shop">
@@ -662,7 +670,7 @@ function animTo(el,to){ const from=el.dataset.v===''||el.dataset.v==null?null:+e
 /* =========================================================
    STATE
    ========================================================= */
-let PAY={}, P=null, cart=[], step=1, last=null, view='shop', editUid=false, pkTab='topup', oFilter='all';
+let PAY={}, P=null, cart=(store.get('dc-cart',[])||[]).filter(l=>l&&l.id&&l.qty>0), step=1, last=null, view='shop', editUid=false, pkTab='topup', oFilter='all';
 let method=store.get('dc-method','eSewa'), calcOpen=false, calcMode='exact', calcIn='', calcRes=null, calcErr='';
 let CU=null, CP=null, MY=[], myLoaded=false, AUTH_ERR=null, PROFILE_ERR=null, authTimer=null;
 let unTrack=null, unMine=null, tickT=null, tickI=0, prevTrackK=null, lastTrack=null, routed=false, installEvt=null;
@@ -985,6 +993,7 @@ function refreshProgress(){
 }
 function refreshCart(){ if (view!=='shop'||step===4) return; const s2=$('s2'); if (s2) s2.innerHTML=s2Body(); refreshProgress(); }
 function paintCbar(){
+  store.set('dc-cart', cart.map(l=>({id:l.id,qty:l.qty})));
   const show=view==='shop'&&step!==4&&!!P&&isOpen(); $('cbar').hidden=!show; if (!show) return;
   const pr=progress(), ready=pr[0]&&pr[1], n=count();
   $('cbProg').innerHTML=[pr[0],pr[1],false].map(x=>`<i class="${x?'on':''}"></i>`).join('');
@@ -1002,8 +1011,9 @@ function onUid(){
   document.querySelectorAll('#uids [data-useuid]').forEach(b=>b.setAttribute('aria-pressed',String(b.dataset.useuid===d)));
   refreshProgress();
 }
+let meT; const saveMeSoon=()=>{ clearTimeout(meT); meT=setTimeout(()=>{ if ($('remember')&&!$('remember').checked) return; saveMe(); },600); };
 document.addEventListener('input', e=>{
-  const id=e.target.id;
+  const id=e.target.id; if (id==='uid'||id==='name'||id==='phone') saveMeSoon();
   if (id==='uid') onUid();
   else if (id==='name'){ me.name=e.target.value.trim(); refreshProgress(); }
   else if (id==='phone') me.phone=e.target.value.trim();
@@ -1185,14 +1195,15 @@ function trackHTML(o){
       ${canAgain&&k==='rej'?`<button class="btn accent block" type="button" data-fix="${esc(o.id)}">${IC.again}Fix &amp; order again</button>`:canAgain&&['dlv','can'].includes(k)?`<button class="btn accent block" type="button" data-again="${esc(o.id)}">${IC.again}Buy this again</button>`:''}
       ${['new','done'].includes(k)&&mine?notifyBtn():''}
       ${w?`<a class="btn wa block" href="https://wa.me/${w}?text=${encodeURIComponent('Order #'+code(o.id)+' ')}" target="_blank" rel="noopener">${IC.chat}Message the shop</a>`:''}
-      <button class="btn block" type="button" data-copy="${esc(location.origin+location.pathname+'?o='+o.id)}">${IC.link}Copy tracking link</button>
+      <button class="btn block" type="button" data-copy="${esc(location.origin+location.pathname+'?o='+o.id)}">${IC.link}Copy order link</button>
       ${mine&&k==='new'?`<button class="btn ghost block" type="button" id="cancelBtn" data-oid="${esc(o.id)}">Cancel order</button>`:''}
       <a class="btn ghost block" href="#orders" data-nav="orders">All my orders</a>
     </div></div></section>`;
 }
 function viewTrack(id){
-  $('cbar').hidden=true; if (unTrack) unTrack(); prevTrackK=null; lastTrack=null;
+  $('cbar').hidden=true; if (unTrack){ unTrack(); unTrack=null; } prevTrackK=null; lastTrack=null;
   $('app').innerHTML='<section class="card"><div class="state"><span class="spin dk"></span></div></section>';
+  if (!CU) return;   // runs again once the account is ready
   unTrack=onSnapshot(doc(db,'orders',id), s=>{
     if (view!=='track') return;
     if (!s.exists()){ $('app').innerHTML=`<section class="card"><div class="state"><div class="emo">🔎</div><b>Order not found</b>Check the link and try again.<p><a class="btn solid" href="./" data-nav="shop">Back to shop</a></p></div></section>`; return; }
@@ -1201,7 +1212,10 @@ function viewTrack(id){
     if (prevTrackK&&prevTrackK!=='dlv'&&k==='dlv') celebrate(); prevTrackK=k;
     document.title=(k==='dlv'?'✅ ':k==='rej'||k==='can'?'✕ ':'⏳ ')+'#'+code(id)+' · '+ST[k];
     const keep=$('paidRef')?$('paidRef').value:''; $('app').innerHTML=trackHTML(o); if (keep&&$('paidRef')) $('paidRef').value=keep;
-  }, e=>{ console.warn(e); $('app').innerHTML=`<section class="card"><div class="state"><div class="emo">🔎</div><b>Order not found</b>Check the link and try again.</div></section>`; });
+  }, e=>{ console.warn(e); if (view!=='track') return;
+    $('app').innerHTML = !signedIn()
+      ? `<section class="card"><div class="card-b">${signInBox('Sign in to see this order','Orders are private. Sign in with the Google account you used when you ordered.')}</div></section>`
+      : `<section class="card"><div class="state"><div class="emo">🔒</div><b>This order isn’t in your account</b>Sign out and sign in with the Google account you ordered with.<p><a class="btn solid" href="#orders" data-nav="orders">My orders</a></p></div></section>`; });
 }
 document.addEventListener('click', async e=>{
   const b=e.target.closest('#cancelBtn'); if (!b) return;
@@ -1232,16 +1246,30 @@ function watchMine(){
     try{ const s=await getDocs(query(collection(db,'orders'), where('cid','==',CU.uid))); MY=s.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>b.at-a.at); }catch(_){}
     myLoaded=true; badges(); if (view==='orders') renderOrders(); });
 }
-async function googleSave(){
-  const prov=new GoogleAuthProvider();
+const inApp=/FBAN|FBAV|FB_IAB|FBIOS|Instagram|Messenger|Line\/|MicroMessenger|; wv\)/i.test(navigator.userAgent);
+const signedIn=()=>!!(CU&&!CU.isAnonymous);
+async function googleSignIn(){
+  const prov=new GoogleAuthProvider(); prov.setCustomParameters({prompt:'select_account'});
   try{
     if (CU&&CU.isAnonymous){ try{ await linkWithPopup(CU,prov); }catch(e){
         if ((e.code||'').includes('credential-already-in-use')){ await signInWithCredential(auth, GoogleAuthProvider.credentialFromError(e)); }
-        else if (/popup-blocked|operation-not-supported/.test(e.code||'')){ await linkWithRedirect(CU,prov); return; } else throw e; } }
+        else if (/popup-blocked|operation-not-supported|web-storage/.test(e.code||'')){ await linkWithRedirect(CU,prov); return false; }
+        else throw e; } }
     else await signInWithPopup(auth,prov);
-    CU=auth.currentUser; await loadProfile(); await saveProfile({}); watchMine(); toast('Saved ✓','ok'); viewAccount();
-  }catch(e){ console.warn(e); toast('Google sign-in didn’t finish. Try again.','bad'); }
+    CU=auth.currentUser; await loadProfile(); if (!me.name&&CU.displayName) me.name=CU.displayName.slice(0,60); await saveProfile({}); watchMine(); return true;
+  }catch(e){ console.warn(e); const c=e.code||'';
+    toast(/popup-closed|cancelled-popup/.test(c)?'Sign-in was closed. Try again.':/operation-not-allowed/.test(c)?'Google sign-in isn’t switched on for this shop yet.':/unauthorized-domain/.test(c)?'This website isn’t allowed for Google sign-in yet.':'Google sign-in didn’t finish. Try again.','bad'); return false; }
 }
+function signInBox(title, why){
+  return `<div class="signin"><h2 class="co-t"><span class="i">🔐</span>${title}</h2><p class="co-p">${why}</p>
+    ${inApp?`<div class="note bad"><span>⚠️</span><div><b>Open this page in Chrome first</b>Google sign-in doesn’t work inside Facebook, Messenger or Instagram. Tap ⋮ → “Open in browser”, or copy the link and paste it in Chrome.<p style="margin-top:8px"><button class="btn sm" type="button" data-copy="${esc(location.href)}">${IC.copy}Copy link</button></p></div></div>`:''}
+    <button class="btn gbtn block xl" type="button" data-gsign><span class="g">G</span>Continue with Google</button>
+    <p class="co-foot">We only use your Google name and email to keep your orders safe in your account.</p></div>`;
+}
+document.addEventListener('click', async e=>{ const b=e.target.closest('[data-gsign]'); if (!b) return; b.disabled=true;
+  const ok=await googleSignIn(); b.disabled=false;
+  if (ok){ toast('Signed in ✓ Your orders are saved to your account','ok'); saveMe(); if (view==='checkout') renderCheckout(); else route(); } });
+async function googleSave(){ if (await googleSignIn()){ toast('Saved ✓ Your orders are now in your account','ok'); viewAccount(); } }
 function viewAccount(){
   $('cbar').hidden=true;
   if (AUTH_ERR){
@@ -1256,7 +1284,7 @@ function viewAccount(){
       <div class="idcard"><div><span>Your customer ID</span><b>${esc(CP.code)}</b><small>${CU.isAnonymous?'Guest on this phone':'Saved with '+esc(CU.email||'Google')}</small></div><button class="btn sm" type="button" data-copy="${esc(CP.code)}">${IC.copy}Copy</button></div>
       ${PROFILE_ERR?`<div class="note bad"><span>⚠️</span><div><b>Account can’t be saved yet</b><small>${esc(PROFILE_ERR)}</small></div></div>`:''}
       <p class="hint">Mention this ID when you message the shop.</p>
-      ${CU.isAnonymous?`<div class="gbox"><div><b>Save my account with Google</b><small>Keep your orders and rewards if you change phone.</small></div><button class="btn solid" type="button" id="gSave"><span class="g">G</span>Google</button></div>`:''}
+      ${CU.isAnonymous?`<div class="gbox"><div><b>Your orders are only on this phone</b><small>Sign in with Google so your orders and rewards are saved to your account and open on any phone.</small></div><button class="btn solid" type="button" id="gSave"><span class="g">G</span>Google</button></div>`:''}
       <div class="stats"><div><span>Orders</span><b>${MY.length}</b></div><div><span>Spent</span><b>${rs(spent)}</b></div><div><span>Diamonds</span><b>${nf(dia)}</b></div><div><span>Active</span><b>${active()}</b></div></div>
     </div></section>
     ${P?loyalty():''}
@@ -1357,7 +1385,8 @@ function viewCheckout(){
       <h2 class="co-t"><span class="i">🎮</span>Player details<a class="link co-edit" href="./" data-nav="shop">Change</a></h2>
       <div class="co-det"><div class="full"><span>Free Fire UID</span><b class="num co-uid">${esc(me.uid)}</b><small>Diamonds go to this UID. Please double-check it.</small></div><div><span>Name</span><b>${esc(me.name)}</b></div><div><span>WhatsApp</span><b>${esc(me.phone||'–')}</b></div></div>
     </div>
-    <div class="co-sec">
+    ${!signedIn()?`<div class="co-sec">${signInBox('Sign in to place your order','Your orders are saved to your account, not to this phone. You can see them on any phone, any time.')}</div>`:`<div class="co-sec">
+      <p class="co-acct">✓ Orders saved to <b>${esc(CU.email||'your Google account')}</b></p>
       <h2 class="co-t"><span class="i">💳</span>How do you want to pay?</h2>
       <div class="co-chips" role="radiogroup">${pm.map(m=>`<button type="button" role="radio" data-com="${m}" aria-checked="${m===co.method}"><i class="pm" style="background:${PAYC[m][0]}">${PAYC[m][1]}</i>${esc(coLabel(m))}</button>`).join('')}</div>
       <div id="coPay">${coPayHTML()}</div>
@@ -1368,7 +1397,7 @@ function viewCheckout(){
       <button class="btn accent block xl" type="button" id="coPlace">${coBtnText()}</button>
       <p class="co-trust">🔒 Secure payment · ✅ Verified within 24 hours · 📍 Live tracking</p>
       <p class="co-foot">By placing this order you agree to our terms. Verification may take up to 24 hours. Diamonds are loaded to your UID after verification, and you can follow every step in My orders.</p>
-    </div>
+    </div>`}
   </section>`;
 }
 function renderCheckout(){
@@ -1386,6 +1415,7 @@ async function placeCheckout(){
   errEl.textContent='';
   if (!isOpen()) return err('Orders are paused right now. Please try again later.');
   if (!lines().length||!uidValid(me.uid)||!me.name){ nav('shop'); return; }
+  if (!signedIn()) return err('Sign in with Google first, so your order is saved to your account.');
   const cash=co.method==='Cash';
   if (!co.method) return err('Choose how you want to pay.');
   if (!cash&&!shotFile){ err('Upload your payment screenshot first.'); const d=$('coDrop'); if (d){ d.classList.remove('bad'); void d.offsetWidth; d.classList.add('bad'); } return; }
@@ -1456,7 +1486,7 @@ onAuthStateChanged(auth, async u=>{
   clearTimeout(authTimer); AUTH_ERR=null; CU=u;
   await loadProfile(); watchMine();
   if (view==='shop'&&step!==4&&P){ const f=document.activeElement; if (!f||!f.closest||!f.closest('#app input,#app textarea')) renderShop(); else refreshProgress(); }
-  else if (view==='account'||view==='orders') route();
+  else if (['account','orders','track','checkout'].includes(view)) route();
 });
 getRedirectResult(auth).catch(()=>{});
 (function(){   // ?pk=d520 in a shared link preselects that package
