@@ -1411,6 +1411,38 @@ body{font-size:15px;text-rendering:optimizeLegibility}
 .o-trail{margin:8px 0 0;font-size:.76rem;color:var(--muted);line-height:1.6}
 .o-trail b{color:var(--ink-2);font-weight:600}
 
+/* launch checklist, yearly limit, Razer */
+.launch .lc-bar,.lim-bar{height:6px;background:var(--bg);overflow:hidden}
+.launch .lc-bar i,.lim-bar i{display:block;height:100%;background:var(--ok-bar);border-radius:0 99px 99px 0;transition:width .4s}
+.lc{list-style:none;margin:0;padding:6px 0}
+.lc li{display:flex;align-items:center;gap:12px;padding:10px 20px}
+.lc li+li{border-top:1px solid var(--line)}
+.lc .ck{width:24px;height:24px;border-radius:50%;border:2px solid var(--line-2);display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:.8rem;font-weight:800;color:#fff}
+.lc li.ok .ck{background:var(--ok-bar);border-color:var(--ok-bar)}
+.lc li>div{flex:1;min-width:0}
+.lc li b{display:block;font-size:.92rem}
+.lc li.ok b{color:var(--muted);font-weight:500;text-decoration:line-through}
+.lc li small{display:block;font-size:.78rem;color:var(--muted);margin-top:1px}
+.lim{padding:16px 20px}
+.lim-h{display:flex;justify-content:space-between;align-items:center;margin-bottom:10px}
+.lim-bar{border-radius:99px;height:10px}
+.lim-bar i{border-radius:99px}
+.lim-bar.warn i{background:#D18A1F}.lim-bar.bad i{background:var(--accent)}
+.lim-t{margin:8px 0 4px;font-size:.92rem}
+.rz{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;background:#44D62C;color:#0B0B0B;font-weight:900;font-size:.8rem;margin-right:8px}
+.rz-top{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;margin-bottom:12px}
+.rz-top div{background:var(--bg);border-radius:12px;padding:12px;display:grid;gap:2px}
+.rz-top span{font-size:.76rem;color:var(--muted)}
+.rz-top b{font-size:1.2rem;font-weight:800;font-variant-numeric:tabular-nums}
+.rz-top b.neg{color:var(--accent)}
+.rz-list{list-style:none;margin:12px 0 0;padding:0;display:grid;gap:6px}
+.rz-list li{display:flex;align-items:center;gap:10px;font-size:.88rem}
+.rz-list li span{flex:1}
+.rz-list small{color:var(--muted)}
+.icon-btn.sm{width:28px;height:28px;font-size:1rem}
+#fSrcHint.warn{color:var(--accent);font-weight:700}
+@media(max-width:520px){.rz-top{grid-template-columns:1fr 1fr}.rz-top div:first-child{grid-column:1/-1}}
+
 </style>
 </head>
 <body>
@@ -1526,6 +1558,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         </div>
         
         <div class="alerts" id="alerts"></div>
+        <div class="card launch" id="launchCard" hidden></div>
         <div class="ov-head"><h2>Overview</h2><button type="button" class="help-link" data-help="overview"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Help</button><span class="ov-cmp" id="ovCmp"></span><div class="pk-seg" id="ovPeriod" role="radiogroup" aria-label="Period"><button type="button" data-v="today">Today</button><button type="button" data-v="week">7 days</button><button type="button" data-v="month">This month</button></div></div>
         <div class="stats kpis" id="kpis"></div>
         <div class="card cardmini" id="cardMini">
@@ -1625,6 +1658,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
             <div class="field"><span class="lab">Dollars from card</span><div class="card-use" id="cardUse">–</div></div>
             <div class="calc" id="calc"><div><span>Diamonds</span><b id="cDia">0</b></div><div><span>COGS</span><b id="cCost">Rs 0</b></div><div><span>Gross profit</span><b id="cProfit">Rs 0</b></div><div id="cDueBox" hidden><span>Outstanding</span><b id="cDue" class="warn">Rs 0</b></div></div>
             <div class="field"><span class="lab">Payment method</span><div class="pk-seg" id="fMethod" role="radiogroup" aria-label="Payment method"><button type="button" data-v="Cash">Cash</button><button type="button" data-v="eSewa">eSewa</button><button type="button" data-v="Khalti">Khalti</button><button type="button" data-v="Bank">Bank</button><button type="button" data-v="Credit">Credit</button></div></div>
+            <div class="field"><span class="lab">Bought with <em id="fSrcHint"></em></span><div class="pk-seg" id="fSrc" role="radiogroup" aria-label="Bought with"><button type="button" data-v="razer">Razer Gold</button><button type="button" data-v="card">Card (Visa)</button></div></div>
             <div class="field"><span class="lab">Delivery status</span><div class="pk-seg" id="fStatus" role="radiogroup" aria-label="Delivery status"><button type="button" data-v="done">Delivered</button><button type="button" data-v="pending">Pending</button></div></div>
             <label class="field"><span class="lab">Note <em>optional</em></span><input id="fNote" autocomplete="off" maxlength="200" placeholder="e.g. balance due Friday"/></label>
             <p class="err" id="fErr2" role="alert"></p>
@@ -1667,6 +1701,8 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <svg class="w-ridge" viewBox="0 0 1440 220" preserveAspectRatio="none" aria-hidden="true"><path fill="rgba(255,255,255,.05)" d="M0 120 L120 70 L210 98 L330 40 L450 92 L560 60 L700 110 L820 52 L960 96 L1080 44 L1200 88 L1320 58 L1440 84 V220 H0Z"/><path fill="rgba(255,255,255,.07)" d="M0 160 L160 122 L300 150 L460 114 L600 146 L760 120 L900 152 L1040 126 L1200 156 L1340 130 L1440 146 V220 H0Z"/></svg>
         </div>
         <div class="stats kpis" id="cdStats"></div>
+        <div class="card lim" id="limitCard"></div>
+        <div class="card" id="razerCard"></div>
         <div class="card">
           <div class="card-h"><h2>Card account summary</h2><div class="mnav"><button class="icon-btn" type="button" id="cdPrev" aria-label="Previous month"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m15 6-6 6 6 6"/></svg></button><b id="cdMonth">–</b><button class="icon-btn" type="button" id="cdNext" aria-label="Next month"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path d="m9 6 6 6-6 6"/></svg></button></div></div>
           <div class="card-b"><table class="pl-stmt acct" id="cdAcct"></table><p class="help" id="cdAcctNote" style="margin-top:12px"></p></div>
@@ -1724,7 +1760,9 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <div class="card-b form">
             <div class="field"><span class="lab">Order page</span><button type="button" class="switch" id="shOpen" role="switch" aria-checked="true"><i></i><span id="shOpenT">Taking orders</span></button></div>
             <label class="field"><span class="lab">Notice on order page <em>optional</em></span><input id="shNotice" maxlength="140" placeholder="e.g. Delivery within 10 minutes, 8 AM to 9 PM"/></label>
-            <label class="field"><span class="lab">Shop name</span><input id="shName" maxlength="40" placeholder="Isaac Diamond Store"/></label>
+            <label class="field"><span class="lab">Shop name <em>customers see this at the top</em></span><input id="shName" maxlength="40" placeholder="Isaac Diamond Store"/></label>
+            <label class="field"><span class="lab">Free Fire server you top up <em>shown to customers</em></span><input id="shRegion" maxlength="30" placeholder="Singapore"/></label>
+            <label class="field"><span class="lab">Verified badge <em>blue ✓ next to the shop name</em></span><button type="button" class="switch" id="shVerified" role="switch" aria-checked="false"><i></i><span>Show badge</span></button></label>
             <label class="field"><span class="lab">Your WhatsApp number</span><input id="shWa" type="tel" inputmode="tel" maxlength="15" placeholder="98XXXXXXXX"/></label>
             <div class="grid2">
               <label class="field"><span class="lab">eSewa ID <em>leave empty to hide</em></span><input id="shEsewa" maxlength="40" inputmode="tel" placeholder="98XXXXXXXX (Your name)"/></label>
@@ -2085,6 +2123,7 @@ service cloud.firestore {
       <label class="field"><span class="lab">Diamonds</span><div class="unit"><input id="pkDia" type="number" min="1" step="1" inputmode="numeric" placeholder="520"/><span>💎</span></div></label>
       <label class="field"><span class="lab">Game price</span><div class="unit pre"><span>$</span><input id="pkUsd" type="number" min="0" step="0.01" inputmode="decimal" placeholder="5.38"/></div></label>
     </div>
+    <label class="field"><span class="lab">Garena price in S$ <em>optional, fills the $ price</em></span><div class="unit pre"><span>S$</span><input id="pkSgd" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.41"/></div><small class="help" id="pkSgdH"></small></label>
     <div class="pk-prev" id="pkPrev"></div>
     <p class="err" id="pkErr" role="alert"></p>
   </div>
@@ -2107,6 +2146,10 @@ service cloud.firestore {
 <div class="dlg" id="dlg" hidden role="dialog" aria-modal="true" aria-labelledby="dlgT">
   <div class="dlg-b"><div class="in"><h3 id="dlgT">Delete item?</h3><p id="dlgP">This can't be undone.</p></div>
   <div class="card-f"><button class="btn" id="dlgNo" type="button">Cancel</button><button class="btn danger" id="dlgYes" type="button">Delete</button></div></div>
+</div>
+<div class="dlg" id="dlgN" hidden role="dialog" aria-modal="true" aria-labelledby="dlgNT">
+  <div class="dlg-b"><div class="in"><h3 id="dlgNT">Amount</h3><p id="dlgNP"></p><div class="unit pre" style="margin-top:12px"><span>$</span><input id="dlgNIn" type="number" min="0" step="0.01" inputmode="decimal"/></div></div>
+  <div class="card-f"><button class="btn" id="dlgNNo" type="button">Cancel</button><button class="btn accent" id="dlgNYes" type="button">Save</button></div></div>
 </div>
 <div class="dlg" id="dlgR" hidden role="dialog" aria-modal="true" aria-labelledby="dlgRT">
   <div class="dlg-b"><div class="in"><h3 id="dlgRT">Reject order?</h3><p id="dlgRP"></p><textarea id="dlgRIn" class="dlg-ta" maxlength="200" rows="3" placeholder="e.g. Please send the full Rs 880. Only Rs 800 came."></textarea></div>
@@ -2308,7 +2351,7 @@ async function fetchRate(){
   try{
     const ctl=new AbortController(); const t=setTimeout(()=>ctl.abort(),8000);
     const res=await fetch(RATE_URL,{signal:ctl.signal}); clearTimeout(t);
-    const j=await res.json(); const n=j && j.rates && j.rates.NPR;
+    const j=await res.json(); const n=j && j.rates && j.rates.NPR; if (j&&j.rates&&j.rates.SGD) S.sgd=j.rates.SGD;
     if(!n) throw new Error('No NPR rate');
     S.live={status:'ok', rate:n, at:Date.now()};
     if (S.uid && Math.abs((S.settings.lastLiveRate||0)-n) > 0.001){ S.settings.lastLiveRate=n; S.settings.lastLiveAt=S.live.at; saveSettings(S.settings, true); }
@@ -2440,7 +2483,7 @@ addEventListener('resize', closeRowMenu);
 /* =========================================================
    RENDER
    ========================================================= */
-function renderAll(){ computeBook(); if (!$('sheetSale').hidden){ const s=S.sales.find(x=>x.id===$('sheetSale').dataset.id); if (s) openSaleView(s); else closeSaleView(); } renderRateBits(); renderCounts(); renderPage(currentPage); publishPrices(); try{ renderDesk(); renderCollect(); renderTrash(); renderPayCard(); }catch(e){ console.warn(e); } }
+function renderAll(){ computeBook(); if (!$('sheetSale').hidden){ const s=S.sales.find(x=>x.id===$('sheetSale').dataset.id); if (s) openSaleView(s); else closeSaleView(); } renderRateBits(); renderCounts(); renderPage(currentPage); publishPrices(); try{ renderDesk(); renderCollect(); renderTrash(); renderPayCard(); renderLaunch(); renderLimit(); renderRazer(); const v=$('shVerified'); if (v&&document.activeElement!==v){ v.setAttribute('aria-checked',String(!!(S.settings.shop||{}).verified)); } pkSgdHint(); }catch(e){ console.warn(e); } }
 function renderPage(p){
   ({overview:renderHome, orders:renderOrders, card:renderCardPage, sell:renderSell, sales:renderSales, customers:renderCustomers, prices:renderPrices, rate:renderRatePage, reports:renderReports, backup:renderBackup})[p]?.();
 }
@@ -2774,7 +2817,8 @@ const METHODS=['Cash','eSewa','Khalti','Bank','Credit'];
 function resetForm(pre={}){
   const lines = Array.isArray(pre.lines)&&pre.lines.length ? pre.lines.filter(l=>pkgById(l.pkId)).map(l=>({pkId:l.pkId, qty:Math.max(1,parseInt(l.qty,10)||1)}))
     : (pre.pkId && pkgById(pre.pkId) ? [{pkId:pre.pkId, qty:1}] : []);
-  S.form={ lines, method:METHODS.includes(pre.method)?pre.method:'Cash', status:'done', recvTouched:false, fromOrder:pre.fromOrder||null, ccode:pre.ccode||'', cid:pre.cid||'' };
+  let lastSrc=null; try{ lastSrc=localStorage.getItem('dc-src'); }catch(_){}
+  S.form={ lines, method:METHODS.includes(pre.method)?pre.method:'Cash', status:'done', recvTouched:false, fromOrder:pre.fromOrder||null, ccode:pre.ccode||'', cid:pre.cid||'', src:lastSrc||(razerOn()?'razer':'card') };
   $('fName').value=pre.customer||''; $('fPhone').value=pre.phone||''; $('fUid').value=pre.uid||''; $('fDisc').value=''; $('fNote').value=pre.note||''; $('fRecv').value=''; $('fErr2').textContent='';
   $('custHit').hidden=true; $('rewardHit').hidden=true; $('calcBox').hidden=true; $('calcOut').innerHTML='';
 }
@@ -2788,7 +2832,7 @@ async function newSale(pre){
 }
 async function editSale(s){
   if (!await go('sell')) return;
-  S.editId=s.id; S.form={lines:[{pkId:s.pkgId, qty:s.qty||1}], method:s.method||'Cash', status:s.status||'done', recvTouched:true, orig:s};
+  S.editId=s.id; S.form={lines:[{pkId:s.pkgId, qty:s.qty||1}], method:s.method||'Cash', status:s.status||'done', recvTouched:true, orig:s, src:s.src||'card'};
   $('fName').value=s.customer||''; $('fPhone').value=s.phone||''; $('fUid').value=s.uid||''; $('fDisc').value=s.discount||''; $('fNote').value=s.note||''; $('fRecv').value=s.received; $('fErr2').textContent='';
   $('custHit').hidden=true; $('rewardHit').hidden=true; $('calcBox').hidden=true;
   $('crumb').textContent='Edit sale'; dirty.delete('sell'); renderSell();
@@ -2821,6 +2865,8 @@ function renderSell(){
     return `<div class="cart-row" data-i="${i}"><div class="cr-n"><b>${esc(pkLabel(p))}</b><small>${rs(lt/l.qty)} each</small></div><div class="qty sm"><button type="button" class="icon-btn" data-cq="-1" aria-label="One less">−</button><input type="number" min="1" value="${l.qty}" data-cqi aria-label="Quantity"/><button type="button" class="icon-btn" data-cq="1" aria-label="One more">+</button></div><b class="cr-t">${rs(lt)}</b>${editing?'':`<button type="button" class="icon-btn cr-x" data-crm aria-label="Remove">×</button>`}</div>`; }).join('') : '';
   document.querySelectorAll('#fMethod button').forEach(b=>b.setAttribute('aria-checked', String(b.dataset.v===f.method)));
   document.querySelectorAll('#fStatus button').forEach(b=>b.setAttribute('aria-checked', String(b.dataset.v===f.status)));
+  document.querySelectorAll('#fSrc button').forEach(b=>b.setAttribute('aria-checked', String(b.dataset.v===(f.src||'card'))));
+  srcHint();
   $('custList').innerHTML=customers().filter(c=>c.name).slice(0,200).map(c=>`<option value="${esc(c.name)}">${esc([c.phone,c.uid&&'UID '+c.uid].filter(Boolean).join(', '))}</option>`).join('');
   updateCalc();
 }
@@ -2829,7 +2875,7 @@ function formTotals(){
   const T={ls, list:0, cost:0, usd:0, dia:0}; ls.forEach(x=>{ T.list+=x.list; T.cost+=x.cost; T.usd+=x.p.usd*x.q; T.dia+=x.p.diamonds*x.q; }); return T;
 }
 function updateCalc(){
-  const T=formTotals();
+  const T=formTotals(); srcHint();
   if (!T.ls.length){ ['cDia','cCost','cProfit'].forEach(i=>$(i).textContent='–'); $('priceLine').innerHTML='<span>Pick a package above</span>'; $('cardUse').innerHTML='–'; $('cardUse').className='card-use'; $('recvHint').textContent=''; if(!S.form.recvTouched) $('fRecv').value=''; $('cDueBox').hidden=true; $('calc').classList.remove('four'); return; }
   const o=S.form.orig, list=T.list, cost=T.cost, disc=Math.min(list, Math.max(0, Math.round(Number($('fDisc').value)||0))), net=list-disc;
   S.form.listPrice=list; S.form.discount=disc; S.form.price=net;
@@ -2857,6 +2903,7 @@ $('cart').addEventListener('click', e => { const row=e.target.closest('[data-i]'
   else if (e.target.closest('[data-crm]')){ f.lines.splice(+row.dataset.i,1); } else return;
   if (f.method!=='Credit') f.recvTouched=false; dirty.add('sell'); renderSell(); });
 $('cart').addEventListener('change', e => { if(!e.target.matches('[data-cqi]')) return; const l=S.form.lines[+e.target.closest('[data-i]').dataset.i]; l.qty=Math.max(1,parseInt(e.target.value,10)||1); if (S.form.method!=='Credit') S.form.recvTouched=false; dirty.add('sell'); renderSell(); });
+$('fSrc').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; S.form.src=b.dataset.v; try{ localStorage.setItem('dc-src', b.dataset.v); }catch(_){} dirty.add('sell'); renderSell(); });
 $('fMethod').addEventListener('click', e => { const b=e.target.closest('button'); if(!b) return; const was=S.form.method; S.form.method=b.dataset.v;
   if (b.dataset.v==='Credit' && was!=='Credit' && !S.form.recvTouched){ S.form.recvTouched=true; $('fRecv').value=0; }
   else if (was==='Credit' && b.dataset.v!=='Credit' && !S.editId){ S.form.recvTouched=false; }
@@ -2930,7 +2977,7 @@ $('sellSave').addEventListener('click', async () => {
       $('cardUse').scrollIntoView({block:'center',behavior:'smooth'}); toast('Card balance is too low for this sale', true, {label:'Load card', fn:()=>openCard('load',null)}); return; } }
   if (S.form.method==='Credit' && !S.editId && hitCust && hitCust.due>0){ const add=Math.max(0,(S.form.price||0)-recv);
     if (add>0 && !await ask('Give more credit?', `${hitCust.name||'This customer'} already owes ${rs(hitCust.due)}. This sale adds ${rs(add)} on credit, so they will owe ${rs(hitCust.due+add)}.`, 'Yes, give credit')) return; }
-  const o=S.form.orig, f=S.form, disc=f.discount||0, base={ customer:$('fName').value.trim(), phone:$('fPhone').value.trim(), uid:$('fUid').value.trim(), method:f.method, status:f.status, note:$('fNote').value.trim() };
+  const o=S.form.orig, f=S.form, disc=f.discount||0, base={ customer:$('fName').value.trim(), phone:$('fPhone').value.trim(), uid:$('fUid').value.trim(), method:f.method, status:f.status, note:$('fNote').value.trim(), src:f.src||'card' };
   const rateNowR=Math.round(rateNow()*100)/100, at=o?o.at:Date.now(), orderId=(!o && T.ls.length>1) ? 'o'+Date.now().toString(36) : (o&&o.orderId)||null;
   const recs=[]; let dLeft=disc, rLeft=recv;
   T.ls.forEach((x,i)=>{ const last=i===T.ls.length-1, share=T.list?x.list/T.list:1/T.ls.length;
@@ -3176,7 +3223,7 @@ function renderRatePage(){
   const sh=S.settings.shop||{}, ly=S.settings.loyalty||{};
   $('shOpen').setAttribute('aria-checked', String(sh.open!==false)); $('shOpenT').textContent = sh.open!==false ? 'Taking orders' : 'Orders paused';
   $('shCash').setAttribute('aria-checked', String(sh.cash!==false));
-  [['shEsewa',sh.esewa],['shKhalti',sh.khalti],['shBank',sh.bank],['shNotice',sh.notice],['shName',sh.name],['shWa',sh.wa],['shPay',sh.pay],['lyVip',ly.vipAt],['lyEvery',ly.every],['lyPct',ly.pct]].forEach(([id,v])=>{ if(document.activeElement!==$(id)) $(id).value=v??''; });
+  [['shRegion',sh.region===undefined?'Singapore':sh.region],['shEsewa',sh.esewa],['shKhalti',sh.khalti],['shBank',sh.bank],['shNotice',sh.notice],['shName',sh.name],['shWa',sh.wa],['shPay',sh.pay],['lyVip',ly.vipAt],['lyEvery',ly.every],['lyPct',ly.pct]].forEach(([id,v])=>{ if(document.activeElement!==$(id)) $(id).value=v??''; });
   updLyHelp();
   $('rMsg').textContent = dirty.has('rate') ? 'Not saved yet' : '✓ Saved';
   $('rUndo').disabled=$('rSave').disabled=!dirty.has('rate');
@@ -3302,7 +3349,7 @@ $('sheetCust').addEventListener('click', e=>{
 addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('sheetCust').hidden) closeCust(); });
 
 /* ---------- shop details & loyalty ---------- */
-$('shSave').addEventListener('click', ()=>{ const shop={name:$('shName').value.trim(), wa:$('shWa').value.trim(), pay:$('shPay').value.trim(), esewa:$('shEsewa').value.trim(), khalti:$('shKhalti').value.trim(), bank:$('shBank').value.trim(), cash:$('shCash').getAttribute('aria-checked')==='true', open:$('shOpen').getAttribute('aria-checked')==='true', notice:$('shNotice').value.trim()}; const st={...S.settings, shop}; S.settings=st; saveSettings(st); renderAll(); toast('Shop details saved'); });
+$('shSave').addEventListener('click', ()=>{ const shop={region:$('shRegion').value.trim(), verified:$('shVerified').getAttribute('aria-checked')==='true', name:$('shName').value.trim(), wa:$('shWa').value.trim(), pay:$('shPay').value.trim(), esewa:$('shEsewa').value.trim(), khalti:$('shKhalti').value.trim(), bank:$('shBank').value.trim(), cash:$('shCash').getAttribute('aria-checked')==='true', open:$('shOpen').getAttribute('aria-checked')==='true', notice:$('shNotice').value.trim()}; const st={...S.settings, shop}; S.settings=st; saveSettings(st); renderAll(); toast('Shop details saved'); });
 function updLyHelp(){ const el=$('lyHelp'); if (!el) return; const v=+$('lyVip').value||0, e=Math.round(+$('lyEvery').value||0), p=+$('lyPct').value||0;
   const ord=n=>n+(n%100>=11&&n%100<=13?'th':['th','st','nd','rd'][n%10]||'th');
   el.innerHTML=(e>0&&p>0?`With these settings the <b>${ord(e)}, ${ord(e*2)}, ${ord(e*3)}…</b> purchase of each customer gets <b>${p}% off</b>. It’s suggested on the New sale page and shown to online customers.`:'Rewards are off. Set “Reward every” and “Reward discount” above 0 to turn them on.')
@@ -3354,6 +3401,7 @@ function renderAlerts(){
   if (BOOK.active && (BOOK.usd<0.01 || (U&&U.left<2) || (tp0&&BOOK.usd<tp0.p.usd))) out.push(`<div class="alert bad"><span class="ai">💳</span><div><b>Dollar card is low: $${Math.max(0,BOOK.usd).toFixed(2)} left</b><small>${U&&U.perDay>0?'You use about $'+U.perDay.toFixed(2)+' a day. Load about $'+U.suggest+' for a week.':'Load your card before the next sale.'}</small></div><button class="btn primary sm" type="button" data-cardact="load">Load</button></div>`);
   const old=S.sales.filter(s=>dueOf(s)>0 && Date.now()-s.at>7*864e5 && !(s.remindedAt && Date.now()-s.remindedAt<3*864e5));
   if (old.length){ const t=old.reduce((x,s)=>x+dueOf(s),0); out.push(`<div class="alert warn" data-go="reports"><span class="ai">⏰</span><div><b>${rs(t)} unpaid for over a week</b><small>${old.length} credit sale${old.length===1?'':'s'}. Send reminders from Accounts receivable.</small></div></div>`); }
+  { const y=cardYear(); if (S.loaded && y.pct>=80) out.push(`<div class="alert ${y.pct>=95?'bad':'warn'}" data-go="card"><span class="ai">💳</span><div><b>Yearly card limit: $${y.used.toFixed(0)} of $${y.limit} used</b><small>Only $${Math.max(0,y.left).toFixed(2)} left for the next 12 months. Plan your loads.</small></div><button class="btn primary sm" type="button" data-go="card">View</button></div>`); }
   if (S.shotRulesOk===false) out.unshift(`<div class="alert warn" data-go="orders"><span class="ai">📷</span><div><b>Customer screenshots are being blocked</b><small>Publish the new Firestore rules. Open Orders to fix it.</small></div><button class="btn primary sm" type="button" data-go="orders">Fix</button></div>`);
   if ((S.settings.shop||{}).open===false) out.unshift(`<div class="alert warn"><span class="ai">⏸️</span><div><b>Your order page is paused</b><small>Customers can’t place orders right now.</small></div><button class="btn primary sm" type="button" data-x="resume">Reopen</button></div>`);
   { let bk=0, sn=0; try{ bk=Number(localStorage.getItem('dc-backup'))||0; sn=Number(localStorage.getItem('dc-bk-snooze'))||0; }catch(_){}
@@ -3468,7 +3516,7 @@ function publicRecent(){   // first letter only, for social proof without exposi
 }
 function publishPrices(){
   if (!S.uid || !S.loaded) return;
-  const sh=S.settings.shop||{}, tp=topPackages()[0], payload={shop:{name:sh.name||'',wa:sh.wa||'',pay:sh.pay||'',esewa:sh.esewa||'',khalti:sh.khalti||'',bank:sh.bank||'',cash:sh.cash!==false,open:sh.open!==false,notice:sh.notice||''}, popular:tp&&tp.n?tp.p.id:null, loyalty:{every:+(S.settings.loyalty||{}).every||0, pct:+(S.settings.loyalty||{}).pct||0}, stats:publicStats(), recent:publicRecent(), packages:S.settings.packages.map(p=>({id:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind||'topup', price:sellOf(p)}))};
+  const sh=S.settings.shop||{}, tp=topPackages()[0], payload={shop:{region:sh.region===undefined?'Singapore':sh.region, verified:!!sh.verified, name:sh.name||'',wa:sh.wa||'',pay:sh.pay||'',esewa:sh.esewa||'',khalti:sh.khalti||'',bank:sh.bank||'',cash:sh.cash!==false,open:sh.open!==false,notice:sh.notice||''}, popular:tp&&tp.n?tp.p.id:null, loyalty:{every:+(S.settings.loyalty||{}).every||0, pct:+(S.settings.loyalty||{}).pct||0}, stats:publicStats(), recent:publicRecent(), packages:S.settings.packages.map(p=>({id:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind||'topup', price:sellOf(p)}))};
   const j=JSON.stringify(payload); if (j===pubJSON) return;
   clearTimeout(pubTimer); pubTimer=setTimeout(()=>{ setDoc(doc(db,'public','prices'), {...payload, updatedAt:Date.now()}).then(()=>{ pubJSON=j; }).catch(e=>console.warn('publish prices',e)); }, 1500);
 }
@@ -3636,6 +3684,90 @@ onAuthStateChanged(auth, async user => {
   try { await migrateLocal(); } catch(e){ console.error(e); }
   startSync();
 });
+
+/* =========================================================
+   v12: launch checklist · yearly card limit · Razer Gold wallet
+   ========================================================= */
+// ---------- Razer Gold wallet (part of the dollar pool; tracked separately) ----------
+const razerList=()=>((S.settings.razer||{}).list||[]).slice().sort((a,b)=>a.at-b.at);
+const razerOn=()=>razerList().length>0;
+function srcHint(){ const h=$('fSrcHint'), f=S.form; if (!h||!f) return;
+  if (f.src==='razer'&&razerOn()){ const o=f.orig, back=o&&o.src==='razer'?(+o.usd||0)*(o.qty||1):0, after=razerBal().bal+back-formTotals().usd;
+    h.textContent='Razer after this sale: '+(after<0?'−':'')+'$'+Math.abs(after).toFixed(2); h.className=after<-0.005?'warn':''; }
+  else { h.textContent=f.src==='razer'?'record a Razer reload on the Dollar card page':''; h.className=''; } }
+function razerBal(upto=Infinity){
+  const ev=[...razerList().map(x=>({t:x.at,x})), ...S.sales.filter(s=>s.src==='razer').map(s=>({t:s.at,s}))].filter(e=>e.t<=upto).sort((a,b)=>a.t-b.t);
+  let bal=0, inM=0, outM=0; const m0=new Date(); m0.setDate(1); m0.setHours(0,0,0,0);
+  for (const e of ev){
+    if (e.x){ if (e.x.kind==='set') bal=+e.x.usd||0; else { bal+=+e.x.usd||0; if (e.t>=m0.getTime()) inM+=+e.x.usd||0; } }
+    else { const u=(+e.s.usd||0)*(e.s.qty||1); bal-=u; if (e.t>=m0.getTime()) outM+=u; }
+  }
+  return {bal, inM, outM};
+}
+function saveRazer(list, msg){ const st={...S.settings, razer:{list}}; S.settings=st; saveSettings(st); renderAll(); if (msg) toast(msg); }
+function askNumber(title, sub, ph){ return new Promise(res=>{
+  $('dlgNT').textContent=title; $('dlgNP').textContent=sub; $('dlgNIn').value=''; $('dlgNIn').placeholder=ph||''; $('dlgN').hidden=false; setTimeout(()=>$('dlgNIn').focus(),40);
+  const done=v=>{ $('dlgN').hidden=true; $('dlgNYes').onclick=$('dlgNNo').onclick=null; res(v); };
+  $('dlgNYes').onclick=()=>{ const v=+$('dlgNIn').value; if (!(v>=0)||$('dlgNIn').value===''){ $('dlgNIn').focus(); return; } done(v); };
+  $('dlgNNo').onclick=()=>done(null); $('dlgN').onclick=e=>{ if (e.target.id==='dlgN') done(null); }; }); }
+function renderRazer(){
+  const el=$('razerCard'); if (!el) return; const r=razerBal(), list=razerList().slice(-6).reverse();
+  el.innerHTML=`<div class="card-h"><h2><span class="rz">R</span>Razer Gold wallet</h2><span class="meta">${razerOn()?'Part of your dollar balance':'Not set up'}</span></div>
+    <div class="card-b">
+      ${razerOn()?`<div class="rz-top"><div><span>Razer balance</span><b class="${r.bal<0?'neg':''}">${r.bal<0?'−':''}$${Math.abs(r.bal).toFixed(2)}</b></div><div><span>Reloaded this month</span><b>$${r.inM.toFixed(2)}</b></div><div><span>Used this month</span><b>$${r.outM.toFixed(2)}</b></div></div>
+        <p class="help">Your book balance above counts card + Razer together. Of that, <b>$${Math.max(0,r.bal).toFixed(2)}</b> is in Razer Gold and about <b>$${Math.max(0,BOOK.usd-Math.max(0,r.bal)).toFixed(2)}</b> is still on the card. Sales marked “Razer Gold” on the New sale page use this balance.</p>
+        ${list.length?`<ul class="rz-list">${list.map(x=>`<li><span>${x.kind==='set'?'Balance set to':'Reload'} <b>$${(+x.usd).toFixed(2)}</b></span><small>${esc(dayLabel(x.at))}</small><button class="icon-btn sm" type="button" data-rzdel="${x.at}" aria-label="Remove entry">×</button></li>`).join('')}</ul>`:''}`
+      :`<p class="help">Buy small packs with Razer Gold? Record each Razer reload here and pick “Razer Gold” when you sell. You’ll always know how much is left in Razer without opening the app.</p>`}
+    </div>
+    <div class="card-f"><button class="btn" type="button" id="rzSet">Set balance</button><button class="btn primary" type="button" id="rzLoad">+ Razer reload</button></div>`;
+  $('rzLoad').onclick=async()=>{ const v=await askNumber('Razer reload','How many dollars did you move from your card to Razer Gold?','e.g. 10'); if (v>0) saveRazer([...razerList(), {at:Date.now(), usd:Math.round(v*100)/100, kind:'reload'}], 'Razer reload recorded: $'+v.toFixed(2)); };
+  $('rzSet').onclick=async()=>{ const v=await askNumber('Set Razer balance','Type the balance you see in the Razer Gold app right now.','e.g. 3.25'); if (v!==null) saveRazer([...razerList(), {at:Date.now(), usd:Math.round(v*100)/100, kind:'set'}], 'Razer balance set to $'+v.toFixed(2)); };
+  el.querySelectorAll('[data-rzdel]').forEach(b=>b.onclick=async()=>{ if (!await ask('Remove this entry?','The Razer balance is worked out again without it.','Remove')) return; saveRazer(razerList().filter(x=>String(x.at)!==b.dataset.rzdel), 'Entry removed'); });
+}
+
+// ---------- yearly prepaid dollar card limit ----------
+const CARD_LIMIT=()=>+(S.settings.cardLimit||500);
+function cardYear(){ const from=Date.now()-365*864e5; const used=S.card.filter(c=>c.type==='load'&&c.at>=from).reduce((t,c)=>t+(+c.usd||0),0); return {used, limit:CARD_LIMIT(), left:CARD_LIMIT()-used, pct:Math.min(100,used/CARD_LIMIT()*100)}; }
+function renderLimit(){
+  const el=$('limitCard'); if (!el) return; const y=cardYear(), lvl=y.pct>=90?'bad':y.pct>=75?'warn':'';
+  el.innerHTML=`<div class="lim-h"><b>Yearly card limit</b><span class="meta">last 12 months</span></div>
+    <div class="lim-bar ${lvl}"><i style="width:${y.pct}%"></i></div>
+    <p class="lim-t"><b>$${y.used.toFixed(2)}</b> of $${y.limit} loaded · <b>$${Math.max(0,y.left).toFixed(2)}</b> left</p>
+    <p class="help">Prepaid dollar cards in Nepal allow about USD ${y.limit} a year. If you go over it, the bank can stop or cancel the card. <button type="button" class="link" id="limEdit">Change limit</button></p>`;
+  $('limEdit').onclick=async()=>{ const v=await askNumber('Yearly card limit','Your bank’s yearly USD limit for this card.','500'); if (v>0){ const st={...S.settings, cardLimit:Math.round(v)}; S.settings=st; saveSettings(st); renderAll(); } };
+}
+
+// ---------- launch checklist on the dashboard ----------
+function launchItems(){
+  const sh=S.settings.shop||{}, pay=S.pay||{}, qr=pay.qr||{}, man=S.settings.launch||{};
+  let bk=0; try{ bk=Number(localStorage.getItem('dc-backup'))||0; }catch(_){}
+  return [
+    ['rules', S.shotRulesOk===true, 'Firestore rules published', 'Needed for payment screenshots and private orders.', 'orders'],
+    ['google', !!man.google, 'Google sign-in switched on in Firebase', 'Firebase → Authentication → Sign-in method → Google. Add id.yonghangishak.com.np under Authorized domains. Tap when done.', null],
+    ['name', !!(sh.name&&sh.name.trim()), 'Shop name set', 'Customers see it at the top of your order page.', 'rate'],
+    ['region', !!(sh.region&&sh.region.trim()), 'Server shown to customers', 'Tells customers which Free Fire server you can top up.', 'rate'],
+    ['qr', Object.keys(qr).some(k=>qr[k])||!!(pay.bank&&pay.bank.no), 'Payment QR or bank account added', 'So customers can pay straight from the order page.', 'rate'],
+    ['book', !!BOOK.opening, 'Dollar card book started', 'Gives you real cost and profit for every sale.', 'card'],
+    ['test', S.orders.some(o=>o.delivered), 'First online order delivered', 'Place a small test order yourself and go through every step.', null],
+    ['backup', Date.now()-bk<7*864e5, 'Backup in the last 7 days', 'Download a copy of your ledger.', 'backup']
+  ];
+}
+function renderLaunch(){
+  const el=$('launchCard'); if (!el) return; const items=launchItems(), done=items.filter(x=>x[1]).length;
+  let hide=false; try{ hide=localStorage.getItem('dc-launch-hide')==='1'; }catch(_){}
+  el.hidden = !S.loaded || hide && done===items.length;
+  if (el.hidden) return;
+  el.innerHTML=`<div class="card-h"><h2>🚀 Launch checklist</h2><span class="pill">${done}/${items.length}</span></div>
+    <div class="lc-bar"><i style="width:${done/items.length*100}%"></i></div>
+    <ul class="lc">${items.map(([k,ok,t,sub,pg])=>`<li class="${ok?'ok':''}"><span class="ck">${ok?'✓':''}</span><div><b>${t}</b>${ok?'':`<small>${sub}</small>`}</div>${ok?'':pg?`<button class="btn sm" type="button" data-go="${pg}">Fix</button>`:k==='google'?`<button class="btn sm" type="button" data-lc="google">Done</button>`:''}</li>`).join('')}</ul>
+    ${done===items.length?`<div class="card-f"><span class="help">Everything is set. Good luck with your sales! 🎉</span><button class="btn sm" type="button" id="lcHide">Hide</button></div>`:''}`;
+  const h=$('lcHide'); if (h) h.onclick=()=>{ try{ localStorage.setItem('dc-launch-hide','1'); }catch(_){} renderLaunch(); };
+}
+document.addEventListener('click', e=>{ const b=e.target.closest('[data-lc]'); if (!b) return; const st={...S.settings, launch:{...(S.settings.launch||{}), [b.dataset.lc]:true}}; S.settings=st; saveSettings(st); renderAll(); });
+
+// ---------- Garena S$ price helper in the package editor ----------
+function pkSgdHint(){ const h=$('pkSgdH'); if (h) h.textContent=S.sgd?`Today $1 = S$${S.sgd.toFixed(3)}. Check the $ Razer actually charged and correct it if needed.`:'Exchange rate not loaded yet.'; }
+$('pkSgd') && $('pkSgd').addEventListener('input', ()=>{ const v=+$('pkSgd').value; if (v>0&&S.sgd){ $('pkUsd').value=(v/S.sgd).toFixed(2); $('pkUsd').dispatchEvent(new Event('input',{bubbles:true})); } pkSgdHint(); });
 
 /* =========================================================
    PAYMENT QR CODES + BANK ACCOUNT (public/pay) and

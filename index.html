@@ -580,13 +580,16 @@ textarea{min-height:64px;resize:vertical}
 .co-acct{font-size:.82rem;color:var(--ok);font-weight:600;margin:-4px 0 14px}
 .co-acct b{color:var(--ok)}
 
+.srv{margin-top:8px;padding:7px 10px;border-radius:8px;background:var(--blue-soft);color:var(--ink-2);font-size:.82rem}
+.srv b{color:var(--ink)}
+
 </style>
 </head>
 <body class="v-shop">
 <header class="appbar">
   <div class="wrap">
     <span class="mono"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg></span>
-    <div class="shop"><b><span id="shopName">Free Fire Diamonds</span><svg width="16" height="16" viewBox="0 0 24 24" aria-label="Verified"><path fill="#4AA3FF" d="M12 1.5l2.6 1.9 3.2-.2 1 3.1 2.7 1.8-.9 3.1 1.1 3-2.6 1.9-.6 3.2-3.2.4L12 22.5l-2.3-2.3-3.2-.4-.6-3.2L3.3 14.7l1.1-3-.9-3.1 2.7-1.8 1-3.1 3.2.2z"/><path d="m8 12 3 3 5-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></b><small><i class="dot" id="liveDot"></i><span id="liveTxt">Loading…</span></small></div>
+    <div class="shop"><b><span id="shopName">Free Fire Diamonds</span><svg id="vBadge" hidden width="16" height="16" viewBox="0 0 24 24" aria-label="Verified"><path fill="#4AA3FF" d="M12 1.5l2.6 1.9 3.2-.2 1 3.1 2.7 1.8-.9 3.1 1.1 3-2.6 1.9-.6 3.2-3.2.4L12 22.5l-2.3-2.3-3.2-.4-.6-3.2L3.3 14.7l1.1-3-.9-3.1 2.7-1.8 1-3.1 3.2.2z"/><path d="m8 12 3 3 5-6" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></b><small><i class="dot" id="liveDot"></i><span id="liveTxt">Loading…</span></small></div>
     <div class="crumb"><span id="crShop">Free Fire Diamonds</span> / <b id="crumb">Shop</b></div>
     <button class="icon-btn" id="themeBtn" type="button" aria-label="Switch theme"></button>
   </div>
@@ -776,6 +779,7 @@ function celebrate(){
 function paintShell(){
   const open=isOpen(), s=(P&&P.stats)||{}, w=P&&waNum(P.shop.wa), name=(P&&P.shop.name)||'Free Fire Diamonds';
   $('shopName').textContent=name; $('sbName').textContent=name; $('crShop').textContent=name;
+  $('vBadge').toggleAttribute('hidden', !(P&&P.shop.verified));
   $('liveDot').className='dot'+(open?'':' off'); $('liveTxt').textContent=!P?'Loading…':(open?'Open now':'Orders paused')+(s.delivered>=10?' · '+nf(s.delivered)+'+ delivered':'');
   $('sbDot').className=open?'':'off'; $('sbLiveT').textContent=open?'Open now':'Orders paused'; $('sbStat').textContent=s.delivered>=10?nf(s.delivered)+'+':'New shop';
   $('sbWa').hidden=!w; if (w) $('sbWa').href='https://wa.me/'+w;
@@ -828,7 +832,7 @@ function step1(){
     <div ${compact?'hidden':''}>
       <label class="lab" for="uid">Free Fire UID</label>
       <div class="uidf"><input type="text" inputmode="numeric" pattern="[0-9]*" id="uid" maxlength="14" placeholder="e.g. 512345678" autocomplete="off" value="${esc(me.uid)}"/>${canPaste?`<button type="button" class="paste" id="pasteUid" ${ok?'hidden':''}>${IC.paste}Paste</button>`:''}<span class="okb" id="uidOk" ${ok?'':'hidden'}>${IC.check}</span></div>
-      <p class="hint ${hc}" id="uidHint">${ht}</p>
+      <p class="hint ${hc}" id="uidHint">${ht}</p>${(P.shop.region||'')?`<p class="srv">🌏 We top up <b>${esc(P.shop.region)} server</b> accounts only</p>`:''}
       <div class="howto" id="howto" hidden><ol><li>Open Free Fire</li><li>Tap your profile picture (top left)</li><li>Your UID is the number under your name</li></ol></div>
       ${su.length?`<div class="uids" id="uids">${su.map(u=>`<button type="button" data-useuid="${esc(u)}" aria-pressed="${u===me.uid}">${esc(u)}</button>`).join('')}</div>`:''}
       <div class="two"><div><label class="lab" for="name">Your name</label><input type="text" id="name" maxlength="60" autocomplete="name" placeholder="Ram Rai" value="${esc(me.name)}"/></div>
@@ -960,7 +964,7 @@ const FAQ=[
 function extras(){
   const w=waNum(P.shop.wa);
   return `<div class="trust3"><div><b>🔒</b><strong>UID only</strong>Never your password</div><div><b>📍</b><strong>Live tracking</strong>See every step</div><div><b>💬</b><strong>WhatsApp help</strong>A real person</div></div>
-    <section class="card faq"><div class="card-h"><h2>Questions</h2></div>${FAQ.map(([a,b])=>`<details><summary>${esc(a)}</summary><p>${esc(b)}</p></details>`).join('')}</section>
+    <section class="card faq"><div class="card-h"><h2>Questions</h2></div>${(P.shop.region?[['Which Free Fire server?',`We top up ${P.shop.region} server accounts only. Diamonds can’t be sent to accounts on other servers, so please check your server before you order.`],...FAQ]:FAQ).map(([a,b])=>`<details><summary>${esc(a)}</summary><p>${esc(b)}</p></details>`).join('')}</section>
     <div class="btns links">${w?`<a class="btn ghost block" href="https://wa.me/${w}" target="_blank" rel="noopener">${IC.chat}Chat on WhatsApp</a>`:''}<button class="btn ghost block" type="button" id="shareBtn">${IC.share}Share with friends</button></div>`;
 }
 function progress(){ return [uidValid(me.uid)&&!!(me.name||'').trim(), lines().length>0]; }
@@ -1404,6 +1408,7 @@ function viewCheckout(){
       <div id="coPay">${coPayHTML()}</div>
       <div id="coShotBox" class="co-shot">${coShotHTML()}</div>
       <details class="addnote" ${me.note?'open':''}><summary class="link">+ Add a note for the shop</summary><textarea id="coNote" maxlength="200" placeholder="Anything we should know">${esc(me.note||'')}</textarea></details>
+      ${P.shop.region?`<label class="agree"><input type="checkbox" id="coSrv"/><span>My Free Fire account is on the <b>${esc(P.shop.region)}</b> server</span></label>`:''}
       <label class="agree"><input type="checkbox" id="coAgree"/><span>I agree to the <button type="button" class="link" id="termsBtn">Terms and Conditions</button></span></label>
       <p class="err" id="coErr" role="alert"></p>
       <button class="btn accent block xl" type="button" id="coPlace">${coBtnText()}</button>
@@ -1414,7 +1419,7 @@ function viewCheckout(){
 }
 function renderCheckout(){
   if (!P) return; if (!lines().length||!uidValid(me.uid)||!me.name){ history.replaceState(null,'',location.pathname); route(); return; }
-  const agreed=$('coAgree')&&$('coAgree').checked; $('app').innerHTML=viewCheckout(); if (agreed) $('coAgree').checked=true; paintCbar(); badges();
+  const agreed=$('coAgree')&&$('coAgree').checked, srv=$('coSrv')&&$('coSrv').checked; $('app').innerHTML=viewCheckout(); if (agreed) $('coAgree').checked=true; if (srv&&$('coSrv')) $('coSrv').checked=true; paintCbar(); badges();
 }
 function coRefresh(){ const p=$('coPay'); if (p) p.innerHTML=coPayHTML(); const s=$('coShotBox'); if (s) s.innerHTML=coShotHTML(); const b=$('coPlace'); if (b&&!b.disabled) b.textContent=coBtnText(); }
 function openTerms(){
@@ -1431,6 +1436,7 @@ async function placeCheckout(){
   const cash=co.method==='Cash';
   if (!co.method) return err('Choose how you want to pay.');
   if (!cash&&!shotFile){ err('Upload your payment screenshot first.'); const d=$('coDrop'); if (d){ d.classList.remove('bad'); void d.offsetWidth; d.classList.add('bad'); } return; }
+  if ($('coSrv')&&!$('coSrv').checked) return err('Please confirm your account is on the '+P.shop.region+' server. We can’t top up other servers.');
   if (!$('coAgree').checked) return err('Please agree to the Terms and Conditions.');
   if (!navigator.onLine) return err('You’re offline. Connect to the internet and try again.');
   if (Date.now()-(+store.get('dc-last-order',0))<60000) return err('You just placed an order. Please wait a minute.');
@@ -1461,7 +1467,7 @@ document.addEventListener('click', e=>{
   if (e.target.closest('#termsBtn')){ e.preventDefault(); openTerms(); return; }
   if (e.target.closest('#coPlace')){ placeCheckout(); return; }
 });
-document.addEventListener('change', e=>{ if (e.target.id==='coAgree'&&e.target.checked&&$('coErr')) $('coErr').textContent=''; });
+document.addEventListener('change', e=>{ if ((e.target.id==='coAgree'||e.target.id==='coSrv')&&e.target.checked&&$('coErr')) $('coErr').textContent=''; });
 document.addEventListener('input', e=>{ if (e.target.id==='coRef') co.ref=e.target.value.trim(); else if (e.target.id==='coNote') me.note=e.target.value.trim(); });
 
 const crumbs={shop:'Shop',orders:'My orders',account:'Account',track:'Order status',checkout:'Checkout'};
