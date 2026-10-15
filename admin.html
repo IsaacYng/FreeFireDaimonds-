@@ -1443,6 +1443,26 @@ body{font-size:15px;text-rendering:optimizeLegibility}
 #fSrcHint.warn{color:var(--accent);font-weight:700}
 @media(max-width:520px){.rz-top{grid-template-columns:1fr 1fr}.rz-top div:first-child{grid-column:1/-1}}
 
+/* v13 */
+.recap{margin-bottom:14px}
+.cp-list{display:grid;gap:8px;margin-bottom:14px}
+.cp-row{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;font-size:.88rem}
+.cp-row span{flex:1;min-width:0;color:var(--muted)}
+.cp-row.off{opacity:.6}
+.cp-code{font-family:ui-monospace,monospace;font-size:.95rem;padding:3px 8px;border-radius:6px;background:var(--bg);letter-spacing:.04em}
+.cp-new{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:10px 12px}
+.cp-ref{display:flex;gap:10px;align-items:flex-end;margin-top:14px;padding-top:14px;border-top:1px dashed var(--line)}
+.cp-ref .field{flex:1;margin:0}
+.o-cpn,.o-ref{margin:6px 0 0;font-size:.84rem;color:var(--ink-2)}
+.o-block{margin:6px 0 0;padding:8px 10px;border-radius:8px;background:#16222B;color:#fff;font-size:.84rem;font-weight:700}
+.o-dp{display:flex;align-items:center;gap:10px;margin-top:8px;flex-wrap:wrap}
+.o-dp .o-shot{flex:1;min-width:220px}
+.dp-up{margin-top:8px}
+#revCard .dim{opacity:.25}
+#revCard .t{color:#C88F00}
+#blockCard summary{list-style:none;cursor:pointer}
+#blockCard summary::-webkit-details-marker{display:none}
+
 </style>
 </head>
 <body>
@@ -1557,8 +1577,10 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <div class="w-acts"><button class="btn accent" type="button" data-go="sell"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M5 12h14"/></svg>New sale</button><button class="btn ghost" type="button" id="wShare"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="m8.6 13.5 6.8 4M15.4 6.5l-6.8 4"/></svg>Share day report</button></div>
         </div>
         
+        <div class="alert info recap" id="recapCard" hidden></div>
         <div class="alerts" id="alerts"></div>
         <div class="card launch" id="launchCard" hidden></div>
+        <div class="card" id="renewCard" hidden></div>
         <div class="ov-head"><h2>Overview</h2><button type="button" class="help-link" data-help="overview"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>Help</button><span class="ov-cmp" id="ovCmp"></span><div class="pk-seg" id="ovPeriod" role="radiogroup" aria-label="Period"><button type="button" data-v="today">Today</button><button type="button" data-v="week">7 days</button><button type="button" data-v="month">This month</button></div></div>
         <div class="stats kpis" id="kpis"></div>
         <div class="card cardmini" id="cardMini">
@@ -1616,6 +1638,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           <div class="fchips" id="oFilters"></div>
           <div class="tbl" id="oList"></div>
         </div>
+        <div class="card" id="blockCard" hidden></div>
       </section>
 
       <!-- NEW SALE -->
@@ -1681,6 +1704,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <!-- CUSTOMERS -->
       <section data-page="customers" hidden>
         <div class="ph"><div><h1>Customers</h1><p>Customer accounts built from your sales, ranked by lifetime revenue.</p><button type="button" class="help-link" data-help="customers"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>How this page works</button></div><span class="pill" id="cPill"></span></div>
+        <div class="card" id="revCard" hidden></div>
         <div class="card">
           <div class="toolbar"><input id="cSearch" type="search" placeholder="Search customers" aria-label="Search customers"/></div>
           <div class="tbl" id="cList"></div>
@@ -1789,6 +1813,22 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
           </div>
           <div class="card-f"><span class="help" id="qrMsg"></span><button class="btn accent" type="button" id="qrSave">Save bank account</button></div>
         </div>
+        <div class="card" id="cpCard">
+          <div class="card-h"><h2>🏷 Coupon codes</h2><span class="meta">Festival offers on your order page</span></div>
+          <div class="card-b form">
+            <div id="cpList" class="cp-list"></div>
+            <div class="cp-new">
+              <label class="field"><span class="lab">Code</span><input id="cpCode" maxlength="16" autocapitalize="characters" placeholder="TIHAR10"/></label>
+              <div class="field"><span class="lab">Type</span><div class="pk-seg" id="cpType" data-v="pct"><button type="button" data-v="pct" aria-checked="true">% off</button><button type="button" data-v="amt" aria-checked="false">Rs off</button></div></div>
+              <label class="field"><span class="lab">Discount</span><div class="unit"><input id="cpVal" type="number" min="1" step="1" inputmode="numeric" placeholder="10"/><span id="cpValU">%</span></div></label>
+              <label class="field"><span class="lab">Min order <em>optional</em></span><div class="unit pre"><span>Rs</span><input id="cpMin" type="number" min="0" step="1" inputmode="numeric" placeholder="0"/></div></label>
+              <label class="field"><span class="lab">Valid until <em>optional</em></span><input id="cpUntil" type="date"/></label>
+            </div>
+            <p class="help">Customers type the code at checkout and the discount is taken off the total and the QR amount. Codes are public once they’re on: share them on Facebook or WhatsApp.</p>
+            <div class="cp-ref"><label class="field"><span class="lab">Referral reward <em>shown to customers who share their link</em></span><input id="refBonus" maxlength="60" placeholder="e.g. Rs 20 off your next order"/></label><button class="btn" type="button" id="refSave">Save reward</button></div>
+          </div>
+          <div class="card-f"><button class="btn accent" type="button" id="cpAdd">+ Add code</button></div>
+        </div>
         <div class="card">
           <div class="card-h"><h2>Loyalty rewards</h2><span class="meta">Keeps customers coming back</span></div>
           <div class="card-b form">
@@ -1890,7 +1930,10 @@ service cloud.firestore {
     match /orders/{id} {
       allow create: if request.auth != null
         &amp;&amp; request.resource.data.cid == request.auth.uid
-        &amp;&amp; request.resource.data.keys().hasOnly(['name','phone','uid','items','method','note','at','status','total','cid','ccode'])
+        &amp;&amp; request.resource.data.keys().hasOnly(['name','phone','uid','items','method','note','at','status','total','cid','ccode','coupon','disc','ref'])
+        &amp;&amp; (!('disc' in request.resource.data) || (request.resource.data.disc is number &amp;&amp; request.resource.data.disc &gt;= 0))
+        &amp;&amp; (!('coupon' in request.resource.data) || (request.resource.data.coupon is string &amp;&amp; request.resource.data.coupon.size() &lt;= 16))
+        &amp;&amp; (!('ref' in request.resource.data) || (request.resource.data.ref is string &amp;&amp; request.resource.data.ref.size() &lt;= 12))
         &amp;&amp; request.resource.data.status == 'new'
         &amp;&amp; request.resource.data.name is string &amp;&amp; request.resource.data.name.size() &gt; 0 &amp;&amp; request.resource.data.name.size() &lt;= 60
         &amp;&amp; request.resource.data.uid is string &amp;&amp; request.resource.data.uid.size() &lt;= 14
@@ -1919,6 +1962,23 @@ service cloud.firestore {
         &amp;&amp; request.resource.data.keys().hasOnly(['img','at'])
         &amp;&amp; request.resource.data.img is string &amp;&amp; request.resource.data.img.size() &lt; 700000
         &amp;&amp; request.resource.data.img.matches('data:image/(png|jpeg|webp);base64,.*');
+    }
+    match /dshots/{id} {
+      allow write: if isAdmin();
+      allow read: if isAdmin() || (request.auth != null &amp;&amp; get(/databases/$(database)/documents/orders/$(id)).data.cid == request.auth.uid);
+    }
+    match /reviews/{id} {
+      allow read: if isAdmin() || (request.auth != null &amp;&amp; (resource == null || resource.data.cid == request.auth.uid));
+      allow list: if isAdmin();
+      allow create: if request.auth != null
+        &amp;&amp; request.resource.data.cid == request.auth.uid
+        &amp;&amp; get(/databases/$(database)/documents/orders/$(id)).data.cid == request.auth.uid
+        &amp;&amp; get(/databases/$(database)/documents/orders/$(id)).data.delivered == true
+        &amp;&amp; request.resource.data.keys().hasOnly(['stars','text','name','at','cid'])
+        &amp;&amp; request.resource.data.stars is int &amp;&amp; request.resource.data.stars &gt;= 1 &amp;&amp; request.resource.data.stars &lt;= 5
+        &amp;&amp; request.resource.data.text is string &amp;&amp; request.resource.data.text.size() &lt;= 160
+        &amp;&amp; request.resource.data.name is string &amp;&amp; request.resource.data.name.size() &lt;= 30;
+      allow update, delete: if isAdmin();
     }
   }
 }
@@ -2379,7 +2439,7 @@ function saveSettings(st, quiet){ return setDoc(settingsRef(), clone(st)).catch(
 
 let unsubs=[];
 function startSync(){
-  checkShotRules();
+  checkShotRules(); watchReviews();
   unsubs.push(onSnapshot(doc(db,'public','pay'), snap => { S.pay=snap.exists()?snap.data():{}; renderPayCard(); }, e => console.warn('pay',e)));
   unsubs.push(onSnapshot(settingsRef(), {includeMetadataChanges:false}, snap => {
     S.settings = Object.assign(clone(DEFAULT_SETTINGS), snap.exists() ? snap.data() : {});
@@ -2483,7 +2543,7 @@ addEventListener('resize', closeRowMenu);
 /* =========================================================
    RENDER
    ========================================================= */
-function renderAll(){ computeBook(); if (!$('sheetSale').hidden){ const s=S.sales.find(x=>x.id===$('sheetSale').dataset.id); if (s) openSaleView(s); else closeSaleView(); } renderRateBits(); renderCounts(); renderPage(currentPage); publishPrices(); try{ renderDesk(); renderCollect(); renderTrash(); renderPayCard(); renderLaunch(); renderLimit(); renderRazer(); const v=$('shVerified'); if (v&&document.activeElement!==v){ v.setAttribute('aria-checked',String(!!(S.settings.shop||{}).verified)); } pkSgdHint(); }catch(e){ console.warn(e); } }
+function renderAll(){ computeBook(); if (!$('sheetSale').hidden){ const s=S.sales.find(x=>x.id===$('sheetSale').dataset.id); if (s) openSaleView(s); else closeSaleView(); } renderRateBits(); renderCounts(); renderPage(currentPage); publishPrices(); try{ renderDesk(); renderCollect(); renderTrash(); renderPayCard(); renderLaunch(); renderLimit(); renderRazer(); renderRenew(); renderCoupons(); renderBlocked(); renderReviews(); renderRecap(); const v=$('shVerified'); if (v&&document.activeElement!==v){ v.setAttribute('aria-checked',String(!!(S.settings.shop||{}).verified)); } pkSgdHint(); }catch(e){ console.warn(e); } }
 function renderPage(p){
   ({overview:renderHome, orders:renderOrders, card:renderCardPage, sell:renderSell, sales:renderSales, customers:renderCustomers, prices:renderPrices, rate:renderRatePage, reports:renderReports, backup:renderBackup})[p]?.();
 }
@@ -2819,7 +2879,7 @@ function resetForm(pre={}){
     : (pre.pkId && pkgById(pre.pkId) ? [{pkId:pre.pkId, qty:1}] : []);
   let lastSrc=null; try{ lastSrc=localStorage.getItem('dc-src'); }catch(_){}
   S.form={ lines, method:METHODS.includes(pre.method)?pre.method:'Cash', status:'done', recvTouched:false, fromOrder:pre.fromOrder||null, ccode:pre.ccode||'', cid:pre.cid||'', src:lastSrc||(razerOn()?'razer':'card') };
-  $('fName').value=pre.customer||''; $('fPhone').value=pre.phone||''; $('fUid').value=pre.uid||''; $('fDisc').value=''; $('fNote').value=pre.note||''; $('fRecv').value=''; $('fErr2').textContent='';
+  $('fName').value=pre.customer||''; $('fPhone').value=pre.phone||''; $('fUid').value=pre.uid||''; $('fDisc').value=pre.discount?String(Math.round(pre.discount)):''; $('fNote').value=pre.note||''; $('fRecv').value=''; $('fErr2').textContent='';
   $('custHit').hidden=true; $('rewardHit').hidden=true; $('calcBox').hidden=true; $('calcOut').innerHTML='';
 }
 async function newSale(pre){
@@ -2990,7 +3050,7 @@ $('sellSave').addEventListener('click', async () => {
     else if (o) ['orderCode','paidAt','paidRef','paidShot','custNote','paidVia'].forEach(k=>{ if (o[k]!=null) r[k]=o[k]; }); if (o) r.updatedAt=Date.now(); if (o&&o.remindedAt) r.remindedAt=o.remindedAt; if (o&&o.paidAt) r.paidAt=o.paidAt;
     recs.push(r); });
   recs.forEach(saveSale);
-  if (f.fromOrder) setDoc(doc(db,'orders',f.fromOrder), {status:'done', doneAt:Date.now(), saleIds:recs.map(r=>r.id), delivered:f.status==='done'}, {merge:true}).catch(e=>console.warn(e));
+  if (f.fromOrder) setDoc(doc(db,'orders',f.fromOrder), {status:'done', doneAt:Date.now(), saleIds:recs.map(r=>r.id), delivered:f.status==='done', deliveredAt:f.status==='done'?Date.now():null}, {merge:true}).catch(e=>console.warn(e));
   const wasEdit=!!S.editId, r0=recs[0], tRev=recs.reduce((t,r)=>t+revenueOf(r),0), tGp=recs.reduce((t,r)=>t+(revenueOf(r)-r.cost),0);
   dirty.delete('sell'); S.editId=null; S.form=null; hitCust=null; $('custHit').hidden=true;
   toast(wasEdit?'Sale updated':(recs.length>1?'Order recorded ('+recs.length+' items): ':'Sale recorded: ')+rs(tRev)+', profit '+rsSigned(tGp), false, (!wasEdit && (r0.phone||navigator.share)) ? {label:'Send receipt', fn:()=>sendReceipt(S.sales.find(x=>x.id===r0.id)||r0)} : null);
@@ -3477,12 +3537,12 @@ function renderOrders(){
   const list=S.orders.filter(o=>o.status===S.oFilter).sort((p,q)=>(S.oFilter==='new'?((q.paidAt?1:0)-(p.paidAt?1:0)):0)||q.at-p.at);   // customers who say they paid come first
   $('oList').innerHTML = list.length ? list.map(o=>{ const items=(o.items||[]).map(i=>`${i.qty} × ${esc(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')}`).join(', ');
     return `<div class="ord${o.status==='new'&&Date.now()-o.at>15*60000?' late':''}" data-oid="${esc(o.id)}"><div class="o-top"><b>${esc(o.name||'Customer')} <small class="o-code">#${esc(o.id.slice(0,6).toUpperCase())}</small></b><span>${o.status==='new'&&Date.now()-o.at>15*60000?'⚠ waiting '+esc(ago(o.at).replace(' ago','')):esc(ago(o.at))}</span></div>
-      <div class="o-items">${items}</div>${orderPriceWarn(o)}
+      <div class="o-items">${items}</div>${blockBanner(o)}${orderPriceWarn(o)}${o.coupon?`<p class="o-cpn">🏷 Coupon <b>${esc(o.coupon)}</b> · −${rs(o.disc||0)}</p>`:''}${refLine(o)}
       <div class="o-meta">${o.ccode?`<span class="o-cid">🪪 ${esc(o.ccode)} · ${S.orders.filter(x=>x.cid&&x.cid===o.cid).length} order${S.orders.filter(x=>x.cid&&x.cid===o.cid).length===1?'':'s'}</span>`:''}<span>Total <b>${rs(o.total||0)}</b></span>${o.uid?`<span>UID <button type="button" class="o-cp" data-cp="${esc(o.uid)}" title="Copy UID"><b>${esc(o.uid)}</b> ⧉</button></span>`:''}${o.phone?`<span>📞 ${esc(o.phone)}</span>`:''}<span>Pays by ${esc(o.method||'–')}</span></div>
-      ${o.paidAt?`<p class="o-paid">💳 Customer says paid ${esc(ago(o.paidAt))}${o.paidRef?' · ref <b>'+esc(o.paidRef)+'</b>':''}</p>${o.paidAt&&!o.paidShot?`<p class="o-noshot">⚠ No screenshot attached${S.shotRulesOk===false?' (blocked by old Firestore rules)':''}</p>`:''}${o.paidShot?`<button class="o-shot" type="button" data-shot="${esc(o.id)}" aria-label="Open payment screenshot"><img data-shotimg="${esc(o.id)}" alt=""/><span><b>Payment screenshot</b><small>Tap to open full size</small></span></button>`:''}`:''}${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}${o.status==='rejected'&&o.reason?`<p class="o-note">✕ ${esc((REJECT_REASONS.find(r=>r[0]===o.reason)||[])[1]||o.reason)}${o.remark?` · “${esc(o.remark)}”`:''}</p>`:''}${o.status==='cancelled'?'<p class="o-note">Customer cancelled this order</p>':''}${orderTrail(o)}
-      <div class="o-acts">${o.status==='new'?`<button class="btn accent" type="button" data-oa="accept">Accept &amp; record sale</button>${waNumber(o.phone)?'<button class="btn" type="button" data-oa="wa">WhatsApp</button>':''}<button class="btn" type="button" data-oa="reject">Reject</button>`:o.status==='done'?(o.delivered?'<span class="o-ok">✓ Delivered</span>':'<span class="o-ok wtx">✓ Recorded · not delivered yet</span>')+'<button class="btn sm" type="button" data-oa="del">Remove</button>':(o.status==='cancelled'?'':'<button class="btn" type="button" data-oa="restore">Move back to new</button>')+'<button class="btn del-btn" type="button" data-oa="del">Delete</button>'}</div></div>`; }).join('')
+      ${o.paidAt?`<p class="o-paid">💳 Customer says paid ${esc(ago(o.paidAt))}${o.paidRef?' · ref <b>'+esc(o.paidRef)+'</b>':''}</p>${o.paidAt&&!o.paidShot?`<p class="o-noshot">⚠ No screenshot attached${S.shotRulesOk===false?' (blocked by old Firestore rules)':''}</p>`:''}${o.paidShot?`<button class="o-shot" type="button" data-shot="${esc(o.id)}" aria-label="Open payment screenshot"><img data-shotimg="${esc(o.id)}" alt=""/><span><b>Payment screenshot</b><small>Tap to open full size</small></span></button>`:''}`:''}${o.note?`<p class="o-note">📝 ${esc(o.note)}</p>`:''}${o.status==='rejected'&&o.reason?`<p class="o-note">✕ ${esc((REJECT_REASONS.find(r=>r[0]===o.reason)||[])[1]||o.reason)}${o.remark?` · “${esc(o.remark)}”`:''}</p>`:''}${o.status==='cancelled'?'<p class="o-note">Customer cancelled this order</p>':''}${orderTrail(o)}${dproofHTML(o)}
+      <div class="o-acts">${o.status==='new'?`<button class="btn accent" type="button" data-oa="accept">Accept &amp; record sale</button>${waNumber(o.phone)?'<button class="btn" type="button" data-oa="wa">WhatsApp</button>':''}<button class="btn" type="button" data-oa="reject">Reject</button>${blockHit(o)?'':'<button class="btn" type="button" data-oa="block" title="Block this customer">🚫 Block</button>'}`:o.status==='done'?(o.delivered?'<span class="o-ok">✓ Delivered</span>':'<span class="o-ok wtx">✓ Recorded · not delivered yet</span>')+'<button class="btn sm" type="button" data-oa="del">Remove</button>':(o.status==='cancelled'?'':'<button class="btn" type="button" data-oa="restore">Move back to new</button>')+(blockHit(o)?'':'<button class="btn" type="button" data-oa="block">🚫 Block</button>')+'<button class="btn del-btn" type="button" data-oa="del">Delete</button>'}</div></div>`; }).join('')
     : blank(S.oFilter==='new'?'No new orders':'Nothing here', S.oFilter==='new'?'Share your order page so customers can order themselves.':'');
-  loadShotThumbs();
+  loadShotThumbs(); loadDThumbs();
 }
 $('oFilters').addEventListener('click', e=>{ const b=e.target.closest('[data-of]'); if(!b) return; S.oFilter=b.dataset.of; renderOrders(); });
 $('oList').addEventListener('click', async e=>{
@@ -3490,8 +3550,9 @@ $('oList').addEventListener('click', async e=>{
   if (k==='accept'){ if (!o.paidAt && !await ask('No payment proof yet','This customer hasn’t sent a payment screenshot or transaction ID. Accept the order anyway?','Accept anyway')) return;
     const lines=(o.items||[]).filter(i=>pkgById(i.pkId)).map(i=>({pkId:i.pkId, qty:i.qty}));
     if (lines.length<(o.items||[]).length) toast('Some packages in this order are no longer in your list',true);
-    newSale({customer:o.name, phone:o.phone, uid:o.uid, lines, method:o.method==='Cash'||!o.method?'Cash':o.method, note:o.note||'', fromOrder:o.id, ccode:o.ccode||'', cid:o.cid||''}); }
+    newSale({customer:o.name, phone:o.phone, uid:o.uid, lines, method:o.method==='Cash'||!o.method?'Cash':o.method, note:[o.note, o.coupon?'Coupon '+o.coupon:'', o.ref?'Referred by '+o.ref:''].filter(Boolean).join(' · '), discount:o.disc||0, fromOrder:o.id, ccode:o.ccode||'', cid:o.cid||''}); }
   else if (k==='wa'){ open('https://wa.me/'+waNumber(o.phone)+'?text='+encodeURIComponent('Namaste '+(o.name||'')+' ji 🙏 Tapai ko order paayo: '+(o.items||[]).map(i=>i.qty+' × '+(i.kind==='member'?i.name:i.diamonds+' 💎')).join(', ')+'. Total '+rs(o.total||0)+'.'+((S.settings.shop||{}).pay?' Payment: '+S.settings.shop.pay:'')),'_blank','noopener'); }
+  else if (k==='block'){ blockOrder(o); }
   else if (k==='reject'){ openRowMenu(b, 'Why reject this order?', REJECT_REASONS.map(([key,label])=>({icon:'del', label, fn:()=>rejectOrder(o,key)}))); }
   else if (k==='restore'){ setDoc(ref,{status:'new', reason:null, remark:null},{merge:true}).catch(fail('Couldn\u2019t update the order.')); }
   else if (k==='del'){ const keep=o.status==='done'; if (!await ask('Delete this order?', keep?'The order request is removed. The sale and its payment screenshot stay as proof.':'The order request and its payment screenshot are removed.','Delete')) return; deleteDoc(ref).catch(fail('Couldn\u2019t delete the order.')); if (!keep) dropShot(o.id); }
@@ -3516,7 +3577,7 @@ function publicRecent(){   // first letter only, for social proof without exposi
 }
 function publishPrices(){
   if (!S.uid || !S.loaded) return;
-  const sh=S.settings.shop||{}, tp=topPackages()[0], payload={shop:{region:sh.region===undefined?'Singapore':sh.region, verified:!!sh.verified, name:sh.name||'',wa:sh.wa||'',pay:sh.pay||'',esewa:sh.esewa||'',khalti:sh.khalti||'',bank:sh.bank||'',cash:sh.cash!==false,open:sh.open!==false,notice:sh.notice||''}, popular:tp&&tp.n?tp.p.id:null, loyalty:{every:+(S.settings.loyalty||{}).every||0, pct:+(S.settings.loyalty||{}).pct||0}, stats:publicStats(), recent:publicRecent(), packages:S.settings.packages.map(p=>({id:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind||'topup', price:sellOf(p)}))};
+  const sh=S.settings.shop||{}, tp=topPackages()[0], payload={shop:{region:sh.region===undefined?'Singapore':sh.region, verified:!!sh.verified, name:sh.name||'',wa:sh.wa||'',pay:sh.pay||'',esewa:sh.esewa||'',khalti:sh.khalti||'',bank:sh.bank||'',cash:sh.cash!==false,open:sh.open!==false,notice:sh.notice||''}, popular:tp&&tp.n?tp.p.id:null, loyalty:{every:+(S.settings.loyalty||{}).every||0, pct:+(S.settings.loyalty||{}).pct||0}, stats:publicStats(), recent:publicRecent(), ...publicReviews(), ref:S.settings.refBonus||'', coupons:coupons().filter(couponLive).map(c=>({c:c.code, t:c.type||'pct', v:+c.val, m:+c.min||0, u:+c.until||0})), packages:S.settings.packages.map(p=>({id:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind||'topup', price:sellOf(p)}))};
   const j=JSON.stringify(payload); if (j===pubJSON) return;
   clearTimeout(pubTimer); pubTimer=setTimeout(()=>{ setDoc(doc(db,'public','prices'), {...payload, updatedAt:Date.now()}).then(()=>{ pubJSON=j; }).catch(e=>console.warn('publish prices',e)); }, 1500);
 }
@@ -3907,14 +3968,136 @@ $('imgv') && $('imgv').addEventListener('click', e=>{ if (e.target.id==='imgv'){
 addEventListener('keydown', e=>{ if (e.key==='Escape' && $('imgv') && !$('imgv').hidden){ $('imgv').hidden=true; } });
 
 
+/* =========================================================
+   v13: renewals · delivery proof · coupons · block list ·
+        reviews · referrals · day recap
+   ========================================================= */
+// ---------- 1. membership renewals ----------
+const memDays=s=>/month/i.test(s.pkgName||'')?30:7;   // Weekly / Weekly Lite = 7 days, Monthly = 30 days
+function renewals(){
+  const now=Date.now(), last=new Map();
+  S.sales.filter(isMem).forEach(s=>{ const k=custKey(s); if (k==='walkin') return; const c=last.get(k); if (!c||s.at>c.at) last.set(k,s); });
+  return [...last.values()].map(s=>({s, ends:s.at+memDays(s)*(s.qty||1)*864e5})).filter(x=>x.ends-now<2*864e5 && now-x.ends<10*864e5).sort((a,b)=>a.ends-b.ends);
+}
+function endsText(ends){ const d=Math.round((ends-Date.now())/864e5); return d>1?'ends in '+d+' days':d===1?'ends tomorrow':d===0?'ends today':'ended '+(-d)+' day'+(d===-1?'':'s')+' ago'; }
+function renderRenew(){
+  const el=$('renewCard'); if (!el) return; const list=S.loaded?renewals():[]; el.hidden=!list.length; if (el.hidden) return;
+  el.innerHTML=`<div class="card-h"><h2>🔁 Membership renewals</h2><span class="pill">${list.length}</span></div>
+    ${list.slice(0,8).map(({s,ends})=>{ const sent=s.remindedAt&&s.remindedAt>s.at; return `<div class="q-row"><div class="info"><span class="t">${esc(s.customer||'Customer')}</span><span class="s">${esc(s.pkgName)} · <b class="${ends<Date.now()?'warn':''}">${endsText(ends)}</b>${sent?' · reminded ✓':''}</span></div>
+      <div class="acts">${s.phone?`<button class="btn sm${sent?'':' primary'}" type="button" data-renew="${esc(s.id)}">${sent?'Remind again':'Remind'}</button>`:'<span class="meta">no phone</span>'}<button class="btn sm" type="button" data-sell-again="${esc(s.id)}">Renew</button></div></div>`; }).join('')}${list.length>8?`<p class="help" style="padding:10px 20px">+ ${list.length-8} more. Remind the first ones, then the rest show here.</p>`:''}`;
+}
+document.addEventListener('click', e=>{
+  const r=e.target.closest('[data-renew]'); if (r){ const s=S.sales.find(x=>x.id===r.dataset.renew); if (!s) return;
+    const ends=s.at+memDays(s)*(s.qty||1)*864e5, d=Math.round((ends-Date.now())/864e5), ne=d>1?d+' din ma sakinchha':d===1?'bholi sakinchha':d===0?'aaja sakinchha':(-d)+' din agadi sakiyo';
+    const msg=`Namaste ${s.customer||''} ji 🙏 Tapai ko Free Fire ${s.pkgName} ${ne}. Renew garna yo link bata order garnus: ${orderUrl()}`;
+    open('https://wa.me/'+waNumber(s.phone)+'?text='+encodeURIComponent(msg),'_blank','noopener'); saveSale({...s, remindedAt:Date.now()}); return; }
+  const a=e.target.closest('[data-sell-again]'); if (a){ const s=S.sales.find(x=>x.id===a.dataset.sellAgain); if (s) newSale({customer:s.customer, phone:s.phone, uid:s.uid, pkId:s.pkgId, method:s.method}); }
+});
+
+// ---------- 2. delivery proof (admin uploads, customer sees it) ----------
+const dshotCache=new Map();
+function dproofHTML(o){
+  if (o.status!=='done') return '';
+  return o.deliveryShot
+    ? `<div class="o-dp"><button class="o-shot" type="button" data-dview="${esc(o.id)}"><img data-dimg="${esc(o.id)}" alt=""/><span><b>Delivery proof ✓</b><small>Customer can see this</small></span></button><label class="btn sm">Change<input type="file" accept="image/*" data-dproof="${esc(o.id)}" hidden/></label></div>`
+    : `<label class="btn sm dp-up">📸 Add delivery proof<input type="file" accept="image/*" data-dproof="${esc(o.id)}" hidden/></label>`;
+}
+async function getDshot(id){ if (dshotCache.has(id)) return dshotCache.get(id); const p=getDoc(doc(db,'dshots',id)).then(sn=>{ const v=sn.exists()?String(sn.data().img||''):''; return /^data:image\//.test(v)?v:null; }).catch(()=>{ dshotCache.delete(id); return null; }); dshotCache.set(id,p); return p; }
+function loadDThumbs(){ document.querySelectorAll('img[data-dimg]:not([src])').forEach(async im=>{ const v=await getDshot(im.dataset.dimg); if (v) im.src=v; }); }
+document.addEventListener('change', async e=>{
+  const inp=e.target.closest('[data-dproof]'); if (!inp||!inp.files||!inp.files[0]) return; const id=inp.dataset.dproof, f=inp.files[0]; inp.value='';
+  try{ toast('Uploading delivery proof…'); let img=await shrinkImg(f,1100,.7); if (img.length>650000) img=await shrinkImg(f,800,.55);
+    await setDoc(doc(db,'dshots',id),{img, at:Date.now()}); await setDoc(doc(db,'orders',id),{deliveryShot:true},{merge:true}); dshotCache.set(id,Promise.resolve(img)); toast('✓ Delivery proof saved. The customer can see it.'); }
+  catch(err){ console.warn(err); toast('Couldn’t upload. Publish the new Firestore rules (Help → Orders).',true); }
+});
+document.addEventListener('click', async e=>{ const b=e.target.closest('[data-dview]'); if (!b) return; e.stopPropagation(); const v=await getDshot(b.dataset.dview); if (v) showImg(v,'Delivery proof · #'+b.dataset.dview.slice(0,6).toUpperCase(),'delivery-'+b.dataset.dview.slice(0,6)+'.jpg'); else toast('Not found',true); });
+
+// ---------- 3. coupon codes ----------
+const coupons=()=>(S.settings.coupons||[]);
+function couponLive(c){ return c.on!==false && (!c.until || c.until>Date.now()); }
+function couponText(c){ return (c.type==='amt'?'Rs '+nf(c.val):c.val+'%')+' off'+(c.min?' · min Rs '+nf(c.min):'')+(c.until?' · till '+new Date(c.until).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):''); }
+function couponDiscFor(code, subtotal){ const c=coupons().find(x=>x.code===String(code||'').toUpperCase()); if (!c||!couponLive(c)||subtotal<(c.min||0)) return null; return Math.min(subtotal, c.type==='amt'?Math.round(c.val):Math.round(subtotal*c.val/100)); }
+function renderCoupons(){
+  const el=$('cpList'); if (!el) return; const list=coupons();
+  el.innerHTML=list.length?list.map((c,i)=>`<div class="cp-row${couponLive(c)?'':' off'}"><b class="cp-code">${esc(c.code)}</b><span>${esc(couponText(c))}${!couponLive(c)?' · <em>'+(c.on===false?'paused':'expired')+'</em>':''}</span><button class="switch" type="button" role="switch" data-cpon="${i}" aria-checked="${c.on!==false}"><i></i></button><button class="icon-btn sm" type="button" data-cpdel="${i}" aria-label="Delete code">×</button></div>`).join('')
+    :'<p class="help">No codes yet. Make one for festivals, like TIHAR10 for 10% off.</p>';
+  const rb=$('refBonus'); if (rb&&document.activeElement!==rb) rb.value=S.settings.refBonus||'';
+}
+function saveCoupons(list, msg){ const st={...S.settings, coupons:list}; S.settings=st; saveSettings(st); renderAll(); if (msg) toast(msg); }
+$('cpAdd') && $('cpAdd').addEventListener('click', ()=>{
+  const code=$('cpCode').value.trim().toUpperCase().replace(/[^A-Z0-9]/g,'').slice(0,16), val=+$('cpVal').value, min=+$('cpMin').value||0, d=$('cpUntil').value, type=$('cpType').dataset.v||'pct';
+  if (!code) return toast('Type a code, e.g. TIHAR10',true); if (!(val>0)||(type==='pct'&&val>90)) return toast(type==='pct'?'Discount must be 1–90%':'Enter the discount amount',true);
+  if (coupons().some(c=>c.code===code)) return toast('That code already exists',true);
+  saveCoupons([...coupons(), {code, type, val, min, until:d?new Date(d+'T23:59:59').getTime():0, on:true}], 'Code '+code+' is live on your order page');
+  ['cpCode','cpVal','cpMin','cpUntil'].forEach(i=>$(i).value='');
+});
+$('cpType') && $('cpType').addEventListener('click', e=>{ const b=e.target.closest('button'); if (!b) return; $('cpType').dataset.v=b.dataset.v; $('cpType').querySelectorAll('button').forEach(x=>x.setAttribute('aria-checked',String(x===b))); $('cpValU').textContent=b.dataset.v==='pct'?'%':'Rs'; });
+document.addEventListener('click', async e=>{
+  const t=e.target.closest('[data-cpon]'); if (t){ const l=coupons().map(c=>({...c})); const c=l[+t.dataset.cpon]; c.on=c.on===false; saveCoupons(l, c.code+(c.on?' is on':' is paused')); return; }
+  const d=e.target.closest('[data-cpdel]'); if (d){ const c=coupons()[+d.dataset.cpdel]; if (!await ask('Delete '+c.code+'?','Customers can’t use this code any more.','Delete')) return; saveCoupons(coupons().filter((_,i)=>i!==+d.dataset.cpdel), 'Code deleted'); }
+});
+$('refSave') && $('refSave').addEventListener('click', ()=>{ const st={...S.settings, refBonus:$('refBonus').value.trim().slice(0,60)}; S.settings=st; saveSettings(st); renderAll(); toast(st.refBonus?'Referral reward saved':'Referrals turned off'); });
+
+// ---------- 4. block list ----------
+const blocked=()=>(S.settings.blocked||[]);
+const normPh=v=>String(v||'').replace(/\D/g,'').slice(-10);
+function blockHit(o){ const ph=normPh(o.phone); return blocked().find(b=>(b.uid&&o.uid&&b.uid===String(o.uid).trim())||(b.phone&&ph&&b.phone===ph)); }
+function blockBanner(o){ const b=blockHit(o); return b?`<p class="o-block">🚫 Blocked customer${b.why?': '+esc(b.why):''}</p>`:''; }
+async function blockOrder(o){
+  const why=await askRemark('Block this customer?','UID '+(o.uid||'–')+(o.phone?' and phone '+o.phone:'')+' will show a warning on every future order. Add a reason (optional).');
+  if (why===null) return; const st={...S.settings, blocked:[...blocked(), {uid:String(o.uid||'').trim(), phone:normPh(o.phone), name:o.name||'', why, at:Date.now()}]}; S.settings=st; saveSettings(st); renderAll(); toast('Customer blocked');
+}
+function renderBlocked(){
+  const el=$('blockCard'); if (!el) return; const l=blocked(); el.hidden=!l.length; if (el.hidden) return;
+  el.innerHTML=`<details><summary class="card-h"><h2>🚫 Blocked customers</h2><span class="pill">${l.length}</span></summary>${l.map((b,i)=>`<div class="q-row"><div class="info"><span class="t">${esc(b.name||'Customer')}</span><span class="s">${b.uid?'UID '+esc(b.uid):''}${b.phone?' · '+esc(b.phone):''}${b.why?' · '+esc(b.why):''}</span></div><div class="acts"><button class="btn sm" type="button" data-unblock="${i}">Unblock</button></div></div>`).join('')}</details>`;
+}
+document.addEventListener('click', async e=>{ const u=e.target.closest('[data-unblock]'); if (!u) return; if (!await ask('Unblock this customer?','Their orders won’t show the warning any more.','Unblock',false)) return; const st={...S.settings, blocked:blocked().filter((_,i)=>i!==+u.dataset.unblock)}; S.settings=st; saveSettings(st); renderAll(); });
+
+// ---------- 5. reviews ----------
+S.reviews=[];
+function watchReviews(){ unsubs.push(onSnapshot(collection(db,'reviews'), snap=>{ S.reviews=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>b.at-a.at); renderReviews(); publishPrices(); }, e=>console.warn('reviews',e))); }
+function reviewStats(){ const r=S.reviews; return r.length?{avg:r.reduce((t,x)=>t+(+x.stars||0),0)/r.length, n:r.length}:{avg:0,n:0}; }
+function renderReviews(){
+  const el=$('revCard'); if (!el) return; const r=S.reviews; el.hidden=!r.length; if (el.hidden) return; const st=reviewStats();
+  el.innerHTML=`<div class="card-h"><h2>⭐ Reviews</h2><span class="meta">${st.avg.toFixed(1)} ★ from ${st.n}</span></div>
+    ${r.slice(0,12).map(x=>`<div class="q-row"><div class="info"><span class="t">${'★'.repeat(+x.stars||0)}<span class="dim">${'★'.repeat(5-(+x.stars||0))}</span> · ${esc(x.name||'Customer')}</span><span class="s">${x.text?'“'+esc(x.text)+'”':'No comment'} · ${esc(ago(x.at))}</span></div>
+      <div class="acts"><button class="btn sm${x.shown?' primary':''}" type="button" data-rshow="${esc(x.id)}">${x.shown?'On page ✓':'Show on page'}</button><button class="icon-btn sm" type="button" data-rdel="${esc(x.id)}" aria-label="Delete review">×</button></div></div>`).join('')}
+    <div class="card-f"><span class="help">Only reviews you choose are shown on your order page. Your average rating shows there once you have 3 reviews.</span></div>`;
+}
+document.addEventListener('click', async e=>{
+  const s=e.target.closest('[data-rshow]'); if (s){ const x=S.reviews.find(r=>r.id===s.dataset.rshow); if (x) setDoc(doc(db,'reviews',x.id),{shown:!x.shown},{merge:true}).catch(fail('Couldn’t update the review.')); return; }
+  const d=e.target.closest('[data-rdel]'); if (d){ if (!await ask('Delete this review?','It is removed for good.','Delete')) return; deleteDoc(doc(db,'reviews',d.dataset.rdel)).catch(fail('Couldn’t delete the review.')); }
+});
+function publicReviews(){ const st=reviewStats(); return {rating: st.n>=3?{avg:Math.round(st.avg*10)/10, n:st.n}:null, reviews:S.reviews.filter(r=>r.shown).slice(0,6).map(r=>({n:String(r.name||'Player').split(' ')[0].slice(0,20), s:+r.stars||5, t:String(r.text||'').slice(0,160), at:r.at}))}; }
+
+// ---------- 6. referrals ----------
+function refsBy(code){ return code?S.orders.filter(o=>o.ref===code):[]; }
+function refLine(o){ if (!o.ref) return ''; const by=S.orders.find(x=>x.ccode===o.ref); return `<p class="o-ref">🤝 Referred by <b>${esc(o.ref)}</b>${by?' ('+esc(by.name)+')':''}</p>`; }
+
+// ---------- 7. yesterday recap + evening summary ----------
+function renderRecap(){
+  const el=$('recapCard'); if (!el) return; const y0=startOfDay()-864e5, key=new Date(y0).toDateString();
+  let seen=''; try{ seen=localStorage.getItem('dc-recap')||''; }catch(_){}
+  const st=stats(inRange(y0, startOfDay())); el.hidden=!S.loaded||seen===key||!st.n; if (el.hidden) return;
+  el.innerHTML=`<span class="ai">🌅</span><div><b>Yesterday: ${st.n} sale${st.n===1?'':'s'} · ${rs(st.rev)} · profit ${rsSigned(st.profit)}</b><small>${nf(st.dia)} 💎 sold${S.orders.filter(o=>o.status==='new').length?' · '+S.orders.filter(o=>o.status==='new').length+' order(s) still waiting':''}</small></div><button class="btn sm" type="button" id="recapOk">OK</button>`;
+  $('recapOk').onclick=()=>{ try{ localStorage.setItem('dc-recap',key); }catch(_){} renderRecap(); };
+}
+setInterval(()=>{ const d=new Date(); if (d.getHours()<21||!S.loaded) return; const key=d.toDateString(); let done=''; try{ done=localStorage.getItem('dc-night')||''; }catch(_){} if (done===key) return;
+  try{ localStorage.setItem('dc-night',key); }catch(_){} const st=stats(inRange(startOfDay(),Infinity)), w=S.orders.filter(o=>o.status==='new').length;
+  const msg=`Today: ${st.n} sale${st.n===1?'':'s'}, ${rs(st.rev)}, profit ${rsSigned(st.profit)}${w?` · ${w} order(s) waiting`:''}`;
+  toast('🌙 '+msg); if (XA.push&&'Notification' in window&&Notification.permission==='granted'){ const o={body:msg, icon:'/icon-192.png', tag:'night-'+key, data:{url:location.pathname+'#overview'}}; if (navigator.serviceWorker&&navigator.serviceWorker.controller) navigator.serviceWorker.ready.then(r=>r.showNotification('🌙 Day summary',o)).catch(()=>{}); else { try{ new Notification('🌙 Day summary',o); }catch(_){} } }
+}, 60000);
+
 /* ---------- order checks: price tampering + who-did-what timeline ---------- */
 function orderPriceWarn(o){
   const items=o.items||[]; if (!items.length) return '';
   const sumItems=items.reduce((t,i)=>t+(Number(i.price)||0)*(Number(i.qty)||0),0);
   let expected=0, known=true; items.forEach(i=>{ const p=pkgById(i.pkId); if (!p) known=false; else expected+=sellOf(p)*(Number(i.qty)||0); });
-  const tot=Number(o.total)||0, msgs=[];
-  if (Math.abs(sumItems-tot)>1) msgs.push(`Items add up to ${rs(sumItems)}, but the order says ${rs(tot)}`);
-  if (known && tot < expected*0.97) msgs.push(`Your price list today is ${rs(expected)}. This order shows ${rs(tot)}`);
+  const tot=Number(o.total)||0, disc=Number(o.disc)||0, msgs=[];
+  if (Math.abs(sumItems-disc-tot)>1) msgs.push(`Items add up to ${rs(sumItems-disc)}${disc?' after the coupon':''}, but the order says ${rs(tot)}`);
+  if (o.coupon){ const ok=couponDiscFor(o.coupon, sumItems); if (ok===null) msgs.push(`Coupon ${o.coupon} isn’t valid now`); else if (disc>ok+1) msgs.push(`Coupon ${o.coupon} gives ${rs(ok)} off, but the order took ${rs(disc)}`); }
+  const want=known?expected-(o.coupon?(couponDiscFor(o.coupon,expected)||0):0):0;
+  if (known && tot < want*0.97) msgs.push(`Your price list today is ${rs(want)}. This order shows ${rs(tot)}`);
   return msgs.length&&o.status==='new' ? `<p class="o-warn">⚠ ${msgs.map(esc).join('. ')}. Check the payment carefully.</p>` : '';
 }
 function orderTrail(o){

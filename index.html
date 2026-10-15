@@ -583,6 +583,35 @@ textarea{min-height:64px;resize:vertical}
 .srv{margin-top:8px;padding:7px 10px;border-radius:8px;background:var(--blue-soft);color:var(--ink-2);font-size:.82rem}
 .srv b{color:var(--ink)}
 
+/* v13 customer */
+.co-cut{display:flex;justify-content:space-between;font-size:.95rem;color:var(--muted);padding:4px 0}
+.co-rows+.co-cut{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line-2)}
+.co-cut b{color:var(--ink)}
+.co-cut.ok b{color:var(--ok)}
+.co-cut.ok{color:var(--ok)}
+.cpn-box{margin-top:12px}
+.cpn-box summary{list-style:none;cursor:pointer;width:max-content}
+.cpn-box summary::-webkit-details-marker{display:none}
+.cpn{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:12px;padding:10px 12px;border-radius:10px;background:var(--ok-soft);color:var(--ok);font-size:.9rem}
+.invite .co-p{color:var(--ink-2);font-size:.9rem;margin:-6px 0 12px}
+.inv-link{padding:10px 12px;border-radius:10px;background:var(--sunken);font-size:.84rem;overflow-wrap:anywhere;margin-bottom:12px}
+.two-b{grid-template-columns:1fr 1fr}
+.revs .rev-list{display:grid;gap:0}
+.rev{padding:12px 16px;border-top:1px solid var(--line)}
+.rev:first-child{border-top:none}
+.rev .rs{color:#F5B700;letter-spacing:2px}
+.rev .rs span{opacity:.25}
+.rev p{margin:4px 0 2px;font-size:.92rem;color:var(--ink-2)}
+.rev small{color:var(--muted);font-size:.76rem}
+.rev.mine{border:1px solid var(--line);border-radius:12px;margin-bottom:12px}
+.rate{display:grid;gap:10px;padding:14px;border:1px solid var(--line);border-radius:12px;margin-bottom:12px;background:var(--surface-2)}
+.stars{display:flex;gap:6px}
+.stars button{font-size:2rem;line-height:1;color:var(--line-2);transition:transform .1s,color .1s}
+.stars button[aria-checked=true]{color:#F5B700}
+.stars button:active{transform:scale(1.2)}
+.dp-btn{margin-bottom:12px}
+.again.renew{border-color:#F4D7A6;background:var(--warn-soft)}
+
 </style>
 </head>
 <body class="v-shop">
@@ -799,7 +828,7 @@ function startTicker(){
    ========================================================= */
 function hero(){
   const s=P.stats||{}, open=isOpen(), rec=P.recent||[];
-  const tiles=[s.delivered>=10&&['Orders delivered',nf(s.delivered)+'+'], s.customers>=10&&['Happy players',nf(s.customers)+'+'], s.avgMins&&['Often loaded in','~'+s.avgMins+' min']].filter(Boolean);
+  const tiles=[P.rating&&['Rating',P.rating.avg+' ★'], s.delivered>=10&&['Orders delivered',nf(s.delivered)+'+'], s.customers>=10&&['Happy players',nf(s.customers)+'+'], s.avgMins&&['Often loaded in','~'+s.avgMins+' min']].filter(Boolean).slice(0,3);
   return `<section class="hero">${RIDGE}<p class="live"><i class="${open?'':'off'}"></i>${open?'Taking orders now':'Orders paused'}</p>
     <h1>Free Fire diamonds</h1><p class="sub">Top up straight to your UID. Pay with eSewa, Khalti or bank, then watch your order go through live.</p>
     ${tiles.length?`<div class="hstats" style="grid-template-columns:repeat(${tiles.length},minmax(0,1fr))">${tiles.map(([a,b])=>`<div><span>${a}</span><b>${b}</b></div>`).join('')}</div>`:''}
@@ -976,9 +1005,9 @@ function sumHTML(){
     <ul class="chk">${['Player UID','Package','Payment on the next step'].map((x,i)=>`<li class="${pr[i]?'ok':''}"><i>${pr[i]?IC.check:i+1}</i>${x}</li>`).join('')}</ul>
     <button class="btn ${ready?'accent':'solid'} block" type="button" data-checkout ${isOpen()?'':'disabled'}>${ready?'Checkout · '+rs(total()):'Checkout'}</button></div></section>`;
 }
-function persoHTML(){ return againCard()+loyalty(); }
+function persoHTML(){ return renewCard()+againCard()+loyalty(); }
 function viewShop(){
-  return hero()+notices()+`<div id="perso">${persoHTML()}</div><div class="shop-grid"><div>${step1()}${step2()}${extras()}</div><aside class="osum" id="osum">${sumHTML()}</aside></div>`;
+  return hero()+notices()+`<div id="perso">${persoHTML()}</div><div class="shop-grid"><div>${step1()}${step2()}${reviewsHTML()}${extras()}</div><aside class="osum" id="osum">${sumHTML()}</aside></div>`;
 }
 function readForm(){ const u=$('uid'); if(!u) return; me.uid=u.value.replace(/\D/g,''); me.name=$('name').value.trim(); me.phone=$('phone').value.trim(); const n=$('note'); me.note=n?n.value.trim():me.note; me.remember=$('remember').checked; }
 function saveMe(){ store.set('dc-me', me.remember?{name:me.name,phone:me.phone,uid:me.uid,remember:true}:{remember:false}); }
@@ -1193,6 +1222,8 @@ function trackHTML(o){
   return `<section class="card"><div class="card-h"><h2>Order status</h2><button class="code" type="button" style="margin:0" data-copy="${code(o.id)}">#${esc(code(o.id))} ${IC.copy}</button></div><div class="card-b">
     ${['new','done'].includes(k)?`<p class="hint" style="display:flex;align-items:center;gap:8px;margin:-2px 0 12px"><i class="dot"></i>Live. This page updates by itself.</p>`:''}
     ${eta}<ol class="tl">${steps}</ol>
+    ${k==='dlv'&&o.deliveryShot&&mine?`<button class="btn block dp-btn" type="button" data-dproof="${esc(o.id)}">📸 See delivery proof</button>`:''}
+    ${k==='dlv'&&mine?reviewBox(o):''}
     ${k==='rej'?`<div class="reason"><b>${esc(rsn[0])}</b>${o.remark?`<p class="rmk"><span>Message from the shop</span>${esc(o.remark)}</p>`:''}<small>${esc(rsn[1])}</small></div>`:''}
     ${mine&&k==='new'?paidForm(o):''}
     ${mine&&k==='new'&&o.method&&!o.paidAt?payBox(o.method,'payinfo big',o.total):''}
@@ -1302,6 +1333,7 @@ function viewAccount(){
       <div class="stats"><div><span>Orders</span><b>${MY.length}</b></div><div><span>Spent</span><b>${rs(spent)}</b></div><div><span>Diamonds</span><b>${nf(dia)}</b></div><div><span>Active</span><b>${active()}</b></div></div>
     </div></section>
     ${P?loyalty():''}
+    ${inviteHTML()}
     <section class="card"><div class="card-h"><h2>My details</h2></div><div class="card-b">
       <div class="field"><label class="lab" for="pName">Name</label><input type="text" id="pName" maxlength="60" value="${esc(CP.name||'')}"/></div>
       <div class="field"><label class="lab" for="pPhone">WhatsApp number</label><input type="tel" id="pPhone" maxlength="15" value="${esc(CP.phone||'')}"/></div>
@@ -1331,9 +1363,92 @@ document.addEventListener('click', async e=>{
    ROUTING
    ========================================================= */
 /* =========================================================
+   v13 customer: coupons · referrals · reviews · delivery proof · renewals
+   ========================================================= */
+// ---------- coupons ----------
+function couponFor(code){ const c=((P&&P.coupons)||[]).find(x=>x.c===String(code||'').toUpperCase()); return c&&(!c.u||c.u>Date.now())?c:null; }
+function couponDisc(){ if (!co.coupon) return 0; const c=couponFor(co.coupon), t=total(); if (!c||t<(c.m||0)) return 0; return Math.min(t, c.t==='amt'?Math.round(c.v):Math.round(t*c.v/100)); }
+const payTotal=()=>Math.max(0,total()-couponDisc());
+function couponHTML(){
+  if (!((P&&P.coupons)||[]).length) return '';
+  const d=couponDisc(), c=co.coupon&&couponFor(co.coupon);
+  if (co.coupon&&d>0) return `<div class="cpn ok"><span>🏷 <b>${esc(co.coupon)}</b> applied · −${rs(d)}</span><button type="button" class="link" id="cpnRm">Remove</button></div>`;
+  return `<details class="cpn-box" ${co.cpErr?'open':''}><summary class="link">🏷 Have a coupon code?</summary><div class="row2" style="margin-top:8px"><input type="text" id="cpnIn" maxlength="16" autocapitalize="characters" placeholder="e.g. TIHAR10" value="${esc(co.cpIn||'')}"/><button class="btn solid" type="button" id="cpnApply">Apply</button></div>${co.cpErr?`<p class="hint warn" style="margin-top:6px">${esc(co.cpErr)}</p>`:''}</details>`;
+}
+function applyCoupon(){
+  const code=(($('cpnIn')||{}).value||'').trim().toUpperCase().replace(/[^A-Z0-9]/g,''); co.cpIn=code; co.cpErr='';
+  const c=couponFor(code);
+  if (!code) co.cpErr='Type your coupon code.';
+  else if (!c) co.cpErr='That code isn’t valid or has expired.';
+  else if (total()<(c.m||0)) co.cpErr=`This code needs an order of ${rs(c.m)} or more.`;
+  else { co.coupon=code; toast('Coupon applied ✓ You save '+rs(couponDisc()),'ok'); buzz(); }
+  renderCheckout();
+}
+document.addEventListener('click', e=>{
+  if (e.target.closest('#cpnApply')){ applyCoupon(); return; }
+  if (e.target.closest('#cpnRm')){ co.coupon=''; co.cpIn=''; renderCheckout(); }
+});
+document.addEventListener('keydown', e=>{ if (e.key==='Enter'&&e.target.id==='cpnIn'){ e.preventDefault(); applyCoupon(); } });
+
+// ---------- referrals ----------
+(function(){ const r=(new URLSearchParams(location.search).get('ref')||'').toUpperCase(); if (/^C-[A-Z0-9]{5}$/.test(r)) store.set('dc-ref', r); })();
+const myRef=()=>{ const r=store.get('dc-ref',''); return r&&(!CP||CP.code!==r)?r:''; };
+function inviteHTML(){
+  if (!P||!P.ref||!CP||!CP.code) return '';
+  const link=location.origin+location.pathname+'?ref='+CP.code;
+  return `<section class="card invite"><div class="card-b"><h2 class="co-t"><span class="i">🤝</span>Invite friends</h2>
+    <p class="co-p">Share your link. When a friend orders with it, you get <b>${esc(P.ref)}</b>. The shop adds it to your next order.</p>
+    <div class="inv-link"><span class="num">${esc(link.replace(/^https?:\/\//,''))}</span></div>
+    <div class="btns two-b"><button class="btn" type="button" data-copy="${esc(link)}">${IC.copy}Copy link</button><button class="btn accent" type="button" id="invShare">${IC.share}Share</button></div></div></section>`;
+}
+document.addEventListener('click', e=>{ if (!e.target.closest('#invShare')||!CP) return; const link=location.origin+location.pathname+'?ref='+CP.code, msg=`💎 I buy Free Fire diamonds here. Fast and safe: ${link}`;
+  if (navigator.share) navigator.share({text:msg}).catch(()=>{}); else open('https://wa.me/?text='+encodeURIComponent(msg),'_blank','noopener'); });
+
+// ---------- reviews ----------
+const revState=new Map();   // orderId -> {loaded, data}
+function reviewsHTML(){
+  const r=(P&&P.reviews)||[]; if (!r.length) return '';
+  return `<section class="card revs"><div class="card-h"><h2>⭐ What players say</h2>${P.rating?`<span class="hint">${P.rating.avg} ★ · ${P.rating.n} reviews</span>`:''}</div><div class="rev-list">${r.map(x=>`<div class="rev"><div class="rs">${'★'.repeat(x.s)}<span>${'★'.repeat(5-x.s)}</span></div>${x.t?`<p>“${esc(x.t)}”</p>`:''}<small>${esc(x.n)} · ${esc(ago(x.at))}</small></div>`).join('')}</div></section>`;
+}
+function reviewBox(o){
+  const st=revState.get(o.id);
+  if (!st){ revState.set(o.id,{loaded:false}); getDoc(doc(db,'reviews',o.id)).then(s=>{ revState.set(o.id,{loaded:true, data:s.exists()?s.data():null}); const b=$('revBox'); if (b) b.innerHTML=reviewInner(o); }).catch(()=>{ revState.set(o.id,{loaded:true, data:null, off:true}); const b=$('revBox'); if (b) b.innerHTML=reviewInner(o); }); return `<div id="revBox"></div>`; }
+  return `<div id="revBox">${reviewInner(o)}</div>`;
+}
+function reviewInner(o){
+  const st=revState.get(o.id)||{}; if (!st.loaded||st.off) return '';
+  if (st.data) return `<div class="rev mine"><div class="rs">${'★'.repeat(st.data.stars)}<span>${'★'.repeat(5-st.data.stars)}</span></div>${st.data.text?`<p>“${esc(st.data.text)}”</p>`:''}<small>Thanks for your review! 🙏</small></div>`;
+  return `<div class="rate"><b>How was your order?</b><div class="stars" role="radiogroup" aria-label="Rating">${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" aria-label="${n} star${n>1?'s':''}" aria-checked="${(st.pick||0)>=n}">★</button>`).join('')}</div>
+    <textarea id="revText" maxlength="160" placeholder="Say something about the shop (optional)">${esc(st.text||'')}</textarea><button class="btn accent block" type="button" data-revsend="${esc(o.id)}" ${st.pick?'':'disabled'}>Send review</button></div>`;
+}
+document.addEventListener('click', async e=>{
+  const s=e.target.closest('[data-star]'); if (s&&lastTrack){ const st=revState.get(lastTrack.id)||{loaded:true}; st.pick=+s.dataset.star; st.text=($('revText')||{}).value||''; revState.set(lastTrack.id,st); $('revBox').innerHTML=reviewInner(lastTrack); buzz(); return; }
+  const b=e.target.closest('[data-revsend]'); if (b){ const id=b.dataset.revsend, st=revState.get(id)||{}; const text=(($('revText')||{}).value||'').trim().slice(0,160); b.disabled=true;
+    const data={stars:st.pick||5, text, name:String(me.name||(CU&&CU.displayName)||'Player').split(' ')[0].slice(0,30), at:Date.now(), cid:CU.uid};
+    try{ await setDoc(doc(db,'reviews',id), data); revState.set(id,{loaded:true, data}); $('revBox').innerHTML=reviewInner(lastTrack); toast('Thanks for your review! 🙏','ok'); }
+    catch(err){ console.warn(err); b.disabled=false; toast('Couldn’t send the review. Try again later.','bad'); } }
+});
+
+// ---------- delivery proof ----------
+document.addEventListener('click', async e=>{ const b=e.target.closest('[data-dproof]'); if (!b) return; b.disabled=true;
+  try{ const s=await getDoc(doc(db,'dshots',b.dataset.dproof)); const v=s.exists()?String(s.data().img||''):''; if (!/^data:image\//.test(v)) throw new Error('none');
+    openSheet(`<div class="grab"></div><h3>Delivery proof</h3><p class="q">The shop’s screenshot after topping up your UID.</p><div class="qrsheet" style="aspect-ratio:auto"><img src="${v}" alt="Delivery proof"/></div><div class="btns" style="margin-top:14px"><a class="btn solid block" href="${v}" download="delivery-proof.jpg">⬇ Save to gallery</a><button class="btn ghost block" type="button" id="dpClose">Close</button></div>`); $('dpClose').onclick=closeSheet; }
+  catch(err){ toast('Couldn’t open the proof right now','bad'); } b.disabled=false; });
+
+// ---------- membership renewal nudge ----------
+function renewCard(){
+  if (!P||!myLoaded) return ''; const now=Date.now();
+  const m=MY.filter(o=>o.delivered&&(o.items||[]).some(i=>i.kind==='member')).sort((a,b)=>b.at-a.at)[0]; if (!m) return '';
+  const it=m.items.find(i=>i.kind==='member'), days=/month/i.test(it.name||'')?30:7, ends=(m.deliveredAt||m.at)+days*(it.qty||1)*864e5;
+  if (ends-now>2*864e5||now-ends>10*864e5||!pk(it.pkId)) return '';
+  const d=Math.round((ends-now)/864e5), when=d>1?'ends in '+d+' days':d===1?'ends tomorrow':d===0?'ends today':'ended '+(-d)+' day'+(d===-1?'':'s')+' ago';
+  return `<div class="again renew"><span class="ai">🔁</span><div><b>Your ${esc(it.name)} ${when}</b><small>Renew now so you don’t miss a day of rewards.</small></div><button class="btn sm accent" type="button" data-again="${esc(m.id)}">Renew</button></div>`;
+}
+
+/* =========================================================
    CHECKOUT PAGE (#checkout): summary, how to pay, upload receipt
    ========================================================= */
-const co={method:null, ref:''};
+const co={method:null, ref:'', coupon:'', cpIn:'', cpErr:''};
 const TERMS=[
   ['Check your UID','Diamonds go to the UID you entered. Top-ups sent to a wrong UID can’t be moved or refunded.'],
   ['Payment first','We verify every payment first. Diamonds are loaded to your UID within 24 hours after verification.'],
@@ -1347,8 +1462,8 @@ const coMethods=()=>{ const s=P.shop, q=PAY.qr||{}, b=PAY.bank||{}, out=[];
 const coLabel=m=>m==='Bank'?((PAY.qr||{}).all?'QR / Bank':'Bank'):m;
 function coQr(m){   // the QR that belongs to this method (Bank uses the all-apps QR too)
   const q=PAY.qr||{}; if (m==='Cash') return null;
-  if (m==='Bank'){ if (q.bank) return qrFor('Bank', total()); if (q.all) return qrFor('Bank', total()); return null; }
-  return q[qrKey(m)] ? qrFor(m, total()) : null;
+  if (m==='Bank'){ if (q.bank) return qrFor('Bank', payTotal()); if (q.all) return qrFor('Bank', payTotal()); return null; }
+  return q[qrKey(m)] ? qrFor(m, payTotal()) : null;
 }
 function brandOf(m){
   if (m==='eSewa') return ['eSewa','esewa']; if (m==='Khalti') return ['Khalti','khalti'];
@@ -1358,7 +1473,7 @@ function brandOf(m){
 function coPayHTML(){
   const m=co.method; if (!m) return '';
   if (m==='Cash') return `<div class="pc pc-d"><h3>💵 Pay in cash</h3><p class="pc-sub" style="text-align:left">Place your order now and pay when you meet the shop. We top up after the shop gets the cash.</p></div>`;
-  const q=coQr(m), [bn,bc]=brandOf(m), s=P.shop, b=PAY.bank||{}, amt=total();
+  const q=coQr(m), [bn,bc]=brandOf(m), s=P.shop, b=PAY.bank||{}, amt=payTotal();
   const qr=q?`<div class="pc"><p class="pc-k">We accept</p><span class="brand ${bc}">${esc(bn)}</span>
       <p class="pc-sub">${q.any?'Scan with eSewa, Khalti or any bank app':'Open '+esc(m)+' and tap Scan'}</p>
       <button type="button" class="pc-qr" data-qr="${esc(m)}" aria-label="Open QR code"><img src="${q.src}" alt="QR code"/></button>
@@ -1395,7 +1510,9 @@ function viewCheckout(){
       <dl class="co-rows">${ls.map(l=>{ const p=pk(l.id); return `<dt>${l.qty} × ${esc(label(p))}</dt><dd class="num">${rs(p.price*l.qty)}</dd>`; }).join('')}
         <dt>Diamonds</dt><dd class="num">${nf(cartDia())}</dd>
         <dt>Delivery</dt><dd>Within 24 hours after verification</dd></dl>
-      <div class="co-price"><div class="tot"><span>Total payable</span><b class="num">${rs(total())}</b></div></div>
+      ${couponDisc()?`<div class="co-cut"><span>Subtotal</span><b class="num">${rs(total())}</b></div><div class="co-cut ok"><span>Coupon ${esc(co.coupon)}</span><b class="num">−${rs(couponDisc())}</b></div>`:''}
+      <div class="co-price"><div class="tot"><span>Total payable</span><b class="num">${rs(payTotal())}</b></div></div>
+      ${couponHTML()}
     </div>
     <div class="co-sec">
       <h2 class="co-t"><span class="i">🎮</span>Player details<a class="link co-edit" href="./" data-nav="shop">Change</a></h2>
@@ -1418,7 +1535,8 @@ function viewCheckout(){
   </section>`;
 }
 function renderCheckout(){
-  if (!P) return; if (!lines().length||!uidValid(me.uid)||!me.name){ history.replaceState(null,'',location.pathname); route(); return; }
+  if (!P) return;
+  if (co.coupon&&!couponDisc()){ co.cpIn=co.coupon; co.coupon=''; co.cpErr='Your coupon no longer applies to this order.'; } if (!lines().length||!uidValid(me.uid)||!me.name){ history.replaceState(null,'',location.pathname); route(); return; }
   const agreed=$('coAgree')&&$('coAgree').checked, srv=$('coSrv')&&$('coSrv').checked; $('app').innerHTML=viewCheckout(); if (agreed) $('coAgree').checked=true; if (srv&&$('coSrv')) $('coSrv').checked=true; paintCbar(); badges();
 }
 function coRefresh(){ const p=$('coPay'); if (p) p.innerHTML=coPayHTML(); const s=$('coShotBox'); if (s) s.innerHTML=coShotHTML(); const b=$('coPlace'); if (b&&!b.disabled) b.textContent=coBtnText(); }
@@ -1445,7 +1563,9 @@ async function placeCheckout(){
   const b=$('coPlace'); b.disabled=true; b.innerHTML='<span class="spin"></span>Sending your order…';
   method=co.method; store.set('dc-method',method);
   let ref;
-  const data={name:me.name, phone:me.phone, uid:me.uid, items, method:co.method, note:me.note||'', at:Date.now(), status:'new', total:total(), cid:CU.uid, ccode:CP?CP.code:''};
+  const data={name:me.name, phone:me.phone, uid:me.uid, items, method:co.method, note:me.note||'', at:Date.now(), status:'new', total:payTotal(), cid:CU.uid, ccode:CP?CP.code:''};
+  if (couponDisc()>0){ data.coupon=co.coupon; data.disc=couponDisc(); }
+  if (myRef()) data.ref=myRef();
   try{ ref=await addDoc(collection(db,'orders'), data); }
   catch(e){ console.error(e); b.disabled=false; b.textContent=coBtnText(); return err('Couldn’t send the order. Check your internet and try again.'); }
   let shot=false;
@@ -1458,7 +1578,7 @@ async function placeCheckout(){
   store.set('dc-last-order', Date.now()); rememberUid(me.uid);
   last={id:ref.id, ...data}; if (!MY.some(o=>o.id===ref.id)) MY.unshift(last); prevSt.set(ref.id,'new');
   if (!cash&&!shot) toast('Order placed, but the screenshot didn’t upload. Please send it on WhatsApp.','bad');
-  me.note=''; cart=[]; calcRes=null; calcOpen=false; shotFile=null; co.ref=''; step=4; buzz(25);
+  me.note=''; cart=[]; calcRes=null; calcOpen=false; shotFile=null; co.ref=''; co.coupon=''; co.cpIn=''; step=4; buzz(25);
   history.replaceState(null,'',location.pathname); route(); scrollTo({top:0,behavior:smooth()});
   if (CP) saveProfile({name:me.name, phone:me.phone, ffUids:[me.uid, ...(CP.ffUids||[]).filter(u=>u!==me.uid)].slice(0,5)});
 }
