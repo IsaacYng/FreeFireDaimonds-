@@ -319,10 +319,6 @@ textarea{min-height:64px;resize:vertical}
 .grab{width:40px;height:4px;border-radius:4px;background:var(--line-2);margin:4px auto 12px}
 .sheet h3{font-size:1.1rem;font-weight:700;margin-bottom:12px}
 .sheet p.q{color:var(--muted);margin:-4px 0 16px;font-size:.92rem}
-.uidbox{text-align:center;padding:14px;border-radius:12px;border:1.5px dashed var(--line-2);background:var(--surface-2);margin-bottom:12px}
-.uidbox span{display:block;font-size:.76rem;color:var(--muted);font-weight:600}
-.uidbox b{display:block;font-size:1.8rem;font-weight:800;letter-spacing:.06em;font-variant-numeric:tabular-nums}
-.uidbox small{color:var(--muted);font-size:.76rem}
 .kv{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;font-size:.9rem;margin-bottom:12px}
 .kv dt{color:var(--muted)}
 .kv dd{text-align:right;font-weight:600;overflow-wrap:anywhere}
@@ -567,7 +563,7 @@ textarea{min-height:64px;resize:vertical}
 .terms span{font-size:.86rem;color:var(--ink-2)}
 :root[data-theme=dark] .pc{border-color:var(--line)}
 @media(prefers-color-scheme:dark){:root:not([data-theme=light]) .pc{border-color:var(--line)}}
-@media(min-width:900px){body.v-checkout main.wrap{max-width:680px}.co-sec{padding:24px 26px}}
+@media(min-width:900px){.co-sec{padding:24px 26px}}
 
 .reason .rmk{margin:8px 0;padding:8px 10px;border-radius:8px;background:var(--surface);color:var(--ink);font-size:.9rem}
 .reason .rmk span{display:block;font-size:.72rem;font-weight:700;color:var(--muted)}
@@ -583,7 +579,7 @@ textarea{min-height:64px;resize:vertical}
 .srv{margin-top:8px;padding:7px 10px;border-radius:8px;background:var(--blue-soft);color:var(--ink-2);font-size:.82rem}
 .srv b{color:var(--ink)}
 
-/* v13 customer */
+/* coupons, referrals, reviews */
 .co-cut{display:flex;justify-content:space-between;font-size:.95rem;color:var(--muted);padding:4px 0}
 .co-rows+.co-cut{margin-top:10px;padding-top:10px;border-top:1px dashed var(--line-2)}
 .co-cut b{color:var(--ink)}
@@ -612,6 +608,7 @@ textarea{min-height:64px;resize:vertical}
 .dp-btn{margin-bottom:12px}
 .again.renew{border-color:#F4D7A6;background:var(--warn-soft)}
 
+@media(min-width:900px){body.v-checkout main.wrap{max-width:680px}}
 </style>
 </head>
 <body class="v-shop">
@@ -902,8 +899,6 @@ function calcPanel(){
     <div class="row2"><input type="number" id="need" min="1" inputmode="numeric" placeholder="${ex?'e.g. 1000 diamonds':'e.g. Rs 2000'}" value="${esc(calcIn)}" aria-label="${ex?'Diamonds needed':'Budget in rupees'}"/><button class="btn solid" type="button" id="needGo">Find</button></div>${res}</div>`;
 }
 const PAYC={eSewa:['#60BB46','e'],Khalti:['#5C2D91','K'],Bank:['#2F5B94','🏦'],Cash:['#3A4852','Rs']};
-function payMethods(){ const s=P.shop, q=PAY.qr||{}, b=PAY.bank||{}, e=s.esewa||q.esewa, k=s.khalti||q.khalti, bk=s.bank||b.no||q.bank, set=e||k||bk||q.all; if(!set) return ['eSewa','Khalti','Bank'];
-  return [(e||q.all)&&'eSewa', (k||q.all)&&'Khalti', (bk||q.all)&&'Bank'].filter(Boolean); }
 /* ---------- QR helpers: read Nepal QR (EMVCo / Fonepay / NepalPay) and add an amount ---------- */
 const QRLIB={gen:'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js', read:'https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.js'};
 const libP={};
@@ -1005,7 +1000,7 @@ function sumHTML(){
     <ul class="chk">${['Player UID','Package','Payment on the next step'].map((x,i)=>`<li class="${pr[i]?'ok':''}"><i>${pr[i]?IC.check:i+1}</i>${x}</li>`).join('')}</ul>
     <button class="btn ${ready?'accent':'solid'} block" type="button" data-checkout ${isOpen()?'':'disabled'}>${ready?'Checkout · '+rs(total()):'Checkout'}</button></div></section>`;
 }
-function persoHTML(){ return renewCard()+againCard()+loyalty(); }
+function persoHTML(){ const r=renewCard(); return (r||againCard())+loyalty(); }   // at most two cards: renewal wins over buy-again
 function viewShop(){
   return hero()+notices()+`<div id="perso">${persoHTML()}</div><div class="shop-grid"><div>${step1()}${step2()}${reviewsHTML()}${extras()}</div><aside class="osum" id="osum">${sumHTML()}</aside></div>`;
 }
@@ -1363,7 +1358,7 @@ document.addEventListener('click', async e=>{
    ROUTING
    ========================================================= */
 /* =========================================================
-   v13 customer: coupons · referrals · reviews · delivery proof · renewals
+   COUPONS · REFERRALS · REVIEWS · DELIVERY PROOF · RENEWALS
    ========================================================= */
 // ---------- coupons ----------
 function couponFor(code){ const c=((P&&P.coupons)||[]).find(x=>x.c===String(code||'').toUpperCase()); return c&&(!c.u||c.u>Date.now())?c:null; }
