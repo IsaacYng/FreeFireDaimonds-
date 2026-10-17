@@ -1343,6 +1343,13 @@ body{font-size:15px;text-rendering:optimizeLegibility}
 .ledger tr.lg-usage td.b{color:var(--ink)}
 .ledger tr.lg-opening td{background:#FAFBFB;font-weight:600}
 @media(max-width:600px){#revCard .q-row,#renewCard .q-row,#blockCard .q-row{display:flex;flex-direction:column;align-items:stretch;gap:8px}#revCard .q-row .acts,#renewCard .q-row .acts,#blockCard .q-row .acts{justify-content:flex-start}#revCard .q-row .s{white-space:normal}}
+
+/* card entry sheet */
+#sheetCard .pk-form input{min-width:0;width:100%;max-width:100%}
+#sheetCard .grid2{align-items:end}
+#sheetCard .cat-pick{margin-bottom:6px}
+#sheetCard .ce-f>.field{margin-bottom:14px}
+@media(max-width:600px){#sheetCard .ce-dn{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -2022,8 +2029,8 @@ service cloud.firestore {
     <div class="ce-f" data-for="charge">
       <div class="field"><span class="lab">Type of expense</span><div class="cat-pick" id="ceCat" role="radiogroup" aria-label="Expense type"><button type="button" data-v="card">💳 Card fee</button><button type="button" data-v="internet">📶 Internet / data</button><button type="button" data-v="transport">🛵 Transport</button><button type="button" data-v="other">🧾 Other</button></div></div>
       <div class="grid2 keep2">
-        <label class="field"><span class="lab">Paid from card <em>USD</em></span><div class="unit pre"><span>$</span><input id="ceCUsd" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"/></div></label>
-        <label class="field"><span class="lab">Paid in cash / bank <em>NPR</em></span><div class="unit pre"><span>Rs</span><input id="ceCNpr" type="number" min="0" step="1" inputmode="decimal" placeholder="0"/></div></label>
+        <label class="field"><span class="lab">From card <em>USD</em></span><div class="unit pre"><span>$</span><input id="ceCUsd" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"/></div></label>
+        <label class="field"><span class="lab">Cash / bank <em>NPR</em></span><div class="unit pre"><span>Rs</span><input id="ceCNpr" type="number" min="0" step="1" inputmode="decimal" placeholder="0"/></div></label>
       </div>
     </div>
     <div class="ce-f" data-for="opening">
@@ -2036,7 +2043,7 @@ service cloud.firestore {
     <div class="ce-f" data-for="adjust">
       <label class="field"><span class="lab">Actual card balance now <em>from your card app</em></span><div class="unit pre"><span>$</span><input id="ceActual" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.00"/></div></label>
     </div>
-    <div class="grid2 keep2">
+    <div class="grid2 ce-dn">
       <label class="field"><span class="lab">Date</span><input id="ceDate" type="datetime-local"/></label>
       <label class="field"><span class="lab">Note <em id="ceNoteHint">optional</em></span><input id="ceNote" maxlength="80" autocomplete="off" placeholder="e.g. Nabil dollar card"/></label>
     </div>
@@ -3029,17 +3036,17 @@ function ceRender(){
     h = (u>0&&n>0) ? rateCheck(r)+`<div><span>Dollars</span><b>$${u.toFixed(2)}</b></div><div><span>Works out to</span><b>Rs ${rs2(r)} / $</b></div><div><span>Value</span><b class="g">${rs(n)}</b></div><p>Sales, loads and expenses before this date are not counted in the card book.</p>` : u===0&&$('ceOUsd').value!=='' ? '<div style="grid-column:1/-1"><span>Card is empty. Start from $0 and record your next load.</span></div>' : '<div style="grid-column:1/-1"><span>Enter the dollars on your card and the total rupees they cost.</span></div>'; }
   else if (t==='load'){ const u=+$('ceUsd').value||0, n=+$('ceNpr').value||0, f=+$('ceFee').value||0;
     if (u>0 && n>0){ const r=(n+f)/u, chk=rateCheck(r), nb=balNow+u, na=(Math.max(0,B.usd>0?B.npr:0)+n+f)/(Math.max(0,B.usd)+u||1);
-      h=chk+`<div><span>Works out to</span><b>Rs ${rs2(r)}</b></div><div><span>Balance after</span><b>$${nb.toFixed(2)}</b></div><div><span>${live?'vs live rate':'Total cost'}</span><b class="${live&&r>live?'':'g'}">${live?(r>live?'+':'−')+'Rs '+rs2(Math.abs(r-live)):rs(n+f)}</b></div><p>Total cost Rs ${nf(n+f)}${f?' incl. Rs '+nf(f)+' charges':''}${ceEdit.orig?'':' · new average ≈ Rs '+rs2(na)+' / USD'}</p>`; }
+      h=chk+`<div><span>Works out to</span><b>Rs ${rs2(r)}</b></div><div><span>Balance after</span><b>${nb<0?'−':''}$${Math.abs(nb).toFixed(2)}</b></div><div><span>${live?'vs live rate':'Total cost'}</span><b class="${live&&r>live?'':'g'}">${live?(r>live?'+':'−')+'Rs '+rs2(Math.abs(r-live)):rs(n+f)}</b></div><p>Total cost Rs ${nf(n+f)}${f?' incl. Rs '+nf(f)+' charges':''}${ceEdit.orig?'':' · new average ≈ Rs '+rs2(na)+' / USD'}</p>`; }
     else h='<div style="grid-column:1/-1"><span>Enter USD loaded and NPR paid to see the effective rate.</span></div>'; }
   else if (t==='charge'){ const u=+$('ceCUsd').value||0, n=+$('ceCNpr').value||0, ex=u*(B.avg||rateNow())+n;
-    h=`<div><span>Expense</span><b>${rs(ex)}</b></div><div><span>From card</span><b>$${u.toFixed(2)}</b></div><div><span>Balance after</span><b>$${(balNow-u).toFixed(2)}</b></div><p>Shown as an expense in Reports and taken from your net profit.</p>`; }
+    h=`<div><span>Expense</span><b>${rs(ex)}</b></div><div><span>From card</span><b>$${u.toFixed(2)}</b></div><div><span>Balance after</span><b>${(balNow-u)<0?'−':''}$${Math.abs(balNow-u).toFixed(2)}</b></div><p>Shown as an expense in Reports and taken from your net profit.</p>`; }
   else { const act=$('ceActual').value===''?null:+$('ceActual').value, book=ceEdit.orig?(base.bal-(base.dUsd||0)):B.usd;
     if (act==null) h=`<div style="grid-column:1/-1"><span>Book balance is $${book.toFixed(2)}. Enter the balance shown in your card app.</span></div>`;
     else { const diff=act-book; h=`<div><span>Book balance</span><b>$${book.toFixed(2)}</b></div><div><span>Difference</span><b class="${diff<0?'':'g'}">${diff<0?'−':'+'}$${Math.abs(diff).toFixed(2)}</b></div><div><span>${diff<0?'Written off':'Added value'}</span><b>${rs(Math.abs(diff)*(B.avg||rateNow()))}</b></div><p>${Math.abs(diff)<0.005?'Book matches your card.':diff<0?'Shortfall is written off as a card expense at average cost.':'Extra dollars are added at your average cost.'}</p>`; } }
   $('cePrev').innerHTML=h;
 }
 $('ceCat').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; ceEdit.cat=b.dataset.v; ceRender(); });
-$('ceType').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; ceEdit.type=b.dataset.v; ceRender(); });
+$('ceType').addEventListener('click', e=>{ const b=e.target.closest('button'); if(!b) return; ceEdit.type=b.dataset.v; if (!ceEdit.id) $('ceT').textContent=({load:'Load card',charge:'Add expense',adjust:'Reconcile balance'})[ceEdit.type]||'Card entry'; ceRender(); });
 ['ceUsd','ceNpr','ceFee','ceCUsd','ceCNpr','ceActual','ceOUsd','ceONpr'].forEach(i=>$(i).addEventListener('input', ceRender));
 addEventListener('keydown', e=>{ if(e.key==='Escape' && !$('sheetCard').hidden) closeCard(); });
 $('ceClose').addEventListener('click', closeCard); $('ceCancel').addEventListener('click', closeCard);
