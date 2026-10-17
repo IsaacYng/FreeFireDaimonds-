@@ -518,6 +518,7 @@ textarea{min-height:64px;resize:vertical}
 .co-chips button{display:inline-flex;align-items:center;gap:8px;padding:9px 14px 9px 10px;border-radius:12px;border:1.5px solid var(--line-2);background:var(--surface);font-weight:700;font-size:.9rem;color:var(--ink-2);transition:border-color .15s,background .15s}
 .co-chips button[aria-checked=true]{border-color:var(--accent);background:var(--accent-soft);color:var(--ink);box-shadow:0 0 0 1px var(--accent)}
 .co-chips .pm{width:22px;height:22px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:.62rem;font-weight:800;color:#fff;font-style:normal}
+.co-t+#coPay .pc:first-child{margin-top:0}
 .pc{margin-top:14px;padding:20px 18px;border:1.5px solid #F4D7A6;border-radius:16px;background:var(--surface);text-align:center}
 .pc-k{font-size:.92rem;font-weight:600}
 .brand{display:inline-block;margin:6px 0 4px;padding:3px 12px;border-radius:7px;font-weight:900;font-size:1.1rem;color:#fff;letter-spacing:-.01em}
@@ -1515,8 +1516,8 @@ function viewCheckout(){
     </div>
     ${!signedIn()?`<div class="co-sec">${signInBox('Sign in to place your order','Your orders are saved to your account, not to this phone. You can see them on any phone, any time.')}</div>`:`<div class="co-sec">
       <p class="co-acct">✓ Orders saved to <b>${esc(CU.email||'your Google account')}</b></p>
-      <h2 class="co-t"><span class="i">💳</span>How do you want to pay?</h2>
-      <div class="co-chips" role="radiogroup">${pm.map(m=>`<button type="button" role="radio" data-com="${m}" aria-checked="${m===co.method}"><i class="pm" style="background:${PAYC[m][0]}">${PAYC[m][1]}</i>${esc(coLabel(m))}</button>`).join('')}</div>
+      <h2 class="co-t"><span class="i">💳</span>${pm.length>1?'How do you want to pay?':'Payment'}</h2>
+      ${pm.length>1?`<div class="co-chips" role="radiogroup">${pm.map(m=>`<button type="button" role="radio" data-com="${m}" aria-checked="${m===co.method}"><i class="pm" style="background:${PAYC[m][0]}">${PAYC[m][1]}</i>${esc(coLabel(m))}</button>`).join('')}</div>`:''}
       <div id="coPay">${coPayHTML()}</div>
       <div id="coShotBox" class="co-shot">${coShotHTML()}</div>
       <details class="addnote" ${me.note?'open':''}><summary class="link">+ Add a note for the shop</summary><textarea id="coNote" maxlength="200" placeholder="Anything we should know">${esc(me.note||'')}</textarea></details>
