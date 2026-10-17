@@ -617,6 +617,31 @@ textarea{min-height:64px;resize:vertical}
 .replace{margin-bottom:12px}
 .replace summary{list-style:none;cursor:pointer;width:max-content;margin-bottom:10px}
 .replace summary::-webkit-details-marker{display:none}
+
+/* my orders table + pages */
+.otools{padding:12px 16px;border-bottom:1px solid var(--line)}
+.srch{display:flex;align-items:center;gap:8px;padding:0 12px;height:42px;border:1px solid var(--line-2);border-radius:10px;background:var(--surface);color:var(--muted)}
+.srch input{border:none !important;box-shadow:none !important;outline:none;flex:1;min-width:0;height:100%;padding:0 !important;background:none;font-size:16px}
+.otbl-w{overflow-x:auto}
+.otbl{width:100%;border-collapse:collapse;font-size:.9rem}
+.otbl th{text-align:left;font-size:.8rem;font-weight:600;color:var(--muted);padding:12px 14px;border-bottom:1px solid var(--line);white-space:nowrap}
+.otbl td{padding:12px 14px;border-bottom:1px solid var(--line);vertical-align:middle}
+.otbl td small{display:block;font-size:.74rem;color:var(--muted)}
+.otbl .r{text-align:right}
+.otbl .num{white-space:nowrap;font-variant-numeric:tabular-nums}
+.orow{cursor:pointer;transition:background .12s}
+.orow:hover{background:var(--surface-2)}
+.chip{display:inline-block;padding:4px 10px;border-radius:8px;background:var(--sunken);font-size:.8rem;white-space:nowrap}
+.ost{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.74rem;font-weight:700;white-space:nowrap}
+.ost.green{background:var(--ok-soft);color:var(--ok)}.ost.blue{background:var(--blue-soft);color:var(--blue)}.ost.amber{background:var(--warn-soft);color:var(--warn)}.ost.red{background:var(--accent-soft);color:var(--accent-txt)}.ost.grey{background:var(--sunken);color:var(--muted)}
+.chev{color:var(--muted);font-size:1.2rem}
+.pager{display:flex;align-items:center;gap:6px;flex-wrap:wrap;padding:12px 16px;font-size:.86rem;color:var(--muted)}
+.pager b{color:var(--ink)}
+.pager .sp{flex:1}
+.pg{min-width:34px;height:34px;border-radius:50%;font-weight:700;color:var(--ink-2)}
+.pg.on{background:var(--solid);color:var(--on-solid)}
+.pg:disabled{opacity:.35;cursor:default}
+@media(min-width:1200px){body.v-orders main.wrap{max-width:1000px}}
 </style>
 </head>
 <body class="v-shop">
@@ -1166,7 +1191,7 @@ document.addEventListener('click', async e=>{
   if ((x=c('[data-track]'))){ if (e.metaKey||e.ctrlKey) return; e.preventDefault(); navTrack(x.dataset.track); return; }
   if ((x=c('[data-notify]'))){ await enableNotify(); if (view==='shop'&&step===4) renderShop(); else if (view==='track'&&lastTrack) $('app').innerHTML=trackHTML(lastTrack); return; }
   if ((x=c('[data-install]'))){ doInstall(); return; }
-  if ((x=c('[data-of]'))){ oFilter=x.dataset.of; renderOrders(); return; }
+  if ((x=c('[data-of]'))){ oFilter=x.dataset.of; moPage=1; renderOrders(); return; }
   if ((x=c('[data-paid]'))){ const id=x.dataset.paid, ref=(($('paidRef')||{}).value||'').trim().slice(0,40);
     if (!ref&&!shotFile){ toast('Add the transaction ID or a screenshot first','bad'); $('paidRef')&&$('paidRef').focus(); return; }
     x.disabled=true; x.innerHTML='<span class="spin"></span>Sending…'; let shot=false;
@@ -1235,9 +1260,26 @@ function renderOrders(){
     ${MY.length?`<div class="fchips">${[['all','All'],['active','Active'],['dlv','Delivered'],['closed','Closed']].map(([k,l])=>`<button type="button" data-of="${k}" aria-pressed="${oFilter===k}">${l}<span>${g[k].length}</span></button>`).join('')}</div>`:''}
     ${!myLoaded&&!AUTH_ERR?'<div class="card-b"><div class="skel" style="height:70px;margin:0"></div></div>'
       :!MY.length?`<div class="state"><div class="emo">🛒</div><b>No orders yet</b>Your orders and their live status will show here.<p><a class="btn accent" href="./" data-nav="shop">Start shopping</a></p></div>${!signedIn()?`<div class="card-b" style="border-top:1px solid var(--line)">${signInBox('Ordered on another phone?','Sign in with the Google account you used, and all your orders show up here.')}</div>`:''}`
-      :!list.length?`<div class="state"><b>Nothing here</b>No ${oFilter==='dlv'?'delivered':oFilter} orders yet.</div>`
-      :list.map(ocHTML).join('')}</section>`;
+      :`<div class="otools"><div class="srch">${sv('<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',16)}<input id="moQ" type="search" placeholder="Search order #, UID or package" value="${esc(moQ)}" autocomplete="off"/></div></div><div id="moList">${myListHTML(list)}</div>`}</section>`;
 }
+/* my orders: search, table on big screens, pages */
+let moQ='', moPage=1, moSize=10;
+const myStatus=o=>{ const k=stOf(o); return [ST[k], {new:'amber',done:'blue',dlv:'green',rej:'red',can:'grey'}[k]]; };
+function myListHTML(list){
+  const q=moQ.trim().toLowerCase(), f=q?list.filter(o=>[o.id.slice(0,6),o.uid,o.method,(o.items||[]).map(i=>i.name+' '+i.diamonds).join(' ')].some(v=>String(v||'').toLowerCase().includes(q))):list;
+  if (!f.length) return `<div class="state"><b>${q?'No matches':'Nothing here'}</b>${q?'Try an order number, UID or package.':'No '+(oFilter==='dlv'?'delivered':oFilter)+' orders yet.'}</div>`;
+  const pages=Math.max(1,Math.ceil(f.length/moSize)); if (moPage>pages) moPage=pages; const a=(moPage-1)*moSize, page=f.slice(a,a+moSize);
+  const wide=matchMedia('(min-width:900px)').matches;
+  const body = wide ? `<div class="otbl-w"><table class="otbl"><thead><tr><th>Order</th><th>Items</th><th>UID</th><th class="r">Total</th><th>Status</th><th>Placed</th><th></th></tr></thead><tbody>${page.map(o=>{ const [st,c]=myStatus(o), k=stOf(o), canAgain=['dlv','rej','can'].includes(k)&&P&&(o.items||[]).some(i=>pk(i.pkId));
+      return `<tr class="orow" data-track="${esc(o.id)}" tabindex="0"><td><b>#${esc(code(o.id))}</b><small>${esc(o.method||'')}</small></td><td><span class="chip">${esc((o.items||[]).map(i=>i.qty+' × '+itemLabel(i)).join(', '))}</span></td><td class="num">${esc(o.uid)}</td><td class="r num"><b>${rs(o.total||0)}</b>${o.coupon?`<small>🏷 ${esc(o.coupon)}</small>`:''}</td><td><span class="ost ${c}">${esc(st)}</span></td><td class="num">${new Date(o.at).toLocaleDateString('en-CA')}<small>${esc(ago(o.at))}</small></td><td class="r">${canAgain?`<button class="btn sm" type="button" ${k==='rej'?'data-fix':'data-again'}="${esc(o.id)}">${k==='rej'?'Fix':'Buy again'}</button>`:'<span class="chev">›</span>'}</td></tr>`; }).join('')}</tbody></table></div>`
+    : page.map(ocHTML).join('');
+  const nums=[]; const lo=Math.max(1,Math.min(moPage-2,pages-4)); for(let i=lo;i<=Math.min(pages,lo+4);i++) nums.push(i);
+  return body+`<div class="pager"><span>Showing <b>${a+1}–${a+page.length}</b> of <b>${f.length}</b></span><span class="sp"></span>${pages>1?`<button class="pg" type="button" data-mpg="${moPage-1}" ${moPage<=1?'disabled':''} aria-label="Previous page">‹</button>${nums.map(i=>`<button class="pg${i===moPage?' on':''}" type="button" data-mpg="${i}">${i}</button>`).join('')}<button class="pg" type="button" data-mpg="${moPage+1}" ${moPage>=pages?'disabled':''} aria-label="Next page">›</button>`:''}</div>`;
+}
+function refreshMyList(){ const el=$('moList'); if (!el) return; const g={all:MY, active:MY.filter(o=>['new','done'].includes(stOf(o))), dlv:MY.filter(o=>stOf(o)==='dlv'), closed:MY.filter(o=>['rej','can'].includes(stOf(o)))}; el.innerHTML=myListHTML(g[oFilter]||MY); }
+document.addEventListener('input', e=>{ if (e.target.id==='moQ'){ moQ=e.target.value; moPage=1; refreshMyList(); } });
+document.addEventListener('click', e=>{ const b=e.target.closest('[data-mpg]'); if (!b||b.disabled) return; moPage=+b.dataset.mpg; refreshMyList(); $('moList').scrollIntoView({block:'start',behavior:smooth()}); });
+matchMedia('(min-width:900px)').addEventListener&&matchMedia('(min-width:900px)').addEventListener('change', ()=>{ if (view==='orders') refreshMyList(); });
 function trackHTML(o){
   const k=stOf(o), w=P&&waNum(P.shop.wa), mine=CU&&o.cid===CU.uid, s=(P&&P.stats)||{};
   const li=(cls,icon,title,sub)=>`<li class="${cls}"><span class="d">${icon}</span><div><b>${title}</b><small>${sub}</small></div></li>`;
