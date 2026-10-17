@@ -642,6 +642,7 @@ textarea{min-height:64px;resize:vertical}
 .pg.on{background:var(--solid);color:var(--on-solid)}
 .pg:disabled{opacity:.35;cursor:default}
 @media(min-width:1200px){body.v-orders main.wrap{max-width:1000px}}
+@media(max-width:600px){.pager>span:first-child{flex-basis:100%}.pager .pg{min-width:32px;height:32px}}
 </style>
 </head>
 <body class="v-shop">
@@ -1134,7 +1135,10 @@ document.addEventListener('click', async e=>{
     await setDoc(ord,pd,{merge:true});
     shotFile=null; buzz([20,30,20]);
     toast(shot?(mode==='rej'?'Sent ✓ The shop will check your new payment.':'Screenshot replaced ✓'):'Saved, but the picture didn’t upload. Send it on WhatsApp.', shot?'ok':'bad');
-  }catch(err){ console.warn(err); b.disabled=false; b.textContent=mode==='rej'?'Send to the shop':'Replace screenshot'; toast('Couldn’t send it. Try again, or message the shop on WhatsApp.','bad'); }
+  }catch(err){ console.warn(err); b.disabled=false; b.textContent=mode==='rej'?'Send to the shop':'Replace screenshot';
+    const blocked=/permission|insufficient/i.test(String(err&&(err.code||err.message))), w=P&&waNum(P.shop.wa), box=$('resendBox');
+    if (box&&!box.querySelector('.rs-fail')) box.insertAdjacentHTML('beforeend', `<div class="note bad rs-fail"><span>⚠️</span><div><b>${blocked?'The shop’s page needs an update to accept this.':'Couldn’t send it.'}</b>${w?'Send your screenshot on WhatsApp instead, the shop can add it to this order.':'Please message the shop with your screenshot.'}${w?`<p style="margin-top:8px"><a class="btn wa sm" href="https://wa.me/${w}?text=${encodeURIComponent('Order #'+code(o.id)+': I paid again, sending my new payment screenshot.')}" target="_blank" rel="noopener">💬 Send on WhatsApp</a></p>`:''}</div></div>`);
+    toast(blocked?'Couldn’t send. Please send it on WhatsApp for now.':'Couldn’t send it. Try again.','bad'); }
 });
 
 function paidForm(o){
