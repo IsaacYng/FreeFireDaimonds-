@@ -148,7 +148,7 @@ main{padding-top:16px}
 /* ---------- fields ---------- */
 .lab{display:flex;justify-content:space-between;gap:8px;font-size:.84rem;font-weight:600;color:var(--ink-2);margin-bottom:6px}
 .lab em{font-style:normal;font-weight:500;color:var(--muted);font-size:.78rem}
-input[type=text],input[type=tel],input[type=number],textarea{width:100%;padding:11px 13px;border:1px solid var(--line-2);border-radius:10px;background:var(--surface);font-size:16px;color:var(--ink);transition:border-color .15s,box-shadow .15s}
+input[type=text],input[type=password],input[type=tel],input[type=number],textarea{width:100%;padding:11px 13px;border:1px solid var(--line-2);border-radius:10px;background:var(--surface);font-size:16px;color:var(--ink);transition:border-color .15s,box-shadow .15s}
 input::placeholder,textarea::placeholder{color:var(--muted);opacity:.75}
 input:focus,textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px var(--ring)}
 input.bad{border-color:var(--accent) !important;box-shadow:0 0 0 3px var(--accent-soft) !important;animation:shake .3s}
@@ -684,6 +684,18 @@ textarea{min-height:64px;resize:vertical}
 .my-rev .rs-h{display:block;padding:10px 16px 0;font-size:.8rem;color:var(--muted)}
 .my-rev .rev{border-top:none}
 @media(max-width:420px){.rv-t,.reps,.rep-form,.rv-acts{margin-left:0}}
+
+/* UID login */
+.ua{display:grid;gap:4px}
+.ua-tabs{margin-bottom:12px}
+.ua .two{margin-top:12px}
+.ua .btn.xl{margin-top:8px}
+.ua-forgot{justify-self:center;margin-top:8px}
+.or{display:flex;align-items:center;gap:10px;margin:16px 0 12px;color:var(--muted);font-size:.8rem}
+.or::before,.or::after{content:"";flex:1;height:1px;background:var(--line)}
+.guest-in{margin-top:14px;padding-top:14px;border-top:1px dashed var(--line-2)}
+.ua-add{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;margin:-4px 0 12px}
+@media(max-width:520px){.ua-add{grid-template-columns:1fr}}
 </style>
 </head>
 <body class="v-shop">
@@ -719,7 +731,7 @@ textarea{min-height:64px;resize:vertical}
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
 import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, addDoc, query, where, orderBy, limit, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
-import { getAuth, onAuthStateChanged, signInAnonymously, GoogleAuthProvider, linkWithPopup, linkWithRedirect, signInWithPopup, signInWithCredential, signOut, getRedirectResult } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
+import { getAuth, onAuthStateChanged, signInAnonymously, GoogleAuthProvider, linkWithPopup, linkWithRedirect, signInWithPopup, signInWithCredential, signOut, getRedirectResult, EmailAuthProvider, linkWithCredential, createUserWithEmailAndPassword, signInWithEmailAndPassword, updatePassword, reauthenticateWithCredential } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 const app = initializeApp({
   apiKey: "AIzaSyCLSEXvViC9U_pOemMfNUkivNQSO2ayggA",
   authDomain: "free-fire-daimonds-2e4f1.firebaseapp.com",
@@ -1395,7 +1407,7 @@ async function loadProfile(){
   else { CP={code:mkCode(), name:me.name||'', phone:me.phone||'', ffUids:me.uid?[me.uid]:[], createdAt:Date.now(), updatedAt:Date.now(), email:CU.email||''}; if(!PROFILE_ERR){ try{ await setDoc(ref,CP); }catch(e){ console.warn(e); PROFILE_ERR=e.code||'error'; } } }
   if (!me.name&&CP.name) me.name=CP.name; if (!me.phone&&CP.phone) me.phone=CP.phone; if (!me.uid&&(CP.ffUids||[])[0]) me.uid=CP.ffUids[0];
 }
-async function saveProfile(patch){ CP={...CP, ...patch, updatedAt:Date.now(), email:(CU&&CU.email)||''}; try{ await setDoc(doc(db,'customers',CU.uid),CP); return true; }catch(e){ console.warn(e); return false; } }
+async function saveProfile(patch){ const g=googleOf(CU), lu=loginUidOf(CU); CP={...CP, ...patch, updatedAt:Date.now(), email:(g&&g.email)||(lu?'':(CU&&CU.email)||'')}; if (lu) CP.login=lu; try{ await setDoc(doc(db,'customers',CU.uid),CP); return true; }catch(e){ console.warn(e); return false; } }
 function watchMine(){
   if (unMine){ unMine(); unMine=null; } if (!CU) return;
   unMine=onSnapshot(query(collection(db,'orders'), where('cid','==',CU.uid)), snap=>{
@@ -1420,11 +1432,108 @@ async function googleSignIn(){
   }catch(e){ console.warn(e); const c=e.code||'';
     toast(/popup-closed|cancelled-popup/.test(c)?'Sign-in was closed. Try again.':/operation-not-allowed/.test(c)?'Google sign-in isn’t switched on for this shop yet.':/unauthorized-domain/.test(c)?'This website isn’t allowed for Google sign-in yet.':'Google sign-in didn’t finish. Try again.','bad'); return false; }
 }
+/* =========================================================
+   FREE FIRE UID + PASSWORD LOGIN (one account per UID),
+   with a Google account as backup for a forgotten password
+   ========================================================= */
+const UID_DOMAIN='players.yonghangishak.com.np';
+const uidEmail=u=>'p'+u+'@'+UID_DOMAIN;
+const loginUidOf=user=>{ const e=String((user&&user.email)||''); const m=e.match(/^p(\d{6,14})@players\.yonghangishak\.com\.np$/); if (m) return m[1];
+  const p=(user&&user.providerData||[]).find(x=>x.providerId==='password'); const m2=String((p&&p.email)||'').match(/^p(\d{6,14})@/); return m2?m2[1]:''; };
+const googleOf=user=>((user&&user.providerData)||[]).find(x=>x.providerId==='google.com')||null;
+let authMode='in';
+function uidAuthHTML(){
+  const up=authMode==='up';
+  return `<div class="ua"><div class="seg ua-tabs"><button type="button" data-am="in" aria-pressed="${!up}">Sign in</button><button type="button" data-am="up" aria-pressed="${up}">Create account</button></div>
+    <label class="lab" for="auUid">Free Fire UID</label><input type="text" id="auUid" inputmode="numeric" maxlength="14" autocomplete="username" placeholder="e.g. 512345678" value="${esc(me.uid||'')}"/>
+    ${up?`<div class="two"><div><label class="lab" for="auName">Your name</label><input type="text" id="auName" maxlength="60" autocomplete="name" value="${esc(me.name||'')}"/></div><div><label class="lab" for="auPhone">WhatsApp</label><input type="tel" id="auPhone" maxlength="15" autocomplete="tel" placeholder="98XXXXXXXX" value="${esc(me.phone||'')}"/></div></div>`:''}
+    <label class="lab" for="auPw" style="margin-top:12px">Password</label><input type="password" id="auPw" maxlength="40" autocomplete="${up?'new-password':'current-password'}" placeholder="${up?'At least 6 characters':'Your password'}"/>
+    ${up?`<label class="lab" for="auPw2" style="margin-top:12px">Confirm password</label><input type="password" id="auPw2" maxlength="40" autocomplete="new-password"/>
+      <p class="hint" style="margin-top:8px">One account per UID. Your orders, rewards and Customer ID are saved to it.</p>`:''}
+    <p class="err" id="auErr" role="alert"></p>
+    <button class="btn accent block xl" type="button" data-uauth>${up?'Create account':'Sign in'}</button>
+    ${up?'':'<button class="link ua-forgot" type="button" data-forgot>Forgot password?</button>'}</div>`;
+}
+async function uidAuth(){
+  const err=x=>{ $('auErr').textContent=x; buzz(30); };
+  const uid=($('auUid').value||'').replace(/\D/g,''), pw=$('auPw').value||'', up=authMode==='up';
+  if (!uidValid(uid)) return err('Enter your Free Fire UID (6–14 digits).');
+  if (pw.length<6) return err('Password must be at least 6 characters.');
+  let name='', phone='';
+  if (up){ name=($('auName').value||'').trim(); phone=($('auPhone').value||'').trim(); if (!name) return err('Enter your name.'); if ($('auPw2').value!==pw) return err('The two passwords don’t match.'); }
+  const b=document.querySelector('[data-uauth]'); b.disabled=true; b.innerHTML='<span class="spin"></span>'+(up?'Creating…':'Signing in…');
+  try{
+    const email=uidEmail(uid);
+    if (up){ if (CU&&CU.isAnonymous) await linkWithCredential(CU, EmailAuthProvider.credential(email,pw)); else await createUserWithEmailAndPassword(auth,email,pw); }
+    else await signInWithEmailAndPassword(auth,email,pw);
+    CU=auth.currentUser; await loadProfile();
+    if (up){ me.name=name; me.phone=phone; }
+    if (!me.uid) me.uid=uid;
+    await saveProfile({...(up?{name, phone}:{}), ffUids:[uid, ...((CP&&CP.ffUids)||[]).filter(x=>x!==uid)].slice(0,5)});
+    saveMe(); watchMine();
+    toast(up?'Account created ✓ Welcome!':'Signed in ✓','ok');
+    if (view==='checkout') renderCheckout(); else route();
+  }catch(e){ console.warn(e); const c=String(e.code||'');
+    b.disabled=false; b.textContent=up?'Create account':'Sign in';
+    err(/email-already-in-use|credential-already-in-use|provider-already-linked/.test(c)?'This UID already has an account. Tap “Sign in” instead.'
+      :/wrong-password|invalid-credential|invalid-login-credentials/.test(c)?'Wrong UID or password.'
+      :/user-not-found/.test(c)?'No account for this UID yet. Tap “Create account”.'
+      :/too-many-requests/.test(c)?'Too many tries. Wait a few minutes and try again.'
+      :/operation-not-allowed/.test(c)?'UID login isn’t switched on for this shop yet. Please use Google for now.'
+      :/network/.test(c)?'No internet. Check your connection.':'Couldn’t sign in. Try again.'); }
+}
+function openForgot(){
+  const w=P&&waNum(P.shop.wa);
+  openSheet(`<div class="grab"></div><h3>Forgot your password?</h3>
+    <ol class="terms"><li><b>Added a backup Google account?</b><span>Tap “Continue with Google”. You’re back in your account, then set a new password in Account.</span></li>
+    <li><b>No backup?</b><span>Message the shop with your UID. The shop can remove the old login so you can create it again. Your past orders stay with the shop.</span></li></ol>
+    <div class="btns" style="margin-top:14px"><button class="btn gbtn block" type="button" data-gsign><span class="g">G</span>Continue with Google</button>${w?`<a class="btn wa block" href="https://wa.me/${w}?text=${encodeURIComponent('I forgot my password. My Free Fire UID: '+(($('auUid')||{}).value||''))}" target="_blank" rel="noopener">💬 Message the shop</a>`:''}<button class="btn ghost block" type="button" id="fgClose">Close</button></div>`);
+  $('fgClose').onclick=closeSheet;
+}
+document.addEventListener('click', e=>{
+  const t=e.target;
+  const am=t.closest('[data-am]'); if (am){ authMode=am.dataset.am; const box=t.closest('.ua'); if (box) box.outerHTML=uidAuthHTML(); return; }
+  if (t.closest('[data-uauth]')){ uidAuth(); return; }
+  if (t.closest('[data-forgot]')){ openForgot(); return; }
+});
+document.addEventListener('keydown', e=>{ if (e.key==='Enter'&&['auUid','auPw','auPw2'].includes(e.target.id)){ e.preventDefault(); uidAuth(); } });
+
+// ---------- Account: login methods, backup Google, change password ----------
+function loginCardHTML(){
+  if (!CU||CU.isAnonymous) return '';
+  const lu=loginUidOf(CU), g=googleOf(CU);
+  return `<section class="card"><div class="card-h"><h2>Login &amp; security</h2></div><div class="card-b">
+    <div class="setrow"><div><b>🎮 UID login</b><small>${lu?'Free Fire UID <b>'+esc(lu)+'</b> + password':'Not set. Add it so you can sign in with your UID inside Facebook or Messenger too.'}</small></div>${lu?'<span class="hint ok">On ✓</span>':''}</div>
+    ${lu?'':`<div class="ua-add"><input type="text" id="laUid" inputmode="numeric" maxlength="14" placeholder="Free Fire UID" value="${esc(me.uid||'')}"/><input type="password" id="laPw" maxlength="40" placeholder="New password (6+ characters)" autocomplete="new-password"/><button class="btn solid" type="button" id="laAdd">Add UID login</button></div>`}
+    <div class="setrow"><div><b>🛟 Backup Google account</b><small>${g?'<b>'+esc(g.email||'Google')+'</b> · use it if you forget your password':'Like a backup email on Facebook: if you forget your password, you can still get in with Google.'}</small></div>${g?'<span class="hint ok">Added ✓</span>':`<button class="btn sm solid" type="button" id="bkGoogle"><span class="g">G</span>Add</button>`}</div>
+    ${lu?`<div class="setrow"><div><b>🔑 Password</b><small>Change the password you use with your UID</small></div><button class="btn sm" type="button" id="pwChange">Change</button></div>`:''}
+  </div></section>`;
+}
+function bindLoginCard(){
+  const add=$('laAdd'); if (add) add.onclick=async()=>{ const uid=($('laUid').value||'').replace(/\D/g,''), pw=$('laPw').value||'';
+    if (!uidValid(uid)) return toast('Enter your Free Fire UID (6–14 digits)','bad'); if (pw.length<6) return toast('Password must be at least 6 characters','bad');
+    add.disabled=true; try{ await linkWithCredential(CU, EmailAuthProvider.credential(uidEmail(uid),pw)); await auth.currentUser.reload(); CU=auth.currentUser; await saveProfile({ffUids:[uid, ...((CP&&CP.ffUids)||[]).filter(x=>x!==uid)].slice(0,5)}); toast('UID login added ✓','ok'); viewAccount(); }
+    catch(e){ console.warn(e); add.disabled=false; toast(/email-already-in-use|credential-already-in-use/.test(e.code||'')?'This UID already has an account.':/requires-recent-login/.test(e.code||'')?'Sign out and in again, then try.':'Couldn’t add the UID login.','bad'); } };
+  const bg=$('bkGoogle'); if (bg) bg.onclick=async()=>{ const prov=new GoogleAuthProvider(); prov.setCustomParameters({prompt:'select_account'}); bg.disabled=true;
+    try{ await linkWithPopup(CU,prov); await auth.currentUser.reload(); CU=auth.currentUser; await saveProfile({}); toast('Backup Google account added ✓','ok'); viewAccount(); }
+    catch(e){ console.warn(e); bg.disabled=false; toast(/credential-already-in-use|email-already-in-use/.test(e.code||'')?'That Google account is already used by another account here.':/popup/.test(e.code||'')?'The Google window was closed.':'Couldn’t add Google.','bad'); } };
+  const pc=$('pwChange'); if (pc) pc.onclick=()=>{
+    openSheet(`<div class="grab"></div><h3>Change password</h3><div class="field"><label class="lab" for="pwOld">Current password <em>not needed right after signing in</em></label><input type="password" id="pwOld" autocomplete="current-password"/></div><div class="field"><label class="lab" for="pwNew">New password</label><input type="password" id="pwNew" autocomplete="new-password" placeholder="At least 6 characters"/></div><p class="err" id="pwErr"></p><div class="btns" style="margin-top:12px"><button class="btn accent block" type="button" id="pwSave">Save password</button><button class="btn ghost block" type="button" id="pwX">Cancel</button></div>`);
+    $('pwX').onclick=closeSheet;
+    $('pwSave').onclick=async()=>{ const nw=$('pwNew').value||'', old=$('pwOld').value||''; if (nw.length<6){ $('pwErr').textContent='New password must be at least 6 characters.'; return; }
+      try{ try{ await updatePassword(CU,nw); }catch(e){ if (!/requires-recent-login/.test(e.code||'')) throw e; if (!old){ $('pwErr').textContent='Type your current password first.'; return; } await reauthenticateWithCredential(CU, EmailAuthProvider.credential(uidEmail(loginUidOf(CU)),old)); await updatePassword(CU,nw); }
+        closeSheet(); toast('Password changed ✓','ok'); }
+      catch(e){ console.warn(e); $('pwErr').textContent=/wrong-password|invalid-credential/.test(e.code||'')?'Current password is wrong.':'Couldn’t change it. Try again.'; } };
+  };
+}
+
 function signInBox(title, why){
   return `<div class="signin"><h2 class="co-t"><span class="i">🔐</span>${title}</h2><p class="co-p">${why}</p>
-    ${inApp?`<div class="note bad"><span>⚠️</span><div><b>Open this page in Chrome first</b>Google sign-in doesn’t work inside Facebook, Messenger or Instagram. Tap ⋮ → “Open in browser”, or copy the link and paste it in Chrome.<p style="margin-top:8px"><button class="btn sm" type="button" data-copy="${esc(location.href)}">${IC.copy}Copy link</button></p></div></div>`:''}
-    <button class="btn gbtn block xl" type="button" data-gsign><span class="g">G</span>Continue with Google</button>
-    <p class="co-foot">We only use your Google name and email to keep your orders safe in your account.</p></div>`;
+    ${uidAuthHTML()}
+    <div class="or"><span>or</span></div>
+    ${inApp?`<p class="hint" style="text-align:center;margin-bottom:8px">Google doesn’t work inside Facebook or Messenger. Use your UID above, or open this page in Chrome.</p>`:''}
+    <button class="btn gbtn block" type="button" data-gsign><span class="g">G</span>Continue with Google</button>
+    <p class="co-foot">Your orders, rewards and Customer ID are saved to your account, not to this phone.</p></div>`;
 }
 document.addEventListener('click', async e=>{ const b=e.target.closest('[data-gsign]'); if (!b) return; b.disabled=true;
   const ok=await googleSignIn(); b.disabled=false;
@@ -1448,14 +1557,15 @@ function viewAccount(){
   const uids=CP.ffUids||[], canN='Notification' in window, perm=canN?Notification.permission:'denied';
   const inst=standalone()?'<span class="hint ok">Installed ✓</span>':installEvt?'<button class="btn sm solid" type="button" data-install>Install</button>':isIOS?'<span class="hint">Share → Add to Home Screen</span>':'<span class="hint">Use your browser menu</span>';
   $('app').innerHTML=`<section class="card"><div class="card-b">
-      <div class="idcard"><div><span>Your customer ID</span><b>${esc(CP.code)}</b><small>${CU.isAnonymous?'Guest on this phone':'Saved with '+esc(CU.email||'Google')}</small></div><button class="btn sm" type="button" data-copy="${esc(CP.code)}">${IC.copy}Copy</button></div>
+      <div class="idcard"><div><span>Your customer ID</span><b>${esc(CP.code)}</b><small>${CU.isAnonymous?'Guest on this phone':loginUidOf(CU)?'UID login · '+esc(loginUidOf(CU))+(googleOf(CU)?' · backup '+esc(googleOf(CU).email||'Google'):''):'Saved with '+esc(CU.email||'Google')}</small></div><button class="btn sm" type="button" data-copy="${esc(CP.code)}">${IC.copy}Copy</button></div>
       ${PROFILE_ERR?`<div class="note bad"><span>⚠️</span><div><b>Account can’t be saved yet</b><small>${esc(PROFILE_ERR)}</small></div></div>`:''}
       <p class="hint">Mention this ID when you message the shop.</p>
-      ${CU.isAnonymous?`<div class="gbox"><div><b>Your orders are only on this phone</b><small>Sign in with Google so your orders and rewards are saved to your account and open on any phone.</small></div><button class="btn solid" type="button" id="gSave"><span class="g">G</span>Google</button></div>`:''}
+      ${CU.isAnonymous?`<div class="guest-in">${signInBox('Sign in or create your account','Your orders are only on this phone right now. Sign in with your Free Fire UID or Google to keep them safe and open them on any phone.')}</div>`:''}
       <div class="stats"><div><span>Orders</span><b>${MY.length}</b></div><div><span>Spent</span><b>${rs(spent)}</b></div><div><span>Diamonds</span><b>${nf(dia)}</b></div><div><span>Active</span><b>${active()}</b></div></div>
     </div></section>
     ${P?loyalty():''}
     ${inviteHTML()}
+    ${loginCardHTML()}
     <section class="card"><div class="card-h"><h2>My details</h2></div><div class="card-b">
       <div class="field"><label class="lab" for="pName">Name</label><input type="text" id="pName" maxlength="60" value="${esc(CP.name||'')}"/></div>
       <div class="field"><label class="lab" for="pPhone">WhatsApp number</label><input type="tel" id="pPhone" maxlength="15" value="${esc(CP.phone||'')}"/></div>
@@ -1467,9 +1577,9 @@ function viewAccount(){
       ${canN?`<div class="setrow"><div><b>Order alerts</b><small>${perm==='denied'?'Blocked in your browser settings':'Get notified when your order is confirmed or delivered'}</small></div><button type="button" class="switch" id="notifySw" role="switch" aria-checked="${notifyReady()}" aria-label="Order alerts" ${perm==='denied'?'disabled':''}></button></div>`:''}
       <div class="setrow"><div><b>Home screen app</b><small>Open the shop in one tap, like an app</small></div>${inst}</div>
     </div></section>`;
-  const g=$('gSave'); if (g) g.onclick=googleSave;
+  const g=$('gSave'); if (g) g.onclick=googleSave; bindLoginCard();
   const out=$('outBtn'); if (out) out.onclick=async()=>{
-    if (!await ask('Sign out?','Your name, WhatsApp number and saved UIDs are removed from this phone. Your orders stay safe in your Google account.','Sign out',false,'Cancel')) return;
+    if (!await ask('Sign out?','Your name, WhatsApp number and saved UIDs are removed from this phone. Your orders stay safe in your account.','Sign out',false,'Cancel')) return;
     forgetPhone(); await signOut(auth); toast('Signed out. Your details were removed from this phone.'); };
   $('pSave').onclick=async()=>{ const ok=await saveProfile({name:$('pName').value.trim().slice(0,60), phone:$('pPhone').value.trim().slice(0,15)}); me.name=CP.name; me.phone=CP.phone; saveMe(); toast(ok?'Saved ✓':'Couldn’t save. Check your internet.',ok?'ok':'bad'); };
   const ns=$('notifySw'); if (ns) ns.onclick=async()=>{ if (notifyReady()){ notifyOn=false; store.set('dc-notify',false); toast('Order alerts off'); } else await enableNotify(); viewAccount(); };
@@ -1685,7 +1795,7 @@ function viewCheckout(){
       <div class="co-det"><div class="full"><span>Free Fire UID</span><b class="num co-uid">${esc(me.uid)}</b><small>Diamonds go to this UID. Please double-check it.</small></div><div><span>Name</span><b>${esc(me.name)}</b></div><div><span>WhatsApp</span><b>${esc(me.phone||'–')}</b></div></div>
     </div>
     ${!signedIn()?`<div class="co-sec">${signInBox('Sign in to place your order','Your orders are saved to your account, not to this phone. You can see them on any phone, any time.')}</div>`:`<div class="co-sec">
-      <p class="co-acct">✓ Orders saved to <b>${esc(CU.email||'your Google account')}</b></p>
+      <p class="co-acct">✓ Orders saved to <b>${esc(loginUidOf(CU)?'UID '+loginUidOf(CU):(CU.email||'your account'))}</b></p>
       <h2 class="co-t"><span class="i">💳</span>${pm.length>1?'How do you want to pay?':'Payment'}</h2>
       ${pm.length>1?`<div class="co-chips" role="radiogroup">${pm.map(m=>`<button type="button" role="radio" data-com="${m}" aria-checked="${m===co.method}"><i class="pm" style="background:${PAYC[m][0]}">${PAYC[m][1]}</i>${esc(coLabel(m))}</button>`).join('')}</div>`:''}
       <div id="coPay">${coPayHTML()}</div>
