@@ -1409,6 +1409,34 @@ body{font-size:15px;text-rendering:optimizeLegibility}
 .pager select{width:auto !important;min-width:72px;flex:0 0 auto}
 .pager .pg{font-size:1rem;line-height:1}
 @media(max-width:600px){.pager>span:first-child{flex-basis:100%}.pager .pg{min-width:32px;height:32px}}
+/* reviews + customer ID */
+.rv-list{display:grid}
+.rv{padding:14px 20px;border-top:1px solid var(--line)}
+.rv:first-child{border-top:none}
+.rv.off{opacity:.55}
+.rv-top{display:flex;align-items:center;gap:10px}
+.rv-av{width:34px;height:34px;border-radius:50%;background:var(--bg);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:.78rem;flex-shrink:0}
+.rv-who{flex:1;min-width:0}.rv-who b{display:block;font-size:.92rem}.rv-who small{color:var(--muted);font-size:.76rem}
+.rv-st{color:#F5B700;letter-spacing:1px;white-space:nowrap}.rv-st .dim,#revCard .dim{opacity:.25}
+.rv-t{margin:8px 0 0;font-size:.92rem;line-height:1.5}
+.rv-reps{margin:10px 0 0 44px;display:grid;gap:6px}
+.rv-rep{padding:8px 10px;border-radius:10px;background:var(--bg);font-size:.86rem}
+.rv-rep.shop{background:#E8EEF7}
+.rv-rep b{font-size:.82rem}.rv-rep small{display:flex;gap:10px;align-items:center;color:var(--muted);font-size:.72rem;margin-top:2px}
+.rv-rep .link{font-size:.72rem;padding:0;background:none;border:none;color:var(--accent);cursor:pointer;font-weight:600}
+.rv-form{margin:10px 0 0 44px;display:grid;gap:8px}
+.rv-form textarea{width:100%;padding:10px 12px;border:1px solid var(--line-2);border-radius:10px;font:inherit;font-size:16px;resize:vertical}
+.rv-fa{display:flex;gap:8px;justify-content:flex-end}
+.rv-acts{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 0 44px}
+.rv-del{color:var(--accent)}
+.c-id{background:#E8EEF7 !important;color:#2F5B94 !important;font-weight:700}
+.cu-acct{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;padding:10px 12px;margin:10px 0 0;border-radius:10px;background:#E8EEF7;color:#2F5B94;font-size:.84rem}
+.cu-ords{display:grid;gap:0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.cu-ord{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:10px;align-items:center;padding:10px 12px;border-top:1px solid var(--line);cursor:pointer}
+.cu-ord:first-child{border-top:none}
+.cu-ord:hover{background:var(--bg)}
+.cu-ord small{display:block;color:var(--muted);font-size:.76rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+@media(max-width:600px){.rv{padding:14px 16px}.rv-reps,.rv-form,.rv-acts{margin-left:0}}
 </style>
 </head>
 <body>
@@ -1858,7 +1886,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
         <div class="pk-seg help-tabs" id="helpTabs" role="tablist"><button type="button" role="tab" data-t="guide" aria-checked="true">Page guide · पेज गाइड</button><button type="button" role="tab" data-t="faq" aria-checked="false">FAQ · प्रश्नहरू</button><button type="button" role="tab" data-t="gloss" aria-checked="false">Glossary · शब्दावली</button></div>
         <div class="card faq" id="tab-guide">
           <details class="qa bi" id="h-overview"><summary><span><b lang="ne">ड्यासबोर्ड</b><small>Dashboard</small></span></summary><div class="bi-body"><p lang="ne">माथि Today, 7 days वा This month छान्नुहोस्। कार्डहरूले त्यो अवधिको Revenue (आम्दानी), Gross profit (कुल नाफा), बिक्री भएका डायमन्ड र Transactions (कारोबार संख्या) देखाउँछन्, साथै अघिल्लो अवधिसँगको तुलना (↑/↓ %)। “Pending delivery” मा डायमन्ड पठाउन बाँकी अर्डर र “Accounts receivable” मा ग्राहकबाट उठाउन बाँकी रकम देखिन्छ। Quick sell थिचेर एकै पटकमा बिक्री सुरु गर्न सकिन्छ। दिनको अन्त्यमा “Share day report” थिचेर आजको हिसाब WhatsApp मा पठाउन सकिन्छ।</p><p class="en">Choose Today, 7 days or This month at the top. The cards show revenue, gross profit, diamonds sold and number of transactions for that period, compared with the previous period (↑/↓ %). “Pending delivery” lists orders not yet delivered and “Accounts receivable” lists amounts customers still owe. Use Quick sell to start a sale in one tap, and “Share day report” at the end of the day to send today’s summary on WhatsApp.</p></div></details>
-          <details class="qa bi" id="h-orders"><summary><span><b lang="ne">ग्राहक अर्डर</b><small>Orders</small></span></summary><div class="bi-body"><p lang="ne">Share order page थिचेर लिंक ग्राहकलाई पठाउनुहोस्। ग्राहकले प्याकेज, UID र नाम हालेर अर्डर पठाउँछन्; यहाँ “New” मा आउँछ र Dashboard मा सूचना देखिन्छ। Accept &amp; record sale थिच्दा सबै विवरण भरिएर बिक्री खुल्छ, Save गरेपछि अर्डर “Accepted” मा जान्छ। पहिलो पटक: Firebase → Authentication → Sign-in method मा Anonymous र Google दुवै Enable गर्नुहोस्, तलको Firestore Rules paste गरेर Publish गर्नुहोस्, अनि ग्राहकको अर्डर पेज (index.html) र यो admin.html दुवै GitHub repo मा राख्नुहोस्। ग्राहकले आफ्नो Customer ID, अर्डर इतिहास र स्थिति “My account” मा हेर्न सक्छन्। नयाँ अर्डर आउँदा घण्टी बज्छ (Alert settings बाट बन्द/खोल्न मिल्छ)। “Taking orders” स्विचले अर्डर पेज तुरुन्त बन्द वा खोल्छ। १५ मिनेटभन्दा बढी पर्खिरहेका अर्डर रातो देखिन्छन्, र “paid” भनेका अर्डर सबैभन्दा माथि आउँछन्। ग्राहकले “I’ve paid” थिच्दा पेमेन्टको स्क्रिनसट पनि पठाउन सक्छन्, 🖼 Screenshot थिचेर हेर्नुहोस्। यसका लागि तलका rules फेरि कपी गरेर Firebase → Firestore → Rules मा Publish गर्नुहोस्।</p><p class="en">Tap Share order page and send the link to customers. They choose packages, enter their UID and name, and the order arrives here under “New” with an alert on the dashboard. Accept &amp; record sale opens a filled-in sale; after saving, the order moves to “Accepted”. First time only: in Firebase → Authentication → Sign-in method enable both Anonymous and Google, paste these Firestore rules and publish, and keep index.html (the customer order page) next to admin.html in your GitHub repo. Customers see their Customer ID, order history and status under “My account”. A chime plays when a new order arrives (turn it off under Alert settings). The “Taking orders” switch pauses or reopens your order page at once. Orders waiting more than 15 minutes turn red, and orders the customer marked as paid come first. Customers can attach a payment screenshot when they tap “I’ve paid”; open it with the 🖼 Screenshot button. If you reject an order for missing or wrong payment, the customer can send a new screenshot on the same order (up to 3 times); it comes back under New with “Payment sent again”. For screenshots to work, copy the rules below again and publish them in Firebase → Firestore → Rules.</p><pre class="rules">// Diamond Counter rules · version 2026-10-17c
+          <details class="qa bi" id="h-orders"><summary><span><b lang="ne">ग्राहक अर्डर</b><small>Orders</small></span></summary><div class="bi-body"><p lang="ne">Share order page थिचेर लिंक ग्राहकलाई पठाउनुहोस्। ग्राहकले प्याकेज, UID र नाम हालेर अर्डर पठाउँछन्; यहाँ “New” मा आउँछ र Dashboard मा सूचना देखिन्छ। Accept &amp; record sale थिच्दा सबै विवरण भरिएर बिक्री खुल्छ, Save गरेपछि अर्डर “Accepted” मा जान्छ। पहिलो पटक: Firebase → Authentication → Sign-in method मा Anonymous र Google दुवै Enable गर्नुहोस्, तलको Firestore Rules paste गरेर Publish गर्नुहोस्, अनि ग्राहकको अर्डर पेज (index.html) र यो admin.html दुवै GitHub repo मा राख्नुहोस्। ग्राहकले आफ्नो Customer ID, अर्डर इतिहास र स्थिति “My account” मा हेर्न सक्छन्। नयाँ अर्डर आउँदा घण्टी बज्छ (Alert settings बाट बन्द/खोल्न मिल्छ)। “Taking orders” स्विचले अर्डर पेज तुरुन्त बन्द वा खोल्छ। १५ मिनेटभन्दा बढी पर्खिरहेका अर्डर रातो देखिन्छन्, र “paid” भनेका अर्डर सबैभन्दा माथि आउँछन्। ग्राहकले “I’ve paid” थिच्दा पेमेन्टको स्क्रिनसट पनि पठाउन सक्छन्, 🖼 Screenshot थिचेर हेर्नुहोस्। यसका लागि तलका rules फेरि कपी गरेर Firebase → Firestore → Rules मा Publish गर्नुहोस्।</p><p class="en">Tap Share order page and send the link to customers. They choose packages, enter their UID and name, and the order arrives here under “New” with an alert on the dashboard. Accept &amp; record sale opens a filled-in sale; after saving, the order moves to “Accepted”. First time only: in Firebase → Authentication → Sign-in method enable both Anonymous and Google, paste these Firestore rules and publish, and keep index.html (the customer order page) next to admin.html in your GitHub repo. Customers see their Customer ID, order history and status under “My account”. A chime plays when a new order arrives (turn it off under Alert settings). The “Taking orders” switch pauses or reopens your order page at once. Orders waiting more than 15 minutes turn red, and orders the customer marked as paid come first. Customers can attach a payment screenshot when they tap “I’ve paid”; open it with the 🖼 Screenshot button. If you reject an order for missing or wrong payment, the customer can send a new screenshot on the same order (up to 3 times); it comes back under New with “Payment sent again”. For screenshots to work, copy the rules below again and publish them in Firebase → Firestore → Rules.</p><pre class="rules">// Diamond Counter rules · version 2026-10-17d
 rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
@@ -1929,17 +1957,29 @@ service cloud.firestore {
       allow read: if isAdmin() || (request.auth != null &amp;&amp; get(/databases/$(database)/documents/orders/$(id)).data.cid == request.auth.uid);
     }
     match /reviews/{id} {
-      allow read: if isAdmin() || (request.auth != null &amp;&amp; (resource == null || resource.data.cid == request.auth.uid));
-      allow list: if isAdmin();
+      allow read: if true;
       allow create: if request.auth != null
         &amp;&amp; request.resource.data.cid == request.auth.uid
         &amp;&amp; get(/databases/$(database)/documents/orders/$(id)).data.cid == request.auth.uid
         &amp;&amp; get(/databases/$(database)/documents/orders/$(id)).data.delivered == true
         &amp;&amp; request.resource.data.keys().hasOnly(['stars','text','name','at','cid'])
         &amp;&amp; request.resource.data.stars is int &amp;&amp; request.resource.data.stars &gt;= 1 &amp;&amp; request.resource.data.stars &lt;= 5
-        &amp;&amp; request.resource.data.text is string &amp;&amp; request.resource.data.text.size() &lt;= 160
+        &amp;&amp; request.resource.data.text is string &amp;&amp; request.resource.data.text.size() &lt;= 300
         &amp;&amp; request.resource.data.name is string &amp;&amp; request.resource.data.name.size() &lt;= 30;
-      allow update, delete: if isAdmin();
+      allow update: if isAdmin();
+      allow delete: if isAdmin() || (request.auth != null &amp;&amp; resource.data.cid == request.auth.uid);
+      match /replies/{rid} {
+        allow read: if true;
+        allow create: if (isAdmin() &amp;&amp; request.resource.data.by == 'shop'
+              &amp;&amp; request.resource.data.keys().hasOnly(['by','name','text','at'])
+              &amp;&amp; request.resource.data.text is string &amp;&amp; request.resource.data.text.size() &lt;= 300)
+          || (request.auth != null &amp;&amp; request.auth.token.firebase.sign_in_provider != 'anonymous'
+              &amp;&amp; request.resource.data.by == 'customer' &amp;&amp; request.resource.data.cid == request.auth.uid
+              &amp;&amp; request.resource.data.keys().hasOnly(['by','name','text','at','cid'])
+              &amp;&amp; request.resource.data.text is string &amp;&amp; request.resource.data.text.size() &lt;= 300
+              &amp;&amp; request.resource.data.name is string &amp;&amp; request.resource.data.name.size() &lt;= 30);
+        allow delete: if isAdmin() || (request.auth != null &amp;&amp; resource.data.cid == request.auth.uid);
+      }
     }
   }
 }
@@ -2084,6 +2124,9 @@ service cloud.firestore {
   <div class="pk-sheet-h"><div class="cu-head"><span class="pav"><span class="ph" id="cuIni">–</span></span><div><h3 id="cuName">Customer</h3><small id="cuSub"></small></div></div><button class="icon-btn" type="button" id="cuClose" aria-label="Close"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6 6 18"/></svg></button></div>
   <div class="cu-stats" id="cuStats"></div>
   <div class="cu-acts" id="cuActs"></div>
+  <div class="cu-acct" id="cuAcct" hidden></div>
+  <h4 class="cu-h" id="cuOrdersH" hidden>Online orders</h4>
+  <div class="cu-ords" id="cuOrders" hidden></div>
   <h4 class="cu-h">Purchase history</h4>
   <div class="tbl cu-list" id="cuList"></div>
 </div>
@@ -2791,14 +2834,27 @@ $('sCsv').addEventListener('click', () => exportCsv(filtered()));
 
 /* ---------- customers ---------- */
 const digits = v => String(v||'').replace(/\D/g,'');
-const custKey = s => digits(s.phone) ? 'p:'+digits(s.phone).slice(-10) : (s.uid||'').trim() ? 'u:'+s.uid.trim() : (s.customer||'').trim() ? 'n:'+s.customer.trim().toLowerCase() : 'walkin';
+let _idm=null, _idv='';
+function idMaps(){   // phone / UID → Customer ID, so old walk-in sales join the right account
+  const v=S.sales.length+'|'+S.orders.length+'|'+((S.sales[0]||{}).at||0)+'|'+((S.orders[0]||{}).at||0); if (_idm&&_idv===v) return _idm;
+  const ph=new Map(), ud=new Map(), add=(c,p,u)=>{ if (!c) return; const d=digits(p).slice(-10); if (d&&!ph.has(d)) ph.set(d,c); const x=String(u||'').trim(); if (x&&!ud.has(x)) ud.set(x,c); };
+  S.sales.forEach(s=>add(s.ccode,s.phone,s.uid)); S.orders.forEach(o=>add(o.ccode,o.phone,o.uid)); _idm={ph,ud}; _idv=v; return _idm; }
+function custKey(s){
+  if (s.ccode) return 'c:'+s.ccode;
+  const d=digits(s.phone).slice(-10), u=String(s.uid||'').trim(), m=(S.sales&&S.orders)?idMaps():{ph:new Map(),ud:new Map()};
+  if (d&&m.ph.has(d)) return 'c:'+m.ph.get(d); if (u&&m.ud.has(u)) return 'c:'+m.ud.get(u);
+  return d ? 'p:'+d : u ? 'u:'+u : (s.customer||'').trim() ? 'n:'+s.customer.trim().toLowerCase() : 'walkin'; }
 function customers(){
   const m=new Map();
   S.sales.forEach(s=>{ const k=custKey(s); if(k==='walkin') return; let c=m.get(k);
     if(!c){ c={key:k, name:s.customer||'', phone:s.phone||'', uid:s.uid||'', n:0, recv:0, rev:0, dia:0, profit:0, last:0, lastPkg:'', pend:0, ords:new Set(), due:0}; m.set(k,c); }
     c.ords.add(s.orderId||s.id); c.due+=dueOf(s);
     c.n++; c.disc=(c.disc||0)+discOf(s); c.recv+=Number(s.received)||0; c.rev+=revenueOf(s); c.dia+=Number(s.diamonds)||0; c.profit+=profitOf(s); if(s.status==='pending') c.pend++;
-    if(s.at>c.last){ c.last=s.at; c.lastPkg=s.pkgName; c.name=s.customer||c.name; c.phone=s.phone||c.phone; c.uid=s.uid||c.uid; c.pkgId=s.pkgId; } if (s.ccode) c.ccode=s.ccode; });
+    if(s.at>c.last){ c.last=s.at; c.lastPkg=s.pkgName; c.name=s.customer||c.name; c.phone=s.phone||c.phone; c.uid=s.uid||c.uid; c.pkgId=s.pkgId; } if (s.ccode){ c.ccode=s.ccode; c.cid=s.cid||c.cid; } });
+  // online customers who haven't bought yet still get their own record
+  S.orders.forEach(o=>{ if (!o.ccode) return; const k='c:'+o.ccode; let c=m.get(k);
+    if (!c){ c={key:k, name:o.name||'', phone:o.phone||'', uid:o.uid||'', n:0, recv:0, rev:0, dia:0, profit:0, last:o.at, lastPkg:(o.items||[]).map(i=>i.kind==='member'?i.name:nf(i.diamonds)+' diamonds').join(', '), pend:0, ords:new Set(), due:0, ccode:o.ccode, cid:o.cid, onlyOnline:true}; m.set(k,c); }
+    c.online=(c.online||0)+1; c.cid=c.cid||o.cid; if (o.at>c.last&&c.onlyOnline){ c.last=o.at; } });
   const ly=S.settings.loyalty||{};
   return [...m.values()].map(c=>{ c.buys=c.ords.size; c.vip=(+ly.vipAt>0) && c.rev>=+ly.vipAt; c.toReward=(+ly.every>0&&+ly.pct>0) ? (+ly.every - (c.buys % +ly.every)) : null; return c; }).sort((a,b)=>b.rev-a.rev);
 }
@@ -2810,8 +2866,8 @@ function renderCustomers(){
   if (!S.loaded){ $('cList').innerHTML='<div class="skel"></div><div class="skel"></div>'; return; }
   $('cList').innerHTML = list.length ? list.map(c=>{ const ini=(c.name||c.phone||'?').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
     return `<div class="person" data-cust="${esc(c.key)}"><span class="pav"><span class="ph">${esc(ini)}</span></span>
-      <div class="pn"><b>${c.vip?'<span class="vip-b">⭐ VIP</span>':''}${esc(c.name||'No name')}${c.pend?'<span class="badge wait">'+c.pend+' undelivered</span>':''}</b><small>Last bought ${esc(c.lastPkg)}, ${fmtWhen(c.last)}</small>
-      <div class="chips">${c.phone?`<a href="tel:${esc(digits(c.phone))}">${esc(c.phone)}</a>`:''}${c.uid?`<i class="c-l">UID ${esc(c.uid)}</i>`:''}<i>${c.n} txn</i><i>${nf(c.dia)} 💎</i>${c.disc?`<i class="c-h">Discount ${rs(c.disc)}</i>`:''}${c.toReward===1?'<i class="c-r">🎁 next buy gets reward</i>':''}${c.due?`<i class="c-w">Owes ${rs(c.due)}</i>`:''}</div></div>
+      <div class="pn"><b>${c.vip?'<span class="vip-b">⭐ VIP</span>':''}${esc(c.name||'No name')}${c.pend?'<span class="badge wait">'+c.pend+' undelivered</span>':''}</b><small>${c.onlyOnline?'Ordered online':'Last bought'} ${esc(c.lastPkg)}, ${fmtWhen(c.last)}</small>
+      <div class="chips">${c.phone?`<a href="tel:${esc(digits(c.phone))}">${esc(c.phone)}</a>`:''}${c.ccode?`<i class="c-id">🪪 ${esc(c.ccode)}</i>`:''}${c.uid?`<i class="c-l">UID ${esc(c.uid)}</i>`:''}<i>${c.n} txn</i>${c.online?`<i>${c.online} online order${c.online===1?'':'s'}</i>`:''}<i>${nf(c.dia)} 💎</i>${c.disc?`<i class="c-h">Discount ${rs(c.disc)}</i>`:''}${c.toReward===1?'<i class="c-r">🎁 next buy gets reward</i>':''}${c.due?`<i class="c-w">Owes ${rs(c.due)}</i>`:''}</div></div>
       <div class="pa"><span class="pc" style="text-align:right"><b style="display:block;color:var(--ink);font-size:.95rem">${rs(c.rev)}</b><small>${rsSigned(c.profit)}</small></span>${KEBAB}</div></div>`; }).join('')
     : all.length ? blank('No customers match','Try a different name, phone or UID.') : blank('No customers yet','Customers appear here after you record sales with their name, phone or UID.');
 }
@@ -3345,16 +3401,22 @@ function openCust(key){
   const c=customers().find(x=>x.key===key); if(!c) return;
   const list=S.sales.filter(s=>custKey(s)===key), due=list.reduce((t,s)=>t+dueOf(s),0), ini=(c.name||c.phone||'?').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2).toUpperCase();
   $('cuIni').textContent=ini; $('cuName').textContent=c.name||c.phone||'Customer';
-  $('cuSub').textContent=[c.phone, c.uid&&'UID '+c.uid, 'Customer since '+new Date(Math.min(...list.map(s=>s.at))).toLocaleDateString('en-GB',{month:'short',year:'numeric'})].filter(Boolean).join(' · ');
+  const ords=c.ccode?S.orders.filter(o=>o.ccode===c.ccode).sort((a,b)=>b.at-a.at):[], first=Math.min(...list.map(s=>s.at), ...ords.map(o=>o.at));
+  $('cuSub').textContent=[c.phone, c.uid&&'UID '+c.uid, isFinite(first)?'Customer since '+new Date(first).toLocaleDateString('en-GB',{month:'short',year:'numeric'}):''].filter(Boolean).join(' · ');
   $('cuStats').innerHTML=`<div><span>Total spent</span><b>${rs(c.rev)}</b></div><div><span>Your profit</span><b class="g">${rsSigned(c.profit)}</b></div><div><span>Diamonds</span><b>${nf(c.dia)}</b></div><div class="${due?'w':''}"><span>To collect</span><b>${due?rs(due):'–'}</b></div>`;
   const w=waNumber(c.phone);
   $('cuSub').textContent=(c.vip?'⭐ VIP · ':'')+(c.ccode?'🪪 '+c.ccode+' · ':'')+$('cuSub').textContent+(c.toReward?` · 🎁 reward in ${c.toReward} buy${c.toReward===1?'':'s'}`:'');
   $('cuActs').innerHTML=(due?'<button class="btn primary" type="button" data-cu="remind">🔔 Remind to pay</button>':'')+`<button class="btn accent" type="button" data-cu="again">Sell again</button>${w?'<button class="btn" type="button" data-cu="wa">WhatsApp</button>':''}${c.phone?`<a class="btn" href="tel:${esc(digits(c.phone))}">Call</a>`:''}${c.uid?'<button class="btn" type="button" data-cu="uid">Copy UID</button>':''}<button class="btn" type="button" data-cu="all">All sales</button>`;
-  $('cuList').innerHTML=list.slice(0,12).map(s=>saleRow(s,false,true)).join('')+(list.length>12?`<div class="more-row"><button class="btn sm" type="button" data-cu="all">See all ${list.length}</button></div>`:'');
+  $('cuList').innerHTML=list.length?list.slice(0,12).map(s=>saleRow(s,false,true)).join('')+(list.length>12?`<div class="more-row"><button class="btn sm" type="button" data-cu="all">See all ${list.length}</button></div>`:''):'<p class="help" style="padding:12px 4px">No sales recorded yet.</p>';
+  $('cuOrdersH').hidden=$('cuOrders').hidden=!ords.length;
+  $('cuOrders').innerHTML=ords.slice(0,10).map(o=>{ const [st,cl]=orderStatus(o); return `<div class="cu-ord" data-cuord="${esc(o.id)}"><div><b>#${esc(o.id.slice(0,6).toUpperCase())}</b><small>${esc((o.items||[]).map(i=>i.qty+' × '+(i.kind==='member'?i.name:nf(i.diamonds)+' 💎')).join(', '))} · ${esc(fmtWhen(o.at))}</small></div><span class="ost ${cl}">${st}</span><b class="num">${rs(o.total||0)}</b></div>`; }).join('');
+  $('cuAcct').hidden=!c.ccode; $('cuAcct').innerHTML=c.ccode?`<span>🪪 Customer ID <b>${esc(c.ccode)}</b></span><span id="cuMail">${c.cid?'Loading account…':'Guest account'}</span>`:'';
+  if (c.cid) getDoc(doc(db,'customers',c.cid)).then(sn=>{ const d=sn.exists()?sn.data():{}; const el=$('cuMail'); if (el) el.textContent=d.email?'✉ '+d.email+' (Google)':'Guest on one phone'; }).catch(()=>{ const el=$('cuMail'); if (el) el.textContent=''; });
   $('sheetCust').dataset.key=key; $('sheetBg').hidden=false; $('sheetCust').hidden=false;
 }
 function closeCust(){ $('sheetCust').hidden=true; if ($('sheetMore').hidden && $('sheetPk').hidden && $('sheetCard').hidden && $('sheetSale').hidden) $('sheetBg').hidden=true; }
 $('cuClose').addEventListener('click', closeCust);
+$('cuOrders').addEventListener('click', e=>{ const r=e.target.closest('[data-cuord]'); if (!r) return; const o=S.orders.find(x=>x.id===r.dataset.cuord); if (!o) return; closeCust(); S.oFilter=o.status; S.oQ=o.id.slice(0,6); S.oPage=1; S.oOpen=o.id; go('orders').then(()=>{ const i=$('oSearch'); if (i) i.value=S.oQ; renderOrders(); }); });
 $('sheetCust').addEventListener('click', e=>{
   const key=$('sheetCust').dataset.key, c=customers().find(x=>x.key===key); if(!c) return;
   if (e.target.closest('.sale[data-sale]')) return;   // row click opens the sale details via the global handler
@@ -3535,7 +3597,7 @@ function publicRecent(){   // first letter only, for social proof without exposi
 }
 function publishPrices(){
   if (!S.uid || !S.loaded) return;
-  const sh=S.settings.shop||{}, tp=topPackages()[0], payload={shop:{region:sh.region===undefined?'Singapore':sh.region, verified:!!sh.verified, name:sh.name||'',wa:sh.wa||'',pay:sh.pay||'',esewa:sh.esewa||'',khalti:sh.khalti||'',bank:sh.bank||'',open:sh.open!==false,notice:sh.notice||''}, popular:tp&&tp.n?tp.p.id:null, loyalty:{every:+(S.settings.loyalty||{}).every||0, pct:+(S.settings.loyalty||{}).pct||0}, stats:publicStats(), recent:publicRecent(), ...publicReviews(), ref:S.settings.refBonus||'', coupons:coupons().filter(couponLive).map(c=>({c:c.code, t:c.type||'pct', v:+c.val, m:+c.min||0, u:+c.until||0})), packages:S.settings.packages.map(p=>({id:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind||'topup', price:sellOf(p)}))};
+  const sh=S.settings.shop||{}, tp=topPackages()[0], payload={shop:{region:sh.region===undefined?'Singapore':sh.region, verified:!!sh.verified, name:sh.name||'',wa:sh.wa||'',pay:sh.pay||'',esewa:sh.esewa||'',khalti:sh.khalti||'',bank:sh.bank||'',open:sh.open!==false,notice:sh.notice||''}, popular:tp&&tp.n?tp.p.id:null, loyalty:{every:+(S.settings.loyalty||{}).every||0, pct:+(S.settings.loyalty||{}).pct||0}, stats:publicStats(), recent:publicRecent(), ref:S.settings.refBonus||'', coupons:coupons().filter(couponLive).map(c=>({c:c.code, t:c.type||'pct', v:+c.val, m:+c.min||0, u:+c.until||0})), packages:S.settings.packages.map(p=>({id:p.id, name:p.name, diamonds:p.diamonds, kind:p.kind||'topup', price:sellOf(p)}))};
   const j=JSON.stringify(payload); if (j===pubJSON) return;
   clearTimeout(pubTimer); pubTimer=setTimeout(()=>{ setDoc(doc(db,'public','prices'), {...payload, updatedAt:Date.now()}).then(()=>{ pubJSON=j; }).catch(e=>console.warn('publish prices',e)); }, 1500);
 }
@@ -4023,22 +4085,49 @@ function renderBlocked(){
 }
 document.addEventListener('click', async e=>{ const u=e.target.closest('[data-unblock]'); if (!u) return; if (!await ask('Unblock this customer?','Their orders won’t show the warning any more.','Unblock',false)) return; const st={...S.settings, blocked:blocked().filter((_,i)=>i!==+u.dataset.unblock)}; S.settings=st; saveSettings(st); renderAll(); });
 
-// ---------- 5. reviews ----------
-S.reviews=[];
-function watchReviews(){ unsubs.push(onSnapshot(collection(db,'reviews'), snap=>{ S.reviews=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>b.at-a.at); renderReviews(); publishPrices(); }, e=>console.warn('reviews',e))); }
-function reviewStats(){ const r=S.reviews; return r.length?{avg:r.reduce((t,x)=>t+(+x.stars||0),0)/r.length, n:r.length}:{avg:0,n:0}; }
+// ---------- 5. reviews (live on the order page; shop and customers can reply) ----------
+S.reviews=[]; S.replies=new Map(); const repUnsub=new Map(); let revSeen=null, repSeen=new Set(), repInit=new Set();
+function watchReviews(){ unsubs.push(onSnapshot(collection(db,'reviews'), snap=>{
+  S.reviews=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>b.at-a.at);
+  if (revSeen){ const fresh=S.reviews.filter(r=>!revSeen.has(r.id)); if (fresh.length){ const r=fresh[0]; xChime('paid'); toast(`⭐ New ${r.stars}★ review from ${r.name||'a customer'}${r.text?': “'+String(r.text).slice(0,50)+'”':''}`, false, currentPage==='customers'?null:{label:'Open', fn:()=>go('customers')}); xPush('⭐ New review', `${r.stars}★ from ${r.name||'a customer'}`, 'rev-'+r.id); } }
+  revSeen=new Set(S.reviews.map(r=>r.id));
+  // follow the replies of the latest reviews
+  const want=new Set(S.reviews.slice(0,20).map(r=>r.id));
+  repUnsub.forEach((u,id)=>{ if (!want.has(id)){ u(); repUnsub.delete(id); } });
+  want.forEach(id=>{ if (repUnsub.has(id)) return; repUnsub.set(id, onSnapshot(collection(db,'reviews',id,'replies'), sn=>{
+    const list=sn.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.at-b.at);
+    if (repInit.has(id)){ const nw=list.filter(x=>!repSeen.has(x.id)&&x.by==='customer'); if (nw.length){ const x=nw[nw.length-1]; toast(`💬 ${x.name||'Customer'} replied to a review: “${String(x.text).slice(0,50)}”`, false, currentPage==='customers'?null:{label:'Open', fn:()=>go('customers')}); } }
+    list.forEach(x=>repSeen.add(x.id)); repInit.add(id); S.replies.set(id,list); renderReviews(); }, e=>console.warn('replies',e))); });
+  renderReviews(); }, e=>console.warn('reviews',e))); }
+function reviewStats(){ const r=S.reviews.filter(x=>!x.hidden); return r.length?{avg:r.reduce((t,x)=>t+(+x.stars||0),0)/r.length, n:r.length}:{avg:0,n:0}; }
+const starsTxt=n=>'★'.repeat(n)+'<span class="dim">'+'★'.repeat(5-n)+'</span>';
+let revOpenReply=null, revMore=false;
 function renderReviews(){
-  const el=$('revCard'); if (!el) return; const r=S.reviews; el.hidden=!r.length; if (el.hidden) return; const st=reviewStats();
-  el.innerHTML=`<div class="card-h"><h2>⭐ Reviews</h2><span class="meta">${st.avg.toFixed(1)} ★ from ${st.n}</span></div>
-    ${r.slice(0,12).map(x=>`<div class="q-row"><div class="info"><span class="t">${'★'.repeat(+x.stars||0)}<span class="dim">${'★'.repeat(5-(+x.stars||0))}</span> · ${esc(x.name||'Customer')}</span><span class="s">${x.text?'“'+esc(x.text)+'”':'No comment'} · ${esc(ago(x.at))}</span></div>
-      <div class="acts"><button class="btn sm${x.shown?' primary':''}" type="button" data-rshow="${esc(x.id)}">${x.shown?'On page ✓':'Show on page'}</button><button class="icon-btn sm" type="button" data-rdel="${esc(x.id)}" aria-label="Delete review">×</button></div></div>`).join('')}
-    <div class="card-f"><span class="help">Only reviews you choose are shown on your order page. Your average rating shows there once you have 3 reviews.</span></div>`;
+  const el=$('revCard'); if (!el) return; const r=S.reviews; el.hidden=!r.length; if (el.hidden) return; const st=reviewStats(), list=revMore?r:r.slice(0,6);
+  const keep=$('revReplyIn')?$('revReplyIn').value:'';
+  el.innerHTML=`<div class="card-h"><h2>⭐ Reviews</h2><span class="meta">${st.avg.toFixed(1)} ★ · ${st.n} on your page${r.length>st.n?' · '+(r.length-st.n)+' hidden':''}</span></div>
+    <div class="rv-list">${list.map(x=>{ const reps=S.replies.get(x.id)||[], code=x.id.slice(0,6).toUpperCase();
+      return `<div class="rv${x.hidden?' off':''}"><div class="rv-top"><span class="rv-av">${esc(initials(x.name))}</span><div class="rv-who"><b>${esc(x.name||'Customer')}</b><small>${esc(ago(x.at))} · order #${esc(code)}${x.hidden?' · <em>hidden</em>':''}</small></div><span class="rv-st">${starsTxt(+x.stars||0)}</span></div>
+        ${x.text?`<p class="rv-t">${esc(x.text)}</p>`:''}
+        ${reps.length?`<div class="rv-reps">${reps.map(y=>`<div class="rv-rep${y.by==='shop'?' shop':''}"><b>${y.by==='shop'?'🏪 '+esc(y.name||'Shop'):esc(y.name||'Customer')}</b> <span>${esc(y.text)}</span><small>${esc(ago(y.at))}<button type="button" class="link" data-repdel="${esc(x.id)}|${esc(y.id)}">Delete</button></small></div>`).join('')}</div>`:''}
+        ${revOpenReply===x.id?`<div class="rv-form"><textarea id="revReplyIn" maxlength="300" rows="2" placeholder="Write a reply as the shop">${esc(keep)}</textarea><div class="rv-fa"><button class="btn sm" type="button" data-revcancel>Cancel</button><button class="btn sm primary" type="button" data-revsend="${esc(x.id)}">Send reply</button></div></div>`:''}
+        <div class="rv-acts"><button class="btn sm" type="button" data-revreply="${esc(x.id)}">↩ Reply</button><button class="btn sm" type="button" data-rshow="${esc(x.id)}">${x.hidden?'Show on page':'Hide'}</button><button class="btn sm rv-del" type="button" data-rdel="${esc(x.id)}">Delete</button></div></div>`; }).join('')}</div>
+    ${r.length>6?`<div class="card-f"><button class="btn sm" type="button" data-revmore>${revMore?'Show less':'See all '+r.length+' reviews'}</button></div>`:''}`;
+  if (revOpenReply&&$('revReplyIn')) $('revReplyIn').focus();
 }
 document.addEventListener('click', async e=>{
-  const s=e.target.closest('[data-rshow]'); if (s){ const x=S.reviews.find(r=>r.id===s.dataset.rshow); if (x) setDoc(doc(db,'reviews',x.id),{shown:!x.shown},{merge:true}).catch(fail('Couldn’t update the review.')); return; }
-  const d=e.target.closest('[data-rdel]'); if (d){ if (!await ask('Delete this review?','It is removed for good.','Delete')) return; deleteDoc(doc(db,'reviews',d.dataset.rdel)).catch(fail('Couldn’t delete the review.')); }
+  const t=e.target;
+  const rr=t.closest('[data-revreply]'); if (rr){ revOpenReply=rr.dataset.revreply; renderReviews(); return; }
+  if (t.closest('[data-revcancel]')){ revOpenReply=null; renderReviews(); return; }
+  if (t.closest('[data-revmore]')){ revMore=!revMore; renderReviews(); return; }
+  const sd=t.closest('[data-revsend]'); if (sd){ const text=($('revReplyIn').value||'').trim().slice(0,300); if (!text){ $('revReplyIn').focus(); return; } sd.disabled=true;
+    try{ await setDoc(doc(collection(db,'reviews',sd.dataset.revsend,'replies')),{by:'shop', name:(S.settings.shop||{}).name||'Shop', text, at:Date.now()}); revOpenReply=null; toast('Reply posted. Customers can see it now.'); renderReviews(); }
+    catch(err){ console.warn(err); sd.disabled=false; toast(/permission|insufficient/i.test(String(err&&(err.code||err.message)))?'Blocked by old Firestore rules. Publish the new rules (Orders page).':'Couldn’t post the reply.',true); } return; }
+  const dl=t.closest('[data-repdel]'); if (dl){ const [rid,pid]=dl.dataset.repdel.split('|'); if (!await ask('Delete this reply?','It is removed for everyone.','Delete')) return; deleteDoc(doc(db,'reviews',rid,'replies',pid)).catch(fail('Couldn’t delete the reply.')); return; }
+  const s=t.closest('[data-rshow]'); if (s){ const x=S.reviews.find(r=>r.id===s.dataset.rshow); if (x) setDoc(doc(db,'reviews',x.id),{hidden:!x.hidden},{merge:true}).catch(fail('Couldn’t update the review.')); return; }
+  const d=t.closest('[data-rdel]'); if (d){ if (!await ask('Delete this review?','The review and its replies are removed for good.','Delete')) return; const id=d.dataset.rdel; (S.replies.get(id)||[]).forEach(y=>deleteDoc(doc(db,'reviews',id,'replies',y.id)).catch(()=>{})); deleteDoc(doc(db,'reviews',id)).catch(fail('Couldn’t delete the review.')); }
 });
-function publicReviews(){ const st=reviewStats(); return {rating: st.n>=3?{avg:Math.round(st.avg*10)/10, n:st.n}:null, reviews:S.reviews.filter(r=>r.shown).slice(0,6).map(r=>({n:String(r.name||'Player').split(' ')[0].slice(0,20), s:+r.stars||5, t:String(r.text||'').slice(0,160), at:r.at}))}; }
+function publicReviews(){ return {}; }   // reviews are read live by the order page
 
 // ---------- 6. referrals ----------
 function refLine(o){ if (!o.ref) return ''; const by=S.orders.find(x=>x.ccode===o.ref); return `<p class="o-ref">🤝 Referred by <b>${esc(o.ref)}</b>${by?' ('+esc(by.name)+')':''}</p>`; }
@@ -4185,7 +4274,7 @@ function orderTrail(o){
 
 /* ---------- are the payment-screenshot rules published? ---------- */
 S.shotRulesOk=null;
-const RULES_VER='2026-10-17c';
+const RULES_VER='2026-10-17d';
 const rulesOld=()=>S.loaded && (S.settings.rulesVer||'')!==RULES_VER;
 async function checkShotRules(){
   const parts=[['payshots','payment screenshots'],['dshots','delivery proof'],['reviews','reviews']], missing=[]; let unsure=false;

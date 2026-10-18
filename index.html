@@ -643,6 +643,47 @@ textarea{min-height:64px;resize:vertical}
 .pg:disabled{opacity:.35;cursor:default}
 @media(min-width:1200px){body.v-orders main.wrap{max-width:1000px}}
 @media(max-width:600px){.pager>span:first-child{flex-basis:100%}.pager .pg{min-width:32px;height:32px}}
+
+/* reviews */
+.revs .rv-sum{display:grid;grid-template-columns:auto 1fr;gap:18px;align-items:center;padding:16px;border-bottom:1px solid var(--line)}
+.rv-big{display:grid;justify-items:center;gap:2px;min-width:92px}
+.rv-big>b{font-size:2.4rem;font-weight:800;line-height:1;letter-spacing:-.03em}
+.rv-big small{font-size:.74rem;color:var(--muted)}
+.rv-dist{display:grid;gap:4px}
+.rv-dist div{display:grid;grid-template-columns:28px 1fr 24px;gap:8px;align-items:center;font-size:.76rem;color:var(--muted)}
+.rv-dist i{display:block;height:6px;border-radius:99px;background:var(--sunken);overflow:hidden}
+.rv-dist i b{display:block;height:100%;background:#F5B700;border-radius:99px}
+.rs{color:#F5B700;letter-spacing:1px;white-space:nowrap}.rs span{opacity:.25}
+.rev{padding:14px 16px;border-top:1px solid var(--line)}
+.rev-list .rev:first-child{border-top:none}
+.rv-top{display:flex;align-items:center;gap:10px}
+.rv-av{width:34px;height:34px;border-radius:50%;background:var(--sunken);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.86rem;flex-shrink:0}
+.rv-who{flex:1;min-width:0}.rv-who b{display:block;font-size:.92rem}.rv-who em{font-style:normal;font-weight:500;color:var(--muted)}.rv-who small{color:var(--ok);font-size:.74rem}
+.rv-t{margin:8px 0 0 44px;font-size:.92rem;line-height:1.5;color:var(--ink-2)}
+.reps{margin:10px 0 0 44px;display:grid;gap:6px}
+.rep{padding:8px 10px;border-radius:10px;background:var(--sunken);font-size:.86rem}
+.rep.shop{background:var(--blue-soft)}
+.rep b{display:block;font-size:.8rem}.rep b i{font-style:normal;font-size:.66rem;padding:1px 6px;border-radius:999px;background:var(--blue);color:#fff;margin-left:4px;vertical-align:1px}.rep b em{font-style:normal;font-weight:500;color:var(--muted)}
+.rep small{display:block;color:var(--muted);font-size:.72rem;margin-top:2px}
+.rep .link,.rv-acts .link{font-size:.78rem}
+.rep-form{margin:10px 0 0 44px;display:grid;gap:8px}
+.rep-fa{display:flex;gap:8px;justify-content:flex-end}
+.rv-acts{display:flex;gap:16px;margin:8px 0 0 44px}
+.rv-acts .dim{color:var(--muted)}
+.rate{display:grid;gap:10px;padding:14px;border:1px solid var(--line);border-radius:12px;margin-bottom:12px;background:var(--surface-2)}
+.stars{display:flex;gap:4px;align-items:center}
+.stars button{font-size:2.1rem;line-height:1;color:var(--line-2);transition:transform .1s,color .1s}
+.stars button[aria-checked=true]{color:#F5B700}
+.stars button:active{transform:scale(1.2)}
+.stars .sw{margin-left:8px;font-weight:700;font-size:.9rem;color:var(--ink-2)}
+.tags{display:flex;flex-wrap:wrap;gap:6px}
+.tags button{padding:6px 11px;border-radius:999px;border:1px solid var(--line-2);background:var(--surface);font-weight:600;font-size:.8rem;color:var(--ink-2)}
+.tags button[aria-pressed=true]{background:var(--solid);border-color:var(--solid);color:var(--on-solid)}
+.rate .cnt{justify-self:end;margin-top:-6px;font-size:.72rem;color:var(--muted)}
+.my-rev{border:1px solid var(--line);border-radius:12px;margin-bottom:12px;overflow:hidden}
+.my-rev .rs-h{display:block;padding:10px 16px 0;font-size:.8rem;color:var(--muted)}
+.my-rev .rev{border-top:none}
+@media(max-width:420px){.rv-t,.reps,.rep-form,.rv-acts{margin-left:0}}
 </style>
 </head>
 <body class="v-shop">
@@ -677,7 +718,7 @@ textarea{min-height:64px;resize:vertical}
 
 <script type="module">
 import { initializeApp } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, collection, addDoc, query, where, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
+import { getFirestore, doc, getDoc, setDoc, deleteDoc, collection, addDoc, query, where, orderBy, limit, getDocs, onSnapshot } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-firestore.js";
 import { getAuth, onAuthStateChanged, signInAnonymously, GoogleAuthProvider, linkWithPopup, linkWithRedirect, signInWithPopup, signInWithCredential, signOut, getRedirectResult } from "https://www.gstatic.com/firebasejs/12.17.1/firebase-auth.js";
 const app = initializeApp({
   apiKey: "AIzaSyCLSEXvViC9U_pOemMfNUkivNQSO2ayggA",
@@ -859,7 +900,7 @@ function startTicker(){
    ========================================================= */
 function hero(){
   const s=P.stats||{}, open=isOpen(), rec=P.recent||[];
-  const tiles=[P.rating&&['Rating',P.rating.avg+' ★'], s.delivered>=10&&['Orders delivered',nf(s.delivered)+'+'], s.customers>=10&&['Happy players',nf(s.customers)+'+'], s.avgMins&&['Often loaded in','~'+s.avgMins+' min']].filter(Boolean).slice(0,3);
+  const rv=revSummary(), tiles=[rv&&rv.n>=3&&['Rating',rv.avg.toFixed(1)+' ★'], s.delivered>=10&&['Orders delivered',nf(s.delivered)+'+'], s.customers>=10&&['Happy players',nf(s.customers)+'+'], s.avgMins&&['Often loaded in','~'+s.avgMins+' min']].filter(Boolean).slice(0,3);
   return `<section class="hero">${RIDGE}<p class="live"><i class="${open?'':'off'}"></i>${open?'Taking orders now':'Orders paused'}</p>
     <h1>Free Fire diamonds</h1><p class="sub">Top up straight to your UID. Pay with eSewa, Khalti or bank, then watch your order go through live.</p>
     ${tiles.length?`<div class="hstats" style="grid-template-columns:repeat(${tiles.length},minmax(0,1fr))">${tiles.map(([a,b])=>`<div><span>${a}</span><b>${b}</b></div>`).join('')}</div>`:''}
@@ -1485,29 +1526,73 @@ function inviteHTML(){
 document.addEventListener('click', e=>{ if (!e.target.closest('#invShare')||!CP) return; const link=location.origin+location.pathname+'?ref='+CP.code, msg=`💎 I buy Free Fire diamonds here. Fast and safe: ${link}`;
   if (navigator.share) navigator.share({text:msg}).catch(()=>{}); else open('https://wa.me/?text='+encodeURIComponent(msg),'_blank','noopener'); });
 
-// ---------- reviews ----------
-const revState=new Map();   // orderId -> {loaded, data}
-function reviewsHTML(){
-  const r=(P&&P.reviews)||[]; if (!r.length) return '';
-  return `<section class="card revs"><div class="card-h"><h2>⭐ What players say</h2>${P.rating?`<span class="hint">${P.rating.avg} ★ · ${P.rating.n} reviews</span>`:''}</div><div class="rev-list">${r.map(x=>`<div class="rev"><div class="rs">${'★'.repeat(x.s)}<span>${'★'.repeat(5-x.s)}</span></div>${x.t?`<p>“${esc(x.t)}”</p>`:''}<small>${esc(x.n)} · ${esc(ago(x.at))}</small></div>`).join('')}</div></section>`;
+// ---------- reviews: live on the page, shop and players can reply ----------
+let REV=[], revUnsub=null, revShow=4, repOpen=null; const RREP=new Map(), rrUnsub=new Map(), revState=new Map();
+const REV_TAGS=['⚡ Fast delivery','🤝 Trusted','💰 Good price','💬 Helpful'], STAR_WORD=['','Bad','Not great','Okay','Good','Excellent!'];
+function watchRevs(){ if (revUnsub) return; revUnsub=onSnapshot(query(collection(db,'reviews'), orderBy('at','desc'), limit(40)), sn=>{ REV=sn.docs.map(d=>({id:d.id,...d.data()})).filter(r=>!r.hidden); followReplies(); paintRevs(); }, e=>console.warn('reviews',e)); }
+function followReplies(){
+  const want=new Set(REV.slice(0,revShow).map(r=>r.id)); if (lastTrack) want.add(lastTrack.id);
+  rrUnsub.forEach((u,id)=>{ if (!want.has(id)){ u(); rrUnsub.delete(id); } });
+  want.forEach(id=>{ if (rrUnsub.has(id)) return; rrUnsub.set(id, onSnapshot(collection(db,'reviews',id,'replies'), sn=>{ RREP.set(id, sn.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.at-b.at)); paintRevs(); }, ()=>{})); });
 }
+function revSummary(){ const n=REV.length; if (!n) return null; return {n, avg:REV.reduce((t,r)=>t+(+r.stars||0),0)/n, dist:[5,4,3,2,1].map(k=>REV.filter(r=>+r.stars===k).length)}; }
+const starRow=n=>`<span class="rs">${'★'.repeat(n)}<span>${'★'.repeat(5-n)}</span></span>`;
+const first=n=>String(n||'Player').trim().split(/\s+/)[0].slice(0,30);
+function reviewItem(r){
+  const reps=RREP.get(r.id)||[], mine=CU&&r.cid===CU.uid, shopName=(P&&P.shop&&P.shop.name)||'Shop';
+  return `<div class="rev" data-rev="${esc(r.id)}"><div class="rv-top"><span class="rv-av">${esc(first(r.name).slice(0,1).toUpperCase())}</span><div class="rv-who"><b>${esc(first(r.name))}${mine?' <em>(you)</em>':''}</b><small>${esc(ago(r.at))} · ✓ Verified order</small></div>${starRow(+r.stars||0)}</div>
+    ${r.text?`<p class="rv-t">${esc(r.text)}</p>`:''}
+    ${reps.length?`<div class="reps">${reps.map(y=>{ const own=CU&&y.cid&&y.cid===CU.uid; return `<div class="rep ${y.by==='shop'?'shop':''}"><b>${y.by==='shop'?'🏪 '+esc(y.name||shopName)+' <i>Shop</i>':esc(first(y.name))+(own?' <em>(you)</em>':'')}</b><span>${esc(y.text)}</span><small>${esc(ago(y.at))}${own?` · <button type="button" class="link" data-repdel="${esc(r.id)}|${esc(y.id)}">Delete</button>`:''}</small></div>`; }).join('')}</div>`:''}
+    ${repOpen===r.id?`<div class="rep-form"><textarea id="repIn" maxlength="300" rows="2" placeholder="Write a reply"></textarea><div class="rep-fa"><button class="btn sm ghost" type="button" data-repcancel>Cancel</button><button class="btn sm solid" type="button" data-repsend="${esc(r.id)}">Reply</button></div></div>`:''}
+    <div class="rv-acts">${signedIn()?`<button type="button" class="link" data-repopen="${esc(r.id)}">↩ Reply</button>`:''}${mine?`<button type="button" class="link dim" data-myrevdel="${esc(r.id)}">Delete my review</button>`:''}</div></div>`;
+}
+function revInner(){
+  const sm=revSummary(); if (!sm) return '';
+  return `<div class="card-h"><h2>⭐ What players say</h2><span class="hint">${sm.n} review${sm.n===1?'':'s'}</span></div>
+    <div class="rv-sum"><div class="rv-big"><b>${sm.avg.toFixed(1)}</b>${starRow(Math.round(sm.avg))}<small>from ${sm.n} order${sm.n===1?'':'s'}</small></div>
+      <div class="rv-dist">${sm.dist.map((c,i)=>`<div><span>${5-i}★</span><i><b style="width:${sm.n?c/sm.n*100:0}%"></b></i><span>${c}</span></div>`).join('')}</div></div>
+    <div class="rev-list">${REV.slice(0,revShow).map(reviewItem).join('')}</div>
+    ${REV.length>revShow?`<div class="card-b" style="padding-top:0"><button class="btn block" type="button" data-revmore>See more reviews (${REV.length-revShow})</button></div>`:''}`;
+}
+function reviewsHTML(){ return `<section class="card revs" id="revSec" ${REV.length?'':'hidden'}>${revInner()}</section>`; }
+function paintRevs(){
+  const keep=$('repIn')?$('repIn').value:null, sec=$('revSec');
+  if (sec){ sec.hidden=!REV.length; sec.innerHTML=revInner(); }
+  const rb=$('revBox'); if (rb&&lastTrack) rb.innerHTML=reviewInner(lastTrack);
+  if (keep!==null&&$('repIn')) $('repIn').value=keep;
+}
+// on the order page: write a review, then see it with its replies
 function reviewBox(o){
-  const st=revState.get(o.id);
-  if (!st){ revState.set(o.id,{loaded:false}); getDoc(doc(db,'reviews',o.id)).then(s=>{ revState.set(o.id,{loaded:true, data:s.exists()?s.data():null}); const b=$('revBox'); if (b) b.innerHTML=reviewInner(o); }).catch(()=>{ revState.set(o.id,{loaded:true, data:null, off:true}); const b=$('revBox'); if (b) b.innerHTML=reviewInner(o); }); return `<div id="revBox"></div>`; }
+  if (!revState.has(o.id)){ revState.set(o.id,{loaded:false}); getDoc(doc(db,'reviews',o.id)).then(s=>{ revState.set(o.id,{...(revState.get(o.id)||{}), loaded:true, data:s.exists()?{id:o.id,...s.data()}:null}); followReplies(); paintRevs(); }).catch(()=>{ revState.set(o.id,{loaded:true, data:null}); paintRevs(); }); }
   return `<div id="revBox">${reviewInner(o)}</div>`;
 }
 function reviewInner(o){
-  const st=revState.get(o.id)||{}; if (!st.loaded||st.off) return '';
-  if (st.data) return `<div class="rev mine"><div class="rs">${'★'.repeat(st.data.stars)}<span>${'★'.repeat(5-st.data.stars)}</span></div>${st.data.text?`<p>“${esc(st.data.text)}”</p>`:''}<small>Thanks for your review! 🙏</small></div>`;
-  return `<div class="rate"><b>How was your order?</b><div class="stars" role="radiogroup" aria-label="Rating">${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" aria-label="${n} star${n>1?'s':''}" aria-checked="${(st.pick||0)>=n}">★</button>`).join('')}</div>
-    <textarea id="revText" maxlength="160" placeholder="Say something about the shop (optional)">${esc(st.text||'')}</textarea><button class="btn accent block" type="button" data-revsend="${esc(o.id)}" ${st.pick?'':'disabled'}>Send review</button></div>`;
+  const st=revState.get(o.id)||{}; if (!st.loaded) return '';
+  const live=REV.find(r=>r.id===o.id)||st.data;
+  if (live) return `<div class="my-rev"><b class="rs-h">Your review</b>${reviewItem(live)}</div>`;
+  const pick=st.pick||0, tags=st.tags||[];
+  return `<div class="rate"><b>How was your order?</b><div class="stars" role="radiogroup" aria-label="Rating">${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" aria-label="${n} star${n>1?'s':''}" aria-checked="${pick>=n}">★</button>`).join('')}<span class="sw">${STAR_WORD[pick]||'Tap a star'}</span></div>
+    <div class="tags">${REV_TAGS.map(t=>`<button type="button" data-rtag="${esc(t)}" aria-pressed="${tags.includes(t)}">${esc(t)}</button>`).join('')}</div>
+    <textarea id="revText" maxlength="250" placeholder="Tell other players about the shop (optional)">${esc(st.text||'')}</textarea><small class="cnt" id="revCnt">${(st.text||'').length}/250</small>
+    <button class="btn accent block" type="button" data-revpost="${esc(o.id)}" ${pick?'':'disabled'}>Post review</button><p class="hint">It shows on the shop page right away with your first name.</p></div>`;
 }
+document.addEventListener('input', e=>{ if (e.target.id==='revText'&&lastTrack){ const st=revState.get(lastTrack.id)||{}; st.text=e.target.value; revState.set(lastTrack.id,st); const c=$('revCnt'); if (c) c.textContent=e.target.value.length+'/250'; } });
 document.addEventListener('click', async e=>{
-  const s=e.target.closest('[data-star]'); if (s&&lastTrack){ const st=revState.get(lastTrack.id)||{loaded:true}; st.pick=+s.dataset.star; st.text=($('revText')||{}).value||''; revState.set(lastTrack.id,st); $('revBox').innerHTML=reviewInner(lastTrack); buzz(); return; }
-  const b=e.target.closest('[data-revsend]'); if (b){ const id=b.dataset.revsend, st=revState.get(id)||{}; const text=(($('revText')||{}).value||'').trim().slice(0,160); b.disabled=true;
-    const data={stars:st.pick||5, text, name:String(me.name||(CU&&CU.displayName)||'Player').split(' ')[0].slice(0,30), at:Date.now(), cid:CU.uid};
-    try{ await setDoc(doc(db,'reviews',id), data); revState.set(id,{loaded:true, data}); $('revBox').innerHTML=reviewInner(lastTrack); toast('Thanks for your review! 🙏','ok'); }
-    catch(err){ console.warn(err); b.disabled=false; toast('Couldn’t send the review. Try again later.','bad'); } }
+  const t=e.target;
+  const s=t.closest('[data-star]'); if (s&&lastTrack){ const st=revState.get(lastTrack.id)||{loaded:true}; st.pick=+s.dataset.star; revState.set(lastTrack.id,st); $('revBox').innerHTML=reviewInner(lastTrack); buzz(); return; }
+  const tg=t.closest('[data-rtag]'); if (tg&&lastTrack){ const st=revState.get(lastTrack.id)||{loaded:true}; const v=tg.dataset.rtag; st.tags=(st.tags||[]).includes(v)?st.tags.filter(x=>x!==v):[...(st.tags||[]),v]; revState.set(lastTrack.id,st); $('revBox').innerHTML=reviewInner(lastTrack); return; }
+  const pb=t.closest('[data-revpost]'); if (pb){ const id=pb.dataset.revpost, st=revState.get(id)||{}; const text=[...(st.tags||[]), (st.text||'').trim()].filter(Boolean).join(' · ').slice(0,300); pb.disabled=true;
+    const data={stars:st.pick||5, text, name:first(me.name||(CP&&CP.name)||(CU&&CU.displayName)), at:Date.now(), cid:CU.uid};
+    try{ await setDoc(doc(db,'reviews',id), data); revState.set(id,{loaded:true, data:{id,...data}}); followReplies(); paintRevs(); toast('Thanks! Your review is live 🙏','ok'); }
+    catch(err){ console.warn(err); pb.disabled=false; toast('Couldn’t post the review. Try again later.','bad'); } return; }
+  if (t.closest('[data-revmore]')){ revShow+=6; followReplies(); paintRevs(); return; }
+  const ro=t.closest('[data-repopen]'); if (ro){ repOpen=ro.dataset.repopen; paintRevs(); setTimeout(()=>$('repIn')&&$('repIn').focus(),30); return; }
+  if (t.closest('[data-repcancel]')){ repOpen=null; paintRevs(); return; }
+  const rs_=t.closest('[data-repsend]'); if (rs_){ const text=(($('repIn')||{}).value||'').trim().slice(0,300); if (!text){ $('repIn').focus(); return; } if (!signedIn()){ toast('Sign in with Google to reply','bad'); return; } rs_.disabled=true;
+    try{ await setDoc(doc(collection(db,'reviews',rs_.dataset.repsend,'replies')),{by:'customer', name:first(me.name||(CP&&CP.name)||(CU&&CU.displayName)), text, at:Date.now(), cid:CU.uid}); repOpen=null; if ($('repIn')) $('repIn').value=''; paintRevs(); toast('Reply posted ✓','ok'); }
+    catch(err){ console.warn(err); rs_.disabled=false; toast('Couldn’t post the reply.','bad'); } return; }
+  const rd=t.closest('[data-repdel]'); if (rd){ const [rid,pid]=rd.dataset.repdel.split('|'); if (!await ask('Delete your reply?','It is removed for everyone.','Delete')) return; deleteDoc(doc(db,'reviews',rid,'replies',pid)).then(()=>toast('Reply deleted')).catch(()=>toast('Couldn’t delete it','bad')); return; }
+  const md=t.closest('[data-myrevdel]'); if (md){ if (!await ask('Delete your review?','It is removed from the shop page.','Delete')) return; const id=md.dataset.myrevdel; deleteDoc(doc(db,'reviews',id)).then(()=>{ revState.set(id,{loaded:true,data:null}); REV=REV.filter(r=>r.id!==id); paintRevs(); toast('Review deleted'); }).catch(()=>toast('Couldn’t delete it','bad')); }
 });
 
 // ---------- delivery proof ----------
@@ -1717,6 +1802,7 @@ function priceFail(){
   $('app').innerHTML=`<section class="card"><div class="state"><div class="emo">🛠️</div><b>Ordering isn’t open right now.</b>Please message the shop directly.<p><button class="btn solid" type="button" onclick="location.reload()">Try again</button></p></div></section>`;
 }
 paintShell();
+watchRevs();
 onSnapshot(doc(db,'public','pay'), s=>{ PAY=s.exists()?s.data():{}; refreshPay();
   if (Object.keys(PAY.qrData||{}).length) loadLib(QRLIB.gen,'qrcode').then(refreshPay).catch(e=>console.warn('qr lib',e)); }, e=>console.warn('pay',e));
 onSnapshot(doc(db,'public','prices'), s=>{
