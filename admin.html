@@ -1643,6 +1643,13 @@ input:focus,textarea:focus,select:focus{border-color:var(--ember)}
 }
 /* dollar card balance panel: same night + facet art as the dashboard */
 .card-hero{background:var(--facets) no-repeat right 30% bottom -120px/300px auto,var(--night) !important}
+
+/* sidebar scrolls with the page instead of staying frozen (phones keep the slide-out menu) */
+@media(min-width:901px){
+  #appView{position:relative}
+  .side{position:absolute;top:0;bottom:0;left:0;overflow:visible}
+  .side .me{margin-top:28px}
+}
 </style>
 </head>
 <body>
