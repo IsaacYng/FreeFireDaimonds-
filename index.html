@@ -4,6 +4,13 @@
 <meta charset="UTF-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
 <meta name="theme-color" content="#0E1430"/>
+<link rel="manifest" href="manifest.webmanifest"/>
+<link rel="apple-touch-icon" href="icon-192.png"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"/>
+<meta name="apple-mobile-web-app-title" content="Diamonds"/>
+<script>try{var t=localStorage.getItem('dc-theme');if(t==='light'||t==='dark')document.documentElement.dataset.theme=t;}catch(e){}</script>
 <meta name="description" content="Order Free Fire diamonds and memberships online. Pay with eSewa, Khalti or bank and get your top-up within 24 hours of payment check."/>
 <title>Free Fire diamonds · Order online</title>
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%92%8E%3C/text%3E%3C/svg%3E"/>
@@ -27,7 +34,21 @@
   --cut:14px;--wrap:1080px;
   --shadow-1:0 1px 2px rgba(18,24,51,.06);--shadow-2:0 12px 32px -20px rgba(18,24,51,.4);
   --facets:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 240 200' fill='none' stroke='white' stroke-opacity='.09' stroke-width='1.2' stroke-linejoin='round'%3E%3Cpath d='M60 10h120l50 55-110 125L10 65z'/%3E%3Cpath d='M10 65h220M120 190 85 65l35-55 35 55-35 125M60 10l25 55M180 10l-25 55'/%3E%3C/svg%3E");
+  --field:#FFFFFF;--hover:#F5F6FB;--hover-line:#B5BCD0;--pk-on:#0E1430;--accent-txt:#B03709;--info-txt:#1E3F94;--star:#E8A317;--star-soft:#FFF6DD;--toast:#121833;
   box-sizing:border-box;color-scheme:light;
+}
+/* ---------- dark mode: follows the phone, or the switch in Account ---------- */
+@media (prefers-color-scheme:dark){ :root:not([data-theme="light"]){
+  --bg:#0A0F24;--panel:#131A37;--night:#060A1C;--night-2:#141B3D;--ink:#E9ECF8;--ink-2:#C3C9E2;--muted:#8E95B5;--line:#232C52;--line-2:#343E69;
+  --accent-soft:#3A1E12;--gem-soft:#172552;--ok:#4FD39A;--ok-soft:#0E2C22;--warn:#F0B858;--warn-soft:#30240C;--bad:#FF8A80;--bad-soft:#3A1614;
+  --field:#0F1530;--hover:#1A2246;--hover-line:#4A5584;--pk-on:#243270;--accent-txt:#FFA27A;--info-txt:#A9C2FF;--star-soft:#33290E;--toast:#232C57;
+  color-scheme:dark;--shadow-2:0 12px 32px -18px rgba(0,0,0,.8);
+} }
+:root[data-theme="dark"]{
+  --bg:#0A0F24;--panel:#131A37;--night:#060A1C;--night-2:#141B3D;--ink:#E9ECF8;--ink-2:#C3C9E2;--muted:#8E95B5;--line:#232C52;--line-2:#343E69;
+  --accent-soft:#3A1E12;--gem-soft:#172552;--ok:#4FD39A;--ok-soft:#0E2C22;--warn:#F0B858;--warn-soft:#30240C;--bad:#FF8A80;--bad-soft:#3A1614;
+  --field:#0F1530;--hover:#1A2246;--hover-line:#4A5584;--pk-on:#243270;--accent-txt:#FFA27A;--info-txt:#A9C2FF;--star-soft:#33290E;--toast:#232C57;
+  color-scheme:dark;--shadow-2:0 12px 32px -18px rgba(0,0,0,.8);
 }
 *,*::before,*::after{box-sizing:inherit;margin:0;padding:0}
 html{scroll-padding-top:90px}
@@ -45,10 +66,11 @@ svg{flex-shrink:0}
 .sr{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 
 /* ---------- buttons & fields ---------- */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:10px;border:1px solid var(--line-2);background:#fff;font-weight:700;font-size:.93rem;cursor:pointer;text-decoration:none;color:var(--ink);white-space:nowrap;transition:background .15s,border-color .15s,opacity .15s}
-.btn:hover{background:#F5F6FB;border-color:#B5BCD0}
-.btn.primary{background:var(--ink);border-color:var(--ink);color:#fff}
-.btn.primary:hover{background:#232C57}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:10px;border:1px solid var(--line-2);background:var(--panel);font-weight:700;font-size:.93rem;cursor:pointer;text-decoration:none;color:var(--ink);white-space:nowrap;transition:background .15s,border-color .15s,opacity .15s,transform .1s}
+.btn:active{transform:scale(.98)}
+.btn:hover{background:var(--hover);border-color:var(--hover-line)}
+.btn.primary{background:var(--ink);border-color:var(--ink);color:var(--panel)}
+.btn.primary:hover{background:var(--ink);opacity:.88}
 .btn.accent{background:var(--accent);border-color:var(--accent);color:#fff}
 .btn.accent:hover{background:var(--accent-2)}
 .btn.ghost{background:transparent;border-color:transparent;color:var(--ink-2)}
@@ -58,8 +80,7 @@ svg{flex-shrink:0}
 .btn:disabled{opacity:.5;cursor:not-allowed}
 .btn .spin{display:none}
 .btn.loading .spin{display:inline-block}
-.spin{width:16px;height:16px;border-radius:50%;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;animation:rot .7s linear infinite}
-.btn:not(.primary):not(.accent) .spin{border-color:rgba(18,24,51,.2);border-top-color:var(--ink)}
+.spin{width:16px;height:16px;border-radius:50%;border:2px solid rgba(128,128,128,.35);border-top-color:currentColor;animation:rot .7s linear infinite}
 @keyframes rot{to{transform:rotate(360deg)}}
 .link{font-weight:700;color:var(--accent);background:none;border:none;padding:0;cursor:pointer;font-size:inherit}
 .link:hover{text-decoration:underline}
@@ -68,7 +89,7 @@ svg{flex-shrink:0}
 .field{display:grid;gap:7px;min-width:0}
 .field>.lab{font-weight:700;font-size:.86rem;color:var(--ink-2);display:flex;justify-content:space-between;align-items:baseline;gap:10px}
 .field>.lab em{font-style:normal;font-weight:500;color:var(--muted);font-size:.8rem}
-input[type=text],input[type=tel],input[type=password],input:not([type]),textarea{width:100%;padding:12px 14px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-size:16px;transition:border-color .15s,box-shadow .15s}
+input[type=text],input[type=tel],input[type=password],input:not([type]),textarea{width:100%;padding:12px 14px;border:1px solid var(--line-2);border-radius:10px;background:var(--field);font-size:16px;transition:border-color .15s,box-shadow .15s}
 input:focus,textarea:focus{outline:none;border-color:var(--ink);box-shadow:0 0 0 3px rgba(18,24,51,.08)}
 input.bad{border-color:var(--bad);box-shadow:0 0 0 3px rgba(180,35,24,.1)}
 textarea{min-height:76px;resize:vertical}
@@ -80,20 +101,20 @@ textarea{min-height:76px;resize:vertical}
 .row-in{display:flex;gap:8px}
 .row-in input{flex:1;min-width:0}
 .chips{display:flex;flex-wrap:wrap;gap:6px}
-.chip{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);background:#fff;font-weight:600;font-size:.84rem;cursor:pointer;color:var(--ink-2)}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:32px;padding:0 12px;border-radius:999px;border:1px solid var(--line-2);background:var(--panel);font-weight:600;font-size:.84rem;cursor:pointer;color:var(--ink-2)}
 .chip:hover{border-color:var(--ink)}
 .opts{display:grid;grid-template-columns:repeat(auto-fit,minmax(96px,1fr));gap:8px}
 .opt{position:relative}
 .opt input{position:absolute;opacity:0;pointer-events:none}
-.opt span{display:flex;align-items:center;justify-content:center;min-height:46px;padding:6px 10px;border:1px solid var(--line-2);border-radius:10px;background:#fff;font-weight:700;font-size:.92rem;cursor:pointer;text-align:center}
-.opt input:checked+span{background:var(--night);border-color:var(--night);color:#fff}
+.opt span{display:flex;align-items:center;justify-content:center;min-height:46px;padding:6px 10px;border:1px solid var(--line-2);border-radius:10px;background:var(--panel);font-weight:700;font-size:.92rem;cursor:pointer;text-align:center}
+.opt input:checked+span{background:var(--pk-on);border-color:var(--pk-on);color:#fff}
 .opt input:focus-visible+span{outline:2px solid var(--ember);outline-offset:2px}
 
 .note{display:flex;gap:10px;align-items:flex-start;padding:12px 14px;border-radius:12px;font-size:.92rem;line-height:1.45}
 .note.ok{background:var(--ok-soft);color:var(--ok)}
 .note.bad{background:var(--bad-soft);color:var(--bad)}
 .note.warn{background:var(--warn-soft);color:var(--warn)}
-.note.info{background:var(--gem-soft);color:#1E3F94}
+.note.info{background:var(--gem-soft);color:var(--info-txt)}
 .note b{font-weight:800}
 .note .btn{margin-top:8px}
 
@@ -112,14 +133,20 @@ textarea{min-height:76px;resize:vertical}
 .bn{display:flex;align-items:center;gap:6px;min-width:0}
 .bn b{font-family:var(--hud);font-weight:700;font-size:1.1rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .vb{width:18px;height:18px;color:var(--gem)}
-.tabs{display:flex;gap:4px;padding:4px;border-radius:12px;background:rgba(255,255,255,.06)}
+.tabs{display:flex;gap:4px;padding:4px;border-radius:12px;background:rgba(255,255,255,.06);order:1;margin-left:auto}
+.top-r{display:flex;gap:6px;align-items:center;order:2}
+.ib{display:inline-flex;align-items:center;gap:6px;height:38px;min-width:38px;justify-content:center;padding:0 10px;border-radius:10px;border:1px solid rgba(255,255,255,.12);background:rgba(255,255,255,.06);color:#fff;font-weight:700;font-size:.84rem;cursor:pointer}
+.ib:hover{background:rgba(255,255,255,.12)}
+.ib svg{width:18px;height:18px}
+.ib.hot{background:var(--ember);border-color:var(--ember)}
 .tabs a{display:flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;text-decoration:none;color:var(--night-txt);font-weight:700;font-size:.9rem}
 .tabs a:hover{color:#fff}
 .tabs a[aria-current="page"]{background:rgba(255,255,255,.1);color:#fff;box-shadow:inset 0 -2px 0 var(--ember)}
 .tabs i{font-style:normal;min-width:20px;height:20px;padding:0 6px;border-radius:7px;background:var(--accent);color:#fff;font-size:.74rem;display:inline-flex;align-items:center;justify-content:center;font-family:var(--hud)}
 @media (max-width:560px){
   .top-in{padding:10px 12px 8px}
-  .tabs{width:100%}
+  .tabs{width:100%;order:3;margin-left:0}
+  .top-r{order:2}
   .tabs a{flex:1;justify-content:center;padding:9px 6px}
 }
 @media (min-width:561px){ .top{position:sticky;top:0;z-index:30} }
@@ -128,7 +155,7 @@ main{max-width:var(--wrap);margin:0 auto;padding:16px 16px 140px}
 .view{display:grid;gap:22px}
 
 /* ---------- hero ---------- */
-.hero{--c:var(--cut);color:#fff;padding:26px 22px 22px;display:grid;gap:18px;
+.hero{--c:var(--cut);position:relative;color:#fff;padding:26px 22px 22px;display:grid;gap:18px;
   background:var(--facets) no-repeat right -50px bottom -90px/360px auto,radial-gradient(80% 110% at 0% 100%,rgba(242,90,31,.18),transparent 62%),var(--night)}
 .h-top{display:flex;flex-wrap:wrap;gap:8px}
 .hchip{display:inline-flex;align-items:center;gap:6px;padding:5px 11px;border-radius:999px;background:rgba(255,255,255,.08);color:#DCE1F5;font-size:.8rem;font-weight:700}
@@ -142,10 +169,21 @@ main{max-width:var(--wrap);margin:0 auto;padding:16px 16px 140px}
 .h-stats span{font-size:.8rem;color:var(--night-txt)}
 .recent{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:-8px -16px 0;padding:0 16px 2px}
 .recent::-webkit-scrollbar{display:none}
-.rc{flex-shrink:0;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:#fff;border:1px solid var(--line);font-size:.84rem;white-space:nowrap}
+.rc{flex-shrink:0;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:var(--panel);border:1px solid var(--line);font-size:.84rem;white-space:nowrap}
 .rc b{font-weight:800}
 .rc small{color:var(--muted)}
 .rc .d{width:6px;height:6px;border-radius:50%;background:var(--ok-bar)}
+
+/* hero gem: one load sequence (facets settle, then a single glint) */
+.hgem{position:absolute;right:18px;top:16px;width:64px;pointer-events:none;filter:drop-shadow(0 10px 24px rgba(61,123,255,.35))}
+.hero>*:not(.hgem){position:relative;z-index:1}
+.hero .h-top{padding-right:72px}
+@media (min-width:700px){ .hgem{width:200px;right:44px;top:50%;margin-top:-118px} .hero .h-top{padding-right:0} .hero .h-txt{max-width:calc(100% - 250px)} }
+.hgem .f{opacity:0;transform-box:fill-box;transform-origin:center;animation:facet .55s cubic-bezier(.2,.8,.2,1) forwards}
+.hgem .glint{transform:translateX(-320%) skewX(-18deg);animation:glint 1.1s ease-in-out 1.15s forwards}
+@keyframes facet{from{opacity:0;transform:translateY(-8px) scale(.85)}to{opacity:1;transform:none}}
+@keyframes glint{to{transform:translateX(320%) skewX(-18deg)}}
+@media (prefers-reduced-motion:reduce){.hgem .f{animation:none;opacity:1}.hgem .glint{display:none}}
 
 /* ---------- sections ---------- */
 .sec-h{display:flex;align-items:baseline;justify-content:space-between;gap:12px;flex-wrap:wrap}
@@ -157,14 +195,24 @@ main{max-width:var(--wrap);margin:0 auto;padding:16px 16px 140px}
 .pkgs{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
 @media (min-width:640px){.pkgs{grid-template-columns:repeat(3,minmax(0,1fr))}}
 @media (min-width:920px){.pkgs{grid-template-columns:repeat(4,minmax(0,1fr))}}
-.pk{--c:12px;position:relative;background:#fff;display:flex;flex-direction:column;transition:background .15s,color .15s}
+.pk{--c:12px;position:relative;background:var(--panel);display:flex;flex-direction:column;transition:background .15s,color .15s}
 .pk-main{flex:1;display:grid;gap:2px;justify-items:start;text-align:left;padding:16px 14px 10px;border:none;background:transparent;cursor:pointer;color:inherit}
 .pk-main:disabled{cursor:not-allowed}
 .pk-gem{width:30px;height:30px;color:var(--gem);margin-bottom:6px}
+.pk-gems{display:flex;height:30px;margin-bottom:6px}
+.pk-gems svg{width:26px;height:26px;margin-right:-9px;filter:drop-shadow(1px 0 0 var(--panel))}
+.pk.on .pk-gems svg{filter:drop-shadow(1px 0 0 var(--pk-on))}
+.pk-rate{font-size:.74rem;color:var(--muted);font-weight:600}
+.pk.on .pk-rate{color:var(--night-txt)}
+.pk.pop{animation:pop .28s ease-out}
+@keyframes pop{40%{transform:scale(1.035)}}
+.cb-in.bump b{animation:bump .3s ease-out}
+@keyframes bump{40%{transform:scale(1.08)}}
+@media (prefers-reduced-motion:reduce){.pk.pop,.cb-in.bump b{animation:none}}
 .pk-d{font-family:var(--hud);font-weight:700;font-size:1.7rem;line-height:1}
 .pk-u{font-size:.82rem;color:var(--muted);font-weight:600}
 .pk-p{margin-top:8px;font-family:var(--hud);font-weight:700;font-size:1.05rem;color:var(--accent)}
-.pk-tag{position:absolute;top:10px;right:10px;font-size:.7rem;font-weight:800;padding:3px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent-2)}
+.pk-tag{position:absolute;top:10px;right:10px;font-size:.7rem;font-weight:800;padding:3px 8px;border-radius:6px;background:var(--accent-soft);color:var(--accent-txt)}
 .pk-foot{padding:0 14px 14px}
 .pk-add{width:100%;min-height:38px;border-radius:9px;border:1px solid var(--line-2);background:transparent;font-weight:700;font-size:.88rem;cursor:pointer;color:var(--ink)}
 .pk-add:hover{border-color:var(--ink)}
@@ -172,7 +220,7 @@ main{max-width:var(--wrap);margin:0 auto;padding:16px 16px 140px}
 .step button{width:42px;height:38px;border:none;background:transparent;color:#fff;font-size:1.3rem;font-weight:700;cursor:pointer;border-radius:9px}
 .step button:hover{background:rgba(255,255,255,.1)}
 .step b{font-family:var(--hud);font-size:1.05rem}
-.pk.on{background:var(--night);color:#fff}
+.pk.on{background:var(--pk-on);color:#fff}
 .pk.on .pk-u{color:var(--night-txt)}
 .pk.on .pk-p{color:#FFB08A}
 .pk.on .pk-gem{color:#8FB2FF}
@@ -181,18 +229,18 @@ main{max-width:var(--wrap);margin:0 auto;padding:16px 16px 140px}
 .pk-off{opacity:.55}
 
 .cpns{display:flex;flex-wrap:wrap;gap:8px}
-.cpn{--c:8px;display:inline-flex;align-items:center;gap:10px;padding:9px 14px;background:var(--accent-soft);color:var(--accent-2);border:none;cursor:pointer;font-weight:600;font-size:.88rem;text-align:left}
-.cpn b{font-family:var(--hud);font-weight:700;letter-spacing:.04em;color:var(--accent-2)}
-.cpn:hover{background:#FFE3D3}
+.cpn{--c:8px;display:inline-flex;align-items:center;gap:10px;padding:9px 14px;background:var(--accent-soft);color:var(--accent-txt);border:none;cursor:pointer;font-weight:600;font-size:.88rem;text-align:left}
+.cpn b{font-family:var(--hud);font-weight:700;letter-spacing:.04em}
+.cpn:hover{filter:brightness(.97)}
 
 /* ---------- reviews ---------- */
 .rv-sum{display:flex;align-items:center;gap:14px}
 .rv-sum b{font-family:var(--hud);font-size:2rem;font-weight:700;line-height:1}
-.stars{color:#E8A317;letter-spacing:1px}
+.stars{color:var(--star);letter-spacing:1px}
 .stars .dim{color:var(--line-2)}
 .rv-list{display:grid;gap:10px}
 @media (min-width:760px){.rv-list{grid-template-columns:1fr 1fr}}
-.rv{background:#fff;border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:8px;align-content:start}
+.rv{background:var(--panel);border:1px solid var(--line);border-radius:14px;padding:14px 16px;display:grid;gap:8px;align-content:start}
 .rv-top{display:flex;align-items:center;gap:10px}
 .rv-av{width:34px;height:34px;border-radius:10px;background:var(--gem-soft);color:var(--gem-2);display:flex;align-items:center;justify-content:center;font-weight:800;font-size:.8rem;flex-shrink:0}
 .rv-who{flex:1;min-width:0;display:grid}
@@ -202,18 +250,55 @@ main{max-width:var(--wrap);margin:0 auto;padding:16px 16px 140px}
 .rv-reps{display:grid;gap:6px;padding-left:12px;border-left:2px solid var(--line)}
 .rv-rep{font-size:.88rem;color:var(--ink-2);overflow-wrap:anywhere}
 .rv-rep b{font-weight:800;color:var(--ink)}
-.rv-rep.shop b{color:var(--accent-2)}
+.rv-rep.shop b{color:var(--accent-txt)}
 .rv-rep small{display:block;color:var(--muted);font-size:.76rem}
 .rv-acts{display:flex;gap:14px;font-size:.84rem}
 .rv-form{display:grid;gap:8px}
 .rv-form .acts{display:flex;justify-content:flex-end;gap:8px}
+
+/* ---------- renew + order again ---------- */
+.nudges{display:grid;gap:10px}
+@media (min-width:760px){.nudges{grid-template-columns:1fr 1fr}}
+.nudge{--c:12px;display:flex;align-items:center;gap:14px;padding:14px 14px 14px 16px;background:var(--panel)}
+.nudge .ic{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;font-size:1.25rem;flex-shrink:0;background:var(--gem-soft)}
+.nudge.renew .ic{background:var(--warn-soft)}
+.nudge div{flex:1;min-width:0;display:grid}
+.nudge b{font-weight:800;font-size:.95rem}
+.nudge small{color:var(--muted);font-size:.82rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.nudge small em{font-style:normal;font-weight:700;color:var(--warn)}
+
+/* ---------- FAQ ---------- */
+.faq{display:grid;gap:8px}
+.faq details{background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.faq summary{list-style:none;cursor:pointer;padding:14px 46px 14px 16px;font-weight:700;position:relative}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";position:absolute;right:16px;top:50%;transform:translateY(-50%);font-family:var(--hud);font-size:1.3rem;color:var(--muted);transition:transform .2s}
+.faq details[open] summary::after{transform:translateY(-50%) rotate(45deg)}
+.faq .a{padding:0 16px 16px;color:var(--ink-2);font-size:.93rem;display:grid;gap:8px}
+.faq ol,.uidhelp ol{padding-left:20px;display:grid;gap:4px}
+.uidhelp{border-radius:10px;background:var(--bg);margin-top:-6px}
+.uidhelp summary{cursor:pointer;padding:10px 12px;font-weight:700;font-size:.86rem;color:var(--accent-txt);list-style:none}
+.uidhelp summary::-webkit-details-marker{display:none}
+.uidhelp div{padding:0 12px 12px;font-size:.88rem;color:var(--ink-2);display:grid;gap:8px}
+.uidok{display:flex;gap:10px;align-items:center;padding:12px 14px;border-radius:12px;border:1.5px solid var(--gem);background:var(--gem-soft)}
+.uidok b{font-family:var(--hud);font-size:1.2rem;letter-spacing:.04em}
+.uidok small{color:var(--ink-2);font-size:.8rem}
+
+/* ---------- account extras ---------- */
+.seg3{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;padding:4px;border-radius:10px;background:var(--bg);border:1px solid var(--line)}
+.seg3 button{min-height:38px;border:none;border-radius:7px;background:transparent;font-weight:700;font-size:.88rem;color:var(--muted);cursor:pointer}
+.seg3 button[aria-pressed="true"]{background:var(--panel);color:var(--ink);box-shadow:0 1px 3px rgba(18,24,51,.16)}
+.ios-steps{padding-left:20px;display:grid;gap:4px;font-size:.9rem;color:var(--ink-2)}
+.mem-left{display:flex;align-items:center;gap:10px;padding:12px 14px;border-radius:12px;background:var(--warn-soft);color:var(--warn);font-weight:700;font-size:.9rem}
+.mem-left.ok{background:var(--ok-soft);color:var(--ok)}
 
 /* ---------- footer ---------- */
 .foot{display:grid;gap:6px;padding:18px 2px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.86rem}
 .foot b{color:var(--ink)}
 
 /* ---------- cart bar ---------- */
-.cartbar{position:fixed;left:0;right:0;bottom:0;z-index:25;padding:0 12px calc(12px + env(safe-area-inset-bottom,0px))}
+.cartbar{position:fixed;left:0;right:0;bottom:0;z-index:25;padding:0 12px calc(12px + env(safe-area-inset-bottom,0px));animation:up .25s ease-out}
+@media (prefers-reduced-motion:reduce){.cartbar{animation:none}}
 .cb-in{--c:12px;max-width:640px;margin:0 auto;background:var(--night);color:#fff;display:flex;align-items:center;gap:12px;padding:10px 10px 10px 18px;box-shadow:var(--shadow-2)}
 .cb-t{flex:1;min-width:0;display:grid}
 .cb-t b{font-family:var(--hud);font-size:1.25rem;font-weight:700;line-height:1.15}
@@ -256,7 +341,7 @@ main{max-width:var(--wrap);margin:0 auto;padding:16px 16px 140px}
 .kv b{flex:1;min-width:0;overflow-wrap:anywhere;font-weight:700}
 .cp{border:none;background:var(--bg);border-radius:8px;padding:6px 10px;font-weight:700;font-size:.8rem;cursor:pointer;color:var(--ink-2)}
 .cp:hover{background:var(--line)}
-.drop{display:flex;align-items:center;gap:14px;padding:14px;border:1.5px dashed var(--line-2);border-radius:12px;cursor:pointer;background:#fff}
+.drop{display:flex;align-items:center;gap:14px;padding:14px;border:1.5px dashed var(--line-2);border-radius:12px;cursor:pointer;background:var(--panel)}
 .drop:hover{border-color:var(--ink)}
 .drop .ic{width:52px;height:52px;border-radius:10px;background:var(--bg);display:flex;align-items:center;justify-content:center;font-size:1.4rem;overflow:hidden;flex-shrink:0}
 .drop .ic img{width:100%;height:100%;object-fit:cover}
@@ -270,8 +355,8 @@ main{max-width:var(--wrap);margin:0 auto;padding:16px 16px 140px}
 /* ---------- orders ---------- */
 .olist{display:grid;gap:10px}
 @media (min-width:760px){.olist{grid-template-columns:1fr 1fr}}
-.oc{--c:12px;display:grid;gap:8px;padding:14px 16px;border:none;background:#fff;text-align:left;cursor:pointer;width:100%;color:inherit}
-.oc:hover{background:#FBFBFE}
+.oc{--c:12px;display:grid;gap:8px;padding:14px 16px;border:none;background:var(--panel);text-align:left;cursor:pointer;width:100%;color:inherit}
+.oc:hover{background:var(--hover)}
 .oc-top{display:flex;justify-content:space-between;align-items:center;gap:10px}
 .oc-top b{font-family:var(--hud);font-weight:700;font-size:1.05rem;letter-spacing:.02em}
 .oc-items{font-size:.92rem;color:var(--ink-2)}
@@ -285,7 +370,7 @@ main{max-width:var(--wrap);margin:0 auto;padding:16px 16px 140px}
 .st.green{background:var(--ok-soft);color:var(--ok)}
 .st.red{background:var(--bad-soft);color:var(--bad)}
 .st.grey{background:var(--bg);color:var(--muted)}
-.empty{--c:14px;background:#fff;padding:32px 22px;display:grid;gap:12px;justify-items:center;text-align:center}
+.empty{--c:14px;background:var(--panel);padding:32px 22px;display:grid;gap:12px;justify-items:center;text-align:center}
 .empty .e-gem{width:44px;height:44px;color:var(--gem)}
 .empty p{color:var(--muted);max-width:38ch}
 
@@ -304,7 +389,7 @@ main{max-width:var(--wrap);margin:0 auto;padding:16px 16px 140px}
 .proof img{width:100%;max-height:320px;object-fit:contain;background:#fff}
 .starsel{display:flex;gap:4px}
 .starsel button{width:44px;height:44px;border:none;background:var(--bg);border-radius:10px;font-size:1.4rem;cursor:pointer;color:var(--line-2)}
-.starsel button.on{color:#E8A317;background:#FFF6DD}
+.starsel button.on{color:var(--star);background:var(--star-soft)}
 
 /* ---------- account ---------- */
 .acc{display:grid;gap:14px}
@@ -314,7 +399,7 @@ main{max-width:var(--wrap);margin:0 auto;padding:16px 16px 140px}
 .idc b{font-family:var(--hud);font-size:2rem;font-weight:700;letter-spacing:.06em;line-height:1.1}
 .idc .row{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
 .idc .cp{background:rgba(255,255,255,.1);color:#fff}
-.card{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:12px;align-content:start}
+.card{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:12px;align-content:start}
 .card h3{font-family:var(--hud);font-weight:700;font-size:1.1rem;letter-spacing:0}
 .card .acts{display:flex;flex-wrap:wrap;gap:8px}
 .who{display:flex;align-items:center;gap:12px}
@@ -327,11 +412,11 @@ main{max-width:var(--wrap);margin:0 auto;padding:16px 16px 140px}
 .reflink span{flex:1;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--ink-2)}
 
 /* ---------- toast, dialog, image viewer ---------- */
-.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:80;background:var(--ink);color:#fff;padding:12px 16px;border-radius:12px;font-weight:600;font-size:.92rem;box-shadow:var(--shadow-2);max-width:calc(100vw - 32px);width:max-content;display:flex;gap:12px;align-items:center}
+.toast{position:fixed;left:50%;bottom:calc(96px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:80;background:var(--toast);color:#fff;padding:12px 16px;border-radius:12px;font-weight:600;font-size:.92rem;box-shadow:var(--shadow-2);max-width:calc(100vw - 32px);width:max-content;display:flex;gap:12px;align-items:center}
 .toast.bad{background:var(--bad)}
 .toast button{background:rgba(255,255,255,.15);border:none;color:#fff;font-weight:800;border-radius:8px;padding:6px 10px;cursor:pointer}
 .dlg{position:fixed;inset:0;z-index:70;background:rgba(14,20,48,.55);display:flex;align-items:center;justify-content:center;padding:20px}
-.dlg-c{background:#fff;border-radius:18px;padding:22px;max-width:400px;width:100%;display:grid;gap:12px}
+.dlg-c{background:var(--panel);border-radius:18px;padding:22px;max-width:400px;width:100%;display:grid;gap:12px}
 .dlg-c h3{font-family:var(--hud);font-weight:700;font-size:1.2rem;letter-spacing:0}
 .dlg-c p{color:var(--ink-2)}
 .dlg-c .acts{display:flex;justify-content:flex-end;gap:8px;margin-top:6px}
@@ -355,6 +440,10 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <span class="mono"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg></span>
       <span class="bn"><b id="shopName">Free Fire diamonds</b><svg class="vb" id="vBadge" hidden viewBox="0 0 24 24" fill="currentColor" aria-label="Verified shop"><path d="M12 1.5 14.6 4l3.5-.4.9 3.4 3 1.9-1.4 3.2 1.4 3.2-3 1.9-.9 3.4-3.5-.4L12 22.5 9.4 20l-3.5.4-.9-3.4-3-1.9L3.4 12 2 8.8l3-1.9.9-3.4 3.5.4z"/><path d="m8 12.2 2.7 2.7L16.2 9.4" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
     </a>
+    <div class="top-r">
+      <button class="ib hot" type="button" id="installBtn" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0 4.5-4.5M12 15l-4.5-4.5M5 20h14"/></svg>Install</button>
+      <button class="ib" type="button" id="themeBtn" aria-label="Switch between dark and light"><svg id="thIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/></svg></button>
+    </div>
     <nav class="tabs" aria-label="Pages">
       <a href="#shop" data-v="shop">Shop</a>
       <a href="#orders" data-v="orders">Orders <i id="ordCt" hidden></i></a>
@@ -369,13 +458,26 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
     <div id="shopNote" hidden></div>
     <div class="hero cut">
       <div class="h-top"><span class="hchip" id="openChip"><i></i><span>Taking orders</span></span><span class="hchip" id="regionChip" hidden></span></div>
-      <div>
+      <div class="h-txt">
         <h1>Free Fire diamonds, loaded to your UID</h1>
         <p style="margin-top:10px">Pick a pack, pay online with eSewa, Khalti or bank, and send the payment screenshot. Your diamonds are loaded within 24 hours of the payment check.</p>
       </div>
       <div class="h-stats" id="stats" hidden></div>
+      <svg class="hgem" viewBox="0 0 200 180" aria-hidden="true">
+        <defs><clipPath id="gemClip"><path d="M50 10h100l45 50-95 112L5 60z"/></clipPath><linearGradient id="glintG" x1="0" x2="1"><stop offset="0" stop-color="#fff" stop-opacity="0"/><stop offset=".5" stop-color="#fff" stop-opacity=".75"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient></defs>
+        <polygon class="f" style="animation-delay:.05s" fill="#5A8CFF" points="5,60 50,10 70,60"/>
+        <polygon class="f" style="animation-delay:.12s" fill="#8FB2FF" points="50,10 100,10 70,60"/>
+        <polygon class="f" style="animation-delay:.19s" fill="#C3D5FF" points="100,10 130,60 70,60"/>
+        <polygon class="f" style="animation-delay:.26s" fill="#6E9BFF" points="100,10 150,10 130,60"/>
+        <polygon class="f" style="animation-delay:.33s" fill="#3D7BFF" points="150,10 195,60 130,60"/>
+        <polygon class="f" style="animation-delay:.42s" fill="#2F62E0" points="5,60 70,60 100,172"/>
+        <polygon class="f" style="animation-delay:.5s" fill="#4D86FF" points="70,60 130,60 100,172"/>
+        <polygon class="f" style="animation-delay:.58s" fill="#1F4BC2" points="130,60 195,60 100,172"/>
+        <g clip-path="url(#gemClip)"><rect class="glint" x="75" y="-20" width="50" height="230" fill="url(#glintG)" transform-origin="center" style="transform-box:fill-box"/></g>
+      </svg>
     </div>
     <div class="recent" id="recent" hidden></div>
+    <div class="nudges" id="nudges" hidden></div>
 
     <div id="pkEmpty" hidden></div>
     <div class="blk" id="topBlk">
@@ -391,6 +493,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
       <div class="cpns" id="cpns"></div>
     </div>
     <div class="blk" id="revBlk" hidden></div>
+    <div class="blk" id="faqBlk"><div class="sec-h"><h2>Questions</h2><small>Tap a question to see the answer</small></div><div class="faq" id="faq"></div></div>
     <footer class="foot" id="foot"></footer>
   </section>
 
@@ -423,7 +526,7 @@ setTimeout(function(){var s=document.getElementById('splash');if(s&&!s.hidden){s
 </div>
 
 <div class="dlg" id="dlg" hidden><div class="dlg-c" role="alertdialog" aria-modal="true" aria-labelledby="dlgT"><h3 id="dlgT"></h3><p id="dlgP"></p><div class="acts"><button class="btn" type="button" id="dlgNo">Back</button><button class="btn primary" type="button" id="dlgYes">OK</button></div></div></div>
-<div class="imgv" id="imgv" hidden><div class="imgv-h"><span id="imgvT"></span><span style="display:flex;gap:8px;align-items:center"><a class="btn sm" id="imgvD" download style="background:rgba(255,255,255,.12);border-color:transparent">Save</a><button class="x" type="button" id="imgvX" aria-label="Close">×</button></span></div><img id="imgvI" alt=""/></div>
+<div class="imgv" id="imgv" hidden><div class="imgv-h"><span id="imgvT"></span><span style="display:flex;gap:8px;align-items:center"><button class="btn sm" type="button" id="imgvS" hidden style="background:rgba(255,255,255,.12);border-color:transparent;color:#fff">Share</button><a class="btn sm" id="imgvD" download style="background:rgba(255,255,255,.12);border-color:transparent;color:#fff">Save</a><button class="x" type="button" id="imgvX" aria-label="Close">×</button></span></div><img id="imgvI" alt=""/></div>
 <div class="toast" id="toast" role="status" hidden></div>
 
 <script type="module">
@@ -452,6 +555,21 @@ const RESEND_OK = ['nopay','amount','other'];
 const REJECT_REASONS = {nopay:'Payment not received', wronguid:'Wrong or invalid UID', amount:'Paid amount doesn’t match', duplicate:'Duplicate order', unavailable:'Can’t deliver right now', other:'Other reason'};
 const QRLIB = 'https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js';
 const SLOT_NAME = {all:'All apps', esewa:'eSewa', khalti:'Khalti', bank:'Bank'};
+const UID_STEPS = ['Open Free Fire and stay on the lobby screen.', 'Tap your profile picture at the top left.', 'Your UID is the number under your name. Tap it to copy, then paste it here.'];
+// FAQ shown on the shop page. {region} and {time} are filled in from your admin settings.
+const FAQ = [
+  ['How long does delivery take?', 'Usually {time} after we check your payment, and always within 24 hours. You can follow every step under Orders.'],
+  ['How do I pay?', 'Online only: eSewa, Khalti or bank / mobile banking. After you place the order you see our QR and IDs. Pay the exact total, take a screenshot of the success screen and send it on the order.'],
+  ['Where do I find my Free Fire UID?', '@uid'],
+  ['Which accounts can you top up?', 'Accounts on the {region} server. Diamonds go straight to the UID you enter.'],
+  ['Do you need my game login or password?', 'No. We only need your UID. Never share your Free Fire password with anyone, including us.'],
+  ['I entered the wrong UID. What now?', 'Message us on WhatsApp right away with your order number. Once diamonds are loaded they can’t be moved to another UID, so check the UID before you pay.'],
+  ['My order wasn’t accepted. What can I do?', 'Open the order to see the reason. If it was about the payment, you can send the screenshot again on the same order, up to 3 times.'],
+  ['I paid but it still says “Checking payment”.', 'We check every payment by hand. If it has been more than 24 hours, message us with your order number and Customer ID.'],
+  ['Can I install this as an app?', 'Yes. Tap Install at the top (on iPhone: Share, then Add to Home Screen). Turn on order alerts in Account to hear when your diamonds arrive.']
+];
+const GEMF = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z" fill="#3D7BFF"/><path d="M2 9h20L12 21z" fill="#2F62E0"/><path d="M6 3h12l-3 6H9z" fill="#A9C4FF"/><path d="M9 9h6l-3 12z" fill="#5A8CFF"/></svg>';
+const gemCount = d => d<200?1:d<600?2:d<1500?3:4;
 const GEM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round" aria-hidden="true"><path d="M6 3h12l4 6-10 12L2 9z"/><path d="M2 9h20M12 21 8 9l4-6 4 6-4 12"/></svg>';
 
 /* =========================================================
@@ -492,8 +610,20 @@ function ask(title, text, yes='OK', danger=false){ return new Promise(res=>{
 }); }
 function copy(text, msg){ (navigator.clipboard ? navigator.clipboard.writeText(text) : Promise.reject()).then(()=>toast(msg||'Copied')).catch(()=>toast('Copy this: '+text)); }
 function share(text, url){ if (navigator.share) navigator.share({text, url}).catch(()=>{}); else copy(url||text, 'Link copied'); }
-function showImg(src, title, file){ $('imgvT').textContent=title; $('imgvI').src=src; $('imgvD').href=src; $('imgvD').download=file||'image.jpg'; $('imgv').hidden=false; }
+function showImg(src, title, file){ $('imgvT').textContent=title; $('imgvI').src=src; $('imgvD').href=src; $('imgvD').download=file||'image.jpg'; $('imgv').hidden=false;
+  const sb=$('imgvS'); sb.hidden=!(navigator.canShare && navigator.share);
+  sb.onclick=async()=>{ try{ const blob=await (await fetch(src)).blob(), f=new File([blob], file||'image.png', {type:blob.type}); if (navigator.canShare({files:[f]})) await navigator.share({files:[f], title}); else toast('Sharing pictures isn’t supported here. Tap Save instead.',true); }catch(e){ if (e&&e.name!=='AbortError') toast('Couldn’t share. Tap Save instead.',true); } }; }
 $('imgvX').onclick=()=>{ $('imgv').hidden=true; $('imgvI').src=''; };
+/* ---------- dark / light ---------- */
+const themeMode = () => store.get('dc-theme')||'auto';
+const isDark = () => { const m=themeMode(); return m==='dark' || (m==='auto' && matchMedia('(prefers-color-scheme: dark)').matches); };
+const SUN='<circle cx="12" cy="12" r="4"/><path d="M12 2v2m0 16v2M4.9 4.9l1.4 1.4m11.4 11.4 1.4 1.4M2 12h2m16 0h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>', MOON='<path d="M20 14.5A8 8 0 0 1 9.5 4a8 8 0 1 0 10.5 10.5z"/>';
+function setTheme(m){ if (m==='auto'){ store.del('dc-theme'); delete document.documentElement.dataset.theme; } else { store.set('dc-theme',m); document.documentElement.dataset.theme=m; } paintThemeIcon(); if (typeof renderAccount==='function') renderAccount(); }
+function paintThemeIcon(){ const d=isDark(); $('thIcon').innerHTML=d?SUN:MOON; $('themeBtn').setAttribute('aria-label', d?'Switch to light':'Switch to dark'); }
+$('themeBtn').onclick=()=>setTheme(isDark()?'light':'dark');
+matchMedia('(prefers-color-scheme: dark)').addEventListener('change', paintThemeIcon);
+paintThemeIcon();
+
 function btnLoad(b, on, label){ if (!b) return; b.disabled=on; b.classList.toggle('loading',on); if (label!=null) b.innerHTML='<span class="spin"></span>'+esc(label); }
 function jpegOnly(file, max, q){ return new Promise((res,rej)=>{ const r=new FileReader(); r.onerror=rej; r.onload=()=>{ const im=new Image(); im.onerror=()=>rej(new Error('Not an image')); im.onload=()=>{
   const k=Math.min(1,max/Math.max(im.width,im.height)), c=document.createElement('canvas'); c.width=Math.round(im.width*k); c.height=Math.round(im.height*k);
@@ -586,14 +716,110 @@ onAuthStateChanged(auth, async u => {
 function watchChanges(){
   S.orders.forEach(o=>{ const key=o.status+'|'+(o.delivered?1:0), was=S.prev.get(o.id);
     if (S.ordersInit && was && was!==key){
-      const c='#'+codeOf(o.id);
-      if (o.status==='done' && o.delivered) toast('💎 Order '+c+' delivered. Check your game!', false, {label:'Open', fn:()=>openOrder(o.id)});
-      else if (o.status==='done') toast('✓ Order '+c+' accepted. Your diamonds are on the way.', false, {label:'Open', fn:()=>openOrder(o.id)});
-      else if (o.status==='rejected') toast('Order '+c+' couldn’t be accepted. Open it to see why.', true, {label:'Open', fn:()=>openOrder(o.id)});
+      const c='#'+codeOf(o.id), away=document.visibilityState==='hidden';
+      const msg = o.status==='done' && o.delivered ? ['💎 Order '+c+' delivered','Your diamonds are in UID '+o.uid+'. Open Free Fire to check!',false]
+        : o.status==='done' ? ['✓ Order '+c+' accepted','Payment confirmed. Your diamonds are on the way.',false]
+        : o.status==='rejected' ? ['Order '+c+' wasn’t accepted','Open the order to see why'+(canResend(o)?' and send the payment again.':'.'),true] : null;
+      if (msg){ if (away) notify(msg[0], msg[1], 'order-'+o.id); else toast(msg[0]+'. '+msg[1], msg[2], {label:'Open', fn:()=>openOrder(o.id)}); }
     }
     S.prev.set(o.id, key); });
   S.ordersInit=true;
+  // membership ending: one reminder per order
+  renewals().forEach(x=>{ const k='dc-rn-'+x.o.id; if (x.ends-Date.now()<864e5 && !store.get(k)){ store.set(k,'1'); notify('⭐ Your '+x.i.name+' '+endsText(x.ends), 'Renew now so you don’t miss a day of rewards.', 'renew-'+x.o.id, '#shop'); } });
 }
+
+/* ---------- memberships, renewals, order again ---------- */
+const memDaysOf = name => /month/i.test(name||'')?30:7;
+function memberships(){
+  const latest=new Map();
+  S.orders.forEach(o=>{ if (o.status==='rejected'||o.status==='cancelled') return;
+    (o.items||[]).forEach(i=>{ if (i.kind!=='member') return; const k=i.pkId||i.name, c=latest.get(k); if (!c||(o.at||0)>(c.o.at||0)) latest.set(k,{o,i}); }); });
+  return [...latest.values()].filter(x=>x.o.status==='done').map(({o,i})=>({o, i, ends:(o.deliveredAt||o.doneAt||o.at)+memDaysOf(i.name)*(Number(i.qty)||1)*864e5}));
+}
+const renewals = () => memberships().filter(x=>x.ends-Date.now()<2*864e5 && Date.now()-x.ends<10*864e5).sort((a,b)=>a.ends-b.ends);
+function endsText(ends){ const d=Math.round((ends-Date.now())/864e5); return d>1?'ends in '+d+' days':d===1?'ends tomorrow':d===0?'ends today':'ended '+(-d)+' day'+(d===-1?'':'s')+' ago'; }
+function reorder(items, uid, label){
+  if (!isOpen()) return toast('Orders are paused right now',true);
+  const next={}, miss=[];
+  (items||[]).forEach(i=>{ const p=pkgById(i.pkId); if (p) next[p.id]=Math.min(10,(next[p.id]||0)+(Number(i.qty)||1)); else miss.push(i.name||i.diamonds); });
+  if (!Object.keys(next).length) return toast('These packs aren’t in the price list any more. Pick a new one.',true);
+  S.cart=next; saveCart(); S.prefUid=uid||null; renderShop(); renderCart();
+  if (miss.length) toast('Some packs aren’t sold any more, so they were left out.',true);
+  if (S.sheet) closeSheet(); if (S.view!=='shop') location.hash='#shop';
+  setTimeout(()=>openCheckout(), 60); void label;
+}
+
+/* ---------- order alerts (shown while the app is open or in the background) ---------- */
+const canNotify = () => 'Notification' in window;
+const isIOS = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1);
+const isStandalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone===true;
+const alertsOn = () => canNotify() && Notification.permission==='granted' && store.get('dc-notify')!=='0';
+async function notify(title, body, tag, hash='#orders'){
+  if (!alertsOn()) return false;
+  const opt={body, tag, icon:'icon-192.png', badge:'icon-192.png', renotify:true, data:{url:location.pathname+hash}};
+  try{ const reg=navigator.serviceWorker && await navigator.serviceWorker.getRegistration(); if (reg){ await reg.showNotification(title,opt); return true; } new Notification(title,opt); return true; }
+  catch(e){ console.warn('notify',e); return false; }
+}
+async function enableAlerts(){
+  if (!canNotify()){ toast(isIOS&&!isStandalone()?'On iPhone, install the app first (Share → Add to Home Screen), then turn on alerts there.':'This browser can’t show alerts.', true); return; }
+  if (Notification.permission==='denied'){ toast('Alerts are blocked. Allow notifications for this site in your browser settings.', true); return; }
+  const p=await Notification.requestPermission();
+  if (p==='granted'){ store.set('dc-notify','1'); toast('✓ Order alerts are on'); notify('Alerts are on 💎','We’ll tell you when your order is accepted and delivered.','alerts-on','#orders'); }
+  else toast('Alerts weren’t allowed. You can turn them on later in Account.', true);
+  renderAccount();
+}
+
+/* ---------- install as an app ---------- */
+let installEvt=null;
+addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); installEvt=e; paintInstall(); });
+addEventListener('appinstalled', ()=>{ installEvt=null; paintInstall(); toast('✓ App installed. Find “Diamonds” on your home screen.'); });
+function paintInstall(){ $('installBtn').hidden = isStandalone() || !(installEvt || isIOS); if (typeof renderAccount==='function' && S.user) renderAccount(); }
+async function installApp(){
+  if (installEvt){ installEvt.prompt(); const r=await installEvt.userChoice.catch(()=>null); if (r&&r.outcome==='accepted') installEvt=null; paintInstall(); return; }
+  openSheet('Install the app','install'); $('shB').innerHTML=`<div class="form"><p>Put the shop on your home screen and open it like an app.</p>
+    ${isIOS?`<ol class="ios-steps"><li>Open this page in <b>Safari</b>.</li><li>Tap the <b>Share</b> button (square with an arrow).</li><li>Scroll down and tap <b>Add to Home Screen</b>, then <b>Add</b>.</li></ol><p class="help">After that, open the app from your home screen and turn on order alerts in Account.</p>`
+    :`<ol class="ios-steps"><li>Open your browser menu (⋮).</li><li>Tap <b>Install app</b> or <b>Add to Home screen</b>.</li></ol>`}
+    <button class="btn primary block" type="button" id="instOk">Got it</button></div>`; $('instOk').onclick=closeSheet;
+}
+$('installBtn').onclick=installApp;
+if ('serviceWorker' in navigator && /^https?:/.test(location.protocol)) navigator.serviceWorker.register('sw.js').catch(e=>console.warn('sw',e));
+navigator.serviceWorker && navigator.serviceWorker.addEventListener('message', e=>{ if (e.data&&e.data.hash) location.hash=e.data.hash; });
+
+/* ---------- receipt picture ---------- */
+async function makeReceipt(o){
+  try{ if (document.fonts && document.fonts.ready) await document.fonts.ready; }catch(_){}
+  const sh=shop(), items=o.items||[], W=1080, P=72, hud='"Chakra Petch","Figtree",sans-serif', body='"Figtree",system-ui,sans-serif';
+  const info=[['Free Fire UID',o.uid],['Name',o.name],o.ccode&&['Customer ID',o.ccode],['Paid with',o.method],o.paidRef&&['Transaction ID',o.paidRef]].filter(Boolean);
+  const H=340+150+items.length*66+(o.disc?66:0)+130+info.length*62+250;
+  const c=document.createElement('canvas'); c.width=W; c.height=H; const x=c.getContext('2d');
+  const cut=(l,t,w,h,k)=>{ x.beginPath(); x.moveTo(l+k,t); x.lineTo(l+w,t); x.lineTo(l+w,t+h-k); x.lineTo(l+w-k,t+h); x.lineTo(l,t+h); x.lineTo(l,t+k); x.closePath(); };
+  const fit=(t,max)=>{ t=String(t??''); while (t.length>1 && x.measureText(t).width>max) t=t.slice(0,-2)+'…'; return t; };
+  x.fillStyle='#F4F5FA'; x.fillRect(0,0,W,H);
+  cut(P/2,P/2,W-P,H-P,36); x.fillStyle='#FFFFFF'; x.fill();
+  // night header
+  x.save(); cut(P/2,P/2,W-P,300,36); x.clip(); x.fillStyle='#0E1430'; x.fillRect(0,0,W,P/2+300);
+  const g=x.createRadialGradient(P,P/2+300,10,P,P/2+300,520); g.addColorStop(0,'rgba(242,90,31,.35)'); g.addColorStop(1,'rgba(242,90,31,0)'); x.fillStyle=g; x.fillRect(0,0,W,P/2+300);
+  x.strokeStyle='rgba(255,255,255,.09)'; x.lineWidth=2; x.beginPath(); [[700,60,1000,60],[640,160,1060,160],[700,60,640,160],[1000,60,1060,160],[640,160,850,400],[1060,160,850,400],[760,160,850,400],[940,160,850,400],[820,60,760,160],[880,60,940,160]].forEach(([a,b,cx,d])=>{ x.moveTo(a,b); x.lineTo(cx,d); }); x.stroke(); x.restore();
+  x.fillStyle='#A5ADCF'; x.font='600 30px '+body; x.fillText('Receipt', P+24, P/2+82);
+  x.fillStyle='#FFFFFF'; x.font='700 60px '+hud; x.fillText(fit((sh.name||'Free Fire diamonds')+(sh.verified?' ✓':''), W-2*P-48), P+24, P/2+160);
+  x.fillStyle='#A5ADCF'; x.font='600 30px '+body; x.fillText('Order #'+codeOf(o.id)+'  ·  '+new Date(o.deliveredAt||o.doneAt||o.at).toLocaleString('en-GB',{day:'numeric',month:'short',year:'numeric',hour:'numeric',minute:'2-digit',hour12:true}), P+24, P/2+222);
+  // status stamp
+  const st=o.delivered?['DELIVERED','#16A06A']:['PAYMENT CONFIRMED','#3D7BFF']; x.font='700 28px '+hud; const sw=x.measureText(st[0]).width+56;
+  x.fillStyle=st[1]; cut(P+24,P/2+250,sw,52,12); x.fill(); x.fillStyle='#fff'; x.fillText(st[0], P+52, P/2+286);
+  let y=P/2+400;
+  x.fillStyle='#646B85'; x.font='700 26px '+body; x.fillText('Items', P+24, y); x.textAlign='right'; x.fillText('Amount', W-P-24, y); x.textAlign='left'; y+=24;
+  x.strokeStyle='#E3E6EF'; x.lineWidth=2; x.beginPath(); x.moveTo(P+24,y); x.lineTo(W-P-24,y); x.stroke(); y+=52;
+  items.forEach(i=>{ x.fillStyle='#121833'; x.font='600 34px '+body; x.fillText(fit(itemTxt(i), W-2*P-300), P+24, y); x.textAlign='right'; x.fillText(rs((Number(i.price)||0)*(Number(i.qty)||0)), W-P-24, y); x.textAlign='left'; y+=66; });
+  if (o.disc){ x.fillStyle='#0F7A50'; x.font='600 32px '+body; x.fillText('Offer '+(o.coupon||''), P+24, y); x.textAlign='right'; x.fillText('−'+rs(o.disc), W-P-24, y); x.textAlign='left'; y+=66; }
+  x.beginPath(); x.moveTo(P+24,y-30); x.lineTo(W-P-24,y-30); x.stroke(); y+=30;
+  x.fillStyle='#121833'; x.font='700 34px '+body; x.fillText('Total paid', P+24, y); x.textAlign='right'; x.font='700 56px '+hud; x.fillText(rs(o.total), W-P-24, y+6); x.textAlign='left'; y+=100;
+  cut(P+24,y-46,W-2*P-48,info.length*62+30,18); x.fillStyle='#F4F5FA'; x.fill();
+  info.forEach(([k,v],n)=>{ const yy=y+n*62; x.fillStyle='#646B85'; x.font='600 28px '+body; x.fillText(k, P+52, yy); x.fillStyle='#121833'; x.font='700 30px '+body; x.textAlign='right'; x.fillText(fit(v, W-2*P-380), W-P-52, yy); x.textAlign='left'; });
+  y+=info.length*62+90;
+  x.fillStyle='#CF4310'; x.font='700 34px '+hud; x.textAlign='center'; x.fillText('Thank you for your order 💎', W/2, y); x.fillStyle='#646B85'; x.font='600 26px '+body; x.fillText(location.host||'', W/2, y+48); x.textAlign='left';
+  return c.toDataURL('image/png');
+}
+async function showReceipt(o){ try{ const src=await makeReceipt(o); showImg(src, 'Receipt · #'+codeOf(o.id), 'receipt-'+codeOf(o.id)+'.png'); }catch(e){ console.warn(e); toast('Couldn’t make the receipt. Try again.',true); } }
 
 // customers/{uid}: code, name, phone, ffUids, createdAt, updatedAt, email, login (nothing else is allowed by the rules)
 async function saveCustomer(extra={}){
@@ -661,25 +887,41 @@ function renderShop(){
   const cps=(P.coupons||[]).filter(c=>!c.u||c.u>Date.now()); $('cpnBlk').hidden=!cps.length;
   $('cpns').innerHTML=cps.map(c=>`<button type="button" class="cpn cut" data-cpn="${esc(c.c)}"><b>${esc(c.c)}</b><span>${esc(cpText(c))}</span></button>`).join('');
 
+  renderNudges(); renderFaq();
   const w=waNumber(sh.wa);
   $('foot').innerHTML=`<span><b>${esc(sh.name||'Free Fire diamonds')}</b>${sh.verified?' · verified seller':''}</span><span>Online payment only (eSewa, Khalti or bank). Diamonds are loaded within 24 hours after the payment is verified.</span>${w?`<span>Questions? <a class="link" href="https://wa.me/${w}" target="_blank" rel="noopener">Message us on WhatsApp</a></span>`:''}`;
 }
 const cpText = c => (c.t==='amt'?rs(c.v):c.v+'%')+' off'+(c.m?' on Rs '+nf(c.m)+'+':'')+(c.u?' · till '+new Date(c.u).toLocaleDateString('en-GB',{day:'numeric',month:'short'}):'');
-const memDays = p => /month/i.test(p.name||'')?30:7;
+const memDays = p => memDaysOf(p.name);
+function renderNudges(){
+  const el=$('nudges'), out=[], rn=renewals().slice(0,2), seen=new Set(rn.map(x=>x.o.id));
+  rn.forEach(x=>out.push(`<div class="nudge renew cut"><span class="ic">⭐</span><div><b>Your ${esc(x.i.name)} ${esc(endsText(x.ends))}</b><small>UID ${esc(x.o.uid)} · renew so you don’t miss a day</small></div><button class="btn accent sm" type="button" data-renew="${esc(x.o.id)}|${esc(x.i.pkId)}">Renew</button></div>`));
+  const last=S.orders.find(o=>o.status==='done');
+  if (last && !seen.has(last.id) && isOpen()) out.push(`<div class="nudge cut"><span class="ic">🔁</span><div><b>Order again</b><small>${esc((last.items||[]).map(itemTxt).join(', '))} · UID ${esc(last.uid)}</small></div><button class="btn sm" type="button" data-again="${esc(last.id)}">Buy again</button></div>`);
+  el.hidden=!out.length; el.innerHTML=out.join('');
+}
+function faqTime(){ const m=(S.P&&S.P.stats||{}).avgMins; return m>0 ? 'about '+(m<60?m+' minutes':Math.round(m/60)+' hour'+(Math.round(m/60)===1?'':'s')) : 'quickly'; }
+function renderFaq(){
+  const rg=shop().region===undefined?'Singapore':shop().region, el=$('faq'); if (el.dataset.k===rg+faqTime() && el.innerHTML) return; el.dataset.k=rg+faqTime();
+  el.innerHTML=FAQ.filter(([q,a])=>rg||!a.includes('{region}')).map(([q,a])=>`<details><summary>${esc(q)}</summary><div class="a">${a==='@uid'?'<ol>'+UID_STEPS.map(t=>'<li>'+esc(t)+'</li>').join('')+'</ol><p>It’s a number, usually 9 to 12 digits long. Your name or email won’t work.</p>':'<p>'+esc(a.replace('{region}',rg).replace('{time}',faqTime()))+'</p>'}</div></details>`).join('');
+}
 function tile(p){
   const q=S.cart[p.id]||0, pop=S.P.popular===p.id, mem=p.kind==='member', open=isOpen();
   return `<div class="pk cut${q?' on':''}${mem?' mem':''}" data-pid="${esc(p.id)}">
     ${pop?'<span class="pk-tag">Most bought</span>':''}
     <button class="pk-main" type="button" data-add="${esc(p.id)}" ${open?'':'disabled'} aria-label="Add ${esc(mem?p.name:nf(p.diamonds)+' diamonds')} for ${esc(rs(p.price))}">
-      <span class="pk-gem">${GEM}</span>
+      <span class="pk-gems">${GEMF.repeat(mem?1:gemCount(Number(p.diamonds)||0))}</span>
       <b class="pk-d">${mem?esc(p.name):nf(p.diamonds)}</b>
       <span class="pk-u">${mem?nf(p.diamonds)+' 💎 · '+memDays(p)+' days':'diamonds'}</span>
       <span class="pk-p">${rs(p.price)}</span>
+      ${!mem&&p.diamonds>0?`<span class="pk-rate">Rs ${(p.price/p.diamonds*100).toFixed(0)} per 100 💎</span>`:''}
     </button>
     <div class="pk-foot">${q?`<div class="step"><button type="button" data-dec="${esc(p.id)}" aria-label="One less">−</button><b>${q}</b><button type="button" data-inc="${esc(p.id)}" aria-label="One more">+</button></div>`:`<button class="pk-add" type="button" data-add="${esc(p.id)}" ${open?'':'disabled'}>Add</button>`}</div>
   </div>`;
 }
-function setQty(id, q){ q=Math.max(0,Math.min(10,q)); if (q) S.cart[id]=q; else delete S.cart[id]; if (Object.keys(S.cart).length>12){ delete S.cart[id]; toast('An order can have up to 12 different packs',true); } saveCart(); renderShop(); renderCart(); }
+function setQty(id, q){ q=Math.max(0,Math.min(10,q)); if (q) S.cart[id]=q; else delete S.cart[id]; if (Object.keys(S.cart).length>12){ delete S.cart[id]; toast('An order can have up to 12 different packs',true); } saveCart(); renderShop(); renderCart();
+  const t=document.querySelector('.pk[data-pid="'+CSS.escape(id)+'"]'); if (t&&q){ t.classList.remove('pop'); void t.offsetWidth; t.classList.add('pop'); }
+  const cb=document.querySelector('.cb-in'); if (cb){ cb.classList.remove('bump'); void cb.offsetWidth; cb.classList.add('bump'); } }
 
 function renderCart(){
   const lines=cartLines(), show=S.view==='shop' && lines.length>0 && isOpen() && !S.sheet;
@@ -767,6 +1009,13 @@ function renderAccount(){
     const link=location.origin+location.pathname+'?ref='+encodeURIComponent(c.code);
     parts.push(`<div class="card"><h3>🤝 Invite friends</h3><p>${esc(P.ref)}</p><div class="reflink"><span>${esc(link)}</span><button class="cp" type="button" data-copy="${esc(link)}">Copy</button></div><div class="acts"><button class="btn accent sm" type="button" data-shareref="${esc(link)}">Share my link</button></div></div>`);
   }
+  const mode=themeMode(), al=canNotify()?Notification.permission:'none';
+  parts.push(`<div class="card"><h3>📲 App & alerts</h3>
+    ${isStandalone()?'<p class="help">You’re using the installed app. ✓</p>':`<p class="help">Install the shop on your home screen and open it like an app.</p><div class="acts"><button class="btn sm" type="button" data-install>Install app</button></div>`}
+    <div class="who"><span class="av">${alertsOn()?'🔔':'🔕'}</span><div><b>Order alerts ${alertsOn()?'on':'off'}</b><small>${al==='denied'?'Blocked in your browser settings.':'A notification when your order is accepted, delivered, or your membership is ending.'}</small></div></div>
+    <div class="acts">${alertsOn()?'<button class="btn sm" type="button" data-alertsoff>Turn off</button>':al==='denied'?'':'<button class="btn sm primary" type="button" data-alerts>Turn on alerts</button>'}</div>
+    <p class="help">Alerts come while the app is open or running in the background, so keep it open after you pay.</p></div>`);
+  parts.push(`<div class="card"><h3>🌗 Appearance</h3><div class="seg3" role="group" aria-label="Theme">${[['auto','Auto'],['light','Light'],['dark','Dark']].map(([k,l])=>`<button type="button" data-theme-set="${k}" aria-pressed="${mode===k}">${l}</button>`).join('')}</div><p class="help">Auto follows your phone’s setting.</p></div>`);
   if (w) parts.push(`<div class="card"><h3>Need help?</h3><p class="help">Message the shop with your Customer ID and order number.</p><div class="acts"><a class="btn" href="https://wa.me/${w}?text=${encodeURIComponent('Namaste 🙏'+(c&&c.code?' Customer ID '+c.code+'.':''))}" target="_blank" rel="noopener">WhatsApp the shop</a></div></div>`);
   $('acc').innerHTML=parts.join('');
 }
@@ -805,13 +1054,15 @@ function openCheckout(){
 function renderCheckout(){
   const c=S.cust||{}, m=me(), ff=(Array.isArray(c.ffUids)?c.ffUids:[]), ms=methods(), pick=ms.includes(store.get('dc-method'))?store.get('dc-method'):ms[0];
   $('shB').innerHTML=`<div class="form">
-    <label class="field"><span class="lab">Free Fire UID <em>numbers only</em></span><input id="coUid" inputmode="numeric" autocomplete="off" maxlength="14" placeholder="e.g. 1234567890" value="${esc(ff[0]||m.uid||'')}"/></label>
+    <label class="field"><span class="lab">Free Fire UID <em>numbers only</em></span><input id="coUid" inputmode="numeric" autocomplete="off" maxlength="14" placeholder="e.g. 1234567890" value="${esc(S.prefUid||ff[0]||m.uid||'')}"/></label>
+    <details class="uidhelp"><summary>Where do I find my UID?</summary><div><ol>${UID_STEPS.map(t=>'<li>'+esc(t)+'</li>').join('')}</ol>${shop().region!==''?'<p>Your account must be on the <b>'+esc(shop().region===undefined?'Singapore':shop().region)+'</b> server.</p>':''}</div></details>
     ${ff.length>1?`<div class="chips" style="margin-top:-8px">${ff.map(x=>`<button class="chip" type="button" data-pickuid="${esc(x)}">${esc(x)}</button>`).join('')}</div>`:''}
     <label class="field"><span class="lab">Your name</span><input id="coName" maxlength="60" autocomplete="name" placeholder="Name or in-game name" value="${esc(c.name||m.name||'')}"/></label>
     <label class="field"><span class="lab">WhatsApp number <em>optional, for order updates</em></span><input id="coPh" type="tel" inputmode="tel" maxlength="15" autocomplete="tel" placeholder="98XXXXXXXX" value="${esc(c.phone||m.phone||'')}"/></label>
     <div class="field"><span class="lab">Pay with</span><div class="opts">${ms.map(x=>`<label class="opt"><input type="radio" name="coM" value="${x}" ${x===pick?'checked':''}/><span>${x}</span></label>`).join('')}</div></div>
     <div class="field"><span class="lab">Offer code <em>optional</em></span><div class="row-in"><input id="coCp" maxlength="16" autocapitalize="characters" placeholder="e.g. TIHAR10" value="${esc(S.coupon)}"/><button class="btn" type="button" id="coCpGo">Apply</button></div><span id="coCpMsg" class="help"></span></div>
     <label class="field"><span class="lab">Note for the shop <em>optional</em></span><textarea id="coNote" maxlength="200" rows="2" placeholder="Anything we should know"></textarea></label>
+    <div class="uidok" id="coUidBox" hidden><span style="font-size:1.4rem">🎮</span><div><small>Diamonds go to UID</small><br><b id="coUidShow"></b><br><small>Check it once more. A wrong UID can’t be fixed after loading.</small></div></div>
     <div class="sum" id="coSum"></div>
     <p class="help">Online payment only. After you place the order you’ll see the QR and payment details. Diamonds are loaded within 24 hours after your payment is verified.</p>
     <p class="err" id="coErr" hidden></p>
@@ -819,7 +1070,9 @@ function renderCheckout(){
   </div>`;
   $('coCpGo').onclick=()=>{ S.coupon=$('coCp').value.trim().toUpperCase(); store.set('dc-coupon',S.coupon); renderSum(true); };
   $('coCp').addEventListener('keydown', e=>{ if (e.key==='Enter'){ e.preventDefault(); $('coCpGo').click(); } });
-  $('coUid').addEventListener('input', ()=>{ $('coUid').value=digits($('coUid').value).slice(0,14); $('coUid').classList.remove('bad'); });
+  const showUid=()=>{ const v=digits($('coUid').value); $('coUidBox').hidden=!/^\d{6,14}$/.test(v); $('coUidShow').textContent=v.replace(/(\d{3})(?=\d)/g,'$1 '); };
+  $('coUid').addEventListener('input', ()=>{ $('coUid').value=digits($('coUid').value).slice(0,14); $('coUid').classList.remove('bad'); showUid(); });
+  showUid(); S.prefUid=null;
   $('coGo').onclick=placeOrder;
   renderSum(false);
 }
@@ -936,6 +1189,7 @@ async function sendProof(o){
     shotFile=null; if (shotUrl){ URL.revokeObjectURL(shotUrl); shotUrl=null; }
     const w=waNumber(shop().wa);
     if (img && !shotOk) toast('Payment noted, but the screenshot didn’t upload. Please send it on WhatsApp.', true, w?{label:'WhatsApp', fn:()=>open('https://wa.me/'+w+'?text='+encodeURIComponent('Namaste 🙏 Order #'+codeOf(o.id)+' ko payment screenshot pathaudai chhu.'),'_blank','noopener')}:null);
+    else if (canNotify() && Notification.permission==='default') toast('✓ Payment proof sent. Want an alert when it’s delivered?', false, {label:'Turn on alerts', fn:enableAlerts});
     else toast('✓ Payment proof sent. We’ll check it and load your diamonds.');
     openOrder(o.id);
   }catch(e){ console.warn(e); btnLoad(b,false); say('Couldn’t send it. '+(/permission|insufficient/i.test(String(e&&(e.code||e.message)))?'This order can’t be changed any more. Open it again or message the shop.':explain(e))); }
@@ -944,6 +1198,11 @@ async function sendProof(o){
 /* ---------- order details ---------- */
 const dshotCache=new Map();
 function getDshot(id){ if (dshotCache.has(id)) return dshotCache.get(id); const p=getDoc(doc(db,'dshots',id)).then(sn=>{ const v=sn.exists()?String(sn.data().img||''):''; return /^data:image\//.test(v)?v:null; }).catch(()=>{ dshotCache.delete(id); return null; }); dshotCache.set(id,p); return p; }
+function memLine(o){
+  if (o.status!=='done') return ''; const m=(o.items||[]).find(i=>i.kind==='member'); if (!m) return '';
+  const ends=(o.deliveredAt||o.doneAt||o.at)+memDaysOf(m.name)*(Number(m.qty)||1)*864e5, left=ends>Date.now();
+  return `<div class="mem-left${left&&ends-Date.now()>2*864e5?' ok':''}">⭐ ${esc(m.name)} ${left?'active till '+esc(new Date(ends).toLocaleDateString('en-GB',{day:'numeric',month:'short'}))+' ('+esc(endsText(ends))+')':esc(endsText(ends))}</div>`;
+}
 function openOrder(id){ const o=findOrder(id); if (!o) return; shotFile=null; openSheet('Order #'+codeOf(id),'order',id); S.stars=0; renderOrderSheet(true); }
 function renderOrderSheet(force){
   if (!S.sheet||S.sheet.kind!=='order') return; const o=findOrder(S.sheet.id); if (!o){ closeSheet(); return; }
@@ -969,6 +1228,8 @@ function renderOrderSheet(force){
       ${o.paidAt?`<div><span>Proof</span><b>${o.paidShot?'Screenshot sent ✓':'Transaction ID only'}</b></div>`:''}
       ${o.note?`<div><span>Your note</span><b style="font-weight:500">${esc(o.note)}</b></div>`:''}
       ${o.ccode?`<div><span>Customer ID</span><b>${esc(o.ccode)}</b></div>`:''}</div>
+    ${memLine(o)}
+    ${o.status!=='new'&&!canResend(o)||o.status==='done'?`<div style="display:flex;gap:8px;flex-wrap:wrap">${o.status==='done'?`<button class="btn primary" type="button" data-receipt="${esc(o.id)}">🧾 Receipt</button>`:''}<button class="btn" type="button" data-againid="${esc(o.id)}">🔁 Buy again</button></div>`:''}
     ${o.status==='done'&&o.delivered&&!rev?`<div class="card" style="padding:16px"><h3>How was it?</h3><p class="help">Your review shows on the shop page.</p>
       <div class="starsel" id="rvStars">${[1,2,3,4,5].map(n=>`<button type="button" data-star="${n}" class="${n<=S.stars?'on':''}" aria-label="${n} star${n>1?'s':''}">★</button>`).join('')}</div>
       <input id="rvName" maxlength="30" placeholder="Name to show" value="${esc(keepN||String(o.name||'').slice(0,30))}"/>
@@ -1091,6 +1352,13 @@ document.addEventListener('click', async e=>{
   if (at('[data-signout]')){ doSignOut(); return; }
   if ((el=at('[data-shareref]'))){ share('💎 Free Fire diamonds here. Order with my link: ', el.dataset.shareref); return; }
   if (at('[data-revmore]')){ S.revAll=!S.revAll; renderReviews(); return; }
+  if ((el=at('[data-again]'))||(el=at('[data-againid]'))){ const o=findOrder(el.dataset.again||el.dataset.againid); if (o) reorder(o.items, o.uid); return; }
+  if ((el=at('[data-renew]'))){ const [oid,pk]=el.dataset.renew.split('|'), o=findOrder(oid); if (!o) return; const it=(o.items||[]).filter(i=>i.pkId===pk); reorder(it.length?it:o.items.filter(i=>i.kind==='member'), o.uid); return; }
+  if ((el=at('[data-receipt]'))){ const o=findOrder(el.dataset.receipt); if (o) showReceipt(o); return; }
+  if (at('[data-install]')){ installApp(); return; }
+  if (at('[data-alerts]')){ enableAlerts(); return; }
+  if (at('[data-alertsoff]')){ store.set('dc-notify','0'); renderAccount(); toast('Order alerts off'); return; }
+  if ((el=at('[data-theme-set]'))){ setTheme(el.dataset.themeSet); return; }
   if ((el=at('[data-reply]'))){ const u=auth.currentUser; if (!u||u.isAnonymous){ toast('Create a login or sign in with Google to reply.', false, {label:'Create login', fn:()=>openAuth('create')}); return; } S.replyOpen=el.dataset.reply; renderReviews(); setTimeout(()=>$('repIn')&&$('repIn').focus(),20); return; }
   if (at('[data-repcancel]')){ S.replyOpen=null; renderReviews(); return; }
   if ((el=at('[data-repsend]'))){ const text=($('repIn').value||'').trim().slice(0,300), u=auth.currentUser; if (!text){ $('repIn').focus(); return; } if (!u) return; el.disabled=true;
@@ -1101,7 +1369,7 @@ document.addEventListener('click', async e=>{
   if ((el=at('[data-repdel]'))){ const [rid,pid]=el.dataset.repdel.split('|'); try{ await deleteDoc(doc(db,'reviews',rid,'replies',pid)); }catch(err){ toast('Couldn’t delete. '+explain(err),true); } return; }
 });
 
-route(); renderAll();
+route(); renderAll(); paintInstall();
 </script>
 </body>
 </html>
