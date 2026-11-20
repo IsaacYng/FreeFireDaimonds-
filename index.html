@@ -3,413 +3,397 @@
 <head>
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
-<meta name="description" content="Free Fire diamonds — fast delivery to your Free Fire UID. eSewa, Khalti, Bank."/>
-<title>Diamond Counter — Free Fire Diamonds</title>
-<link rel="preconnect" href="https://fonts.googleapis.com"/>
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin/>
-<link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Figtree:wght@400;500;600;700;800&display=swap" rel="stylesheet"/>
+<meta name="description" content="Self ledger — aafno hisab, offline. Kaslai kati bechyo, price, fee, P&L."/>
+<title>Mero Hisab — Self Ledger</title>
 <style>
-:root{--ink:#121833;--mut:#5c6478;--line:#e7e2d6;--line2:#d9d2bd;--bg:#f6f4ef;--card:#fff;--gold:#f5b301;--gold2:#ffcf3f;--green:#0e8a4d;--greenbg:#e6f6ec;--red:#c0272d;--redbg:#fdecec;--amber:#8a5a00;--amberbg:#fff3d6;--blue:#1d4ed8;--bluebg:#e8eefc;--r:16px;--shadow:0 10px 30px rgba(18,24,51,.08)}
 [hidden]{display:none!important}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:'Figtree',system-ui,-apple-system,'Segoe UI',sans-serif;font-size:16px;line-height:1.5}
-a{color:inherit}button{font:inherit}input,textarea,select{font:inherit;font-size:16px}
-.top{position:static;background:rgba(246,244,239,.92);border-bottom:1px solid var(--line)}
-.topin{max-width:1080px;margin:0 auto;padding:10px 14px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;row-gap:8px}
-.brand{display:flex;align-items:center;gap:10px;text-decoration:none;min-width:0;flex:1 1 220px}
-.gem{width:38px;height:38px;border-radius:11px;background:var(--ink);color:var(--gold);display:grid;place-items:center;font-family:'Chakra Petch',sans-serif;font-weight:700;font-size:20px;flex:0 0 auto}
-.brand b{font-family:'Chakra Petch',sans-serif;font-size:18px;line-height:1;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.brand small{color:var(--mut);font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.sp{display:none}
-.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line2);background:#fff;border-radius:999px;padding:6px 10px;font-size:13px;font-weight:600}
-.pill.open{color:var(--green);border-color:#bfe8cd;background:var(--greenbg)}
-.pill.closed{color:var(--red);border-color:#f3b8b8;background:var(--redbg)}
-.iconbtn{border:1px solid var(--line2);background:#fff;border-radius:12px;padding:9px 12px;font-weight:700;cursor:pointer;flex:0 0 auto;white-space:nowrap}
-.iconbtn.primary{background:var(--ink);color:#fff;border-color:var(--ink)}
+*{box-sizing:border-box}
+body{margin:0;background:#f6f4ef;color:#121833;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:16px;line-height:1.5}
+a{color:inherit}button{font:inherit}input,select,textarea{font:inherit;font-size:16px}
+.top{position:static;background:#f6f4ef;border-bottom:1px solid #e7e2d6}
+.topin{max-width:1080px;margin:0 auto;padding:12px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.brand{display:flex;align-items:center;gap:10px;min-width:0;flex:1 1 220px}
+.gem{width:38px;height:38px;border-radius:11px;background:#121833;color:#f5b301;display:grid;place-items:center;font-weight:800;font-size:20px;flex:0 0 auto}
+.brand b{font-size:18px;line-height:1;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.brand small{color:#5c6478;font-size:12px;display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pill{display:inline-flex;align-items:center;gap:6px;border:1px solid #d9d2bd;background:#fff;border-radius:999px;padding:6px 10px;font-size:13px;font-weight:600}
+.pill.green{color:#0e8a4d;border-color:#bfe8cd;background:#e6f6ec}
+.iconbtn{border:1px solid #d9d2bd;background:#fff;border-radius:12px;padding:9px 12px;font-weight:700;cursor:pointer;flex:0 0 auto;white-space:nowrap}
 .wrap{max-width:1080px;margin:0 auto;padding:14px}
-.hero{background:var(--ink);color:#fff;border-radius:20px;padding:20px;position:relative;overflow:hidden}
-.hero h1{font-family:'Chakra Petch',sans-serif;font-size:28px;line-height:1.15;margin:4px 0 8px}
-.hero h1 em{color:var(--gold);font-style:normal}
-.hero p{margin:0;color:#cfd3e6;max-width:640px}
-.hero .cta{margin-top:16px;display:flex;flex-wrap:wrap;gap:8px}
-.btn{border:1px solid var(--line2);background:#fff;border-radius:12px;padding:11px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
-.btn.primary{background:var(--gold);border-color:var(--gold);color:#121833}
-.btn.dark{background:var(--ink);color:#fff;border-color:var(--ink)}
+.hero{background:#121833;color:#fff;border-radius:20px;padding:20px}
+.hero h1{font-size:26px;line-height:1.15;margin:4px 0 8px}
+.hero h1 em{color:#f5b301;font-style:normal}
+.hero p{margin:0;color:#cfd3e6;max-width:680px}
+.hero .cta{margin-top:14px;display:flex;flex-wrap:wrap;gap:8px}
+.btn{border:1px solid #d9d2bd;background:#fff;border-radius:12px;padding:11px 16px;font-weight:700;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+.btn.primary{background:#f5b301;border-color:#f5b301;color:#121833}
+.btn.dark{background:#121833;color:#fff;border-color:#121833}
 .btn.ghost{background:transparent;color:#fff;border-color:rgba(255,255,255,.35)}
 .btn:disabled{opacity:.55;cursor:not-allowed}
 .btn.sm{padding:8px 12px;font-size:14px;border-radius:10px}
+.btn.danger{background:#fff;color:#c0272d;border-color:#f3b8b8}
 .notice{margin-top:12px;background:rgba(245,179,1,.14);border:1px solid rgba(245,179,1,.4);border-radius:12px;padding:10px 12px;font-size:14px}
-.stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
-.stat{background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:12px;padding:8px 12px;font-size:13px}
-.stat b{font-size:16px}
-.tabs{position:sticky;top:0;z-index:20;background:var(--bg);padding:8px 2px;display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none}
-.tab{border:1px solid var(--line2);background:#fff;border-radius:999px;padding:9px 14px;font-weight:700;cursor:pointer;white-space:nowrap;flex:0 0 auto}
+.tabs{position:sticky;top:0;z-index:20;background:#f6f4ef;padding:8px 2px;display:flex;gap:8px;overflow-x:auto;overflow-y:hidden;scrollbar-width:none;-ms-overflow-style:none}
 .tabs::-webkit-scrollbar{display:none}
-.tab.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.tab .n{background:var(--gold);color:#121833;border-radius:999px;padding:1px 7px;font-size:12px;margin-left:4px}
+.tab{border:1px solid #d9d2bd;background:#fff;border-radius:999px;padding:9px 14px;font-weight:700;cursor:pointer;white-space:nowrap;flex:0 0 auto}
+.tab.on{background:#121833;color:#fff;border-color:#121833}
 .sec{margin-top:14px}
-.card{background:var(--card);border:1px solid var(--line);border-radius:var(--r);box-shadow:var(--shadow);padding:16px}
-.card h2{margin:0 0 6px;font-family:'Chakra Petch',sans-serif;font-size:19px}
-.mut{color:var(--mut)} .small{font-size:13px} .num{font-variant-numeric:tabular-nums}
-.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}
-.chip{border:1px solid var(--line2);background:#fff;border-radius:999px;padding:8px 12px;font-weight:600;cursor:pointer}
-.chip.on{background:var(--ink);color:#fff;border-color:var(--ink)}
-.search{flex:1;min-width:160px;border:1px solid var(--line2);border-radius:12px;padding:10px 12px;background:#fff}
-.grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px}
-@media(max-width:640px){.topin{gap:8px}.pill{order:10;width:100%;justify-content:center}.iconbtn{padding:8px 10px;font-size:14px}.brand b{font-size:16px}.gem{width:34px;height:34px;font-size:18px}}
-@media(min-width:760px){.grid{grid-template-columns:repeat(3,1fr)}.hero h1{font-size:34px}}
-.pkg{border:1px solid var(--line);border-radius:16px;padding:14px;background:#fff;position:relative;display:flex;flex-direction:column;gap:8px}
-.pkg.pop{border-color:var(--gold);box-shadow:0 0 0 2px rgba(245,179,1,.35)}
-.badge{position:absolute;top:-10px;left:12px;background:var(--gold);color:#121833;font-size:12px;font-weight:800;border-radius:999px;padding:3px 9px}
-.pkg .dia{font-family:'Chakra Petch',sans-serif;font-size:22px;line-height:1}
-.pkg .dia small{font-size:13px;color:var(--mut);font-family:'Figtree',sans-serif}
-.pkg .name{font-weight:600;font-size:14px;color:var(--mut)}
-.pkg .price{font-size:20px;font-weight:800}
-.pkg .per{font-size:12px;color:var(--mut)}
-.qty{display:flex;align-items:center;gap:8px;margin-top:auto}
-.qbtn{width:36px;height:36px;border-radius:10px;border:1px solid var(--line2);background:#fff;font-size:20px;font-weight:800;cursor:pointer}
-.qbtn:disabled{opacity:.4}
-.qty b{min-width:22px;text-align:center}
-.add{width:100%;margin-top:4px}
-.cartbar{position:fixed;left:12px;right:12px;bottom:12px;z-index:40;max-width:1080px;margin:0 auto;background:var(--ink);color:#fff;border-radius:16px;padding:12px 14px;display:flex;align-items:center;gap:10px;box-shadow:0 16px 40px rgba(0,0,0,.28)}
-.cartbar .t{flex:1;min-width:0}.cartbar .t b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.cartbar .t span{font-size:13px;color:#cfd3e6}
-.drawer{position:fixed;inset:0;z-index:50;display:none}.drawer.open{display:block}
-.scrim{position:absolute;inset:0;background:rgba(10,12,28,.55)}
-.sheet{position:absolute;left:0;right:0;bottom:0;max-height:92vh;overflow:auto;background:#fff;border-radius:20px 20px 0 0;padding:16px 16px calc(20px + env(safe-area-inset-bottom));max-width:720px;margin:0 auto}
-@media(min-width:760px){.sheet{bottom:auto;top:50%;transform:translateY(-50%);border-radius:20px}}
-.sheet h3{font-family:'Chakra Petch',sans-serif;margin:0 0 8px;font-size:20px}
+.card{background:#fff;border:1px solid #e7e2d6;border-radius:16px;box-shadow:0 10px 30px rgba(18,24,51,.08);padding:16px}
+.card h2{margin:0 0 6px;font-size:19px}
+.mut{color:#5c6478}.small{font-size:13px}.num{font-variant-numeric:tabular-nums}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+@media(min-width:760px){.grid3{grid-template-columns:repeat(3,1fr)}.hero h1{font-size:32px}}
+.stat{border:1px solid #e7e2d6;border-radius:14px;padding:12px;background:#fff}
+.stat small{color:#5c6478;display:block;font-size:12px}
+.stat b{font-size:20px}
+.stat b.green{color:#0e8a4d}.stat b.red{color:#c0272d}.stat b.amber{color:#8a5a00}
 .field{display:block;margin:10px 0}.field>span{display:block;font-weight:700;font-size:13px;margin-bottom:6px}
-.field input,.field select,.field textarea{width:100%;border:1px solid var(--line2);border-radius:12px;padding:11px 12px;background:#fff}
-.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid var(--gold);border-color:var(--gold)}
-.err{color:var(--red);font-size:13px;min-height:18px}.ok{color:var(--green);font-size:13px}
-.line{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed var(--line);font-size:14px}
+.field input,.field select,.field textarea{width:100%;border:1px solid #d9d2bd;border-radius:12px;padding:11px 12px;background:#fff}
+.field input:focus,.field select:focus,.field textarea:focus{outline:2px solid #f5b301;border-color:#f5b301}
+.err{color:#c0272d;font-size:13px;min-height:18px}.ok{color:#0e8a4d;font-size:13px}
+.line{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px dashed #e7e2d6;font-size:14px}
 .line.total{border:none;font-size:17px;font-weight:800}
-.paygrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.payopt{border:2px solid var(--line2);border-radius:14px;padding:12px;cursor:pointer;background:#fff;text-align:left}
-.payopt.on{border-color:var(--ink);background:#fffbe6}
-.payopt b{display:block}.payopt small{color:var(--mut)}
-.qrbox{border:1px solid var(--line);border-radius:14px;padding:12px;text-align:center}
-.qrbox img{width:100%;max-width:260px;height:auto;border-radius:10px;background:#fff}
-.copyrow{display:flex;gap:8px;align-items:center;background:#f8f6ef;border:1px solid var(--line);border-radius:10px;padding:8px 10px;font-size:14px;word-break:break-all}
-.order{border:1px solid var(--line);border-radius:16px;padding:14px;margin:10px 0;background:#fff}
+.line.net{border:none;font-size:18px;font-weight:800;background:#e6f6ec;border-radius:10px;padding:10px 12px}
+.preset{display:flex;gap:8px;flex-wrap:wrap}
+.preset button{border:1px solid #d9d2bd;background:#fff;border-radius:999px;padding:8px 12px;font-weight:700;cursor:pointer}
+.preset button.on{background:#121833;color:#fff;border-color:#121833}
+.sale{border:1px solid #e7e2d6;border-radius:16px;padding:14px;margin:10px 0;background:#fff}
 .ost{display:inline-block;border-radius:999px;padding:4px 10px;font-size:12px;font-weight:800}
-.ost.amber{background:var(--amberbg);color:var(--amber)}.ost.green{background:var(--greenbg);color:var(--green)}.ost.blue{background:var(--bluebg);color:var(--blue)}.ost.red{background:var(--redbg);color:var(--red)}.ost.grey{background:#eee;color:#666}
-.trail{font-size:13px;color:var(--mut)}
-.rev{border:1px solid var(--line);border-radius:14px;padding:12px;margin:10px 0;background:#fff}
-.rep{margin:8px 0 0 12px;border-left:3px solid var(--gold);padding-left:10px;font-size:14px}
-.rep.shop{border-color:var(--ink)}
-.dlg{position:fixed;inset:0;z-index:60;display:none}.dlg.open{display:block}
-.dlg .scrim{position:absolute;inset:0;background:rgba(10,12,28,.6)}
-.dlg .box{position:absolute;left:12px;right:12px;top:50%;transform:translateY(-50%);max-width:520px;margin:0 auto;background:#fff;border-radius:18px;padding:18px;max-height:90vh;overflow:auto}
+.ost.green{background:#e6f6ec;color:#0e8a4d}.ost.amber{background:#fff3d6;color:#8a5a00}.ost.red{background:#fdecec;color:#c0272d}.ost.grey{background:#eee;color:#666}.ost.blue{background:#e8eefc;color:#1d4ed8}
 .row{display:flex;gap:8px;flex-wrap:wrap}.row .btn{flex:1}
-.toast{position:fixed;left:50%;bottom:84px;transform:translateX(-50%);background:var(--ink);color:#fff;border-radius:12px;padding:11px 16px;font-size:14px;font-weight:600;z-index:80;max-width:min(92vw,520px);display:none;box-shadow:0 12px 30px rgba(0,0,0,.3)}
-.toast.show{display:block}.toast.bad{background:var(--red)}
-.blank{border:1px dashed var(--line2);border-radius:14px;padding:18px;text-align:center;color:var(--mut)}
-.filebtn{display:block;border:1px dashed var(--line2);border-radius:12px;padding:12px;text-align:center;cursor:pointer;background:#fbf9f3}
-.filebtn input{display:none}
-.preview{width:100%;max-width:320px;border-radius:10px;display:none;margin-top:8px}
-:focus-visible{outline:3px solid var(--gold);outline-offset:2px}
-@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;transition:none!important}}
-.skel{height:18px;background:#eee;border-radius:8px;animation:pulse 1.2s infinite}
-@keyframes pulse{0%,100%{opacity:.6}50%{opacity:1}}
-footer{padding:26px 0 110px;text-align:center;color:var(--mut);font-size:13px}
-
+.filters{display:flex;gap:8px;flex-wrap:wrap;align-items:center;margin:12px 0}
+.chip{border:1px solid #d9d2bd;background:#fff;border-radius:999px;padding:8px 12px;font-weight:600;cursor:pointer}
+.chip.on{background:#121833;color:#fff;border-color:#121833}
+.search{flex:1;min-width:160px;border:1px solid #d9d2bd;border-radius:12px;padding:10px 12px;background:#fff}
+table{width:100%;border-collapse:collapse;font-size:14px}
+th,td{padding:8px 6px;text-align:left;border-bottom:1px solid #e7e2d6}
+th{color:#5c6478;font-size:12px}
+td.num,th.num{text-align:right}
+.bar-row{display:flex;align-items:center;gap:8px;font-size:13px;margin:6px 0}
+.bar-row .lbl{width:52px;flex:0 0 auto;color:#5c6478}
+.bar-row .track{flex:1;background:#eee;border-radius:99px;height:14px;overflow:hidden}
+.bar-row .fill{height:100%;background:#f5b301;border-radius:99px}
+.bar-row .fill.profit{background:#0e8a4d}
+.blank{border:1px dashed #d9d2bd;border-radius:14px;padding:18px;text-align:center;color:#5c6478}
+.toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:#121833;color:#fff;border-radius:12px;padding:11px 16px;font-size:14px;font-weight:600;z-index:80;max-width:min(92vw,520px);display:none;box-shadow:0 12px 30px rgba(0,0,0,.3)}
+.toast.show{display:block}.toast.bad{background:#c0272d}
+.preview{background:#fbf9f3;border:1px solid #e7e2d6;border-radius:14px;padding:12px}
+:focus-visible{outline:3px solid #f5b301;outline-offset:2px}
+footer{padding:26px 0 40px;text-align:center;color:#5c6478;font-size:13px}
+@media(max-width:640px){.pill{order:10;width:100%;justify-content:center}.iconbtn{padding:8px 10px;font-size:14px}.brand b{font-size:16px}.gem{width:34px;height:34px;font-size:18px}.grid2{grid-template-columns:1fr}}
+@media print{ .top,.tabs,.no-print{display:none!important} .wrap{max-width:none;padding:0} .card{box-shadow:none} }
 </style>
 </head>
 <body>
 <header class="top"><div class="topin">
-<a class="brand" href="#shop" aria-label="Diamond Counter home"><span class="gem" aria-hidden="true">◆</span><span><b id="shopNameTop">Diamond Counter</b><small>Free Fire diamonds · Biratnagar</small></span></a>
-<span class="sp"></span>
-<span class="pill" id="openPill">…</span>
-<button type="button" class="iconbtn" id="waBtn" hidden>WhatsApp</button>
-<button type="button" class="iconbtn" id="acctBtn">My account</button>
+<div class="brand"><span class="gem" aria-hidden="true">◆</span><span><b id="ledgerName">Mero Hisab</b><small>Self ledger · Offline · Prototype</small></span></div>
+<span class="pill" id="syncPill">○ Connecting…</span><span class="pill" id="acctPill">Guest</span>
+<button type="button" class="iconbtn" id="backupTop">⬇ Backup</button>
 </div></header>
 
 <main class="wrap">
-<section class="hero" id="shop">
-<p><b style="color:var(--gold)">💎 FAST · SAFE · NEPAL</b></p>
-<h1>Free Fire diamonds,<br/><em>minet mai</em> timro UID ma.</h1>
-<p id="heroSub">Package chhannus, UID ra naam halnus, eSewa / Khalti / Bank bata pay garnus — admin le check garera diamond pathauchha.</p>
-<div class="notice" id="shopNotice" hidden></div>
-<div class="cta"><a class="btn primary" href="#packages">Shop packages ↓</a><button type="button" class="btn ghost" id="howBtn">Kasari order garne?</button></div>
-<div class="stats" id="heroStats"></div>
+<section class="hero">
+<p><b style="color:#f5b301">💎 SELF LEDGER — AAFNO HISAB</b></p>
+<h1>Kaslai kati bechyo,<br/><em>fee sahit</em> sabai yahi.</h1>
+<p>Yo online shop hoina, order page hoina. Hajur ko <b>aafno private ledger</b> ho — phone / UID / customer ko personal data kehi pani collect hudaina. Data hajur ko account ma <b>online</b> save hunchha, teti le phone harae / change gare pani account le login garepachhi data farkinchha. Ek sale = ek transaction = ek choti fee.</p>
+<div class="notice" id="feeNotice">Fee: $0.56 × FX = Rs — · Settings ma FX / fee change garna milchha.</div>
+<div class="cta"><button type="button" class="btn primary" id="heroAdd">＋ New sale halnus</button><button type="button" class="btn ghost" id="heroPL">P&amp;L hernus →</button></div>
 </section>
 
 <nav class="tabs" aria-label="Sections">
-<button type="button" class="tab on" data-tab="shop">🛒 Shop</button>
-<button type="button" class="tab" data-tab="orders">📦 My orders <span class="n" id="ordCount" hidden>0</span></button>
-<button type="button" class="tab" data-tab="reviews">⭐ Reviews</button>
-<button type="button" class="tab" data-tab="account">👤 Account</button>
+<button type="button" class="tab on" data-tab="dash">📊 Dashboard</button>
+<button type="button" class="tab" data-tab="sale">＋ New sale</button>
+<button type="button" class="tab" data-tab="sales">📒 Sales</button>
+<button type="button" class="tab" data-tab="pl">📈 P&amp;L / Analysis</button>
+<button type="button" class="tab" data-tab="settings">⚙️ Settings</button>
 </nav>
 
-<section class="sec" id="sec-shop">
+<section class="sec" id="sec-dash">
 <div class="card">
-<h2 id="packages">Packages</h2>
-<p class="mut small" id="priceNote">Price admin ko list bata live auchha. Coupon cha bhane cart ma halnus.</p>
+<div class="row" style="align-items:end"><label class="field" style="flex:1"><span>Mahina</span><input id="dashMonth" type="month"/></label><button type="button" class="btn dark" id="dashToday">Yo mahina</button></div>
+<div class="notice" id="backupWarn" hidden style="background:#fdecec;border-color:#f3b8b8"></div>
+<div class="grid3" id="dashStats"></div>
+<div class="grid2" style="margin-top:14px">
+<div><h2 style="font-size:16px">🕐 Recent sales</h2><div id="dashRecent"></div></div>
+<div><h2 style="font-size:16px">🏆 Top buyers (yo mahina)</h2><div id="dashTop"></div></div>
+</div>
+</div>
+</section>
+
+<section class="sec" id="sec-sale" hidden>
+<div class="card">
+<h2 id="saleTitle">＋ New sale</h2>
+<p class="mut small">Ek form = ek transaction. Fee tyo sale ma ek choti matra lagchha — 100 💎 hos wa 500 💎, fee eutai.</p>
+<label class="field"><span>Date *</span><input id="fDate" type="date"/></label>
+<div class="grid2">
+<label class="field"><span>Kaslai bechyo? — Nickname matra (optional)</span><input id="fBuyer" maxlength="30" placeholder="e.g. Ram, Sathi 1 — phone / UID NALEKHNUS"/></label>
+<label class="field"><span>Diamonds *</span><input id="fDiamonds" type="number" min="1" max="100000" inputmode="numeric" placeholder="e.g. 310"/></label>
+</div>
+<div class="field"><span>Quick diamonds</span><div class="preset" id="diaPresets"><button type="button" data-dia="60">60 💎</button><button type="button" data-dia="100">100 💎</button><button type="button" data-dia="310">310 💎</button><button type="button" data-dia="520">520 💎</button><button type="button" data-dia="1060">1060 💎</button><button type="button" data-dia="2180">2180 💎</button><button type="button" data-dia="0">Custom</button></div></div>
+<div class="grid2">
+<label class="field"><span>Selling price (Rs) * — grahak bata line / lineko total</span><input id="fSell" type="number" min="0" step="1" inputmode="decimal" placeholder="e.g. 950"/></label>
+<label class="field"><span>Discount (Rs)</span><input id="fDisc" type="number" min="0" step="1" inputmode="decimal" value="0"/></label>
+</div>
+<div class="grid2">
+<label class="field"><span>Game cost ($) — Garena / card bata diamond ko cost</span><input id="fCostUsd" type="number" min="0" step="0.01" inputmode="decimal" placeholder="e.g. 4.50"/></label>
+<label class="field"><span>Game cost (Rs) — $ halne bittikai auto bhanchha, chahe afai lekhna pani milchha</span><input id="fCostRs" type="number" min="0" step="1" inputmode="decimal" placeholder="e.g. 620"/></label>
+</div>
+<div class="grid2">
+<label class="field"><span>Transaction fee ($) * — yo sale ma ek choti</span><input id="fFeeUsd" type="number" min="0" step="0.01" inputmode="decimal" value="0.56"/></label>
+<label class="field"><span>Fee (Rs) — auto</span><input id="fFeeRs" type="number" min="0" step="1" inputmode="decimal" readonly style="background:#f8f6ef"/></label>
+</div>
+<p class="small mut">Fee pachi badhyo / ghatyo bhane: Settings ma default fee change garnus — purano sale ko fee change hudaina, naya sale ma matra naya fee lagchha. Yo sale ko fee yahi form ma pani change garna milchha.</p>
+<div class="grid2">
+<label class="field"><span>Received (Rs) — ahile haat ma aako</span><input id="fReceived" type="number" min="0" step="1" inputmode="decimal" placeholder="Pura aako bhaye selling price jati"/></label>
+<label class="field"><span>Payment method</span><select id="fMethod"><option>Cash</option><option>eSewa</option><option>Khalti</option><option>Bank</option><option>Credit (udharo)</option></select></label>
+</div>
+<label class="field"><span>Delivery</span><select id="fDelivered"><option value="yes">✅ Delivered — pathai sakyo</option><option value="no">⏳ Pending — pathauna baki</option></select></label>
+<label class="field"><span>Note (optional)</span><input id="fNote" maxlength="120" placeholder="e.g. Weekly pack, sathi ko lagi"/></label>
+<div class="preview" id="salePreview"></div>
+<div class="err" id="saleErr"></div>
+<div class="row"><button type="button" class="btn" id="saleReset">Clear</button><button type="button" class="btn primary" id="saleSave">💾 Save sale</button></div>
+<div id="editBar" hidden><p class="small">Edit gardaichhaunuhunchha — <button type="button" class="btn sm" id="cancelEdit">Cancel edit</button></p></div>
+</div>
+</section>
+
+<section class="sec" id="sec-sales" hidden>
+<div class="card"><h2>📒 Sales ledger</h2>
 <div class="filters">
-<button type="button" class="chip on" data-kind="all">All</button>
-<button type="button" class="chip" data-kind="topup">💎 Top-up</button>
-<button type="button" class="chip" data-kind="member">👑 Membership</button>
-<input class="search" id="pkgSearch" type="search" placeholder="Search — 100, 310, weekly…" aria-label="Search packages"/>
+<button type="button" class="chip on" data-filter="all">All</button>
+<button type="button" class="chip" data-filter="pending">⏳ Pending</button>
+<button type="button" class="chip" data-filter="credit">💳 Credit (udharo)</button>
+<button type="button" class="chip" data-filter="month">📅 Yo mahina</button>
+<input class="search" id="saleSearch" type="search" placeholder="Buyer / note khojnus…" aria-label="Search sales"/>
 </div>
-<div id="pkgGrid" class="grid"><div class="skel"></div><div class="skel"></div><div class="skel"></div><div class="skel"></div></div>
-<div class="blank" id="pkgEmpty" hidden><b>No packages yet</b><br/><span class="small">Shop le price list set garepachhi yaha dekhauchha.</span></div>
-</div>
-
-<div class="card" style="margin-top:14px">
-<h2>🧮 Diamond calculator</h2>
-<p class="mut small">Kati diamond chahiyo? Sasto mix khojdinchhu.</p>
-<div class="row"><label class="field" style="flex:1"><span>Diamonds needed</span><input id="calcN" type="number" min="1" max="100000" inputmode="numeric" placeholder="e.g. 500"/></label><div style="display:flex;align-items:flex-end"><button type="button" class="btn dark" id="calcBtn">Find best</button></div></div>
-<div id="calcOut" class="small mut" style="margin-top:8px"></div>
+<div id="salesTotals" class="small mut"></div>
+<div id="salesList"></div>
 </div>
 </section>
 
-<section class="sec" id="sec-orders" hidden>
-<div class="card"><h2>📦 My orders</h2>
-<p class="mut small">Tapaiko account (yo device + UID account) bata gareka order haru matra dekhauchha. Order status live update hunchha.</p>
-<div id="orderList"><div class="skel"></div></div>
+<section class="sec" id="sec-pl" hidden>
+<div class="card"><h2>📈 Profit &amp; Loss</h2>
+<div class="row" style="align-items:end"><label class="field" style="flex:1"><span>Mahina</span><input id="plMonth" type="month"/></label><button type="button" class="btn dark no-print" id="plPrint">🖨 Print / PDF</button><button type="button" class="btn no-print" id="plCsv">⬇ CSV</button></div>
+<div id="plTable"></div>
+<div id="plDaily"></div>
+<div id="plBreak"></div>
+<p class="small mut">Hisab: Gross sales − Discount = Net revenue. Net revenue − Game cost = Gross profit. Gross profit − Transaction fees = <b>Net profit</b>. Fee harek sale ma ek choti matra gani ko cha.</p>
 </div>
 </section>
 
-<section class="sec" id="sec-reviews" hidden>
-<div class="card"><h2>⭐ Customer reviews</h2>
-<p class="mut small" id="revSummary"></p>
-<div class="filters"><button type="button" class="chip on" data-star="0">All</button><button type="button" class="chip" data-star="5">5★</button><button type="button" class="chip" data-star="4">4★+</button><button type="button" class="chip" data-star="3">3★+</button></div>
-<div id="revList"></div>
+<section class="sec" id="sec-settings" hidden>
+<div class="card"><h2>⚙️ Settings — Fee + FX (manual)</h2>
+<label class="field"><span>Ledger / Owner name (P&amp;L ma dekhine, optional)</span><input id="sOwner" maxlength="40" placeholder="e.g. Mero Hisab"/></label>
+<label class="field"><span>FX rate — Rs per $1 *</span><input id="sFx" type="number" min="1" step="0.01" inputmode="decimal" placeholder="e.g. 138.50"/></label>
+<label class="field"><span>Default transaction fee ($) * — harek sale ma ek choti</span><input id="sFee" type="number" min="0" step="0.01" inputmode="decimal" placeholder="0.56"/></label>
+<p class="small mut">Fee = per <b>transaction</b>, per diamond hoina. 100 💎 beche pani $0.56, 500 💎 beche pani $0.56. Pachi fee badhyo / ghatyo bhane yaha change garnus — purano sale ko hisab bigrindaina, kinaki harek sale ma tyo bela ko fee + FX freeze garera save garinchha.</p>
+<button type="button" class="btn primary" id="saveSettings">Save settings</button>
+<div class="err" id="setErr"></div>
 </div>
-</section>
-
-<section class="sec" id="sec-account" hidden>
-<div class="card"><h2>👤 My account</h2>
-<div id="acctBox"></div>
+<div class="card" style="margin-top:14px"><h2>👤 Account — Phone harae pani data safe</h2>
+<div id="acctBox"><p class="small mut">Account load hudai cha…</p></div>
+<label class="field"><span>Email (aafno, login ko lagi)</span><input id="acctEmail" type="email" autocomplete="email" placeholder="hajurko@email.com"/></label>
+<label class="field"><span>Password (min 6)</span><input id="acctPass" type="password" autocomplete="current-password" placeholder="••••••"/></label>
+<div class="err" id="acctErr"></div>
+<div class="row"><button type="button" class="btn primary" id="acctCreate">Account banaune / Link garne</button><button type="button" class="btn dark" id="acctLogin">Login</button></div>
+<div class="row" style="margin-top:8px"><button type="button" class="btn" id="acctGoogle">G Google — link / login</button><button type="button" class="btn" id="acctOut">Sign out</button></div>
+<p class="small mut" style="margin-top:10px">⏱️ <b>Ek choti euta device ma matra edit garnus</b> — duwai phone ma ekai choti sale hale last-write le arko lai overwrite garna sakchha. Arko device ma kholna aghi page refresh garnus.<br/>⚠️ <b>Guest account ma data safe hudaina</b> — Guest ko UID phone sangai haraunchha. Email / Google account banaepachhi matra phone harae pani data farkinchha. Guest bata account banauda purano sale haru pani eutai account ma sarinchha.</p>
+<details style="margin-top:10px"><summary style="cursor:pointer;font-weight:700">☁️ Cloud setup — Firebase Rules (1 choti matra)</summary><p class="small mut">Firebase Console → Firestore Database → Rules ma tala ko rule <b>thapnus</b>, natra cloud save hudaina (local ma matra baschha):</p><pre style="white-space:pre-wrap;background:#f8f6ef;border:1px solid #e7e2d6;border-radius:10px;padding:10px;font-size:12px">match /ledgers/{uid} {
+  allow read, write: if request.auth != null
+    && request.auth.uid == uid;
+}</pre><button type="button" class="btn sm" id="copyRules">Copy rules</button><p class="small mut" id="rulesNote">Rules thapepachhi page reload garnus.</p></details>
 </div>
-<div class="card" style="margin-top:14px"><h2>🤝 Refer &amp; earn</h2>
-<p class="mut small" id="refText">Aafno link sathi lai pathaunus. Sathi le order garda admin le referral dekhchha.</p>
-<div class="copyrow"><span id="refLink" style="flex:1">Account banaepachhi referral link yaha auchha.</span><button type="button" class="btn sm dark" id="refCopy">Copy</button></div>
+<div class="card" style="margin-top:14px"><h2>💾 Data — Backup / Restore</h2>
+<p class="small mut" id="dataInfo"></p><p class="small" id="backupInfo" style="font-weight:700"></p>
+<div class="row"><button type="button" class="btn dark" id="dlBackup">⬇ Backup (JSON)</button><label class="btn">⬆ Restore<input type="file" id="restoreFile" accept=".json,application/json" hidden/></label><button type="button" class="btn" id="dlCsvAll">⬇ All CSV</button></div>
+<p class="small mut" style="margin-top:10px">Backup mahina ma ek choti download garera surakshit thau ma rakhnus. Restore garda ahile ko data file ko le replace hunchha.</p>
+<div class="row"><button type="button" class="btn" id="demoBtn">Demo data halnus (test garna)</button><button type="button" class="btn danger" id="clearBtn">🗑 Sabai data delete</button></div>
 </div>
-<div class="card" style="margin-top:14px"><h2>❓ Help</h2>
-<p class="small"><b>1.</b> Package chhannus → <b>2.</b> Cart ma naam / phone / FF UID halnus → <b>3.</b> Place order → <b>4.</b> Pay garnus ra <b>“I’ve paid”</b> ma screenshot halnus.<br/>Order reject bhayo bhane <b>Send again</b> bata naya screenshot pathauna milchha (3 choti samma). Delivered bhayepachhi review dinus.<br/>Password birsiyo? UID account ma Google backup thapnubhayo bhane Google bata login garnus. Backup chaina bhane shop lai bhannus — admin le purano account delete garera naya banauna dinchha.</p>
-<p class="small mut">Payment proof: screenshot ma amount + transaction ID dekhinuparchha. Galat UID ma diamond gayo bhane firta hudaina — UID 2 choti check garnus.</p>
+<div class="card" style="margin-top:14px"><h2>🔒 Privacy — yo kura bujhnus</h2>
+<p class="small">Yo file ma <b>order page / public shop kehi chaina</b>. Data hajur ko <b>aafno private Firebase ledger</b> ma save hunchha — aru le herna / khojna sakdaina, sirf hajur ko account le matra kholna milchha. Internet nabhaye pani kaam garchha: pahila phone ma (local) save hunchha, internet aayepachhi cloud ma sync hunchha.<br/><br/><b>Phone harae pani data safe hune sarta:</b> Guest account <b>hoina</b>, Email / Google account banaunu parne — Guest ko UID phone sangai haraunchha. Account banaepachhi arko phone ma tehi email / Google le login gare data farkinchha.<br/><br/><b>Extra safety:</b> Backup (JSON) file pani download garera rakhnus — cloud + backup duwai bhaye data haraune chance lagbhag sunya hunchha.<br/>Buyer ma <b>phone number / Free Fire UID / email / password kahilyai nalekhnus</b> — nickname matra pugchha (e.g.<br/>Buyer ma <b>phone number / Free Fire UID / email / password kahilyai nalekhnus</b> — nickname matra pugchha (e.g. “Ram”, “Sathi 1”).<br/>Yo personal hisab notebook / prototype ho — online bechne / order line kaam yasle gardaina.</p>
 </div>
 </section>
 </main>
-
-<footer>Diamond Counter · Biratnagar · Free Fire diamonds<br/><span class="small">Order page + Admin (handling) eutai repo / eutai Firebase project ma hunchha.</span></footer>
-
-<div class="cartbar" id="cartBar" hidden><div class="t"><b id="cartBarTxt">Cart empty</b><span id="cartBarSub"></span></div><button type="button" class="btn primary" id="cartOpen">View cart →</button></div>
-
-<div class="drawer" id="cartDrawer" aria-hidden="true"><div class="scrim" data-close-cart></div><section class="sheet" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
-<div style="display:flex;justify-content:space-between;align-items:center"><h3 id="cartTitle">🛒 Your cart</h3><button type="button" class="iconbtn" data-close-cart>✕</button></div>
-<div id="cartItems"></div>
-<div style="margin-top:10px"><label class="field"><span>Coupon code (cha bhane)</span><div style="display:flex;gap:8px"><input id="couponIn" placeholder="e.g. SAVE10" style="text-transform:uppercase"/><button type="button" class="btn dark" id="couponBtn">Apply</button></div></label><div id="couponMsg" class="small"></div></div>
-<div style="margin-top:8px"><label class="field"><span>Referred by — Customer ID (cha bhane, optional)</span><input id="refIn" maxlength="12" placeholder="e.g. C-AB12CD"/></label></div>
-<div id="cartTotals"></div>
-<hr/>
-<h3 style="margin-top:14px">Your details</h3>
-<label class="field"><span>Full name *</span><input id="fName" autocomplete="name" maxlength="60" placeholder="Tapai ko naam"/></label>
-<label class="field"><span>Mobile number *</span><input id="fPhone" type="tel" inputmode="tel" autocomplete="tel" maxlength="15" placeholder="98XXXXXXXX"/></label>
-<label class="field"><span>Free Fire UID *</span><input id="fUid" inputmode="numeric" autocomplete="off" maxlength="14" placeholder="Game ko UID — 2 choti check garnus"/></label>
-<label class="field"><span>Payment method *</span><select id="fMethod"><option value="eSewa">💚 eSewa</option><option value="Khalti">💜 Khalti</option><option value="Bank">🏦 Bank transfer</option></select></label>
-<label class="field"><span>Note (optional)</span><input id="fNote" maxlength="200" placeholder="Kehi bhannu cha?"/></label>
-<div class="err" id="checkoutErr"></div>
-<div class="row"><button type="button" class="btn" data-close-cart>Continue shopping</button><button type="button" class="btn primary" id="placeBtn">Place order →</button></div>
-<p class="small mut" style="margin-top:10px">Place order garepachhi payment instructions + QR auchha. Paisa napathai order cancel garna milchha.</p>
-</section></div>
-
-<div class="dlg" id="payDlg" aria-hidden="true"><div class="scrim" data-close-pay></div><div class="box" role="dialog" aria-modal="true" aria-labelledby="payTitle">
-<h3 id="payTitle">💳 Pay &amp; confirm</h3><div id="payBody"></div>
-<div class="row" style="margin-top:12px"><button type="button" class="btn" data-close-pay>Close</button></div>
-</div></div>
-
-<div class="dlg" id="acctDlg" aria-hidden="true"><div class="scrim" data-close-acct></div><div class="box" role="dialog" aria-modal="true" aria-labelledby="acctTitle">
-<h3 id="acctTitle">👤 My account</h3><div id="acctDlgBody"></div>
-<div class="row" style="margin-top:12px"><button type="button" class="btn" data-close-acct>Close</button></div>
-</div></div>
-
-<div class="dlg" id="imgDlg" aria-hidden="true"><div class="scrim" data-close-img></div><div class="box" role="dialog" aria-modal="true"><h3 id="imgTitle">Screenshot</h3><img id="imgBig" alt="Payment screenshot" style="width:100%;border-radius:12px"/><div class="row" style="margin-top:10px"><button type="button" class="btn" data-close-img>Close</button></div></div></div>
-
+<footer>Mero Hisab — Self Ledger · Offline · Prototype<br/><span class="small">Data: aafno private cloud + yo browser · Backup pani rakhnus</span></footer>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script type="module">
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-import { getFirestore, doc, getDoc, setDoc, updateDoc, deleteDoc, collection, query, where, getDocs } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getAuth, onAuthStateChanged, signInAnonymously, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, getRedirectResult, GoogleAuthProvider, EmailAuthProvider, linkWithCredential, linkWithPopup, signOut } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
-
+<script>
+/* Firebase is loaded with dynamic import() on purpose: if internet / CDN fails,
+   the ledger still works fully offline from localStorage. Static imports would
+   kill the whole app offline. */
+let initializeApp=null, getFirestore=null, doc=null, getDoc=null, setDoc=null;
+let getAuth=null, onAuthStateChanged=null, signInAnonymously=null, signInWithEmailAndPassword=null, createUserWithEmailAndPassword=null, signInWithPopup=null, GoogleAuthProvider=null, EmailAuthProvider=null, linkWithCredential=null, linkWithPopup=null, signOut=null;
+let fbModulesLoaded=false;
+async function initFirebase(){
+  try{
+    const [appM, fsM, auM] = await Promise.all([
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js"),
+      import("https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js")
+    ]);
+    initializeApp=appM.initializeApp; getFirestore=fsM.getFirestore; doc=fsM.doc; getDoc=fsM.getDoc; setDoc=fsM.setDoc;
+    getAuth=auM.getAuth; onAuthStateChanged=auM.onAuthStateChanged; signInAnonymously=auM.signInAnonymously;
+    signInWithEmailAndPassword=auM.signInWithEmailAndPassword; createUserWithEmailAndPassword=auM.createUserWithEmailAndPassword;
+    signInWithPopup=auM.signInWithPopup; GoogleAuthProvider=auM.GoogleAuthProvider; EmailAuthProvider=auM.EmailAuthProvider;
+    linkWithCredential=auM.linkWithCredential; linkWithPopup=auM.linkWithPopup; signOut=auM.signOut;
+    fbModulesLoaded=true;
+    try{
+      fbApp = initializeApp({ apiKey:"AIzaSyCLSEXvViC9U_pOemMfNUkivNQSO2ayggA", authDomain:"free-fire-daimonds-2e4f1.firebaseapp.com", projectId:"free-fire-daimonds-2e4f1" });
+      fbDb = getFirestore(fbApp); fbAuth = getAuth(fbApp);
+    }catch(e){ console.warn("firebase init", e); fbAuth=null; }
+    wireAuth();
+  }catch(e){ console.warn("firebase offline - local only", e); fbAuth=null; setSyncPill(); renderAccountBox(); }
+}
+function wireAuth(){
+  if(!fbAuth || !onAuthStateChanged){ setSyncPill(); renderAccountBox(); return; }
+  onAuthStateChanged(fbAuth, async user=>{
+    if(!user){ try{ await signInAnonymously(fbAuth); return; }catch(e){ setSyncPill(); renderAccountBox(); return; } }
+    cloudUser=user; setSyncPill(); renderAccountBox(); await cloudLoad();
+  });
+}
 const $ = id => document.getElementById(id);
 const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const rs = v => "Rs " + Math.round(Number(v)||0).toLocaleString("en-IN");
-const digits = s => String(s||"").replace(/\D/g,"");
-const ago = t => { if(!t) return ""; const d = Date.now()-t; if(d<60000) return "just now"; if(d<3600000) return Math.floor(d/60000)+" min ago"; if(d<86400000) return Math.floor(d/3600000)+" hr ago"; return new Date(t).toLocaleDateString("en-GB",{day:"numeric",month:"short"})+" "+new Date(t).toLocaleTimeString("en-GB",{hour:"numeric",minute:"2-digit"}); };
-const fmtT = t => new Date(t).toLocaleString("en-GB",{day:"numeric",month:"short",hour:"numeric",minute:"2-digit"});
+const usd = v => "$" + (Number(v)||0).toFixed(2);
+const num = v => { const n = Number(v); return isFinite(n) ? n : 0; };
+const fmtD = t => new Date(t).toLocaleDateString("en-GB",{day:"numeric",month:"short",year:"numeric"});
+const monthKey = t => { const d=new Date(t); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"); };
+const monthLabel = k => { const [y,m]=k.split("-").map(Number); return new Date(y,m-1,1).toLocaleDateString("en-GB",{month:"long",year:"numeric"}); };
 let toastTimer=null;
-function toast(msg, bad=false){ const t=$("toast"); t.textContent=msg; t.classList.toggle("bad",!!bad); t.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"), bad?5000:3000); }
-function copyTxt(txt, msg){ if(navigator.clipboard) navigator.clipboard.writeText(txt).then(()=>toast(msg||"Copied")).catch(()=>fallbackCopy(txt,msg)); else fallbackCopy(txt,msg); }
-function fallbackCopy(txt,msg){ const ta=document.createElement("textarea"); ta.value=txt; document.body.appendChild(ta); ta.select(); try{document.execCommand("copy"); toast(msg||"Copied");}catch(_){toast("Copy failed",true);} ta.remove(); }
+function toast(msg,bad=false){ const t=$("toast"); t.textContent=msg; t.classList.toggle("bad",!!bad); t.classList.add("show"); clearTimeout(toastTimer); toastTimer=setTimeout(()=>t.classList.remove("show"), bad?5000:3200); }
+function download(name, content, type){ const b=new Blob([content],{type:type||"application/json"}); const a=document.createElement("a"); a.href=URL.createObjectURL(b); a.download=name; a.click(); setTimeout(()=>URL.revokeObjectURL(a.href),2000); }
 
-// ---------- Firebase (same project as admin) ----------
-const firebaseConfig = { apiKey:"AIzaSyCLSEXvViC9U_pOemMfNUkivNQSO2ayggA", authDomain:"free-fire-daimonds-2e4f1.firebaseapp.com", projectId:"free-fire-daimonds-2e4f1" };
-const app = initializeApp(firebaseConfig);
-const db = getFirestore(app);
-const auth = getAuth(app);
+// ---------- State: localStorage only, no server ----------
+const KEY="dc-self-ledger-v1";
+// ---------- Cloud sync (private ledger, per account) ----------
+// Data = aafno account ko private Firestore doc `ledgers/{uid}` ma.
+// Guest (anonymous) ma pani cloud ma janchha, tara phone harae Guest UID pani haraunchha —
+// teti le Email/Google account banaunu parne, taba matra phone change gare pani data farkinchha.
+let cloudUser=null, cloudReady=false, cloudLoading=false, cloudTimer=null, cloudNeedsRules=false;
+let fbApp=null, fbDb=null, fbAuth=null;
+/* fbApp/fbDb/fbAuth are set inside initFirebase() after dynamic import. */
+function setSyncPill(){ const el=$("syncPill"); if(!el) return; if(!fbAuth){ el.textContent="○ Local only — cloud off"; el.className="pill"; return; } if(!cloudUser){ el.textContent="○ Connecting…"; el.className="pill"; return; } if(cloudNeedsRules){ el.textContent="⚠️ Cloud setup baki — Rules thapnus"; el.className="pill"; return; } if(!cloudReady){ el.textContent="○ Syncing…"; el.className="pill"; return; } el.textContent = cloudUser.isAnonymous ? "● Cloud ✓ · Guest — account banaunus" : "● Cloud ✓ · Synced"; el.className="pill green"; const ap=$("acctPill"); if(ap) ap.textContent = cloudUser.isAnonymous ? "Guest" : (cloudUser.email||"Account"); }
+function renderAccountBox(){ const el=$("acctBox"); if(!el) return; if(!cloudUser){ el.innerHTML="<p class=\"small mut\">Account load hudai cha…</p>"; return; } if(cloudUser.isAnonymous){ el.innerHTML="<p><b>Guest account</b> — <span style=\"color:#c0272d\">Phone harae data farkindaina.</span></p><p class=\"small mut\">Tala email + password halera <b>Account banaune</b> thichnus — guest ko sale haru pani eutai account ma sarinchha.</p>"; } else { el.innerHTML="<p><b>✓ Login:</b> "+esc(cloudUser.email||"Google account")+"</p><p class=\"small mut\">Data yo account ko private cloud ma save hunchha. Arko phone ma tehi account le login gare data farkinchha.</p>"; } if(cloudNeedsRules){ el.innerHTML += "<p class=\"small\" style=\"color:#c0272d\"><b>Cloud save bhako chaina</b> — Firestore Rules ma <b>/ledgers/{uid}</b> rule thapnus (tala), ani page reload garnus. Ahile data local ma matra baschha.</p>"; } }
+function cloudSave(){ if(!fbModulesLoaded||!fbDb||!cloudUser||cloudLoading) return; clearTimeout(cloudTimer); cloudTimer=setTimeout(async()=>{ try{ setSyncPill(); await setDoc(doc(fbDb,"ledgers",cloudUser.uid), {settings:S.settings, sales:S.sales, meta:S.meta, updatedAt:Date.now()}); cloudNeedsRules=false; cloudReady=true; setSyncPill(); renderAccountBox(); }catch(e){ if(/permission|insufficient/i.test(String(e.code||e.message||""))){ cloudNeedsRules=true; } setSyncPill(); renderAccountBox(); } }, 800); }
+async function cloudLoad(){ if(!fbModulesLoaded||!fbDb||!cloudUser) return; cloudLoading=true; try{ const snap=await getDoc(doc(fbDb,"ledgers",cloudUser.uid)); if(snap.exists()){ const c=snap.data()||{}; const cloudSales=Array.isArray(c.sales)?c.sales:[]; const byId=new Map(S.sales.map(s=>[s.id,s])); cloudSales.forEach(cs=>{ const local=byId.get(cs.id); if(!local) byId.set(cs.id,cs); else if((cs.updatedAt||0)>(local.updatedAt||0)) byId.set(cs.id,cs); }); S.sales=[...byId.values()]; if(c.settings && (c.updatedAt||0)>(S.meta.lastChange||0)) S.settings={...S.settings,...c.settings}; save(false); } cloudReady=true; cloudNeedsRules=false; }catch(e){ if(/permission|insufficient/i.test(String(e.code||e.message||""))){ cloudNeedsRules=true; } } cloudLoading=false; setSyncPill(); renderAccountBox(); renderDash(); renderSales(); renderSettings(); cloudSave(); }
+let S={settings:{fx:138.5, feeUsd:0.56, owner:""}, sales:[], meta:{lastBackup:0, lastChange:0}};
+try{ const raw=localStorage.getItem(KEY); if(raw){ const p=JSON.parse(raw); if(p&&typeof p==="object"){ S.settings={...S.settings,...(p.settings||{})}; S.sales=Array.isArray(p.sales)?p.sales:[]; S.meta={lastBackup:0,lastChange:0,...(p.meta||{})}; } } }catch(_){ S={settings:{fx:138.5,feeUsd:0.56,owner:""},sales:[],meta:{lastBackup:0,lastChange:0}}; }
+function save(touch=true){ if(touch){ S.meta=S.meta||{lastBackup:0,lastChange:0}; S.meta.lastChange=Date.now(); } try{ localStorage.setItem(KEY, JSON.stringify(S)); }catch(e){ toast("Browser storage full — backup download garnus.",true); } if(!cloudLoading) cloudSave(); }
+function newId(){ return "s"+Date.now().toString(36)+Math.random().toString(36).slice(2,7); }
+function calc(s){ const sell=num(s.sell), disc=num(s.disc), net=Math.max(0,sell-disc); const costRs=num(s.costRs), feeRs=num(s.feeRs); const totalCost=costRs+feeRs; const profit=net-totalCost; const received=num(s.received); const outstanding=Math.max(0,net-received); return {net, costRs, feeRs, totalCost, profit, margin: net>0?profit/net*100:0, outstanding, paid:received>=net}; }
+function monthSales(k){ return S.sales.filter(s=>monthKey(s.at)===k); }
+function curMonth(){ const d=new Date(); return d.getFullYear()+"-"+String(d.getMonth()+1).padStart(2,"0"); }
 
-// ---------- EMV + QR (same logic as admin, for amount-filled QR) ----------
-const EMV = {
-  parse(s){ const out=[]; let i=0; s=String(s||""); while(i<s.length){ const id=s.substr(i,2), n=parseInt(s.substr(i+2,2),10); if(!/^\d\d$/.test(id)||!/^\d\d$/.test(s.substr(i+2,2))) return null; const v=s.substr(i+4,n); if(v.length!==n) return null; out.push([id,v]); i+=4+n; } return out.length?out:null; },
-  crc(str){ let c=0xFFFF; for(let i=0;i<str.length;i++){ c^=(str.charCodeAt(i)&0xFF)<<8; for(let j=0;j<8;j++) c=(c&0x8000)?((c<<1)^0x1021)&0xFFFF:(c<<1)&0xFFFF; } return c.toString(16).toUpperCase().padStart(4,"0"); },
-  ok(s){ s=String(s||""); if(!/^000201/.test(s)||!/6304[0-9A-Fa-f]{4}$/.test(s)) return false; const t=EMV.parse(s); return !!t && EMV.crc(s.slice(0,-4))===s.slice(-4).toUpperCase(); },
-  info(s){ const t=EMV.parse(s)||[], g=id=>(t.find(x=>x[0]===id)||[])[1]||"", low=String(s).toLowerCase(); return {name:g("59"), city:g("60"), amount:g("54"), net: low.includes("fonepay")?"Fonepay":(low.includes("nepalpay")||low.includes("nchl"))?"NepalPay":low.includes("esewa")?"eSewa":low.includes("khalti")?"Khalti":"Bank QR"}; },
-  withAmount(s, amt){ const t=(EMV.parse(s)||[]).filter(x=>x[0]!=="63"&&x[0]!=="54"); const set=(id,v)=>{ const i=t.findIndex(x=>x[0]===id); if(i>=0) t[i]=[id,v]; else { let k=t.findIndex(x=>x[0]>id); if(k<0) k=t.length; t.splice(k,0,[id,v]); } }; set("01","12"); if(!t.some(x=>x[0]==="53")) set("53","524"); set("54", String(Math.round(amt))); const body=t.map(([id,v])=>id+String(v.length).padStart(2,"0")+v).join("")+"6304"; return body+EMV.crc(body); }
-};
-async function loadQrLib(){ if(window.qrcode) return true; return new Promise(res=>{ const s=document.createElement("script"); s.src="https://cdn.jsdelivr.net/npm/qrcode-generator@1.4.4/qrcode.js"; s.onload=()=>res(true); s.onerror=()=>res(false); document.head.appendChild(s); }); }
-const qrCache=new Map();
-function qrPng(text, px=520){ const key=px+"|"+text; if(qrCache.has(key)) return qrCache.get(key); const q=window.qrcode(0,"M"); q.addData(text); q.make(); const n=q.getModuleCount(), m=3, cell=Math.max(2,Math.floor(px/(n+m*2))), size=cell*(n+m*2), c=document.createElement("canvas"); c.width=c.height=size; const x=c.getContext("2d"); x.fillStyle="#fff"; x.fillRect(0,0,size,size); x.fillStyle="#000"; for(let r=0;r<n;r++) for(let k=0;k<n;k++) if(q.isDark(r,k)) x.fillRect((k+m)*cell,(r+m)*cell,cell,cell); const url=c.toDataURL("image/png"); if(qrCache.size>40) qrCache.clear(); qrCache.set(key,url); return url; }
+// ---------- Tabs ----------
+function showTab(tab){ document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.tab===tab)); ["dash","sale","sales","pl","settings"].forEach(k=>{ $("sec-"+k).hidden=k!==tab; }); if(tab==="dash") renderDash(); if(tab==="sales") renderSales(); if(tab==="pl") renderPL(); if(tab==="settings") renderSettings(); }
+document.querySelectorAll("[data-tab]").forEach(b=>b.addEventListener("click",()=>showTab(b.dataset.tab)));
+$("heroAdd").addEventListener("click",()=>{ showTab("sale"); $("sec-sale").scrollIntoView({behavior:"smooth"}); });
+$("heroPL").addEventListener("click",()=>showTab("pl"));
+$("backupTop").addEventListener("click",()=>downloadBackup());
 
-// ---------- State ----------
-const S = { prices:null, pay:null, user:null, cust:null, cart:new Map(), orders:[], reviews:[], replies:new Map(), coupon:null, disc:0, kind:"all", q:"", star:0, tab:"shop", dshots:new Map() };
-const shop = () => (S.prices&&S.prices.shop)||{};
-const priceOf = x => Number((x&&(x.price ?? x.p)) ?? 0) || 0; // admin publishes packages as {id,name,diamonds,kind,price} — old code read .p so everything showed Rs 0
-const packages = () => (S.prices&&S.prices.packages)||[];
-const coupons = () => (S.prices&&S.prices.coupons)||[];
-const isAnon = () => S.user && S.user.isAnonymous;
-function orderUrl(){ const u=new URL(location.href); u.search=""; u.hash=""; return u.toString(); }
-function waDigits(raw){ let d=digits(raw||""); if(d.startsWith("977")&&d.length>=12) return d; if(d.startsWith("0")) d=d.slice(1); if(d.length===10) return "977"+d; return d; }
-function genCode(){ const chars="ABCDEFGHJKMNPQRSTUVWXYZ23456789"; let s=""; const a=new Uint32Array(5); crypto.getRandomValues(a); for(const v of a) s+=chars[v%chars.length]; return "C-"+s; }
-
-// ---------- Auth + customer doc (rules: customers/{cid} keys only code,name,phone,ffUids,createdAt,updatedAt,email,login) ----------
-async function ensureCustomer(){ if(!S.user) return null; const ref=doc(db,"customers",S.user.uid); const snap=await getDoc(ref).catch(()=>null); if(snap&&snap.exists()){ S.cust={id:snap.id,...snap.data()}; return S.cust; } const code=genCode(); const data={code, name:(S.user.displayName||"").slice(0,60), phone:"", ffUids:[], createdAt:Date.now(), updatedAt:Date.now()}; if(S.user.email) data.email=S.user.email; try{ await setDoc(ref,data); S.cust={id:S.user.uid,...data}; }catch(e){ console.warn("customer create",e); S.cust={id:S.user.uid,...data}; } return S.cust; }
-async function updateCustomer(patch){ if(!S.user) return; const allowed=["code","name","phone","ffUids","createdAt","updatedAt","email","login"]; const clean={}; for(const k of Object.keys(patch)) if(allowed.includes(k)) clean[k]=patch[k]; clean.updatedAt=Date.now(); await updateDoc(doc(db,"customers",S.user.uid),clean); S.cust={...S.cust,...clean}; }
-function uidEmail(uid){ return "p"+digits(uid)+"@players.yonghangishak.com.np"; }
-
-// ---------- Public data ----------
-async function loadPublic(){ try{ const p=await getDoc(doc(db,"public","prices")); S.prices=p.exists()?p.data():null; }catch(e){ console.warn("prices",e); S.prices=null; } try{ const q=await getDoc(doc(db,"public","pay")); S.pay=q.exists()?q.data():{}; }catch(e){ S.pay={}; } renderAll(); }
-function renderAll(){ renderShopHead(); renderPackages(); renderCartBar(); renderTotals(); renderOrders(); renderReviews(); renderAccount(); }
-
-// ---------- Shop ----------
-function renderShopHead(){ const sh=shop(); $("shopNameTop").textContent=sh.name||"Diamond Counter"; $("heroSub").textContent=(sh.name?sh.name+" — ":"")+"Package chhannus, UID ra naam halnus, eSewa / Khalti / Bank bata pay garnus."; const pill=$("openPill"); const open=sh.open!==false; pill.textContent=open?"● Taking orders":"⏸ Paused"; pill.className="pill "+(open?"open":"closed"); const n=$("shopNotice"); if(sh.notice){ n.hidden=false; n.textContent="📢 "+sh.notice; } else n.hidden=true; const wa=$("waBtn"); if(sh.wa){ wa.hidden=false; wa.onclick=()=>open("https://wa.me/"+waDigits(sh.wa)+"?text="+encodeURIComponent("Namaste! Diamond order garna chahanchhu."),"_blank","noopener"); } else wa.hidden=true; const st=$("heroStats"); const stats=(S.prices&&S.prices.stats)||{}; const revs=S.reviews; const avg=revs.length?revs.reduce((a,r)=>a+(+r.stars||0),0)/revs.length:0; st.innerHTML=`<span class="stat">✅ <b>${(stats.delivered||0).toLocaleString("en-IN")}</b> orders delivered</span><span class="stat">⭐ <b>${avg?avg.toFixed(1):"—"}</b> ${revs.length?`(${revs.length} reviews)`:""}</span>${S.prices&&S.prices.loyalty&&S.prices.loyalty.every?`<span class="stat">🎁 Har ${S.prices.loyalty.every} order ma ${S.prices.loyalty.pct}% reward</span>`:""}${S.prices&&S.prices.ref?`<span class="stat">🤝 Refer: ${esc(S.prices.ref)}</span>`:""}`; }
-function renderPackages(){ const list=packages().filter(p=> (S.kind==="all"||p.kind===S.kind) && (!S.q || (p.name+" "+p.diamonds).toLowerCase().includes(S.q))); const grid=$("pkgGrid"); $("pkgEmpty").hidden=!!(packages().length||list.length); if(!S.prices){ grid.innerHTML=`<div class="blank" style="grid-column:1/-1"><b>Loading prices…</b><br/><span class="small">Shop ko price list aairaheko cha.</span></div>`; return; } if(!list.length){ grid.innerHTML=`<div class="blank" style="grid-column:1/-1"><b>No match</b><br/><span class="small">Arko naam / diamond khojnus.</span></div>`; return; } const allZero=list.length&&list.every(x=>priceOf(x)<=0); grid.innerHTML=(allZero?`<div class="blank" style="grid-column:1/-1"><b>⚠️ Price set bhako chaina</b><br/><span class="small">Admin (handling) ma Price list → Pricing ma rate / markup check garnus, ani admin page ek choti kholnus — price yaha auto update hunchha.</span></div>`:'')+list.map(p=>{ const qty=S.cart.get(p.id)||0; const isPop=S.prices.popular===p.id; return `<article class="pkg ${isPop?"pop":""}"><span class="badge" ${isPop?"":"hidden"}>🔥 Most popular</span><div class="dia">💎 ${Number(p.diamonds||0).toLocaleString("en-IN")} <small>diamonds</small></div><div class="name">${esc(p.name||"")}</div><div class="price">${rs(priceOf(p))} <span class="per">/ ${p.kind==="member"?"membership":"pack"}</span></div><div class="qty"><button type="button" class="qbtn" data-dec="${esc(p.id)}" aria-label="Decrease" ${qty?"":"disabled"}>−</button><b aria-live="polite">${qty||""}</b><button type="button" class="qbtn" data-inc="${esc(p.id)}" aria-label="Increase">+</button><span class="small mut" style="margin-left:auto">${qty?rs(priceOf(p)*qty):""}</span></div><button type="button" class="btn primary add" data-add="${esc(p.id)}">${qty?"Update cart":"Add to cart"}</button></article>`; }).join(""); }
-function cartItems(){ return [...S.cart.entries()].map(([id,qty])=>{ const p=packages().find(x=>x.id===id); return p?{...p, qty}:null; }).filter(Boolean); }
-function calcTotals(){ const items=cartItems(); const sub=items.reduce((a,i)=>a+priceOf(i)*i.qty,0); let disc=0, coupon=null; if(S.coupon){ const c=coupons().find(x=>x.c===S.coupon); if(c && (!c.u||c.u>Date.now()) && sub>=(c.m||0)){ coupon=c; disc=Math.min(sub, c.t==="amt"?Math.round(c.v):Math.round(sub*c.v/100)); } } return {items, sub, disc, coupon, total:Math.max(0,sub-disc)}; }
-function renderCartBar(){ const {items,total}=calcTotals(); const bar=$("cartBar"); if(!items.length){ bar.hidden=true; return; } bar.hidden=false; $("cartBarTxt").textContent=items.map(i=>i.qty+" × "+i.name).join(", "); $("cartBarSub").textContent="Total "+rs(total)+" · Tap to checkout"; }
-function renderTotals(){ const el=$("cartItems"); const {items,sub,disc,coupon,total}=calcTotals(); if(!items.length){ el.innerHTML=`<div class="blank"><b>Cart khali cha</b><br/><span class="small">Mathi bata package add garnus.</span></div>`; } else { el.innerHTML=items.map(i=>`<div class="line"><span>${i.qty} × ${esc(i.name)} <span class="mut">(${Number(i.diamonds||0).toLocaleString("en-IN")} 💎)</span></span><span class="num"><b>${rs(priceOf(i)*i.qty)}</b> <button type="button" class="link" data-rm="${esc(i.id)}" style="color:var(--red);background:none;border:none;cursor:pointer">Remove</button></span></div>`).join(""); } const t=$("cartTotals"); t.innerHTML=`<div class="line"><span>Subtotal</span><span class="num">${rs(sub)}</span></div>${disc?`<div class="line"><span>Coupon ${esc(coupon.c)}</span><span class="num" style="color:var(--green)">− ${rs(disc)}</span></div>`:""}<div class="line total"><span>Total to pay</span><span class="num">${rs(total)}</span></div>`; $("couponMsg").innerHTML=coupon?`<span class="ok">✓ ${esc(coupon.c)} applied — ${rs(disc)} off</span>`:S.coupon?`<span class="err">Coupon valid chaina / minimum pugena.</span>`:""; }
-
-// ---------- Calculator ----------
-function bestMix(want){ const pkgs=packages().filter(p=>p.kind!=="member"&&priceOf(p)>0&&p.diamonds>0).sort((a,b)=>(priceOf(a)/a.diamonds)-(priceOf(b)/b.diamonds)); if(!pkgs.length||!want) return null; let left=want, out=[]; for(const p of pkgs){ if(left<=0) break; const take=Math.floor(left/p.diamonds); if(take>0){ out.push({p,qty:take}); left-=take*p.diamonds; } } if(left>0){ const cheapest=[...pkgs].sort((a,b)=>priceOf(a)-priceOf(b))[0]; out.push({p:cheapest,qty:1}); left-=cheapest.diamonds; } const total=out.reduce((a,o)=>a+priceOf(o.p)*o.qty,0), got=want-Math.max(0,left); return {out,total,got}; }
-
-// ---------- Checkout (rules: orders create keys ONLY name,phone,uid,items,method,note,at,status,total,cid,ccode,coupon,disc,ref) ----------
-function validateCheckout(){ const name=$("fName").value.trim().slice(0,60), phone=digits($("fPhone").value), uid=digits($("fUid").value), note=$("fNote").value.trim().slice(0,200); if(!name) return "Naam halnus."; if(phone.length!==10) return "Mobile 10 digit halnus (98XXXXXXXX)."; if(uid.length<6||uid.length>14) return "Free Fire UID 6–14 digit halnus."; const {items,total}=calcTotals(); if(!items.length) return "Cart ma kamtima 1 package halnus."; if(shop().open===false) return "Shop le ahile order liiraheko chaina. Pachi try garnus."; return null; }
-async function placeOrder(){ const err=validateCheckout(); const eEl=$("checkoutErr"); if(err){ eEl.textContent=err; return; } eEl.textContent=""; const btn=$("placeBtn"); btn.disabled=true; btn.textContent="Placing…"; try{ await ensureCustomer(); const {items,total,disc,coupon}=calcTotals(); const name=$("fName").value.trim().slice(0,60), phone=digits($("fPhone").value), uid=digits($("fUid").value), method=$("fMethod").value, note=$("fNote").value.trim().slice(0,200); const ref=($("refIn").value.trim().slice(0,12)||new URLSearchParams(location.search).get("ref")||"").slice(0,12); const order={name, phone, uid, items:items.map(i=>({pkId:i.id, kind:i.kind||"topup", name:i.name, diamonds:Number(i.diamonds)||0, qty:i.qty, price:priceOf(i)})), method, note, at:Date.now(), status:"new", total, cid:S.user.uid, ccode:(S.cust&&S.cust.code)||""}; if(coupon) order.coupon=coupon.c; if(disc>0) order.disc=disc; if(ref) order.ref=ref; const refDoc=doc(collection(db,"orders")); await setDoc(refDoc, order); if(S.cust){ const ff=new Set([...(S.cust.ffUids||[]), uid]); await updateCustomer({name, phone, ffUids:[...ff].slice(0,5)}).catch(()=>{}); } S.cart.clear(); S.coupon=null; S.disc=0; closeCart(); toast("✓ Order placed! Aba pay garnus."); loadOrders(); openPay(refDoc.id); }catch(e){ console.warn(e); eEl.textContent=/permission|insufficient/i.test(String(e.code||e.message))?"Order pathauna milena — shop ko rules / login check garnus.":("Order pathauna milena: "+(e.message||e.code||"try again")); }finally{ btn.disabled=false; btn.textContent="Place order →"; } }
-
-// ---------- Orders ----------
-async function loadOrders(){ if(!S.user) { S.orders=[]; renderOrders(); return; } try{ const q=query(collection(db,"orders"), where("cid","==",S.user.uid)); const snap=await getDocs(q); S.orders=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>b.at-a.at); }catch(e){ console.warn("orders",e); S.orders=[]; } renderOrders(); }
-function statusOf(o){ if(o.status==="new"){ if(o.resubs) return ["Sent again","blue"]; if(o.paidAt) return [o.paidShot?"Paid · check":"Says paid","green"]; return [Date.now()-o.at>15*60000?"Waiting long":"Waiting", Date.now()-o.at>15*60000?"red":"amber"]; } if(o.status==="done") return [o.delivered?"Delivered":"Accepted","green"]; if(o.status==="rejected") return ["Rejected","red"]; if(o.status==="cancelled") return ["Cancelled","grey"]; return [o.status||"—","grey"]; }
-const REJECT_LABEL={nopay:"Payment not received", amount:"Paid amount doesn’t match", wronguid:"Wrong or invalid UID", duplicate:"Duplicate order", unavailable:"Can’t deliver right now", other:"Other reason"};
-function renderOrders(){ const el=$("orderList"); const n=$("ordCount"); const active=S.orders.filter(o=>o.status==="new"||o.status==="rejected").length; n.hidden=!active; n.textContent=active; if(!S.user){ el.innerHTML=`<div class="blank">Login hundai cha…</div>`; return; } if(!S.orders.length){ el.innerHTML=`<div class="blank"><b>Ahilesamma order chaina</b><br/><span class="small">Shop bata package chhanera pahilo order garnus.</span></div>`; return; } el.innerHTML=S.orders.map(o=>{ const [st,c]=statusOf(o); const items=(o.items||[]).map(i=>i.qty+" × "+esc(i.kind==="member"?i.name:(Number(i.diamonds||0).toLocaleString("en-IN")+" 💎"))).join(", "); const canPay=o.status==="new"&&!o.paidAt; const canCancel=o.status==="new"; const canResend=o.status==="rejected"&&["nopay","amount","other"].includes(o.reason)&&(o.resubs||0)<3; const canReview=o.status==="done"&&o.delivered; return `<article class="order"><div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><b>Order #${esc(o.id.slice(0,6).toUpperCase())}</b><span class="ost ${c}">${st}</span></div><p class="small mut" style="margin:4px 0">${esc(fmtT(o.at))} · UID ${esc(o.uid||"")} · ${esc(o.method||"")}</p><p style="margin:6px 0">${items||"—"}</p><p style="margin:6px 0"><b>Total ${rs(o.total||0)}</b>${o.coupon?` <span class="small">🏷 ${esc(o.coupon)} · −${rs(o.disc||0)}</span>`:""}</p>${o.paidAt?`<p class="small">💳 Paid ${esc(ago(o.paidAt))}${o.paidRef?` · ref <b>${esc(o.paidRef)}</b>`:""}</p>`:""}${o.status==="rejected"?`<p class="small" style="color:var(--red)">✕ ${esc(REJECT_LABEL[o.reason]||o.reason||"Rejected")}${o.remark?` · “${esc(o.remark)}”`:""}${canResend?` · <b>Send again milchha (${3-(o.resubs||0)} baki)</b>`:` · Naya order garnus / shop lai contact garnus.`}</p>`:""}${o.status==="cancelled"?`<p class="small">Cancelled by you.</p>`:""}${o.delivered?`<p class="small" style="color:var(--green)">✓ Delivered ${o.deliveredAt?esc(ago(o.deliveredAt)):""}</p><p class="small">Delivery proof ${o.deliveryShot?`<button type="button" class="link" data-dshot="${esc(o.id)}" style="background:none;border:none;color:var(--blue);cursor:pointer;font-weight:700">View proof →</button>`:"(shop le rakheko chha)"}</p>`:""}<p class="trail">${[["Placed",o.at],["Paid",o.paidAt],["Accepted",o.doneAt],["Delivered",o.deliveredAt],["Rejected",o.rejectedAt],["Cancelled",o.cancelledAt]].filter(x=>x[1]).map(([k,v])=>k+" "+esc(fmtT(v))).join(" → ")}</p><div class="row" style="margin-top:10px">${canPay?`<button type="button" class="btn primary sm" data-pay="${esc(o.id)}">I’ve paid →</button>`:""}${o.status==="new"&&o.paidAt?`<button type="button" class="btn sm" data-pay="${esc(o.id)}">View payment</button>`:""}${canResend?`<button type="button" class="btn sm" data-resend="${esc(o.id)}">Send again</button>`:""}${canCancel?`<button type="button" class="btn sm" data-cancel="${esc(o.id)}">Cancel order</button>`:""}${canReview?`<button type="button" class="btn sm" data-review="${esc(o.id)}">⭐ Leave review</button>`:""}<button type="button" class="btn sm" data-copyorder="${esc(o.id)}">Copy #</button></div></article>`; }).join(""); }
-
-// ---------- Pay flow ----------
-function payMethods(){ const sh=shop(); const list=[]; if(sh.esewa) list.push({k:"eSewa", v:sh.esewa}); if(sh.khalti) list.push({k:"Khalti", v:sh.khalti}); if(sh.bank) list.push({k:"Bank", v:sh.bank}); if(sh.pay) list.push({k:"Payment", v:sh.pay}); return list; }
-function qrSlotFor(method){ if(method==="eSewa") return "esewa"; if(method==="Khalti") return "khalti"; if(method==="Bank") return "bank"; return "all"; }
-async function openPay(orderId, mode="pay"){ const o=S.orders.find(x=>x.id===orderId); if(!o){ toast("Order bhettiyena",true); return; } const isResend=mode==="resend"; $("payTitle").textContent=isResend?"🔁 Send payment again":"💳 Pay & confirm"; const methods=payMethods(); const slot=qrSlotFor(o.method); const pay=S.pay||{}, qr=(pay.qr||{})[slot]||(pay.qr||{}).all||""; const qdText=(pay.qrData||{})[slot]||(pay.qrData||{}).all||""; let qrHtml=""; let amtNote=""; if(qr){ qrHtml=`<img src="${qr}" alt="Payment QR code"/>`; } if(pay.dyn&&qdText&&EMV.ok(qdText)){ const info=EMV.info(qdText); if(!info.amount){ amtNote=`<p class="small" style="color:var(--green)">✓ Amount auto-filled QR: scan garda <b>${rs(o.total)}</b> afai auchha.</p>`; const ok=await loadQrLib(); if(ok){ try{ qrHtml=`<img src="${qrPng(EMV.withAmount(qdText,o.total),520)}" alt="Payment QR with amount"/>`; }catch(_){} } } } else if(qr){ amtNote=`<p class="small mut">QR scan garera <b>${rs(o.total)}</b> halnus — amount afai audaina.</p>`; } const bank=(pay.bank||{}); const bankHtml=bank.no?`<div class="copyrow"><span style="flex:1"><b>🏦 ${esc(bank.name||"Bank")}</b><br/>A/C ${esc(bank.no)}${bank.holder?` · ${esc(bank.holder)}`:""}${bank.branch?` · ${esc(bank.branch)}`:""}</span><button type="button" class="btn sm" data-copybank>Copy</button></div>`:""; $("payBody").innerHTML=`
-<div class="small mut">Order <b>#${esc(o.id.slice(0,6).toUpperCase())}</b> · Total <b>${rs(o.total)}</b> · Pays by ${esc(o.method)}</div>
-${methods.length?`<div style="margin:10px 0">${methods.map(m=>`<div class="copyrow"><span style="flex:1"><b>${esc(m.k)}:</b> ${esc(m.v)}</span><button type="button" class="btn sm" data-copyid="${esc(m.v)}">Copy</button></div>`).join("")}</div>`:""}
-${qrHtml?`<div class="qrbox">${qrHtml}${amtNote}</div>`:""}${bankHtml}
-<hr/><label class="field"><span>Transaction ID / Reference (cha bhane)</span><input id="paidRefIn" maxlength="40" placeholder="eSewa / Khalti / Bank transaction ID"/></label>
-<label class="filebtn">📷 Payment screenshot (recommended)<input type="file" id="shotIn" accept="image/*"/><span class="small mut" id="shotHint">Screenshot ma amount + transaction ID dekhinuparchha.</span></label>
-<img id="shotPrev" class="preview" alt="Payment screenshot preview"/>
-<div class="err" id="payErr"></div>
-<div class="row" style="margin-top:12px"><button type="button" class="btn primary" id="paySubmit">${isResend?"Send again":"I’ve paid — submit"}</button></div>
-<p class="small mut">Submit garepachhi order admin sanga “Paid · check” ma janchha. Screenshot bina pani submit hunchha, tara check garna dhilo huna sakchha.</p>`;
-$("payDlg").classList.add("open"); $("payDlg").setAttribute("aria-hidden","false");
-$("shotIn").addEventListener("change", async e=>{ const f=e.target.files[0]; if(!f) return; try{ const url=await shrinkShot(f); $("shotPrev").src=url; $("shotPrev").style.display="block"; $("shotPrev").dataset.data=url; }catch(err){ $("payErr").textContent="Photo milena — arko screenshot try garnus."; } });
-$("paySubmit").onclick=()=>submitPay(o, isResend);
+// ---------- Dashboard ----------
+function renderDash(){ const k=$("dashMonth").value||curMonth();
+const bw=$("backupWarn"); const meta=S.meta||{lastBackup:0,lastChange:0}; if(!S.sales.length){ bw.hidden=true; } else if(!meta.lastBackup){ bw.hidden=false; bw.innerHTML="⚠️ <b>Backup bhako chaina!</b> Data ahile browser ma matra cha. <button type=\"button\" class=\"btn sm primary\" onclick=\"document.getElementById('dlBackup').click()\">⬇ Backup download garnus</button> <span class=\"small\">Backup file nai asli data ho.</span>"; } else if(meta.lastChange>meta.lastBackup && Date.now()-meta.lastBackup>7*86400000){ bw.hidden=false; bw.innerHTML="⚠️ <b>Backup purano bhayo</b> — last backup "+esc(fmtD(meta.lastBackup))+". Naya sale halepachhi feri backup linus. <button type=\"button\" class=\"btn sm primary\" onclick=\"document.getElementById('dlBackup').click()\">⬇ Backup</button>"; } else { bw.hidden=true; } $("dashMonth").value=k; const list=monthSales(k); const agg=list.reduce((a,s)=>{ const c=calc(s); a.n++; a.dia+=num(s.diamonds); a.rev+=c.net; a.cost+=c.costRs; a.fee+=c.feeRs; a.profit+=c.profit; a.out+=c.outstanding; if(s.delivered==="no") a.pend++; return a; },{n:0,dia:0,rev:0,cost:0,fee:0,profit:0,out:0,pend:0}); const feeTxt=`Fee: ${usd(S.settings.feeUsd)} × ${num(S.settings.fx)} = ${rs(num(S.settings.feeUsd)*num(S.settings.fx))} / transaction`; $("feeNotice").textContent=feeTxt+" · Settings ma FX / fee change garna milchha."; $("dashStats").innerHTML=`
+<div class="stat"><small>Transactions · ${esc(monthLabel(k))}</small><b>${agg.n}</b></div>
+<div class="stat"><small>Diamonds sold</small><b>💎 ${agg.dia.toLocaleString("en-IN")}</b></div>
+<div class="stat"><small>Net revenue</small><b>${rs(agg.rev)}</b></div>
+<div class="stat"><small>Game cost</small><b>${rs(agg.cost)}</b></div>
+<div class="stat"><small>Transaction fees (${agg.n} × avg ${agg.n?rs(agg.fee/agg.n):rs(0)})</small><b style="color:#c0272d">${rs(agg.fee)}</b></div>
+<div class="stat"><small>Net profit</small><b class="${agg.profit>=0?"green":"red"}">${rs(agg.profit)}</b><small>Margin ${agg.rev>0?(agg.profit/agg.rev*100).toFixed(1):"0.0"}%</small></div>
+<div class="stat"><small>⏳ Pending delivery</small><b class="amber">${agg.pend}</b></div>
+<div class="stat"><small>💳 Uthna baki (credit)</small><b class="${agg.out>0?"red":""}">${rs(agg.out)}</b></div>
+<div class="stat"><small>Fee setting</small><b style="font-size:15px">${usd(S.settings.feeUsd)} / txn</b><small>FX ${num(S.settings.fx)} · ${rs(num(S.settings.feeUsd)*num(S.settings.fx))} per sale</small></div>`;
+const recent=[...S.sales].sort((a,b)=>b.at-a.at).slice(0,5); $("dashRecent").innerHTML=recent.length?recent.map(s=>{ const c=calc(s); return `<div class="line"><span>${esc(fmtD(s.at))} · ${esc(s.buyer||"—")} · 💎 ${num(s.diamonds).toLocaleString("en-IN")}</span><span class="num"><b class="${c.profit>=0?"":"red"}">${rs(c.profit)}</b></span></div>`; }).join(""):`<div class="blank">Ahilesamma sale chaina. “New sale” bata pahilo sale halnus.</div>`;
+const byBuyer={}; list.forEach(s=>{ const c=calc(s); const k2=(s.buyer||"—").trim()||"—"; byBuyer[k2]=byBuyer[k2]||{n:0,rev:0,profit:0}; byBuyer[k2].n++; byBuyer[k2].rev+=c.net; byBuyer[k2].profit+=c.profit; }); const top=Object.entries(byBuyer).sort((a,b)=>b[1].profit-a[1].profit).slice(0,3); $("dashTop").innerHTML=top.length?top.map(([n,v])=>`<div class="line"><span><b>${esc(n)}</b> · ${v.n} sale</span><span class="num">${rs(v.rev)} · <b>${rs(v.profit)}</b></span></div>`).join(""):`<div class="blank">Yo mahina sale chaina.</div>`;
+$("ledgerName").textContent=S.settings.owner?S.settings.owner+" — Mero Hisab":"Mero Hisab";
 }
-async function shrinkShot(file){ const img=new Image(); const url=URL.createObjectURL(file); try{ await new Promise((res,rej)=>{ img.onload=res; img.onerror=rej; img.src=url; }); }finally{ URL.revokeObjectURL(url); } for(const [max,q] of [[1200,.82],[900,.72],[700,.62]]){ const k=Math.min(1,max/Math.max(img.width,img.height)), c=document.createElement("canvas"); c.width=Math.round(img.width*k); c.height=Math.round(img.height*k); const x=c.getContext("2d"); x.fillStyle="#fff"; x.fillRect(0,0,c.width,c.height); x.drawImage(img,0,0,c.width,c.height); const jpg=c.toDataURL("image/jpeg",q); if(jpg.length<650000) return jpg; const png=c.toDataURL("image/png"); if(png.length<650000) return png; } throw new Error("too big"); }
-async function submitPay(o, isResend){ const btn=$("paySubmit"); const errEl=$("payErr"); btn.disabled=true; btn.textContent="Sending…"; try{ const paidRef=($("paidRefIn").value||"").trim().slice(0,40); const shotData=$("shotPrev").dataset.data||""; if(isResend){ const nextResubs=(o.resubs||0)+1; if(nextResubs>3) throw new Error("3 choti bhanda badhi send garna mildaina."); await updateDoc(doc(db,"orders",o.id),{status:"new", paidAt:Date.now(), paidRef, paidShot:!!shotData, resubAt:Date.now(), resubs:nextResubs}); if(shotData) await setDoc(doc(db,"payshots",o.id),{img:shotData, at:Date.now()}); } else { if(shotData) await setDoc(doc(db,"payshots",o.id),{img:shotData, at:Date.now()}); await updateDoc(doc(db,"orders",o.id),{paidAt:Date.now(), paidRef, paidShot:!!shotData}); } closePay(); toast("✓ Payment sent! Admin le check garnechha."); loadOrders(); }catch(e){ console.warn(e); errEl.textContent=/permission|insufficient/i.test(String(e.code||e.message))?"Screenshot / payment pathauna milena — shop ko naye rules publish bhako chaina. Pachi feri try garnus.":("Pathauna milena: "+(e.message||"try again")); btn.disabled=false; btn.textContent=isResend?"Send again":"I’ve paid — submit"; } }
-async function cancelOrder(id){ if(!confirm("Yo order cancel garne?")) return; try{ await updateDoc(doc(db,"orders",id),{status:"cancelled", cancelledAt:Date.now()}); toast("Order cancelled."); loadOrders(); }catch(e){ toast("Cancel garna milena.",true); } }
+$("dashMonth").addEventListener("change",renderDash);
+$("dashToday").addEventListener("click",()=>{ $("dashMonth").value=curMonth(); renderDash(); });
 
-// ---------- Reviews ----------
-async function loadReviews(){ try{ const q=query(collection(db,"reviews")); const snap=await getDocs(q); S.reviews=snap.docs.map(d=>({id:d.id,...d.data()})).filter(r=>!r.hidden).sort((a,b)=>b.at-a.at); }catch(e){ S.reviews=[]; } renderReviews(); renderShopHead(); }
-function renderReviews(){ const el=$("revList"); const list=S.reviews.filter(r=>!S.star||r.stars>=S.star); const sum=$("revSummary"); const avg=S.reviews.length?S.reviews.reduce((a,r)=>a+(+r.stars||0),0)/S.reviews.length:0; sum.textContent=S.reviews.length?`Average ${avg.toFixed(1)} ★ · ${S.reviews.length} reviews`:"Ahilesamma review chaina — delivered order bata pahilo review dinus."; if(!list.length){ el.innerHTML=`<div class="blank">Yo filter ma review chaina.</div>`; return; } el.innerHTML=list.map(r=>`<article class="rev"><div style="display:flex;justify-content:space-between;gap:8px"><b>${esc(r.name||"Customer")}</b><span>${"⭐".repeat(Math.max(0,Math.min(5,+r.stars||0)))}</span></div><p style="margin:6px 0">${esc(r.text||"")}</p><p class="small mut" style="margin:0">${esc(ago(r.at))} · order #${esc(r.id.slice(0,6).toUpperCase())} · <button type="button" class="link" data-replies="${esc(r.id)}" style="background:none;border:none;color:var(--blue);cursor:pointer;font-weight:700">Replies</button>${!isAnon()?` · <button type="button" class="link" data-replybox="${esc(r.id)}" style="background:none;border:none;color:var(--blue);cursor:pointer;font-weight:700">Reply</button>`:""}</p><div id="reps-${esc(r.id)}"></div><div id="repbox-${esc(r.id)}" hidden><label class="field"><span>Reply as customer</span><input maxlength="300" placeholder="Thank you…"/></label><button type="button" class="btn sm primary" data-send-reply="${esc(r.id)}">Send reply</button></div></article>`).join(""); }
-async function loadReplies(rid){ try{ const snap=await getDocs(collection(db,"reviews",rid,"replies")); const list=snap.docs.map(d=>({id:d.id,...d.data()})).sort((a,b)=>a.at-b.at); S.replies.set(rid,list); const el=$("reps-"+rid); if(el) el.innerHTML=list.length?list.map(y=>`<div class="rep ${y.by==="shop"?"shop":""}"><b>${y.by==="shop"?"🏪 "+esc(y.name||"Shop"):esc(y.name||"Customer")}</b> <span>${esc(y.text)}</span><br/><small class="mut">${esc(ago(y.at))}</small></div>`).join(""):`<p class="small mut">Replies chaina.</p>`; }catch(e){ toast("Replies load garna milena.",true); } }
-async function leaveReview(orderId){ const o=S.orders.find(x=>x.id===orderId); if(!o||!o.delivered){ toast("Delivered order ma matra review dinus.",true); return; } const stars=Number(prompt("Stars (1–5)?","5")); if(!Number.isInteger(stars)||stars<1||stars>5){ toast("Stars 1–5 halnus.",true); return; } const text=(prompt("Review (300 character samma):","")||"").trim().slice(0,300); if(!text){ toast("Review lekhnus.",true); return; } const name=(S.cust&&S.cust.name)||o.name||"Customer"; try{ await setDoc(doc(db,"reviews",orderId),{stars, text, name:name.slice(0,30), at:Date.now(), cid:S.user.uid}); toast("✓ Review pathaiyo, dhanyabad!"); loadReviews(); }catch(e){ toast(/permission|insufficient/i.test(String(e.code||e.message))?"Review pathauna milena — login / delivered check garnus.":"Review pathauna milena.",true); } }
+// ---------- New / Edit sale ----------
+let editId=null; let editOriginal=null; // original sale while editing — fee/FX freeze ko lagi
+function resetForm(){ editId=null; editOriginal=null; $("saleTitle").textContent="＋ New sale"; $("editBar").hidden=true; $("fDate").value=new Date().toISOString().slice(0,10); $("fBuyer").value=""; $("fDiamonds").value=""; $("fSell").value=""; $("fDisc").value=0; $("fCostUsd").value=""; $("fCostRs").value=""; $("fFeeUsd").value=S.settings.feeUsd; $("fReceived").value=""; $("fMethod").value="Cash"; $("fDelivered").value="yes"; $("fNote").value=""; document.querySelectorAll("#diaPresets button").forEach(b=>b.classList.remove("on")); updatePreview(); }
+document.querySelectorAll("#diaPresets button").forEach(b=>b.addEventListener("click",()=>{ document.querySelectorAll("#diaPresets button").forEach(x=>x.classList.remove("on")); b.classList.add("on"); const v=num(b.dataset.dia); if(v>0) $("fDiamonds").value=v; else $("fDiamonds").focus(); updatePreview(); }));
+function syncCost(from){ const fx=num(S.settings.fx)||0; if(from==="usd"){ const u=num($("fCostUsd").value); if(u>0&&fx>0) $("fCostRs").value=(u*fx).toFixed(0); } else if(from==="rs"){ const r=num($("fCostRs").value); if(r>0&&fx>0) $("fCostUsd").value=(r/fx).toFixed(2); } }
+$("fCostUsd").addEventListener("input",()=>{ syncCost("usd"); updatePreview(); });
+$("fCostRs").addEventListener("input",()=>{ syncCost("rs"); updatePreview(); });
+["fDiamonds","fSell","fDisc","fFeeUsd","fReceived","fMethod","fDelivered"].forEach(id=>$(id).addEventListener("input",updatePreview));
+$("fFeeUsd").addEventListener("input",updatePreview);
+function formData(){ const fx=num(S.settings.fx)||0; const feeUsd=num($("fFeeUsd").value);
+  // AUDIT FIX — fee freeze: edit garda fee $ nachaleko bhaye purano feeRs / fxAt nai rakhnus.
+  // Natr FX change pachhi purano sale edit garda fee pani badlinthyo, P&L bigrinthyo.
+  if(editOriginal && feeUsd===num(editOriginal.feeUsd)){
+    const costRs=num($("fCostRs").value);
+    return { buyer:$("fBuyer").value.trim().slice(0,30), diamonds:num($("fDiamonds").value), sell:num($("fSell").value), disc:num($("fDisc").value), costUsd:num($("fCostUsd").value)||(fx>0?costRs/fx:0), costRs, feeUsd, feeRs:num(editOriginal.feeRs), received:num($("fReceived").value), method:$("fMethod").value, delivered:$("fDelivered").value, note:$("fNote").value.trim().slice(0,120), at:new Date($("fDate").value||new Date().toISOString().slice(0,10)).getTime(), fxAt:num(editOriginal.fxAt)||fx };
+  } const costRs=num($("fCostRs").value); const costUsd=num($("fCostUsd").value); return { buyer:$("fBuyer").value.trim().slice(0,30), diamonds:num($("fDiamonds").value), sell:num($("fSell").value), disc:num($("fDisc").value), costUsd: costUsd||(fx>0?costRs/fx:0), costRs, feeUsd, feeRs: feeUsd*fx, received:num($("fReceived").value), method:$("fMethod").value, delivered:$("fDelivered").value, note:$("fNote").value.trim().slice(0,120), at:new Date($("fDate").value||new Date().toISOString().slice(0,10)).getTime(), fxAt:fx }; }
+function updatePreview(){ const d=formData(); const c=calc(d); $("fFeeRs").value=Math.round(c.feeRs); $("salePreview").innerHTML=`
+<div class="line"><span>Net selling (Selling − Discount)</span><span class="num"><b>${rs(c.net)}</b></span></div>
+<div class="line"><span>Game cost</span><span class="num">${rs(c.costRs)} ${d.costUsd?`(${usd(d.costUsd)})`:""}</span></div>
+<div class="line"><span>Transaction fee (ek choti)</span><span class="num" style="color:#c0272d">${rs(c.feeRs)} (${usd(d.feeUsd)} × ${num(S.settings.fx)})</span></div>
+<div class="line"><span>Total cost (Game + Fee)</span><span class="num">${rs(c.totalCost)}</span></div>
+<div class="line net"><span>Profit</span><span class="num">${rs(c.profit)} · ${c.margin.toFixed(1)}%</span></div>
+<div class="line"><span>Outstanding (uthna baki)</span><span class="num ${c.outstanding>0?"red":""}">${rs(c.outstanding)}</span></div>`; }
+$("saleReset").addEventListener("click",resetForm);
+$("saleSave").addEventListener("click",()=>{ const errEl=$("saleErr"); errEl.textContent=""; const d=formData(); if(!d.at||isNaN(d.at)) { errEl.textContent="Date halnus."; return; } if(d.diamonds<=0){ errEl.textContent="Diamonds halnus (1 bhanda badhi)."; return; } if(d.sell<0||d.costRs<0||d.feeUsd<0){ errEl.textContent="Price / cost / fee negative huna mildaina."; return; } if(d.disc>d.sell){ errEl.textContent="Discount selling price bhanda badhi bhayo."; return; } if(num(S.settings.fx)<=0){ errEl.textContent="Settings ma FX rate halnus (Rs per $1)."; return; } if(editId){ const i=S.sales.findIndex(x=>x.id===editId); if(i>=0) S.sales[i]={...S.sales[i],...d, updatedAt:Date.now()}; toast("✓ Sale update bhayo."); } else { S.sales.push({id:newId(),...d, createdAt:Date.now(), updatedAt:Date.now()}); toast("✓ Sale save bhayo."); } save(); resetForm(); renderDash(); renderSales(); showTab("sales"); if(!(S.meta&&S.meta.lastBackup) || Date.now()-(S.meta.lastBackup||0)>7*86400000){ setTimeout(()=>toast("Sale save bhayo. Backup pani download garnus — browser data nai harauna sakchha."),600); } });
+$("cancelEdit").addEventListener("click",resetForm);
+function startEdit(id){ const s=S.sales.find(x=>x.id===id); if(!s) return; editId=id; editOriginal={...s}; $("saleTitle").textContent="✏️ Sale edit"; $("editBar").hidden=false; $("fDate").value=new Date(s.at).toISOString().slice(0,10); $("fBuyer").value=s.buyer||""; $("fDiamonds").value=s.diamonds||""; $("fSell").value=s.sell||""; $("fDisc").value=s.disc||0; $("fCostUsd").value=s.costUsd||""; $("fCostRs").value=s.costRs||""; $("fFeeUsd").value=s.feeUsd ?? S.settings.feeUsd; $("fReceived").value=s.received||""; $("fMethod").value=s.method||"Cash"; $("fDelivered").value=s.delivered||"yes"; $("fNote").value=s.note||""; updatePreview(); showTab("sale"); $("sec-sale").scrollIntoView({behavior:"smooth"}); }
 
-// ---------- Account ----------
-function renderAccount(){ const el=$("acctBox"); const u=S.user, c=S.cust; if(!u){ el.innerHTML=`<div class="skel"></div>`; return; } const name=(c&&c.name)||u.displayName||"Guest"; const code=(c&&c.code)||"—"; el.innerHTML=`
-<p><b>🪪 Customer ID: ${esc(code)}</b> <button type="button" class="btn sm" id="copyCode">Copy</button></p>
-<p class="small mut">Yo ID le referral + admin le tapailai chinchha. Order garda yo ID afai janchha.</p>
-<div class="line"><span>Account type</span><span>${isAnon()?"Guest (yo device)":"UID / Google account"}</span></div>
-<div class="line"><span>Name</span><span>${esc(name)}</span></div>
-<div class="line"><span>Free Fire UID(s)</span><span>${c&&c.ffUids&&c.ffUids.length?esc(c.ffUids.join(", ")):"—"}</span></div>
-<div class="line"><span>Email</span><span>${esc(u.email||"—")}</span></div>
-<label class="field"><span>Your name (edit)</span><input id="acctName" maxlength="60" value="${esc(name)}"/></label>
-<label class="field"><span>Mobile (edit)</span><input id="acctPhone" type="tel" inputmode="tel" maxlength="15" value="${esc((c&&c.phone)||"")}"/></label>
-<div class="row"><button type="button" class="btn dark" id="saveAcct">Save profile</button><button type="button" class="btn" id="openAcctDlg">UID / Google login</button></div>
-${isAnon()?`<p class="small mut" style="margin-top:10px">⚠️ Guest account yo browser ma matra hunchha. UID + password / Google link garepachhi arko device bata pani order herna milchha — ra guest order haru pani eutai account ma rahanchha.</p>`:`<p class="small mut" style="margin-top:10px">Aba arko device bata pani UID + password / Google le login garna milchha.</p>`}
-`; const copyBtn=$("copyCode"); if(copyBtn) copyBtn.onclick=()=>copyTxt(code,"Customer ID copied"); const save=$("saveAcct"); if(save) save.onclick=async()=>{ try{ await updateCustomer({name:$("acctName").value.trim().slice(0,60)||name, phone:digits($("acctPhone").value).slice(0,15)}); toast("✓ Profile saved."); renderAccount(); }catch(e){ toast("Save garna milena.",true); } }; const open=$("openAcctDlg"); if(open) open.onclick=()=>openAccountDlg(); const ref=$("refLink"); const link=code&&code!=="—"?orderUrl()+"?ref="+encodeURIComponent(code):"Account banaepachhi referral link yaha auchha."; ref.textContent=link; $("refCopy").onclick=()=>{ if(code==="—") return toast("Pahila account banaunus.",true); copyTxt(link,"Referral link copied"); }; const rt=$("refText"); if(S.prices&&S.prices.ref) rt.textContent="Aafno link sathi lai pathaunus — "+S.prices.ref; }
-function openAccountDlg(){ const u=S.user; $("acctDlgBody").innerHTML=`
-<p class="small mut">UID + password le <b>1 account per UID</b> banchha. Anonymous (guest) hunu bhayo bhane UID account link garda guest order haru pani eutai account ma rahanchha.</p>
-<label class="field"><span>Free Fire UID</span><input id="dlgUid" inputmode="numeric" maxlength="14" placeholder="Game ko UID"/></label>
-<label class="field"><span>Password (min 6)</span><input id="dlgPass" type="password" autocomplete="current-password" placeholder="••••••"/></label>
-<div class="err" id="dlgAcctErr"></div>
-<div class="row"><button type="button" class="btn primary" id="uidCreate">Create / Link UID account</button><button type="button" class="btn dark" id="uidLogin">Login with UID</button></div>
-<p class="small mut" style="margin:10px 0">Password birsiyo ra Google backup chaina bhane shop lai bhannus — admin le purano account delete garepachhi naya banauna milchha.</p>
-<hr/><button type="button" class="btn" id="googleBtn" style="width:100%">G Google — link / login</button>
-<p class="small mut">Google link garepachhi password bina pani login garna milchha.</p>
-${!isAnon()?`<button type="button" class="btn sm" id="signOutBtn" style="margin-top:8px">Sign out</button>`:""}`;
-$("acctDlg").classList.add("open"); $("acctDlg").setAttribute("aria-hidden","false");
-$("uidCreate").onclick=e=>uidCreateOrLink(false, e.currentTarget); $("uidLogin").onclick=e=>uidCreateOrLink(true, e.currentTarget);
-$("googleBtn").onclick=()=>googleFlow(); const so=$("signOutBtn"); if(so) so.onclick=async()=>{ await signOut(auth); closeAcctDlg(); toast("Signed out. Guest account ma farkanus bhane page reload garnus."); };
-}
-async function uidCreateOrLink(loginOnly, btnEl){ const uid=digits($("dlgUid").value), pass=$("dlgPass").value; const errEl=$("dlgAcctErr"); if(uid.length<6||uid.length>14){ errEl.textContent="UID 6–14 digit halnus."; return; } if(pass.length<6){ errEl.textContent="Password min 6 character."; return; } const email=uidEmail(uid); errEl.textContent=""; const btn=btnEl||{disabled:false}; btn.disabled=true; try{ if(isAnon()&&!loginOnly){ try{ const cred=EmailAuthProvider.credential(email,pass); await linkWithCredential(auth.currentUser,cred); toast("✓ UID account link bhayo! Guest orders eutai account ma rahe."); }catch(e){ if(e.code==="auth/credential-already-in-use"||e.code==="auth/email-already-in-use"){ await signInWithEmailAndPassword(auth,email,pass); toast("✓ UID account ma login bhayo. (Guest orders purano guest account ma rahanchha.)"); } else if(e.code==="auth/invalid-credential"||e.code==="auth/wrong-password"){ throw new Error("Yo UID ko account cha, password milena. Login thichnus / Google backup prayog garnus."); } else throw e; } } else { await signInWithEmailAndPassword(auth,email,pass); toast("✓ UID account ma login bhayo."); } closeAcctDlg(); }catch(e){ errEl.textContent=e.message||"Login garna milena."; btn.disabled=false; } }
-async function googleFlow(){ try{ const prov=new GoogleAuthProvider(); if(isAnon()){ try{ await linkWithPopup(auth.currentUser,prov); toast("✓ Google backup link bhayo!"); }catch(e){ if(e.code==="auth/credential-already-in-use"){ await signInWithPopup(auth,prov); toast("✓ Google bata login bhayo."); } else if(e.code==="auth/popup-blocked"||e.code==="auth/cancelled-popup-request"){ await signInWithRedirect(auth,prov); } else throw e; } } else { await signInWithPopup(auth,prov); toast("✓ Google bata login bhayo."); } closeAcctDlg(); }catch(e){ if(e.code==="auth/popup-blocked") await signInWithRedirect(auth,new GoogleAuthProvider()); else toast("Google login garna milena: "+(e.message||""),true); } }
+// ---------- Sales list ----------
+let saleFilter="all";
+document.querySelectorAll("[data-filter]").forEach(b=>b.addEventListener("click",()=>{ saleFilter=b.dataset.filter; document.querySelectorAll("[data-filter]").forEach(x=>x.classList.toggle("on",x===b)); renderSales(); }));
+$("saleSearch").addEventListener("input",renderSales);
+function renderSales(){ const q=($("saleSearch").value||"").trim().toLowerCase(); const k=curMonth(); let list=[...S.sales].sort((a,b)=>b.at-a.at); if(saleFilter==="pending") list=list.filter(s=>s.delivered==="no"); if(saleFilter==="credit") list=list.filter(s=>calc(s).outstanding>0); if(saleFilter==="month") list=list.filter(s=>monthKey(s.at)===k); if(q) list=list.filter(s=>((s.buyer||"")+" "+(s.note||"")+" "+s.diamonds).toLowerCase().includes(q)); const agg=list.reduce((a,s)=>{ const c=calc(s); a.n++; a.rev+=c.net; a.fee+=c.feeRs; a.profit+=c.profit; a.out+=c.outstanding; return a; },{n:0,rev:0,fee:0,profit:0,out:0}); $("salesTotals").textContent=list.length?`${list.length} sale · Revenue ${rs(agg.rev)} · Fee ${rs(agg.fee)} · Profit ${rs(agg.profit)} · Uthna baki ${rs(agg.out)}`:""; if(!list.length){ $("salesList").innerHTML=`<div class="blank"><b>Sale bhettiyena</b><br/><span class="small">Filter / search change garnus, wa New sale bata halnus.</span></div>`; return; } $("salesList").innerHTML=list.map(s=>{ const c=calc(s); return `<article class="sale"><div style="display:flex;justify-content:space-between;gap:8px;align-items:flex-start"><b>${esc(s.buyer||"—")} · 💎 ${num(s.diamonds).toLocaleString("en-IN")}</b><span><span class="ost ${s.delivered==="yes"?"green":"amber"}">${s.delivered==="yes"?"Delivered":"Pending"}</span> ${c.outstanding>0?`<span class="ost red">Credit ${rs(c.outstanding)}</span>`:`<span class="ost blue">Paid</span>`}</span></div><p class="small mut" style="margin:4px 0">${esc(fmtD(s.at))} · ${esc(s.method||"")} · ${esc(s.note||"")}</p><p style="margin:6px 0">Selling <b>${rs(c.net)}</b> · Cost ${rs(c.costRs)} + Fee ${rs(c.feeRs)} = ${rs(c.totalCost)} · <b class="${c.profit>=0?"":"red"}">Profit ${rs(c.profit)}</b> (${c.margin.toFixed(1)}%)</p><p class="small mut" style="margin:0">Fee ${usd(s.feeUsd)} · FX ${num(s.fxAt)} · Received ${rs(s.received)}</p><div class="row" style="margin-top:10px"><button type="button" class="btn sm" data-edit="${esc(s.id)}">✏️ Edit</button>${s.delivered==="no"?`<button type="button" class="btn sm primary" data-deliver="${esc(s.id)}">✓ Delivered</button>`:""}${c.outstanding>0?`<button type="button" class="btn sm" data-paidfull="${esc(s.id)}">💰 Full paid</button>`:""}<button type="button" class="btn sm danger" data-del="${esc(s.id)}">Delete</button></div></article>`; }).join(""); }
 
-// ---------- UI helpers ----------
-function showTab(tab){ S.tab=tab; document.querySelectorAll(".tab").forEach(b=>b.classList.toggle("on",b.dataset.tab===tab)); ["shop","orders","reviews","account"].forEach(k=>{ $("sec-"+k).hidden=k!==tab; }); if(tab==="orders") loadOrders(); if(tab==="reviews") loadReviews(); }
-function openCart(){ if(shop().open===false){ toast("Shop le ahile order liiraheko chaina.",true); } $("cartDrawer").classList.add("open"); $("cartDrawer").setAttribute("aria-hidden","false"); renderTotals(); }
-function closeCart(){ $("cartDrawer").classList.remove("open"); $("cartDrawer").setAttribute("aria-hidden","true"); }
-function closePay(){ const pv=$("shotPrev"); if(pv) pv.dataset.data=""; $("payDlg").classList.remove("open"); $("payDlg").setAttribute("aria-hidden","true"); }
-function closeAcctDlg(){ $("acctDlg").classList.remove("open"); $("acctDlg").setAttribute("aria-hidden","true"); }
-function closeImg(){ $("imgDlg").classList.remove("open"); $("imgDlg").setAttribute("aria-hidden","true"); }
-function openHow(){ $("payTitle").textContent="Kasari order garne?"; $("payBody").innerHTML=`<ol class="small"><li>Package chhannus, <b>+</b> thichnus.</li><li><b>View cart</b> ma naam / phone / FF UID halnus.</li><li><b>Place order</b> garepachhi payment instructions auchha.</li><li>eSewa / Khalti / Bank bata <b>exact amount</b> pay garnus.</li><li><b>“I’ve paid”</b> ma transaction ID + screenshot halnus.</li><li>Admin le check garera diamond pathauchha — <b>My orders</b> ma status herna milchha.</li></ol><p class="small mut">UID galat bhaye diamond aru ko account ma janchha — 2 choti check garnus.</p>`; $("payDlg").classList.add("open"); }
+// ---------- P&L / Analysis ----------
+function renderPL(){ const k=$("plMonth").value||curMonth(); $("plMonth").value=k; const list=monthSales(k); const agg=list.reduce((a,s)=>{ const c=calc(s); a.n++; a.dia+=num(s.diamonds); a.gross+=num(s.sell); a.disc+=num(s.disc); a.net+=c.net; a.cost+=c.costRs; a.fee+=c.feeRs; a.profit+=c.profit; a.out+=c.outstanding; if(s.delivered==="no") a.pend++; return a; },{n:0,dia:0,gross:0,disc:0,net:0,cost:0,fee:0,profit:0,out:0,pend:0}); const grossProfit=agg.net-agg.cost; $("plTable").innerHTML=`<p class="small mut">${esc(S.settings.owner||"Mero Hisab")} · ${esc(monthLabel(k))} · Fee setting: ${usd(S.settings.feeUsd)} / transaction</p><table>
+<tr><td>Gross sales (list price)</td><td class="num">${rs(agg.gross)}</td></tr>
+<tr><td>− Discounts</td><td class="num" style="color:#c0272d">− ${rs(agg.disc)}</td></tr>
+<tr><td><b>Net revenue</b></td><td class="num"><b>${rs(agg.net)}</b></td></tr>
+<tr><td>− Game cost</td><td class="num" style="color:#c0272d">− ${rs(agg.cost)}</td></tr>
+<tr><td><b>Gross profit</b></td><td class="num"><b>${rs(grossProfit)}</b></td></tr>
+<tr><td>− Transaction fees (${agg.n} transaction × avg ${agg.n?rs(agg.fee/agg.n):rs(0)})</td><td class="num" style="color:#c0272d">− ${rs(agg.fee)}</td></tr>
+<tr><td><b>Net profit (khud nafa)</b></td><td class="num"><b style="color:${agg.profit>=0?"#0e8a4d":"#c0272d"}">${rs(agg.profit)}</b></td></tr>
+</table><div class="grid3" style="margin-top:12px"><div class="stat"><small>Diamonds</small><b>💎 ${agg.dia.toLocaleString("en-IN")}</b></div><div class="stat"><small>Avg profit / transaction</small><b>${agg.n?rs(agg.profit/agg.n):rs(0)}</b></div><div class="stat"><small>Margin</small><b>${agg.net>0?(agg.profit/agg.net*100).toFixed(1):"0.0"}%</b></div><div class="stat"><small>Pending / Credit</small><b>${agg.pend} / ${rs(agg.out)}</b></div></div>`;
+const days={}; list.forEach(s=>{ const d=new Date(s.at).getDate(); days[d]=days[d]||{rev:0,profit:0}; const c=calc(s); days[d].rev+=c.net; days[d].profit+=c.profit; }); const maxRev=Math.max(1,...Object.values(days).map(x=>x.rev)); $("plDaily").innerHTML=`<h2 style="font-size:16px;margin-top:16px">📅 Daily — ${esc(monthLabel(k))}</h2>${Object.keys(days).length?Object.keys(days).sort((a,b)=>a-b).map(d=>`<div class="bar-row"><span class="lbl">${d} gate</span><div class="track"><div class="fill" style="width:${Math.round(days[d].rev/maxRev*100)}%"></div></div><span class="num" style="width:130px;text-align:right">${rs(days[d].rev)} · <b>${rs(days[d].profit)}</b></span></div>`).join(""):`<div class="blank">Yo mahina sale chaina.</div>`}`;
+const group=(keyFn)=>{ const g={}; list.forEach(s=>{ const k2=keyFn(s); g[k2]=g[k2]||{n:0,rev:0,fee:0,profit:0,dia:0}; const c=calc(s); g[k2].n++; g[k2].rev+=c.net; g[k2].fee+=c.feeRs; g[k2].profit+=c.profit; g[k2].dia+=num(s.diamonds); }); return Object.entries(g).sort((a,b)=>b[1].profit-a[1].profit); }; const byBuyer=group(s=>(s.buyer||"—").trim()||"—"), byDia=group(s=>num(s.diamonds)+" 💎"), byMethod=group(s=>s.method||"—"); const tbl=(title,rows)=>`<h2 style="font-size:16px;margin-top:16px">${title}</h2>${rows.length?`<table><tr><th>${title.includes("Buyer")?"Buyer":title.includes("Diamond")?"Diamonds":"Method"}</th><th class="num">Sales</th><th class="num">Revenue</th><th class="num">Fee</th><th class="num">Profit</th></tr>${rows.map(([n,v])=>`<tr><td>${esc(n)}</td><td class="num">${v.n}</td><td class="num">${rs(v.rev)}</td><td class="num">${rs(v.fee)}</td><td class="num"><b>${rs(v.profit)}</b></td></tr>`).join("")}</table>`:`<div class="blank">Data chaina.</div>`}`; $("plBreak").innerHTML=tbl("👤 By buyer",byBuyer)+tbl("💎 By diamonds",byDia)+tbl("💳 By method",byMethod); }
+$("plMonth").addEventListener("change",renderPL);
+$("plPrint").addEventListener("click",()=>window.print());
+$("plCsv").addEventListener("click",()=>exportCsv(monthSales($("plMonth").value||curMonth()), "pl-"+($("plMonth").value||curMonth())));
+function exportCsv(list, name){ const rows=[["Date","Buyer","Diamonds","Selling Rs","Discount Rs","Net Rs","Game Cost Rs","Fee USD","Fee Rs","Total Cost Rs","Profit Rs","Margin %","Received Rs","Outstanding Rs","Method","Delivery","Note","FX at sale"]]; list.forEach(s=>{ const c=calc(s); rows.push([fmtD(s.at),s.buyer||"",s.diamonds,s.sell,s.disc,c.net,c.costRs,s.feeUsd,c.feeRs,c.totalCost,c.profit,c.margin.toFixed(1),s.received,c.outstanding,s.method,s.delivered,s.note||"",s.fxAt]); }); const csv=rows.map(r=>r.map(v=>`"${String(v??"").replace(/"/g,'""')}"`).join(",")).join("\n"); download(name+".csv", csv, "text/csv"); }
 
-// ---------- Events ----------
-document.addEventListener("click", async e=>{
-  const inc=e.target.closest("[data-inc]"); if(inc){ const id=inc.dataset.inc; S.cart.set(id,(S.cart.get(id)||0)+1); renderPackages(); renderCartBar(); return; }
-  const dec=e.target.closest("[data-dec]"); if(dec){ const id=dec.dataset.dec; const v=(S.cart.get(id)||0)-1; if(v<=0) S.cart.delete(id); else S.cart.set(id,v); renderPackages(); renderCartBar(); return; }
-  const add=e.target.closest("[data-add]"); if(add){ const id=add.dataset.add; S.cart.set(id,(S.cart.get(id)||0)+1); renderPackages(); renderCartBar(); toast("Cart ma thapiyo."); return; }
-  const rm=e.target.closest("[data-rm]"); if(rm){ S.cart.delete(rm.dataset.rm); renderTotals(); renderCartBar(); renderPackages(); return; }
-  const pay=e.target.closest("[data-pay]"); if(pay){ openPay(pay.dataset.pay,"pay"); return; }
-  const resend=e.target.closest("[data-resend]"); if(resend){ openPay(resend.dataset.resend,"resend"); return; }
-  const cancel=e.target.closest("[data-cancel]"); if(cancel){ cancelOrder(cancel.dataset.cancel); return; }
-  const rev=e.target.closest("[data-review]"); if(rev){ leaveReview(rev.dataset.review); return; }
-  const cp=e.target.closest("[data-copyorder]"); if(cp){ copyTxt(cp.dataset.copyorder,"Order ID copied"); return; }
-  const cpId=e.target.closest("[data-copyid]"); if(cpId){ copyTxt(cpId.dataset.copyid,"Copied"); return; }
-  const cpBank=e.target.closest("[data-copybank]"); if(cpBank){ const b=(S.pay&&S.pay.bank)||{}; copyTxt([b.name,b.no,b.holder,b.branch].filter(Boolean).join(" · "),"Bank details copied"); return; }
-  const dshot=e.target.closest("[data-dshot]"); if(dshot){ const id=dshot.dataset.dshot; try{ const snap=await getDoc(doc(db,"dshots",id)); const img=snap.exists()?snap.data().img:""; if(img){ $("imgBig").src=img; $("imgTitle").textContent="Delivery proof"; $("imgDlg").classList.add("open"); } else toast("Delivery proof bhettiyena.",true); }catch(err){ toast("Delivery proof kholna milena.",true); } return; }
-  const reps=e.target.closest("[data-replies]"); if(reps){ loadReplies(reps.dataset.replies); return; }
-  const repBox=e.target.closest("[data-replybox]"); if(repBox){ const box=$("repbox-"+repBox.dataset.replybox); if(box) box.hidden=!box.hidden; return; }
-  const sendRep=e.target.closest("[data-send-reply]"); if(sendRep){ const rid=sendRep.dataset.sendReply; const box=$("repbox-"+rid); const input=box?box.querySelector("input"):null; const text=(input?input.value:"").trim().slice(0,300); if(!text){ toast("Reply lekhnus.",true); return; } try{ await setDoc(doc(collection(db,"reviews",rid,"replies")),{by:"customer", cid:S.user.uid, name:((S.cust&&S.cust.name)||"Customer").slice(0,30), text, at:Date.now()}); toast("✓ Reply pathaiyo."); loadReplies(rid); if(box) box.hidden=true; }catch(err){ toast("Reply pathauna milena — UID/Google account chahinchha.",true); } return; }
-  const tab=e.target.closest("[data-tab]"); if(tab){ showTab(tab.dataset.tab); return; }
-  const chip=e.target.closest("[data-kind]"); if(chip){ S.kind=chip.dataset.kind; document.querySelectorAll("[data-kind]").forEach(c=>c.classList.toggle("on",c===chip)); renderPackages(); return; }
-  const star=e.target.closest("[data-star]"); if(star){ S.star=Number(star.dataset.star); document.querySelectorAll("[data-star]").forEach(c=>c.classList.toggle("on",c===star)); renderReviews(); return; }
+// ---------- Settings / Backup ----------
+function renderSettings(){ const mb=$("backupInfo"); const meta=S.meta||{lastBackup:0,lastChange:0}; if(mb) mb.textContent=meta.lastBackup?("Last backup: "+fmtD(meta.lastBackup)+" · "+new Date(meta.lastBackup).toLocaleTimeString("en-GB",{hour:"numeric",minute:"2-digit"})):"Last backup: kahilyai bhako chaina — aba download garnus."; $("sOwner").value=S.settings.owner||""; $("sFx").value=S.settings.fx??""; $("sFee").value=S.settings.feeUsd??""; $("dataInfo").textContent=`${S.sales.length} sale record · FX ${num(S.settings.fx)} · Default fee ${usd(S.settings.feeUsd)} · Storage: ${Math.round(new Blob([localStorage.getItem(KEY)||""]).size/1024)} KB`; }
+$("saveSettings").addEventListener("click",()=>{ const errEl=$("setErr"); errEl.textContent=""; const fx=num($("sFx").value), fee=num($("sFee").value); if(fx<=0){ errEl.textContent="FX 1 bhanda badhi halnus."; return; } if(fee<0){ errEl.textContent="Fee negative huna mildaina."; return; } S.settings={owner:$("sOwner").value.trim().slice(0,40), fx, feeUsd:fee}; save(); $("fFeeUsd").value=fee; renderDash(); renderSettings(); toast("✓ Settings save bhayo. Naya sale ma naya fee lagchha."); });
+// ---------- Account actions ----------
+function acctErr(msg){ const el=$("acctErr"); if(el) el.textContent=msg||""; }
+async function acctCreateOrLogin(loginOnly){ if(!fbModulesLoaded||!fbAuth){ acctErr("Internet chaina — Firebase load bhako chaina. Internet aayepachhi feri try garnus."); return; } const email=($("acctEmail").value||"").trim(), pass=$("acctPass").value; acctErr(""); if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ acctErr("Valid email halnus."); return; } if(pass.length<6){ acctErr("Password min 6 character."); return; } try{ if(cloudUser && cloudUser.isAnonymous && !loginOnly){ try{ await linkWithCredential(fbAuth.currentUser, EmailAuthProvider.credential(email,pass)); toast("✓ Account link bhayo! Guest sale haru pani eutai account ma sare."); }catch(e){ if(e.code==="auth/credential-already-in-use"||e.code==="auth/email-already-in-use"){ await signInWithEmailAndPassword(fbAuth,email,pass); toast("✓ Login bhayo — yo email ko purano data aayo."); } else throw e; } } else if(loginOnly){ await signInWithEmailAndPassword(fbAuth,email,pass); toast("✓ Login bhayo."); } else { await createUserWithEmailAndPassword(fbAuth,email,pass); toast("✓ Account banyo."); } }catch(e){ acctErr(e.code==="auth/invalid-credential"?"Email / password milena.":(e.message||"Login garna milena.")); } }
+async function acctGoogle(){ if(!fbModulesLoaded||!fbAuth){ acctErr("Internet chaina — Firebase load bhako chaina."); return; } try{ const prov=new GoogleAuthProvider(); if(cloudUser && cloudUser.isAnonymous){ try{ await linkWithPopup(fbAuth.currentUser,prov); toast("✓ Google link bhayo!"); }catch(e){ if(e.code==="auth/credential-already-in-use"){ await signInWithPopup(fbAuth,prov); toast("✓ Google bata login bhayo."); } else throw e; } } else { await signInWithPopup(fbAuth,prov); toast("✓ Google bata login bhayo."); } }catch(e){ acctErr(e.message||"Google login garna milena."); } }
+function downloadBackup(){ S.meta=S.meta||{lastBackup:0,lastChange:0}; S.meta.lastBackup=Date.now(); save(false); download("mero-hisab-backup-"+new Date().toISOString().slice(0,10)+".json", JSON.stringify({app:"mero-hisab-self-ledger", version:1, exportedAt:new Date().toISOString(), settings:S.settings, sales:S.sales},null,1)); renderDash(); renderSettings(); toast("✓ Backup download bhayo — yo file nai hajur ko asli data ho, surakshit thau ma rakhnus."); }
+$("dlBackup").addEventListener("click",downloadBackup);
+$("dlCsvAll").addEventListener("click",()=>exportCsv([...S.sales].sort((a,b)=>b.at-a.at),"mero-hisab-all"));
+$("restoreFile").addEventListener("change", async e=>{ const f=e.target.files[0]; if(!f) return; try{ const txt=await f.text(); const p=JSON.parse(txt); if(!p||!Array.isArray(p.sales)) throw new Error("File milena"); p.sales=p.sales.filter(s=>s&&typeof s==="object"&&typeof s.id==="string"&&isFinite(Number(s.diamonds))&&isFinite(Number(s.sell))).map(s=>({id:s.id,buyer:String(s.buyer||"").slice(0,30),diamonds:Number(s.diamonds),sell:Number(s.sell),disc:Number(s.disc||0),costUsd:Number(s.costUsd||0),costRs:Number(s.costRs||0),feeUsd:Number(s.feeUsd||0),feeRs:Number(s.feeRs||0),received:Number(s.received||0),method:String(s.method||"Cash"),delivered:s.delivered==="no"?"no":"yes",note:String(s.note||"").slice(0,120),at:isFinite(Number(s.at))?Number(s.at):Date.now(),fxAt:Number(s.fxAt||0),createdAt:Number(s.createdAt||s.at||Date.now()),updatedAt:Number(s.updatedAt||s.createdAt||s.at||Date.now())})); if(!p.sales.length&&S.sales.length) throw new Error("File ma valid sale chaina"); if(!confirm("Restore garda ahile ko data file ko le replace hunchha. Pakka?")) return; S.settings={fx:138.5,feeUsd:0.56,owner:"",...(p.settings||{})}; S.sales=p.sales; S.meta={lastBackup:Date.now(),lastChange:Date.now()}; save(false); renderDash(); renderSales(); renderSettings(); toast("✓ Restore bhayo."); }catch(err){ toast("Restore milena — file check garnus.",true); } e.target.value=""; });
+$("demoBtn").addEventListener("click",()=>{ if(S.sales.length&&!confirm("Demo data thapne?")) return; const now=Date.now(), fx=num(S.settings.fx)||138.5, fee=num(S.settings.feeUsd)||0.56; const demo=[{buyer:"Ram",diamonds:310,sell:950,disc:0,costUsd:5.2,method:"eSewa",delivered:"yes",note:"Demo — 310 pack"},{buyer:"Sathi 1",diamonds:100,sell:320,disc:20,costUsd:1.8,method:"Cash",delivered:"yes",note:"Demo — 100 pack"},{buyer:"Ram",diamonds:520,sell:1550,disc:0,costUsd:8.6,method:"Khalti",delivered:"no",note:"Demo — pending"}]; demo.forEach((d,i)=>{ const costRs=Math.round(d.costUsd*fx); S.sales.push({id:newId(),buyer:d.buyer,diamonds:d.diamonds,sell:d.sell,disc:d.disc,costUsd:d.costUsd,costRs,feeUsd:fee,feeRs:Math.round(fee*fx),received:d.delivered==="yes"?d.sell:0,method:d.method,delivered:d.delivered,note:d.note,at:now-i*86400000,fxAt:fx,createdAt:now}); }); save(); renderDash(); renderSales(); toast("Demo data haliyo — delete garna milchha."); });
+$("clearBtn").addEventListener("click",()=>{ if(!confirm("SABAI data delete garne? Backup download gareko cha bhane matra garnus.")) return; if(!confirm("Pakka? Yo undo hudaina.")) return; S.sales=[]; save(); renderDash(); renderSales(); renderSettings(); toast("Sabai data delete bhayo."); });
+
+// ---------- Global clicks ----------
+document.addEventListener("click", e=>{
+  const ed=e.target.closest("[data-edit]"); if(ed){ startEdit(ed.dataset.edit); return; }
+  const del=e.target.closest("[data-deliver]"); if(del){ const s=S.sales.find(x=>x.id===del.dataset.deliver); if(s){ s.delivered="yes"; save(); renderSales(); renderDash(); toast("✓ Delivered mark bhayo."); } return; }
+  const pf=e.target.closest("[data-paidfull]"); if(pf){ const s=S.sales.find(x=>x.id===pf.dataset.paidfull); if(s){ s.received=calc(s).net; save(); renderSales(); renderDash(); toast("✓ Full paid mark bhayo."); } return; }
+  const dl=e.target.closest("[data-del]"); if(dl){ const s=S.sales.find(x=>x.id===dl.dataset.del); if(s&&confirm(`Delete garne? ${s.buyer||"—"} · ${s.diamonds} 💎 · ${rs(calc(s).net)}`)){ const keep={...s}; S.sales=S.sales.filter(x=>x.id!==dl.dataset.del); save(); renderSales(); renderDash(); toast("Sale delete bhayo."); } return; }
 });
-$("pkgSearch").addEventListener("input", ()=>{ S.q=$("pkgSearch").value.trim().toLowerCase(); renderPackages(); });
-$("calcBtn").addEventListener("click", ()=>{ const want=Number($("calcN").value); if(!want||want<1){ $("calcOut").textContent="Diamonds needed halnus."; return; } const r=bestMix(want); if(!r){ $("calcOut").textContent="Packages load bhako chaina."; return; } $("calcOut").innerHTML=`Best mix: <b>${r.out.map(o=>o.qty+" × "+esc(o.p.name)).join(", ")}</b> · ${r.got.toLocaleString("en-IN")} 💎 · <b>${rs(r.total)}</b> <button type="button" class="btn sm primary" id="calcAdd">Add this mix</button>`; $("calcAdd").onclick=()=>{ r.out.forEach(o=>S.cart.set(o.p.id,(S.cart.get(o.p.id)||0)+o.qty)); renderPackages(); renderCartBar(); openCart(); }; });
-$("cartOpen").addEventListener("click", openCart);
-$("cartBar").addEventListener("click", e=>{ if(e.target.closest("#cartOpen")) return; openCart(); });
-document.querySelectorAll("[data-close-cart]").forEach(b=>b.addEventListener("click", closeCart));
-document.querySelectorAll("[data-close-pay]").forEach(b=>b.addEventListener("click", closePay));
-document.querySelectorAll("[data-close-acct]").forEach(b=>b.addEventListener("click", closeAcctDlg));
-document.querySelectorAll("[data-close-img]").forEach(b=>b.addEventListener("click", closeImg));
-$("acctBtn").addEventListener("click", ()=>{ showTab("account"); $("sec-account").scrollIntoView({behavior:"smooth"}); });
-$("howBtn").addEventListener("click", openHow);
-$("placeBtn").addEventListener("click", placeOrder);
-$("couponBtn").addEventListener("click", ()=>{ S.coupon=($("couponIn").value||"").trim().toUpperCase()||null; renderTotals(); if(S.coupon&&!calcTotals().coupon) toast("Coupon valid chaina / minimum pugena.",true); else if(S.coupon) toast("Coupon applied."); });
-// refCopy is wired in renderAccount() so it always uses the latest Customer ID.
-// Prefill ref + name/phone from previous order
-const _ref=new URLSearchParams(location.search).get("ref"); if(_ref) $("refIn").value=_ref.slice(0,12);
+
+// ---------- Account wiring ----------
+$("acctCreate").addEventListener("click",()=>acctCreateOrLogin(false));
+$("acctLogin").addEventListener("click",()=>acctCreateOrLogin(true));
+$("acctGoogle").addEventListener("click",acctGoogle);
+$("acctOut").addEventListener("click",async()=>{ if(!confirm("Sign out garne? Cloud ko data delete hudaina, feri login gare farkinchha.")) return; await signOut(fbAuth); toast("Signed out. Guest ledger dekhidai cha."); });
+$("copyRules").addEventListener("click",()=>{ const txt="match /ledgers/{uid} {\n  allow read, write: if request.auth != null && request.auth.uid == uid;\n}"; if(navigator.clipboard) navigator.clipboard.writeText(txt).then(()=>toast("Rules copy bhayo.")).catch(()=>toast("Copy garna milena.",true)); });
+initFirebase(); setSyncPill(); renderAccountBox(); /* auth wiring happens in wireAuth() after Firebase loads */
 
 // ---------- Init ----------
-onAuthStateChanged(auth, async user=>{ S.user=user; if(!user){ try{ await signInAnonymously(auth); return; }catch(e){ console.warn("anon",e); toast("Login garna milena — Firebase Auth ma Anonymous enable garnus.",true); return; } } try{ await getRedirectResult(auth); }catch(_){} await ensureCustomer(); const last=JSON.parse(localStorage.getItem("dc-cust-form")||"{}"); if(last.name) $("fName").value=last.name; if(last.phone) $("fPhone").value=last.phone; if(last.uid) $("fUid").value=last.uid; ["fName","fPhone","fUid"].forEach(id=>{ $(id).addEventListener("change", ()=>{ try{ localStorage.setItem("dc-cust-form", JSON.stringify({name:$("fName").value, phone:$("fPhone").value, uid:$("fUid").value})); }catch(_){} }); }); renderAccount(); loadOrders(); });
-loadPublic(); loadReviews();
+$("dashMonth").value=curMonth(); $("plMonth").value=curMonth();
+resetForm(); renderDash(); renderSettings();
 </script>
 </body>
 </html>
